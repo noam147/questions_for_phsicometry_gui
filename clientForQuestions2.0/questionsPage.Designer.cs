@@ -28,23 +28,24 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.seeAnswerButton = new System.Windows.Forms.Button();
+            this.nextQuestionButton = new System.Windows.Forms.Button();
             this.answer1Button = new System.Windows.Forms.Button();
             this.answer2Button = new System.Windows.Forms.Button();
             this.answer3Button = new System.Windows.Forms.Button();
             this.answer4Button = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.answersTrackLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // seeAnswerButton
+            // nextQuestionButton
             // 
-            this.seeAnswerButton.Location = new System.Drawing.Point(333, 551);
-            this.seeAnswerButton.Name = "seeAnswerButton";
-            this.seeAnswerButton.Size = new System.Drawing.Size(196, 136);
-            this.seeAnswerButton.TabIndex = 0;
-            this.seeAnswerButton.Text = "continue";
-            this.seeAnswerButton.UseVisualStyleBackColor = true;
-            this.seeAnswerButton.Click += new System.EventHandler(this.seeAnswerButton_Click);
+            this.nextQuestionButton.Location = new System.Drawing.Point(333, 551);
+            this.nextQuestionButton.Name = "nextQuestionButton";
+            this.nextQuestionButton.Size = new System.Drawing.Size(196, 136);
+            this.nextQuestionButton.TabIndex = 0;
+            this.nextQuestionButton.Text = "continue";
+            this.nextQuestionButton.UseVisualStyleBackColor = true;
+            this.nextQuestionButton.Click += new System.EventHandler(this.nextQuestionButtonClick);
             // 
             // answer1Button
             // 
@@ -96,17 +97,27 @@
             this.label1.TabIndex = 5;
             this.label1.Text = "label1";
             // 
+            // answersTrackLabel
+            // 
+            this.answersTrackLabel.AutoSize = true;
+            this.answersTrackLabel.Location = new System.Drawing.Point(728, 165);
+            this.answersTrackLabel.Name = "answersTrackLabel";
+            this.answersTrackLabel.Size = new System.Drawing.Size(146, 20);
+            this.answersTrackLabel.TabIndex = 6;
+            this.answersTrackLabel.Text = "answersTrackLabel";
+            // 
             // questionsPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(978, 944);
+            this.Controls.Add(this.answersTrackLabel);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.answer4Button);
             this.Controls.Add(this.answer3Button);
             this.Controls.Add(this.answer2Button);
             this.Controls.Add(this.answer1Button);
-            this.Controls.Add(this.seeAnswerButton);
+            this.Controls.Add(this.nextQuestionButton);
             this.Name = "questionsPage";
             this.Text = "Form1";
             this.ResumeLayout(false);
@@ -116,12 +127,13 @@
 
         #endregion
 
-        private System.Windows.Forms.Button seeAnswerButton;
+        private System.Windows.Forms.Button nextQuestionButton;
         private System.Windows.Forms.Button answer1Button;
         private System.Windows.Forms.Button answer2Button;
         private System.Windows.Forms.Button answer3Button;
         private System.Windows.Forms.Button answer4Button;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label answersTrackLabel;
     }
 }
 

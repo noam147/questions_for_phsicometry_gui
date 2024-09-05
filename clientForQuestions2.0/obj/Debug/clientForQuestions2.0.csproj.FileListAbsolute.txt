@@ -50,3 +50,4 @@ C:\Users\Magshimim\questions_for_phsicometry_gui\clientForQuestions2.0\obj\Debug
 C:\Users\Magshimim\questions_for_phsicometry_gui\clientForQuestions2.0\obj\Debug\clientForQuestions2.0.pdb
 C:\Users\Magshimim\questions_for_phsicometry_gui\clientForQuestions2.0\bin\Debug\Newtonsoft.Json.dll
 C:\Users\Magshimim\questions_for_phsicometry_gui\clientForQuestions2.0\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Magshimim\questions_for_phsicometry_gui\clientForQuestions2.0\obj\Debug\clientForQuestions2._0.summrizePage.resources
