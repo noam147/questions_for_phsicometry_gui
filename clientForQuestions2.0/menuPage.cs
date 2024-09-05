@@ -72,7 +72,7 @@ namespace clientForQuestions2._0
             }
 
             //get the questions here
-            questionsPage c = new questionsPage();
+            questionsPage c = new questionsPage(amount,this.topicsList);
             
             c.Show();
             this.Close();
@@ -81,6 +81,11 @@ namespace clientForQuestions2._0
         private void menuPage_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void hociotButton_Click(object sender, EventArgs e)
+        {
+            topicButton_Click(sender);
         }
     }
 }

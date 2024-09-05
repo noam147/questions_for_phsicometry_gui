@@ -34,6 +34,7 @@
             this.hestabrotButton = new System.Windows.Forms.Button();
             this.continueButton = new System.Windows.Forms.Button();
             this.topicsLabel = new System.Windows.Forms.Label();
+            this.hociotButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label2
@@ -64,7 +65,7 @@
             // 
             // hestabrotButton
             // 
-            this.hestabrotButton.Location = new System.Drawing.Point(283, 50);
+            this.hestabrotButton.Location = new System.Drawing.Point(290, 46);
             this.hestabrotButton.Name = "hestabrotButton";
             this.hestabrotButton.Size = new System.Drawing.Size(146, 49);
             this.hestabrotButton.TabIndex = 9;
@@ -91,11 +92,22 @@
             this.topicsLabel.TabIndex = 13;
             this.topicsLabel.Text = "label1";
             // 
+            // hociotButton
+            // 
+            this.hociotButton.Location = new System.Drawing.Point(601, 203);
+            this.hociotButton.Name = "hociotButton";
+            this.hociotButton.Size = new System.Drawing.Size(167, 45);
+            this.hociotButton.TabIndex = 14;
+            this.hociotButton.Text = "תלת-ממד";
+            this.hociotButton.UseVisualStyleBackColor = true;
+            this.hociotButton.Click += new System.EventHandler(this.hociotButton_Click);
+            // 
             // menuPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(978, 944);
+            this.Controls.Add(this.hociotButton);
             this.Controls.Add(this.topicsLabel);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.amountOfQuestionTextBox);
@@ -117,5 +129,6 @@
         private System.Windows.Forms.Button hestabrotButton;
         private System.Windows.Forms.Button continueButton;
         private System.Windows.Forms.Label topicsLabel;
+        private System.Windows.Forms.Button hociotButton;
     }
 }
