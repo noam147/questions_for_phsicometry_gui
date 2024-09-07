@@ -17,6 +17,8 @@ namespace clientForQuestions2._0
     {
         private WebView2 webView21;
         private List<dbQuestionParmeters> questionDetails;
+        //for summrize:
+        private List<afterQuestionParametrs> m_afterQuestionParametrs = new List<afterQuestionParametrs>();
 
         private int m_maxQuestions;
         private int m_rightQuestions = 0;
@@ -25,16 +27,23 @@ namespace clientForQuestions2._0
         private int m_currAnswer =0;
         public questionsPage(int amount,List<string> listOfTopics)
         {
-            questionDetails = sqlDb.get_n_questions_from_arr_of_categorys(amount, listOfTopics);
             InitializeComponent();
-            m_maxQuestions = amount;
-            updateLabelAnswers();
-            this.label1.Text = "";
-            this.nextQuestionButton.Visible = false;
-            PositionButton();
+            updateAtStart(amount, listOfTopics);
+      
+            PositionNextQuestionButton();
             this.Resize += MainForm_Resize;
             Task.Run(() => InitializeWebView2());
         }
+        private void updateAtStart(int amount, List<string> listOfTopics)
+        {
+            questionDetails = sqlDb.get_n_questions_from_arr_of_categorys(amount, listOfTopics);
+            m_maxQuestions = questionDetails.Count;//if amount is bigger that questions avelible
+            this.label1.Text = "";
+            this.nextQuestionButton.Visible = false;
+            updateLabelAnswers();
+        }
+
+        //func is not intersting - just prepering html displayer
         private void InitializeWebView2()
         {
             // Ensure that UI updates are made on the main thread
@@ -71,11 +80,13 @@ namespace clientForQuestions2._0
             }
         }
 
+        //sender and e are not in use
         private void OnCoreWebView2InitializationCompleted(object sender, EventArgs e)
         {
+            //update html content in here
             if (webView21.CoreWebView2 != null)
             {
-                this.m_currAnswer = sqlDb.get_num_of_correct_answer(this.questionDetails[this.m_indexOfCurrQuestion].json_content);
+                this.m_currAnswer = this.questionDetails[this.m_indexOfCurrQuestion].rightAnswer;
                 string htmlContent = sqlDb.get_string_of_question_and_option_from_json(this.questionDetails[this.m_indexOfCurrQuestion].json_content);
                 // Load the HTML content into WebView2
                 webView21.NavigateToString(htmlContent);
@@ -91,10 +102,20 @@ namespace clientForQuestions2._0
         }
         private void afterAnswerQuestion(int answer)
         {
-            if(sqlDb.get_num_of_correct_answer(this.questionDetails[m_indexOfCurrQuestion].json_content) == answer)
+            //this func happens after the user clicked on an answer
+            //func check if answer os true and return explantion 
+
+            afterQuestionParametrs after_questionParametrs = new afterQuestionParametrs();
+            after_questionParametrs.userAnswer = answer;//we have the right answer in question details
+            after_questionParametrs.question = questionDetails[m_indexOfCurrQuestion];
+            after_questionParametrs.timeForAnswer = -1;//TO-DO
+            m_afterQuestionParametrs.Add(after_questionParametrs);
+
+            if (this.questionDetails[m_indexOfCurrQuestion].rightAnswer == answer)
             {
                 this.m_rightQuestions++;
             }
+  
             updateLabelAnswers();
             string htmlContent = sqlDb.get_string_of_question_and_explanation(this.questionDetails[m_indexOfCurrQuestion].json_content,answer);
             // Load the HTML content into WebView2
@@ -113,10 +134,10 @@ namespace clientForQuestions2._0
         }
         private void nextQuestionButtonClick(object sender, EventArgs e)
         {
-
+            //if questions end
             if (m_indexOfCurrQuestion == this.questionDetails.Count)
             {
-                var s = new summrizePage();
+                var s = new summrizePage(this.m_afterQuestionParametrs);
                 s.Show();
                 this.Close();
                 return;
@@ -149,7 +170,7 @@ namespace clientForQuestions2._0
         }
         private void answer1Button_Click(object sender, EventArgs e)
         {
-            if(this.m_currAnswer == 1)
+            if(this.questionDetails[this.m_indexOfCurrQuestion].rightAnswer == 1)
             {
                 answerCorrect();
             }
@@ -162,7 +183,7 @@ namespace clientForQuestions2._0
 
         private void answer2Button_Click(object sender, EventArgs e)
         {
-            if (this.m_currAnswer == 2)
+            if (this.questionDetails[this.m_indexOfCurrQuestion].rightAnswer == 2)
             {
                 answerCorrect();
             }
@@ -175,7 +196,7 @@ namespace clientForQuestions2._0
 
         private void answer3Button_Click(object sender, EventArgs e)
         {
-            if (this.m_currAnswer == 3)
+            if (this.questionDetails[this.m_indexOfCurrQuestion].rightAnswer == 3)
             {
                 answerCorrect();
             }
@@ -188,7 +209,7 @@ namespace clientForQuestions2._0
 
         private void answer4Button_Click(object sender, EventArgs e)
         {
-            if (this.m_currAnswer == 4)
+            if (this.questionDetails[this.m_indexOfCurrQuestion].rightAnswer == 4)
             {
 
                 answerCorrect();
@@ -205,11 +226,11 @@ namespace clientForQuestions2._0
         private void MainForm_Resize(object sender, EventArgs e)
         {
             // Reposition the button on form resize
-            PositionButton();
+            PositionNextQuestionButton();
             //PositionOptionsButton();
         }
 
-        private void PositionButton()
+        private void PositionNextQuestionButton()
         {
             // Position the button on the far right with a fixed height, and optional margin
             int rightMargin = 10; // Adjust as needed

@@ -35,12 +35,14 @@
             this.continueButton = new System.Windows.Forms.Button();
             this.topicsLabel = new System.Windows.Forms.Label();
             this.hociotButton = new System.Windows.Forms.Button();
+            this.englishTopicButton = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(147, 268);
+            this.label2.Location = new System.Drawing.Point(93, 518);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(158, 20);
             this.label2.TabIndex = 12;
@@ -48,14 +50,14 @@
             // 
             // amountOfQuestionTextBox
             // 
-            this.amountOfQuestionTextBox.Location = new System.Drawing.Point(151, 313);
+            this.amountOfQuestionTextBox.Location = new System.Drawing.Point(97, 563);
             this.amountOfQuestionTextBox.Name = "amountOfQuestionTextBox";
             this.amountOfQuestionTextBox.Size = new System.Drawing.Size(100, 26);
             this.amountOfQuestionTextBox.TabIndex = 11;
             // 
             // analogyotButton
             // 
-            this.analogyotButton.Location = new System.Drawing.Point(538, 49);
+            this.analogyotButton.Location = new System.Drawing.Point(545, 280);
             this.analogyotButton.Name = "analogyotButton";
             this.analogyotButton.Size = new System.Drawing.Size(115, 50);
             this.analogyotButton.TabIndex = 10;
@@ -65,7 +67,7 @@
             // 
             // hestabrotButton
             // 
-            this.hestabrotButton.Location = new System.Drawing.Point(290, 46);
+            this.hestabrotButton.Location = new System.Drawing.Point(297, 277);
             this.hestabrotButton.Name = "hestabrotButton";
             this.hestabrotButton.Size = new System.Drawing.Size(146, 49);
             this.hestabrotButton.TabIndex = 9;
@@ -75,7 +77,7 @@
             // 
             // continueButton
             // 
-            this.continueButton.Location = new System.Drawing.Point(473, 289);
+            this.continueButton.Location = new System.Drawing.Point(480, 520);
             this.continueButton.Name = "continueButton";
             this.continueButton.Size = new System.Drawing.Size(141, 113);
             this.continueButton.TabIndex = 8;
@@ -86,7 +88,7 @@
             // topicsLabel
             // 
             this.topicsLabel.AutoSize = true;
-            this.topicsLabel.Location = new System.Drawing.Point(823, 60);
+            this.topicsLabel.Location = new System.Drawing.Point(830, 291);
             this.topicsLabel.Name = "topicsLabel";
             this.topicsLabel.Size = new System.Drawing.Size(51, 20);
             this.topicsLabel.TabIndex = 13;
@@ -94,7 +96,7 @@
             // 
             // hociotButton
             // 
-            this.hociotButton.Location = new System.Drawing.Point(601, 203);
+            this.hociotButton.Location = new System.Drawing.Point(608, 434);
             this.hociotButton.Name = "hociotButton";
             this.hociotButton.Size = new System.Drawing.Size(167, 45);
             this.hociotButton.TabIndex = 14;
@@ -102,11 +104,32 @@
             this.hociotButton.UseVisualStyleBackColor = true;
             this.hociotButton.Click += new System.EventHandler(this.hociotButton_Click);
             // 
+            // englishTopicButton
+            // 
+            this.englishTopicButton.Location = new System.Drawing.Point(34, 55);
+            this.englishTopicButton.Name = "englishTopicButton";
+            this.englishTopicButton.Size = new System.Drawing.Size(229, 131);
+            this.englishTopicButton.TabIndex = 15;
+            this.englishTopicButton.Text = "אנגלית";
+            this.englishTopicButton.UseVisualStyleBackColor = true;
+            this.englishTopicButton.Click += new System.EventHandler(this.englishTopicButton_Click);
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(513, 55);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 16;
+            this.button2.Text = "button2";
+            this.button2.UseVisualStyleBackColor = true;
+            // 
             // menuPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(978, 944);
+            this.Controls.Add(this.button2);
+            this.Controls.Add(this.englishTopicButton);
             this.Controls.Add(this.hociotButton);
             this.Controls.Add(this.topicsLabel);
             this.Controls.Add(this.label2);
@@ -130,5 +153,7 @@
         private System.Windows.Forms.Button continueButton;
         private System.Windows.Forms.Label topicsLabel;
         private System.Windows.Forms.Button hociotButton;
+        private System.Windows.Forms.Button englishTopicButton;
+        private System.Windows.Forms.Button button2;
     }
 }

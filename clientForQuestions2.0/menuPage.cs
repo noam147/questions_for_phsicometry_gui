@@ -16,18 +16,22 @@ namespace clientForQuestions2._0
         public menuPage()
         {
             InitializeComponent();
+            //this.WindowState = FormWindowState.Maximized;
+            //this.FormBorderStyle = FormBorderStyle.None;
+            //this.StartPosition = FormStartPosition.CenterScreen;
+
+            this.amountOfQuestionTextBox.Text = "5";
             this.topicsLabel.Text = "";
             this.continueButton.Enabled = false;
         }
 
         private void hestabrotButton_Click(object sender, EventArgs e)
         {
-            topicButton_Click(sender);
+            topicButton_Click(((Button)sender).Text);
         }
-        private void topicButton_Click(object sender)
+        private void topicButton_Click(string topic)
         {
-            Button b = (Button)sender;
-            string topic = b.Text;
+ 
             for (int i = 0; i < topicsList.Count; i++)
             {
                 if (topicsList[i] == topic)
@@ -42,7 +46,7 @@ namespace clientForQuestions2._0
                 }
             }
             this.continueButton.Enabled = true;
-            topicsList.Add(b.Text);
+            topicsList.Add(topic);
             updateTopicLabel();
         }
         private void updateTopicLabel()
@@ -56,7 +60,7 @@ namespace clientForQuestions2._0
 
         private void analogyotButton_Click(object sender, EventArgs e)
         {
-            topicButton_Click(sender);
+            topicButton_Click(((Button)sender).Text);
         }
 
         private void continueButton_Click(object sender, EventArgs e)
@@ -85,7 +89,14 @@ namespace clientForQuestions2._0
 
         private void hociotButton_Click(object sender, EventArgs e)
         {
-            topicButton_Click(sender);
+            topicButton_Click(((Button)sender).Text);
+        }
+
+        private void englishTopicButton_Click(object sender, EventArgs e)
+        {
+            //topicButton_Click("Restatements");
+            //topicButton_Click("Sentence Completions");
+            topicButton_Click("Reading Comprehension");
         }
     }
 }

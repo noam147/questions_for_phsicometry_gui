@@ -8,17 +8,26 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using static System.Net.Mime.MediaTypeNames;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.TrayNotify;
+using System.Runtime.CompilerServices;
 namespace clientForQuestions2._0
 {
+    public struct afterQuestionParametrs
+    {
+        public dbQuestionParmeters question;
+        public int userAnswer;
+        public int timeForAnswer;
+    }
     public struct dbQuestionParmeters
     {
         public JToken json_content;
         public int questionId;
         public string category;
+        public int rightAnswer;
     }
     internal class sqlDb
     {
         static string file_path = "C:\\Users\\Magshimim\\Downloads\\wifi\\jsons_decrypt\\kidum_jsons.db";
+        //static string file_path = "kidum_jsons.db";
         static string connectionString = $"Data Source={file_path};Version=3;";
 
 
@@ -62,6 +71,7 @@ namespace clientForQuestions2._0
                 dbParmeters.json_content = jsonArray[i];
                 dbParmeters.category = categories[i];
                 dbParmeters.questionId = ids[i];
+                dbParmeters.rightAnswer = get_num_of_correct_answer(jsonArray[i]);
                 dbQuestions.Add(dbParmeters);
             }
             return dbQuestions;
@@ -134,7 +144,29 @@ namespace clientForQuestions2._0
             string allOptions = addNumberToQuestions(option1, option2, option3, option4);
             return question + get_string_of_img_html(json["image"]) + "<br><br>" + allOptions;
         }
-        public static string get_string_of_question_and_option_from_json(JToken json,int answer)
+        
+        
+        private static string getFinalStringOfOptions(string option1,string option2, string option3, string option4,int wrongUserChoice)
+        {
+            if(wrongUserChoice == 1)
+            {
+                option1 = $"<div style = \"background-color: red;display: inline-block;\">{option1}</div><br>";
+            }
+            if (wrongUserChoice == 2)
+            {
+                option2 = $"<div style = \"background-color: red;display: inline-block;\">{option2}</div><br>";
+            }
+            if (wrongUserChoice == 3)
+            {
+                option3 = $"<div style = \"background-color: red;display: inline-block;\">{option3}</div><br>";
+            }
+            if (wrongUserChoice == 4)
+            {
+                option4 = $"<div style = \"background-color: red;display: inline-block;\">{option4}</div><br>";
+            }
+            return option1 + option2 + option3 + option4;
+        }
+        public static string get_string_of_question_and_option_from_json(JToken json, int answer)
         {
             string question = json["question"].ToString();
             string option1 = json["options"][0]["text"].ToString();
@@ -143,7 +175,7 @@ namespace clientForQuestions2._0
             string option4 = json["options"][3]["text"].ToString();
             string final = addNumberToQuestions(option1, option2, option3, option4);
             option1 = final.Substring(0, final.IndexOf("<p>(2)"));
-            final = final.Substring(final.IndexOf("<p>(2)"),final.Length - option1.Length);
+            final = final.Substring(final.IndexOf("<p>(2)"), final.Length - option1.Length);
             option2 = final.Substring(0, final.IndexOf("<p>(3)"));
             final = final.Substring(final.IndexOf("<p>(3)"), final.Length - option2.Length);
             option3 = final.Substring(0, final.IndexOf("<p>(4)"));
@@ -153,64 +185,36 @@ namespace clientForQuestions2._0
             int option2tf = (int)json["options"][1]["is_correct"];
             int option3tf = (int)json["options"][2]["is_correct"];
             int option4tf = (int)json["options"][3]["is_correct"];
-            if (answer == 1)
-            {   
-                if (option1tf == 1)
-                {
-                    option1 = $"<div style = \"background-color: cyan;display: inline-block;\">{option1}</div>";
-                }
-                else
-                {
-                    option1 = $"<div style = \"background-color: red;display: inline-block;\">{option1}</div>";
-                }
-            }
-            if (answer == 2)
+            string startOfMsg = question + get_string_of_img_html(json["image"]) + "<br><br>";
+            string[] options = { option1, option2, option3, option4 }; // Assuming you have these defined
+            int[] optionFlags = { option1tf, option2tf, option3tf, option4tf };
+            //option[n]tf = 1 - this is the real true answer
+            for (int i = 1; i < 5; i++)
             {
-                if (option2tf == 1)
+                if (optionFlags[i - 1] == 1)
                 {
-                    option2 = $"<div style = \"background-color: cyan;display: inline-block;\">{option2}</div>";
-                }
-                else
-                {
-                    option2 = $"<div style = \"background-color: red;display: inline-block;\">{option2}</div>";
-                }
-            }
-            if (answer == 3)
-            {
-                if (option3tf == 1)
-                {
-                    option3 = $"<div style = \"background-color: cyan;display: inline-block;\">{option3}</div>";
-                }
-                else
-                {
-                    option3 = $"<div style = \"background-color: red;display: inline-block;\">{option3}</div>";
+                    options[i - 1] = $"<div style = \"background-color: cyan;display: inline-block;\">{options[i - 1]}</div><br>";
+                    if (answer != i)
+                    {
+                        //if the user were wrong
+                        return startOfMsg + getFinalStringOfOptions(options[0], options[1], options[2], options[3], answer);
+                    }
+                    //if the user got right
+                    return startOfMsg + options[0] + options[1] + options[2] + options[3];
                 }
             }
-            if (answer == 4)
-            {
-                if (option4tf == 1)
-                {
-                    option4 = $"<div style = \"background-color: cyan;display: inline-block;\">{option4}</div>";
-                }
-                else
-                {
-                    option4 = $"<div style = \"background-color: red;display: inline-block;\">{option4}</div>";
-                }
-            }
-            return question + get_string_of_img_html(json["image"]) + "<br><br>" + option1 + option2 + option3 + option4;
+            return "";
         }
         
         public static string get_string_of_question_and_explanation(JToken json,int clientanswer)
         {
             string answer = json["solving_explanation"].ToString();
             var img = json["explanation_image"];
-            //string line = "<div style=\"position: fixed; left: 50%; top: 0; height: 100vh; width: 1px; background-color: lightgray;\"></div>\r\n";
-            //string line = "<div style=\"position: fixed; left: 50%; top: 50%; height: 1px; width: 100vw; background-color: lightgray; transform: rotate(90deg);\"></div>\r\n";
             string line = "<div style=\"top: 50%; left: 0; width: 100vw; height: 1px; background-color: lightgray;\"></div>\r\n<br>explanation:";
             return get_string_of_question_and_option_from_json(json,clientanswer) +line +answer+ get_string_of_img_html(img);
             
         }
-        public static int get_num_of_correct_answer(JToken json)
+        private static int get_num_of_correct_answer(JToken json)
         {
             int option1 = (int)json["options"][0]["is_correct"];
             int option2 = (int)json["options"][1]["is_correct"];

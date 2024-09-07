@@ -45,7 +45,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(841, 516);
+            this.ClientSize = new System.Drawing.Size(856, 523);
             this.Controls.Add(this.label1);
             this.Name = "summrizePage";
             this.Text = "summrizePage";
