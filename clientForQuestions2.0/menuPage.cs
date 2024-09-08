@@ -16,6 +16,7 @@ namespace clientForQuestions2._0
         public menuPage()
         {
             InitializeComponent();
+            LogFileHandler.writeIntoFile("logged on");
             //this.WindowState = FormWindowState.Maximized;
             //this.FormBorderStyle = FormBorderStyle.None;
             //this.StartPosition = FormStartPosition.CenterScreen;
@@ -75,6 +76,7 @@ namespace clientForQuestions2._0
                 return;
             }
 
+            LogFileHandler.writeIntoFile("Opened new questions page");
             //get the questions here
             questionsPage c = new questionsPage(amount,this.topicsList);
             

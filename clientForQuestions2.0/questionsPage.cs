@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using Microsoft.Web.WebView2.WinForms;
 using System.IO;
 using Newtonsoft.Json.Linq;
+using System.Threading;
 namespace clientForQuestions2._0
 {
     public partial class questionsPage : Form
@@ -32,11 +33,32 @@ namespace clientForQuestions2._0
       
             PositionNextQuestionButton();
             this.Resize += MainForm_Resize;
-            Task.Run(() => InitializeWebView2());
+            Thread thread = new Thread(() =>
+            {
+                InitializeWebView2();
+            });
+            thread.SetApartmentState(ApartmentState.STA);
+            thread.Start();
+        }
+        private void writeQuestionToLogFile()
+        {
+            if(questionDetails == null)
+            {
+                LogFileHandler.writeIntoFile("Error: questionDetails == null - related to db!");
+                return;
+            }
+            string s = "";
+            for(int i =0;i < questionDetails.Count;i++)
+            {
+                s += questionDetails[i].questionId +", ";
+            }
+            s = s.Substring(0, s.Length - 2);
+            LogFileHandler.writeIntoFile("Questions id are: "+s);
         }
         private void updateAtStart(int amount, List<string> listOfTopics)
         {
             questionDetails = sqlDb.get_n_questions_from_arr_of_categorys(amount, listOfTopics);
+            writeQuestionToLogFile();
             m_maxQuestions = questionDetails.Count;//if amount is bigger that questions avelible
             this.label1.Text = "";
             this.nextQuestionButton.Visible = false;
@@ -44,7 +66,7 @@ namespace clientForQuestions2._0
         }
 
         //func is not intersting - just prepering html displayer
-        private void InitializeWebView2()
+        private async void InitializeWebView2()
         {
             // Ensure that UI updates are made on the main thread
             if (InvokeRequired)
@@ -52,41 +74,96 @@ namespace clientForQuestions2._0
                 Invoke(new Action(InitializeWebView2));
                 return;
             }
+            // Dispose of any existing instance before creating a new one
+            if (webView21 != null)
+            {
+                webView21.Dispose();
+                webView21 = null; // Clear reference
+            }
+ 
 
+            // Initialize a new instance of WebView2
             webView21 = new WebView2
             {
-                Dock = DockStyle.Fill
+                Location = new Point(0, 0),
+                Size = new Size(this.ClientSize.Width, this.ClientSize.Height)
             };
 
-            this.Controls.Add(webView21);
-
-            // Event handler for when CoreWebView2 initialization is complete
             webView21.CoreWebView2InitializationCompleted += OnCoreWebView2InitializationCompleted;
 
-            try
+            int maxRetries = 10;
+            int retryCount = 0;
+            bool initialized = false;
+
+            while (!initialized && retryCount < maxRetries)
             {
-                // Initialize WebView2 runtime
-                webView21.EnsureCoreWebView2Async(null).ContinueWith(task =>
+                try
                 {
-                    if (task.IsFaulted)
+                    retryCount++;
+
+                    // Attempt to initialize WebView2 runtime
+                    var task = webView21.EnsureCoreWebView2Async(null);
+                    await task; // Await the task to ensure it runs on the UI thread
+
+                    // Check if the task has completed successfully
+                    if (task.IsCompleted && webView21.CoreWebView2 != null)
                     {
-                        MessageBox.Show($"Error initializing WebView2: {task.Exception.Message}", "Initialization Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        initialized = true; // Exit loop if initialization is successful
                     }
-                });
+                    else if (task.IsFaulted)
+                    {
+                        // Extract exception details for better debugging
+                        var exceptionMessage = task.Exception != null
+                            ? string.Join("\n", task.Exception.InnerExceptions.Select(ex => ex.Message))
+                            : "Unknown error initializing WebView2.";
+
+                        MessageBox.Show($"Attempt {retryCount} failed: {exceptionMessage}",
+                            "Initialization Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+
+                    // Add delay between retries
+                    await Task.Delay(500); // Wait before retrying
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error during WebView2 initialization attempt {retryCount}: {ex.Message}",
+                        "Initialization Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                    // Wait before next retry
+                    await Task.Delay(500); // Wait for 2 seconds
+                }
             }
-            catch (Exception ex)
+
+            if (initialized)
             {
-                MessageBox.Show($"Error initializing WebView2: {ex.Message}", "Initialization Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                // Safely add the control to the form on the main thread
+                try
+                {
+                    Controls.Add(webView21);
+                    webView21.SendToBack(); // Send WebView2 to the back
+                }
+                catch (Exception addEx)
+                {
+                    MessageBox.Show($"Error adding WebView2 to the form: {addEx.Message}",
+                        "Add Control Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Failed to initialize WebView2 after multiple attempts.",
+                    "Initialization Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         //sender and e are not in use
         private void OnCoreWebView2InitializationCompleted(object sender, EventArgs e)
         {
+
+            webTaker.OnCoreWebView2InitializationCompleted(webView21,this.questionDetails[this.m_indexOfCurrQuestion].json_content);
+            return;
             //update html content in here
             if (webView21.CoreWebView2 != null)
             {
-                this.m_currAnswer = this.questionDetails[this.m_indexOfCurrQuestion].rightAnswer;
                 string htmlContent = sqlDb.get_string_of_question_and_option_from_json(this.questionDetails[this.m_indexOfCurrQuestion].json_content);
                 // Load the HTML content into WebView2
                 webView21.NavigateToString(htmlContent);
@@ -117,14 +194,18 @@ namespace clientForQuestions2._0
             }
   
             updateLabelAnswers();
+
+
             string htmlContent = sqlDb.get_string_of_question_and_explanation(this.questionDetails[m_indexOfCurrQuestion].json_content,answer);
             // Load the HTML content into WebView2
             webView21.NavigateToString(htmlContent);
+
+
             this.m_indexOfCurrQuestion++;
-            if (m_indexOfCurrQuestion == this.questionDetails.Count)
+            if (m_indexOfCurrQuestion == this.questionDetails.Count)//if questions end
             {
                 this.nextQuestionButton.Text = "summrize";
-                this.nextQuestionButton.BackColor = System.Drawing.Color.Red;
+                this.nextQuestionButton.BackColor = System.Drawing.Color.Yellow;
             }
             this.nextQuestionButton.Visible = true;
             this.answer1Button.Visible = false;
@@ -211,7 +292,6 @@ namespace clientForQuestions2._0
         {
             if (this.questionDetails[this.m_indexOfCurrQuestion].rightAnswer == 4)
             {
-
                 answerCorrect();
             }
             else

@@ -27,7 +27,7 @@ namespace clientForQuestions2._0
     internal class sqlDb
     {
         static string file_path = "C:\\Users\\Magshimim\\Downloads\\wifi\\jsons_decrypt\\kidum_jsons.db";
-        //static string file_path = "kidum_jsons.db";
+        static string second_file_path = "kidum_jsons.db";
         static string connectionString = $"Data Source={file_path};Version=3;";
 
 
@@ -216,10 +216,21 @@ namespace clientForQuestions2._0
         }
         private static int get_num_of_correct_answer(JToken json)
         {
-            int option1 = (int)json["options"][0]["is_correct"];
-            int option2 = (int)json["options"][1]["is_correct"];
-            int option3 = (int)json["options"][2]["is_correct"];
-            int option4 = (int)json["options"][3]["is_correct"];
+            int option1;
+            int option2;
+            int option3;
+            int option4;
+            try
+            {
+                 option1 = (int)json["options"][0]["is_correct"];
+                 option2 = (int)json["options"][1]["is_correct"];
+                 option3 = (int)json["options"][2]["is_correct"];
+                 option4 = (int)json["options"][3]["is_correct"];
+            }
+            catch (Exception e) 
+            {
+                return 1;
+            }
             if(option1 == 1)
             {
                 return 1;

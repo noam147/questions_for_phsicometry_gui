@@ -20,7 +20,8 @@ namespace clientForQuestions2._0
             //list.Add("הסתברות");
             //list.Add("אנלוגיות");
             //var e = sqlDb.get_n_questions_from_arr_of_categorys(4,list);
-
+            LogFileHandler.openFile();
+            LogFileHandler.ClearFileContent();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
