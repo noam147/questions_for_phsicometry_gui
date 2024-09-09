@@ -14,14 +14,8 @@ namespace clientForQuestions2._0
         [STAThread]
         static void Main()
         {
-            //var c = sqlDb.get_all_data();
-            //var d = sqlDb.get_n_questions_from_specofic_category(3, "הסתברות");
-            //List<string> list = new List<string>();
-            //list.Add("הסתברות");
-            //list.Add("אנלוגיות");
-            //var e = sqlDb.get_n_questions_from_arr_of_categorys(4,list);
             LogFileHandler.openFile();
-            LogFileHandler.ClearFileContent();
+            //LogFileHandler.ClearFileContent();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 

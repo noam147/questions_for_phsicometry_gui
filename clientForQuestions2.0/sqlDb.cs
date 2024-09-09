@@ -28,7 +28,7 @@ namespace clientForQuestions2._0
     {
         static string file_path = "C:\\Users\\Magshimim\\Downloads\\wifi\\jsons_decrypt\\kidum_jsons.db";
         static string second_file_path = "kidum_jsons.db";
-        static string connectionString = $"Data Source={file_path};Version=3;";
+        static string connectionString = $"Data Source={second_file_path};Version=3;";
 
 
         private static List<dbQuestionParmeters> doQuery(string query)
@@ -61,6 +61,7 @@ namespace clientForQuestions2._0
                     catch (Exception ex)
                     {
                         Console.WriteLine($"An error occurred: {ex.Message}");
+                        LogFileHandler.writeIntoFile("error occurred with db query - check if file json.db exsist");
                         return null;
                     }
                 }
@@ -85,8 +86,9 @@ namespace clientForQuestions2._0
         {
             string query = $"SELECT * FROM questions where question_id = \'{questionId}\'"; 
             var questionParameters = doQuery(query);
-            if(questionParameters != null)
+            if(questionParameters != null && questionParameters.Count != 0)
                 return questionParameters[0];
+            
             return new dbQuestionParmeters();
             
             

@@ -7,6 +7,7 @@ using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 
+//this should be final!
 namespace clientForQuestions2._0
 {
     internal class LogFileHandler
