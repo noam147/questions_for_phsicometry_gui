@@ -71,3 +71,26 @@
 2024-09-09 18:50:38: try to accsess id that is not exsist, id: 1
 2024-09-09 18:50:42: logged on
 2024-09-09 18:50:49: logged on
+2024-09-09 20:15:14: logged on
+2024-09-09 20:15:16: Opened new questions page
+2024-09-09 20:15:16: error occurred with db query - check if file json.db exsist
+2024-09-09 20:15:16: Error: questionDetails == null - related to db!
+2024-09-09 20:16:05: logged on
+2024-09-09 20:16:07: Opened new questions page
+2024-09-09 20:16:08: Questions id are: 6740, 809, 9831, 768, 2744
+2024-09-09 20:16:42: logged on
+2024-09-09 20:16:44: Opened new questions page
+2024-09-09 20:16:44: Questions id are: 971, 1656, 10383, 1803, 3682
+2024-09-09 20:17:23: logged on
+2024-09-09 20:17:25: Opened new questions page
+2024-09-09 20:17:25: Questions id are: 9401, 1059, 6736, 1057, 764
+2024-09-09 20:18:19: logged on
+2024-09-09 20:18:21: Opened new questions page
+2024-09-09 20:18:21: Questions id are: 993, 972, 884, 244, 3469
+2024-09-09 20:18:53: logged on
+2024-09-09 20:18:55: Opened new questions page
+2024-09-09 20:18:55: Questions id are: 7349, 4440, 1157, 3108, 2507
+2024-09-09 20:19:46: logged on
+2024-09-09 20:19:48: Opened new questions page
+2024-09-09 20:19:48: Questions id are: 1021, 3540, 1950, 9842, 9386
+2024-09-09 20:20:02: logged on

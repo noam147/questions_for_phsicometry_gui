@@ -35,6 +35,7 @@
             this.answer4Button = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.answersTrackLabel = new System.Windows.Forms.Label();
+            this.questionCountTracklabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // nextQuestionButton
@@ -106,11 +107,21 @@
             this.answersTrackLabel.TabIndex = 6;
             this.answersTrackLabel.Text = "answersTrackLabel";
             // 
+            // questionCountTracklabel
+            // 
+            this.questionCountTracklabel.AutoSize = true;
+            this.questionCountTracklabel.Location = new System.Drawing.Point(728, 127);
+            this.questionCountTracklabel.Name = "questionCountTracklabel";
+            this.questionCountTracklabel.Size = new System.Drawing.Size(152, 20);
+            this.questionCountTracklabel.TabIndex = 7;
+            this.questionCountTracklabel.Text = "questionCountTrack";
+            // 
             // questionsPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(978, 944);
+            this.Controls.Add(this.questionCountTracklabel);
             this.Controls.Add(this.answersTrackLabel);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.answer4Button);
@@ -134,6 +145,7 @@
         private System.Windows.Forms.Button answer4Button;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label answersTrackLabel;
+        private System.Windows.Forms.Label questionCountTracklabel;
     }
 }
 

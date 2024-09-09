@@ -23,7 +23,7 @@ namespace clientForQuestions2._0
 
         private int m_maxQuestions;
         private int m_rightQuestions = 0;
-
+        private int m_currQuestionNum = 1;
         private int m_indexOfCurrQuestion = 0;
         private int m_currAnswer =0;
         public questionsPage(int amount,List<string> listOfTopics)
@@ -176,9 +176,11 @@ namespace clientForQuestions2._0
         private void updateLabelAnswers()
         {
             this.answersTrackLabel.Text = $"{m_rightQuestions}/{m_maxQuestions} correct";
+            this.questionCountTracklabel.Text = $"Your current question: {this.m_currQuestionNum}";
         }
         private void afterAnswerQuestion(int answer)
         {
+ 
             //this func happens after the user clicked on an answer
             //func check if answer os true and return explantion 
 
@@ -215,6 +217,8 @@ namespace clientForQuestions2._0
         }
         private void nextQuestionButtonClick(object sender, EventArgs e)
         {
+            this.m_currQuestionNum++;
+            updateLabelAnswers();
             //if questions end
             if (m_indexOfCurrQuestion == this.questionDetails.Count)
             {

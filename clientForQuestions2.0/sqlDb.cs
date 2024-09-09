@@ -28,7 +28,7 @@ namespace clientForQuestions2._0
     {
         static string file_path = "C:\\Users\\Magshimim\\Downloads\\wifi\\jsons_decrypt\\kidum_jsons.db";
         static string second_file_path = "kidum_jsons.db";
-        static string connectionString = $"Data Source={second_file_path};Version=3;";
+        static string connectionString = $"Data Source={file_path};Version=3;";
 
 
         private static List<dbQuestionParmeters> doQuery(string query)
