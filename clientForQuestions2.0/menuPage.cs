@@ -12,10 +12,20 @@ namespace clientForQuestions2._0
 {
     public partial class menuPage : Form
     {
+        private List<Button> buttons = new List<Button>();
         private List<string> topicsList = new List<string>();
         public menuPage()
         {
             InitializeComponent();
+            buttons = Controls.OfType<Button>()
+                       .Where(b => b.Name.StartsWith("themeBase") &&
+                                   int.TryParse(b.Name.Substring(9), out int n) &&
+                                   n >= 1 && n <= 43)
+                       .ToList();
+            for(int i =0; i < buttons.Count; i++)
+            {
+                buttons[i].BackColor = Color.White;
+            }
             LogFileHandler.writeIntoFile("logged on");
             //this.WindowState = FormWindowState.Maximized;
             //this.FormBorderStyle = FormBorderStyle.None;
