@@ -410,7 +410,7 @@ namespace clientForQuestions2._0
             }
             List<afterQuestionParametrs> specificquestion = new List<afterQuestionParametrs>();
             afterQuestionParametrs q = new afterQuestionParametrs();
-            q.timeForAnswer = -1;
+            q.timeForAnswer = OperationsAndOtherUseful.QUESTION_THAT_DID_NOT_ANSWERED; ;
             q.question = sqlDb.get_question_based_on_id(id);
             if(q.question.questionId == 0)
             {

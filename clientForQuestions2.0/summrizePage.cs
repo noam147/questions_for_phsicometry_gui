@@ -195,13 +195,14 @@ namespace clientForQuestions2._0
         {
             Button b = (Button)sender;
             int indexQuestion = (int.Parse(b.Text)-1);
-            Button_Click(indexQuestion);  
-            //display the question with html explanation etc and user choice
-            //maybe even keep track on the user choice
+            Button_Click(indexQuestion);
         }
         private void Button_Click(int questionIndex)
         {
             string toDisplay = OperationsAndOtherUseful.get_string_of_question_and_explanation(this.m_questions[questionIndex].question.json_content, this.m_questions[questionIndex].userAnswer);
+            int secondsTook = this.m_questions[questionIndex].timeForAnswer;
+            updateQuestionTimerText(secondsTook);
+            
             this.webView21.NavigateToString(toDisplay);
         }
         private void button1_Click(object sender, EventArgs e)
@@ -209,6 +210,23 @@ namespace clientForQuestions2._0
             menuPage m = new menuPage();
             m.Show();
             this.Close();
+        }
+        private void updateQuestionTimerText(int seconds)
+        {
+            if(seconds == OperationsAndOtherUseful.QUESTION_THAT_DID_NOT_ANSWERED)
+            {
+                this.timeTookForQLabel.Text = "";
+                return;
+            }
+            else
+            {
+                this.timeTookForQLabel.Text = $"Time took for question: {seconds}";
+            }
+
+        }
+        private void timeTookForQLabel_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

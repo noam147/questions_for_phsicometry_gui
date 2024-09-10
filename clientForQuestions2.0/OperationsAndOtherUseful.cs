@@ -7,8 +7,10 @@ using System.Threading.Tasks;
 
 namespace clientForQuestions2._0
 {
+    
     internal class OperationsAndOtherUseful
     {
+        public static int QUESTION_THAT_DID_NOT_ANSWERED = -1;
         private static string get_string_of_img_html(JToken json)
         {
             //this should be in a separate file

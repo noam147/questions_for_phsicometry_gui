@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.button1 = new System.Windows.Forms.Button();
+            this.timeTookForQLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // button1
@@ -41,19 +42,32 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // timeTookForQLabel
+            // 
+            this.timeTookForQLabel.AutoSize = true;
+            this.timeTookForQLabel.Location = new System.Drawing.Point(610, 194);
+            this.timeTookForQLabel.Name = "timeTookForQLabel";
+            this.timeTookForQLabel.Size = new System.Drawing.Size(174, 20);
+            this.timeTookForQLabel.TabIndex = 2;
+            this.timeTookForQLabel.Text = "Time took for question: ";
+            this.timeTookForQLabel.Click += new System.EventHandler(this.timeTookForQLabel_Click);
+            // 
             // summrizePage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(856, 523);
+            this.Controls.Add(this.timeTookForQLabel);
             this.Controls.Add(this.button1);
             this.Name = "summrizePage";
             this.Text = "summrizePage";
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label timeTookForQLabel;
     }
 }

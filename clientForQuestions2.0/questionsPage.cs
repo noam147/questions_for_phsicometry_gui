@@ -12,6 +12,11 @@ using Microsoft.Web.WebView2.WinForms;
 using System.IO;
 using Newtonsoft.Json.Linq;
 using System.Threading;
+using System.Timers;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
+using System.Runtime.CompilerServices;
+
+
 namespace clientForQuestions2._0
 {
     public partial class questionsPage : Form
@@ -26,6 +31,9 @@ namespace clientForQuestions2._0
         private int m_questionCounter = 1;
         private int m_indexOfCurrQuestion = 0;
         private int m_currAnswer =0;
+
+        private int secondsTookForCurrq = 1;
+        private System.Timers.Timer m_aTimer;
         public questionsPage(int amount,List<string> listOfTopics)
         {
             InitializeComponent();
@@ -63,8 +71,22 @@ namespace clientForQuestions2._0
             this.isUserRightLabel.Text = "";
             this.nextQuestionButton.Visible = false;
             updateLabelAnswers();
+            SetTimer();
         }
-
+        private void OnTimedEvent(Object source, ElapsedEventArgs e)
+        {
+            this.secondsTookForCurrq++;
+        }
+        private void SetTimer()
+        {
+            //src= https://learn.microsoft.com/en-us/dotnet/api/system.timers.timer?view=net-8.0
+            // Create a timer with a one second interval.
+            m_aTimer = new System.Timers.Timer(1000);
+            // Hook up the Elapsed event for the timer. 
+            m_aTimer.Elapsed += OnTimedEvent;
+            m_aTimer.AutoReset = true;
+            m_aTimer.Enabled = true;
+        }
         //func is not intersting - just prepering html displayer
         private async void InitializeWebView2()
         {
@@ -169,14 +191,14 @@ namespace clientForQuestions2._0
         private void afterAnswerQuestion(int answer)
         {
             //this func happens after the user clicked on an answer
-
+            this.m_aTimer.Stop();
             //func check if answer is true and return explantion 
 
             //for summrize page get data on user choice and time
             afterQuestionParametrs after_questionParametrs = new afterQuestionParametrs();
             after_questionParametrs.userAnswer = answer;//we have the right answer in question details
             after_questionParametrs.question = questionDetails[m_indexOfCurrQuestion];
-            after_questionParametrs.timeForAnswer = -1;//TO-DO
+            after_questionParametrs.timeForAnswer = this.secondsTookForCurrq;//TO-DO
             m_afterQuestionParametrs.Add(after_questionParametrs);
 
             if (this.questionDetails[m_indexOfCurrQuestion].rightAnswer == answer)
@@ -225,6 +247,9 @@ namespace clientForQuestions2._0
                 this.answer2Button.Visible = true;
                 this.answer3Button.Visible = true;
                 this.answer4Button.Visible = true;
+
+                this.secondsTookForCurrq = 0;
+                this.m_aTimer.Start();
             }
             else
             {
