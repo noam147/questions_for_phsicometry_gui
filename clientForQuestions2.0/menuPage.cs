@@ -12,6 +12,7 @@ namespace clientForQuestions2._0
 {
     public partial class menuPage : Form
     {
+        private List<Button> m_buttonsList = new List<Button>();
         private List<string> topicsList = new List<string>();
         private Dictionary<string, List<string>> topicsdict = new Dictionary<string, List<string>>
         {
@@ -260,6 +261,7 @@ namespace clientForQuestions2._0
         public menuPage()
         {
             InitializeComponent();
+            updatebuttons();
             LogFileHandler.writeIntoFile("logged on");
             //this.WindowState = FormWindowState.Maximized;
             //this.FormBorderStyle = FormBorderStyle.None;
@@ -269,7 +271,20 @@ namespace clientForQuestions2._0
             this.topicsLabel.Text = "";
             this.continueButton.Enabled = false;
         }
+        private void updatebuttons()
+        {
+            m_buttonsList = Controls.OfType<Button>()
+                            .Where(b => b.Name.StartsWith("themeBase") &&
+                                        int.TryParse(b.Name.Substring(9), out int n) &&
+                                        n >= 1 && n <= 43)
+                            .ToList();
 
+            // Optional: Display button names in the console to verify
+            foreach (var button in m_buttonsList)
+            {
+               button.BackColor = Color.White;
+            }
+        }
         private void hestabrotButton_Click(object sender, EventArgs e)
         {
             topicButton_Click(((Button)sender).Text);
