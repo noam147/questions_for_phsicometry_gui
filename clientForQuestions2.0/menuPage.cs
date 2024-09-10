@@ -277,33 +277,33 @@ namespace clientForQuestions2._0
         private void topicButton_Click(string topic)
         {
             Button myButton = this.Controls.Find(themeToNameDict[topic], true).FirstOrDefault() as Button;
-
-            for (int i = 0; i < topicsList.Count; i++)
+            if (topicsList.Contains(topic))
             {
-                if (topicsList[i] == topic)
+                topicsList.Remove(topic);
+                if (myButton != null)
                 {
-                    topicsList.RemoveAt(i);
-                    if (topicsList.Count == 0)
-                    {
-                        this.continueButton.Enabled = false;
-                    }
-                    if (myButton != null)
-                    {
-                        myButton.BackColor = Color.White;
-                    }
-                    updateTopicLabel();
-                    return;
+                    myButton.BackColor = Color.White;
                 }
             }
-            this.continueButton.Enabled = true;
-            topicsList.Add(topic);
-            if (myButton != null)
+            else
             {
-                myButton.BackColor = Color.LightBlue;
+                this.continueButton.Enabled = true;
+                topicsList.Add(topic);
+                if (myButton != null)
+                {
+                    myButton.BackColor = Color.LightBlue;
+                }
             }
-            updateTopicLabel();
+
+            //updateTopicLabel();
+
+            if (topicsList.Count == 0)
+            {
+                this.continueButton.Enabled = false;
+            }
+
         }
-        private void updateTopicLabel()
+            private void updateTopicLabel()
         {
             return;//this func is not needed anymore
             //cause time issues
@@ -328,11 +328,23 @@ namespace clientForQuestions2._0
 
         {
             List<string> topics = topicsdict[((Button)sender).Text];
-            for (int i = 0; i < topics.Count; i++)
+            bool allSelected = true;
+            foreach (string topic in topics)
             {
-                topicButton_Click(topics[i]);
+                if (!topicsList.Contains(topic))
+                {
+                    allSelected = false;
+                    topicButton_Click(topic);
+                }
+            }
+            if (!allSelected) { return; }
+
+            foreach (string topic in topics)
+            {
+                topicButton_Click(topic);
             }
         }
+
         private void continueButton_Click(object sender, EventArgs e)
         {
             int amount = 0;
@@ -396,6 +408,11 @@ namespace clientForQuestions2._0
             summrizePage s = new summrizePage(specificquestion);
             s.Show();
             this.Close();
+
+        }
+
+        private void menuPage_Load_1(object sender, EventArgs e)
+        {
 
         }
     }
