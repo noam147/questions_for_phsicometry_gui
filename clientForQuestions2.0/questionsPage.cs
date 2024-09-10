@@ -248,7 +248,7 @@ namespace clientForQuestions2._0
                 this.answer3Button.Visible = true;
                 this.answer4Button.Visible = true;
 
-                this.secondsTookForCurrq = 0;
+                this.secondsTookForCurrq = 1;
                 this.m_aTimer.Start();
             }
             else
