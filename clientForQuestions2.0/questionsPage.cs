@@ -38,7 +38,7 @@ namespace clientForQuestions2._0
         {
             InitializeComponent();
             updateAtStart(amount, listOfTopics);
-      
+
             PositionNextQuestionButton();
             this.Resize += MainForm_Resize;
             Thread thread = new Thread(() =>
@@ -186,7 +186,7 @@ namespace clientForQuestions2._0
         private void updateLabelAnswers()
         {
             this.answersTrackLabel.Text = $"{m_rightQuestions}/{m_maxQuestions} correct";
-            this.questionTrackLabel.Text = $"Current question is: {m_questionCounter}";
+            this.questionTrackLabel.Text = $"Current question is: {m_questionCounter}/{m_maxQuestions}";
         }
         private void afterAnswerQuestion(int answer)
         {
@@ -336,7 +336,14 @@ namespace clientForQuestions2._0
             nextQuestionButton.Location = new Point(this.ClientSize.Width - nextQuestionButton.Width - rightMargin, topMargin);
         }
 
+        private void questionsPage_Load(object sender, EventArgs e)
+        {
 
+        }
 
+        private void isUserRightLabel_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
