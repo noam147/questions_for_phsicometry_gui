@@ -33,7 +33,7 @@
             this.answer2Button = new System.Windows.Forms.Button();
             this.answer3Button = new System.Windows.Forms.Button();
             this.answer4Button = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
+            this.isUserRightLabel = new System.Windows.Forms.Label();
             this.answersTrackLabel = new System.Windows.Forms.Label();
             this.questionTrackLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
@@ -90,13 +90,13 @@
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.label1.Location = new System.Drawing.Point(715, 334);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(100, 37);
-            this.label1.TabIndex = 5;
-            this.label1.Text = "label1";
+            this.isUserRightLabel.AutoSize = true;
+            this.isUserRightLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.isUserRightLabel.Location = new System.Drawing.Point(715, 334);
+            this.isUserRightLabel.Name = "label1";
+            this.isUserRightLabel.Size = new System.Drawing.Size(100, 37);
+            this.isUserRightLabel.TabIndex = 5;
+            this.isUserRightLabel.Text = "label1";
             // 
             // answersTrackLabel
             // 
@@ -123,7 +123,7 @@
             this.ClientSize = new System.Drawing.Size(978, 944);
             this.Controls.Add(this.questionTrackLabel);
             this.Controls.Add(this.answersTrackLabel);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.isUserRightLabel);
             this.Controls.Add(this.answer4Button);
             this.Controls.Add(this.answer3Button);
             this.Controls.Add(this.answer2Button);
@@ -143,7 +143,7 @@
         private System.Windows.Forms.Button answer2Button;
         private System.Windows.Forms.Button answer3Button;
         private System.Windows.Forms.Button answer4Button;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label isUserRightLabel;
         private System.Windows.Forms.Label answersTrackLabel;
         private System.Windows.Forms.Label questionTrackLabel;
     }

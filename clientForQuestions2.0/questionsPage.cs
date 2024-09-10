@@ -60,7 +60,7 @@ namespace clientForQuestions2._0
             questionDetails = sqlDb.get_n_questions_from_arr_of_categorys(amount, listOfTopics);
             writeQuestionToLogFile();
             m_maxQuestions = questionDetails.Count;//if amount is bigger that questions avelible
-            this.label1.Text = "";
+            this.isUserRightLabel.Text = "";
             this.nextQuestionButton.Visible = false;
             updateLabelAnswers();
         }
@@ -158,20 +158,8 @@ namespace clientForQuestions2._0
         //sender and e are not in use
         private void OnCoreWebView2InitializationCompleted(object sender, EventArgs e)
         {
-
             webTaker.OnCoreWebView2InitializationCompleted(webView21,this.questionDetails[this.m_indexOfCurrQuestion].json_content);
             return;
-            //update html content in here
-            if (webView21.CoreWebView2 != null)
-            {
-                string htmlContent = sqlDb.get_string_of_question_and_option_from_json(this.questionDetails[this.m_indexOfCurrQuestion].json_content);
-                // Load the HTML content into WebView2
-                webView21.NavigateToString(htmlContent);
-            }
-            else
-            {
-                MessageBox.Show("WebView2 initialization failed.", "Initialization Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
         }
         private void updateLabelAnswers()
         {
@@ -181,8 +169,10 @@ namespace clientForQuestions2._0
         private void afterAnswerQuestion(int answer)
         {
             //this func happens after the user clicked on an answer
-            //func check if answer os true and return explantion 
 
+            //func check if answer is true and return explantion 
+
+            //for summrize page get data on user choice and time
             afterQuestionParametrs after_questionParametrs = new afterQuestionParametrs();
             after_questionParametrs.userAnswer = answer;//we have the right answer in question details
             after_questionParametrs.question = questionDetails[m_indexOfCurrQuestion];
@@ -193,21 +183,20 @@ namespace clientForQuestions2._0
             {
                 this.m_rightQuestions++;
             }
-  
             updateLabelAnswers();
 
-
-            string htmlContent = sqlDb.get_string_of_question_and_explanation(this.questionDetails[m_indexOfCurrQuestion].json_content,answer);
-            // Load the HTML content into WebView2
+            //after user submit an answer give to him a feedback
+            string htmlContent = OperationsAndOtherUseful.get_string_of_question_and_explanation(this.questionDetails[m_indexOfCurrQuestion].json_content,answer);
             webView21.NavigateToString(htmlContent);
 
-
+            //check if this the last question
             this.m_indexOfCurrQuestion++;
             if (m_indexOfCurrQuestion == this.questionDetails.Count)//if questions end
             {
                 this.nextQuestionButton.Text = "summrize";
                 this.nextQuestionButton.BackColor = System.Drawing.Color.Yellow;
             }
+            //wait until user clicks on the continue button to display another q 
             this.nextQuestionButton.Visible = true;
             this.answer1Button.Visible = false;
             this.answer2Button.Visible = false;
@@ -231,7 +220,7 @@ namespace clientForQuestions2._0
                 OnCoreWebView2InitializationCompleted(sender, e);
                 
                 this.nextQuestionButton.Visible=false;
-                this.label1.Text = "";
+                this.isUserRightLabel.Text = "";
                 this.answer1Button.Visible = true;
                 this.answer2Button.Visible = true;
                 this.answer3Button.Visible = true;
@@ -244,13 +233,14 @@ namespace clientForQuestions2._0
         }
         private void answerCorrect()
         {
-            this.label1.Text = "correct :)";
-            this.label1.ForeColor = System.Drawing.Color.Green;
+            //when answer correct display a msg
+            this.isUserRightLabel.Text = "correct :)";
+            this.isUserRightLabel.ForeColor = System.Drawing.Color.Green;
         }
         private void answerinCorrect()
         {
-            this.label1.Text = "incorrect :(";
-            this.label1.ForeColor = System.Drawing.Color.Red;
+            this.isUserRightLabel.Text = "incorrect :(";
+            this.isUserRightLabel.ForeColor = System.Drawing.Color.Red;
         }
         private void answer1Button_Click(object sender, EventArgs e)
         {
@@ -310,7 +300,6 @@ namespace clientForQuestions2._0
         {
             // Reposition the button on form resize
             PositionNextQuestionButton();
-            //PositionOptionsButton();
         }
 
         private void PositionNextQuestionButton()
@@ -318,7 +307,7 @@ namespace clientForQuestions2._0
             // Position the button on the far right with a fixed height, and optional margin
             int rightMargin = 10; // Adjust as needed
             int topMargin = 50;   // Adjust as needed
-            this.label1.Location = new Point(this.ClientSize.Width - nextQuestionButton.Width - rightMargin, topMargin+this.nextQuestionButton.Height+20);
+            this.isUserRightLabel.Location = new Point(this.ClientSize.Width - nextQuestionButton.Width - rightMargin, topMargin+this.nextQuestionButton.Height+20);
             nextQuestionButton.Location = new Point(this.ClientSize.Width - nextQuestionButton.Width - rightMargin, topMargin);
         }
 

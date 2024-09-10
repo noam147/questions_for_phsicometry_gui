@@ -84,6 +84,7 @@
     <Compile Include="menuPage.Designer.cs">
       <DependentUpon>menuPage.cs</DependentUpon>
     </Compile>
+    <Compile Include="OperationsAndOtherUseful.cs" />
     <Compile Include="questionsPage.cs">
       <SubType>Form</SubType>
     </Compile>

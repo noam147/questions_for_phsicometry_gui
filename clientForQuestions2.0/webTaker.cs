@@ -21,7 +21,7 @@ namespace clientForQuestions2._0
                     return;
                 }
                 //this.m_currAnswer = this.questionDetails[this.m_indexOfCurrQuestion].rightAnswer;
-                string htmlContent = sqlDb.get_string_of_question_and_option_from_json(textInJson);
+                string htmlContent = OperationsAndOtherUseful.get_string_of_question_and_option_from_json(textInJson);
                 // Load the HTML content into WebView2
                 web.NavigateToString(htmlContent);
             }

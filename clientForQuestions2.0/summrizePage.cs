@@ -201,7 +201,7 @@ namespace clientForQuestions2._0
         }
         private void Button_Click(int questionIndex)
         {
-            string toDisplay = sqlDb.get_string_of_question_and_explanation(this.m_questions[questionIndex].question.json_content, this.m_questions[questionIndex].userAnswer);
+            string toDisplay = OperationsAndOtherUseful.get_string_of_question_and_explanation(this.m_questions[questionIndex].question.json_content, this.m_questions[questionIndex].userAnswer);
             this.webView21.NavigateToString(toDisplay);
         }
         private void button1_Click(object sender, EventArgs e)
