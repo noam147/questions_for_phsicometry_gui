@@ -32,7 +32,7 @@ namespace clientForQuestions2._0
         private int m_indexOfCurrQuestion = 0;
         private int m_currAnswer =0;
 
-        private int secondsTookForCurrq = 1;
+        private int secondsTookForCurrq = 0;
         private System.Timers.Timer m_aTimer;
         public questionsPage(int amount,List<string> listOfTopics)
         {
@@ -71,7 +71,6 @@ namespace clientForQuestions2._0
             this.isUserRightLabel.Text = "";
             this.nextQuestionButton.Visible = false;
             updateLabelAnswers();
-            SetTimer();
         }
         private void OnTimedEvent(Object source, ElapsedEventArgs e)
         {
@@ -161,6 +160,7 @@ namespace clientForQuestions2._0
                 // Safely add the control to the form on the main thread
                 try
                 {
+                    SetTimer();//start the timer here
                     Controls.Add(webView21);
                     webView21.SendToBack(); // Send WebView2 to the back
                 }
@@ -248,7 +248,7 @@ namespace clientForQuestions2._0
                 this.answer3Button.Visible = true;
                 this.answer4Button.Visible = true;
 
-                this.secondsTookForCurrq = 1;
+                this.secondsTookForCurrq = 0;
                 this.m_aTimer.Start();
             }
             else
