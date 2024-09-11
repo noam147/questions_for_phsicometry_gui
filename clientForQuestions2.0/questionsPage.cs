@@ -113,6 +113,8 @@ namespace clientForQuestions2._0
             this.answer3Button.Enabled = false;
             this.answer4Button.Enabled = false;
             questionDetails = sqlDb.get_n_questions_from_arr_of_categorys(amount, listOfTopics);
+            //questionDetails = sqlDb.get_n_questions_from_arr_of_categorysWithDiffcultyLevel(amount, listOfTopics, 10);
+            writeQuestionToLogFile();
             m_maxQuestions = questionDetails.Count;//if amount is bigger that questions avelible
             writeQuestionToLogFile();
             this.isUserRightLabel.Text = "";

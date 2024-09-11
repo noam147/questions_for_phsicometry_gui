@@ -115,6 +115,18 @@ namespace clientForQuestions2._0
             
             return doQuery(query);
         }
+        public static List<dbQuestionParmeters> get_n_questions_from_arr_of_categorysWithDiffcultyLevel(int n, List<string> categories,float difficulty)
+        {
+            string add = "";
+            for (int i = 0; i < categories.Count; i++)
+            {
+                add += "\'" + categories[i] + "\',";
+            }
+            add = add.Substring(0, add.Length - 1);
+            string query = $"SELECT * FROM questions WHERE question_type IN ({add}) AND JSON_EXTRACT(json_question, '$.data[0].difficulty_level') = {difficulty} ORDER BY RANDOM() LIMIT {n}";
+
+            return doQuery(query);
+        }
         private static int get_num_of_correct_answer(JToken json)
         {
             int option1;
