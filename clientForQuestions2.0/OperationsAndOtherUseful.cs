@@ -14,7 +14,7 @@ namespace clientForQuestions2._0
         private static string get_string_of_img_html(JToken json)
         {
             //this should be in a separate file
-            if (json == null)
+            if (json == null )
             {
                 return "";
             }
@@ -113,8 +113,8 @@ namespace clientForQuestions2._0
         public static string get_string_of_question_and_explanation(JToken json, int clientanswer)
         {
             string answer = json["solving_explanation"].ToString();
-            var img = json["explanation_image"];
             string line = "<div style=\"top: 50%; left: 0; width: 100vw; height: 1px; background-color: lightgray;\"></div>\r\n<br>explanation:";
+            var img = json["explanation_image"];
             return get_string_of_question_and_option_from_json(json, clientanswer) + line + answer + get_string_of_img_html(img);
 
         }

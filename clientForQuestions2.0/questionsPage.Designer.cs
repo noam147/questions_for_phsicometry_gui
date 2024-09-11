@@ -33,6 +33,7 @@
             this.answer2Button = new System.Windows.Forms.Button();
             this.answer3Button = new System.Windows.Forms.Button();
             this.answer4Button = new System.Windows.Forms.Button();
+            this.stopTestButton = new System.Windows.Forms.Button();
             this.isUserRightLabel = new System.Windows.Forms.Label();
             this.answersTrackLabel = new System.Windows.Forms.Label();
             this.questionTrackLabel = new System.Windows.Forms.Label();
@@ -93,6 +94,18 @@
             this.answer4Button.UseVisualStyleBackColor = true;
             this.answer4Button.Click += new System.EventHandler(this.answer4Button_Click);
             // 
+            // stopTestButton
+            // 
+            this.stopTestButton.AutoSize = true;
+            this.stopTestButton.Location = new System.Drawing.Point(764, 477);
+            this.stopTestButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.stopTestButton.Name = "stopTestButton";
+            this.stopTestButton.Size = new System.Drawing.Size(103, 37);
+            this.stopTestButton.TabIndex = 4;
+            this.stopTestButton.Text = "stop test";
+            this.stopTestButton.UseVisualStyleBackColor = true;
+            this.stopTestButton.Click += new System.EventHandler(this.stopTest);
+            // 
             // isUserRightLabel
             // 
             this.isUserRightLabel.AutoSize = true;
@@ -135,6 +148,7 @@
             this.Controls.Add(this.answer2Button);
             this.Controls.Add(this.answer1Button);
             this.Controls.Add(this.nextQuestionButton);
+            this.Controls.Add(this.stopTestButton);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "questionsPage";
             this.Text = "Form1";
@@ -151,6 +165,7 @@
         private System.Windows.Forms.Button answer2Button;
         private System.Windows.Forms.Button answer3Button;
         private System.Windows.Forms.Button answer4Button;
+        private System.Windows.Forms.Button stopTestButton;
         private System.Windows.Forms.Label isUserRightLabel;
         private System.Windows.Forms.Label answersTrackLabel;
         private System.Windows.Forms.Label questionTrackLabel;

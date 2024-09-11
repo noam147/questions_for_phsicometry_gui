@@ -267,7 +267,7 @@ namespace clientForQuestions2._0
             //this.FormBorderStyle = FormBorderStyle.None;
             //this.StartPosition = FormStartPosition.CenterScreen;
 
-            this.amountOfQuestionTextBox.Text = "5";
+            this.amountOfQuestionNumericUpDown.Value = 5;
             this.continueButton.Enabled = false;
         }
 
@@ -353,7 +353,7 @@ namespace clientForQuestions2._0
             int amount = 0;
             try
             {
-                amount = int.Parse(this.amountOfQuestionTextBox.Text);
+                amount = (int) this.amountOfQuestionNumericUpDown.Value;
             }
             catch (Exception ex)
             {
@@ -362,7 +362,7 @@ namespace clientForQuestions2._0
 
             LogFileHandler.writeIntoFile("Opened new questions page");
             //get the questions here
-            questionsPage c = new questionsPage(amount, this.topicsList);
+            questionsPage c = new questionsPage(amount, this.topicsList, this.isQSkip_checkBox.Checked);
 
             c.Show();
             this.Close();

@@ -29,8 +29,7 @@
         private void InitializeComponent()
         {
             this.back2MainMenuButton = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
-            this.amountOfQuestionTextBox = new System.Windows.Forms.TextBox();
+            this.amountOfQuestionText = new System.Windows.Forms.Label();
             this.continueButton = new System.Windows.Forms.Button();
             this.themeBase1 = new System.Windows.Forms.Button();
             this.themeBase2 = new System.Windows.Forms.Button();
@@ -56,7 +55,6 @@
             this.themeBase22 = new System.Windows.Forms.Button();
             this.themeBase23 = new System.Windows.Forms.Button();
             this.themeBase24 = new System.Windows.Forms.Button();
-            this.themeBase25 = new System.Windows.Forms.Button();
             this.themeBase26 = new System.Windows.Forms.Button();
             this.themeBase27 = new System.Windows.Forms.Button();
             this.themeBase28 = new System.Windows.Forms.Button();
@@ -86,6 +84,9 @@
             this.theme9 = new System.Windows.Forms.Button();
             this.theme10 = new System.Windows.Forms.Button();
             this.all_t = new System.Windows.Forms.Button();
+            this.amountOfQuestionNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.isQSkip_checkBox = new System.Windows.Forms.CheckBox();
+            ((System.ComponentModel.ISupportInitialize)(this.amountOfQuestionNumericUpDown)).BeginInit();
             this.SuspendLayout();
             // 
             // back2MainMenuButton
@@ -99,27 +100,19 @@
             this.back2MainMenuButton.UseVisualStyleBackColor = true;
             this.back2MainMenuButton.Click += new System.EventHandler(this.back2MainMenuButton_Click);
             // 
-            // label2
+            // amountOfQuestionText
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold);
-            this.label2.Location = new System.Drawing.Point(70, 412);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(93, 16);
-            this.label2.TabIndex = 12;
-            this.label2.Text = ":מספר שאלות";
-            // 
-            // amountOfQuestionTextBox
-            // 
-            this.amountOfQuestionTextBox.Location = new System.Drawing.Point(91, 437);
-            this.amountOfQuestionTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.amountOfQuestionTextBox.Name = "amountOfQuestionTextBox";
-            this.amountOfQuestionTextBox.Size = new System.Drawing.Size(68, 22);
-            this.amountOfQuestionTextBox.TabIndex = 11;
+            this.amountOfQuestionText.AutoSize = true;
+            this.amountOfQuestionText.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold);
+            this.amountOfQuestionText.Location = new System.Drawing.Point(70, 412);
+            this.amountOfQuestionText.Name = "amountOfQuestionText";
+            this.amountOfQuestionText.Size = new System.Drawing.Size(93, 16);
+            this.amountOfQuestionText.TabIndex = 12;
+            this.amountOfQuestionText.Text = ":מספר שאלות";
             // 
             // continueButton
             // 
-            this.continueButton.Location = new System.Drawing.Point(38, 497);
+            this.continueButton.Location = new System.Drawing.Point(38, 513);
             this.continueButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.continueButton.Name = "continueButton";
             this.continueButton.Size = new System.Drawing.Size(125, 90);
@@ -416,22 +409,10 @@
             this.themeBase24.UseVisualStyleBackColor = true;
             this.themeBase24.Click += new System.EventHandler(this.themebase_Click);
             // 
-            // themeBase25
-            // 
-            this.themeBase25.AutoSize = true;
-            this.themeBase25.Location = new System.Drawing.Point(383, 437);
-            this.themeBase25.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.themeBase25.Name = "themeBase25";
-            this.themeBase25.Size = new System.Drawing.Size(100, 30);
-            this.themeBase25.TabIndex = 10;
-            this.themeBase25.Text = "טווחים";
-            this.themeBase25.UseVisualStyleBackColor = true;
-            this.themeBase25.Click += new System.EventHandler(this.themebase_Click);
-            // 
             // themeBase26
             // 
             this.themeBase26.AutoSize = true;
-            this.themeBase26.Location = new System.Drawing.Point(383, 523);
+            this.themeBase26.Location = new System.Drawing.Point(383, 491);
             this.themeBase26.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.themeBase26.Name = "themeBase26";
             this.themeBase26.Size = new System.Drawing.Size(123, 41);
@@ -443,7 +424,7 @@
             // themeBase27
             // 
             this.themeBase27.AutoSize = true;
-            this.themeBase27.Location = new System.Drawing.Point(383, 564);
+            this.themeBase27.Location = new System.Drawing.Point(383, 532);
             this.themeBase27.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.themeBase27.Name = "themeBase27";
             this.themeBase27.Size = new System.Drawing.Size(161, 41);
@@ -455,7 +436,7 @@
             // themeBase28
             // 
             this.themeBase28.AutoSize = true;
-            this.themeBase28.Location = new System.Drawing.Point(383, 605);
+            this.themeBase28.Location = new System.Drawing.Point(383, 573);
             this.themeBase28.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.themeBase28.Name = "themeBase28";
             this.themeBase28.Size = new System.Drawing.Size(100, 30);
@@ -701,7 +682,7 @@
             // 
             this.theme5.AutoSize = true;
             this.theme5.BackColor = System.Drawing.Color.LightGreen;
-            this.theme5.Location = new System.Drawing.Point(368, 479);
+            this.theme5.Location = new System.Drawing.Point(368, 447);
             this.theme5.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.theme5.Name = "theme5";
             this.theme5.Size = new System.Drawing.Size(135, 40);
@@ -790,15 +771,38 @@
             this.all_t.UseVisualStyleBackColor = false;
             this.all_t.Click += new System.EventHandler(this.theme_Click);
             // 
+            // amountOfQuestionNumericUpDown
+            // 
+            this.amountOfQuestionNumericUpDown.Location = new System.Drawing.Point(87, 441);
+            this.amountOfQuestionNumericUpDown.Name = "amountOfQuestionNumericUpDown";
+            this.amountOfQuestionNumericUpDown.Size = new System.Drawing.Size(76, 22);
+            this.amountOfQuestionNumericUpDown.TabIndex = 13;
+            this.amountOfQuestionNumericUpDown.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            // 
+            // isQSkip_checkBox
+            // 
+            this.isQSkip_checkBox.AutoSize = true;
+            this.isQSkip_checkBox.Location = new System.Drawing.Point(10, 480);
+            this.isQSkip_checkBox.Name = "isQSkip_checkBox";
+            this.isQSkip_checkBox.Size = new System.Drawing.Size(153, 20);
+            this.isQSkip_checkBox.TabIndex = 14;
+            this.isQSkip_checkBox.Text = "ללא משוב על תשובות";
+            this.isQSkip_checkBox.UseVisualStyleBackColor = true;
+            // 
             // normalQuestionsMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1105, 840);
+            this.Controls.Add(this.amountOfQuestionNumericUpDown);
             this.Controls.Add(this.back2MainMenuButton);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.amountOfQuestionTextBox);
+            this.Controls.Add(this.amountOfQuestionText);
             this.Controls.Add(this.continueButton);
+            this.Controls.Add(this.isQSkip_checkBox);
             this.Controls.Add(this.themeBase1);
             this.Controls.Add(this.themeBase2);
             this.Controls.Add(this.themeBase3);
@@ -823,7 +827,6 @@
             this.Controls.Add(this.themeBase22);
             this.Controls.Add(this.themeBase23);
             this.Controls.Add(this.themeBase24);
-            this.Controls.Add(this.themeBase25);
             this.Controls.Add(this.themeBase26);
             this.Controls.Add(this.themeBase27);
             this.Controls.Add(this.themeBase28);
@@ -857,6 +860,7 @@
             this.Name = "normalQuestionsMenu";
             this.Text = "normalQuestionsMenu";
             this.Load += new System.EventHandler(this.normalQuestionsMenu_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.amountOfQuestionNumericUpDown)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -865,8 +869,7 @@
         #endregion
         private System.Windows.Forms.Button back2MainMenuButton;
 
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox amountOfQuestionTextBox;
+        private System.Windows.Forms.Label amountOfQuestionText;
         private System.Windows.Forms.Button continueButton;
 
         private System.Windows.Forms.Button themeBase1;
@@ -893,7 +896,6 @@
         private System.Windows.Forms.Button themeBase22;
         private System.Windows.Forms.Button themeBase23;
         private System.Windows.Forms.Button themeBase24;
-        private System.Windows.Forms.Button themeBase25;
         private System.Windows.Forms.Button themeBase26;
         private System.Windows.Forms.Button themeBase27;
         private System.Windows.Forms.Button themeBase28;
@@ -925,5 +927,7 @@
         private System.Windows.Forms.Button theme10;
 
         private System.Windows.Forms.Button all_t;
+        private System.Windows.Forms.NumericUpDown amountOfQuestionNumericUpDown;
+        private System.Windows.Forms.CheckBox isQSkip_checkBox;
     }
 }

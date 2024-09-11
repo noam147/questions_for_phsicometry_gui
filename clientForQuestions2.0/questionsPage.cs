@@ -32,13 +32,15 @@ namespace clientForQuestions2._0
         private int m_indexOfCurrQuestion = 0;
         private int m_currAnswer =0;
 
+        private bool isQSkip;
+
         private int secondsTookForCurrq = 0;
         private System.Timers.Timer m_aTimer;
-        public questionsPage(int amount,List<string> listOfTopics)
+        public questionsPage(int amount,List<string> listOfTopics, bool isQSkip)
         {
             InitializeComponent();
             updateAtStart(amount, listOfTopics);
-
+            this.isQSkip = isQSkip;
             PositionNextQuestionButton();
             this.Resize += MainForm_Resize;
             Thread thread = new Thread(() =>
@@ -185,11 +187,28 @@ namespace clientForQuestions2._0
         }
         private void updateLabelAnswers()
         {
-            this.answersTrackLabel.Text = $"{m_rightQuestions}/{m_maxQuestions} correct";
+            if (!isQSkip) { this.answersTrackLabel.Text = $"{m_rightQuestions}/{m_maxQuestions} correct"; }
+            else { this.answersTrackLabel.Text = "";  }
             this.questionTrackLabel.Text = $"Current question is: {m_questionCounter}/{m_maxQuestions}";
         }
+
+        private void stopTest(object sender, EventArgs e)
+        {
+            if (this.m_afterQuestionParametrs.Count == 0)
+            {
+                var mp = new menuPage();
+                mp.Show();
+                this.Close();
+                return;
+            }
+            var s = new summrizePage(this.m_afterQuestionParametrs);
+            s.Show();
+            this.Close();
+        }
+
         private void afterAnswerQuestion(int answer)
         {
+            this.stopTestButton.Text = "stop test and summarize";
             //this func happens after the user clicked on an answer
             this.m_aTimer.Stop();
             //func check if answer is true and return explantion 
@@ -208,14 +227,27 @@ namespace clientForQuestions2._0
             updateLabelAnswers();
 
             //after user submit an answer give to him a feedback
-            string htmlContent = OperationsAndOtherUseful.get_string_of_question_and_explanation(this.questionDetails[m_indexOfCurrQuestion].json_content,answer);
-            webView21.NavigateToString(htmlContent);
-
+            if (!isQSkip)
+            {
+                string htmlContent = OperationsAndOtherUseful.get_string_of_question_and_explanation(this.questionDetails[m_indexOfCurrQuestion].json_content, answer);
+                webView21.NavigateToString(htmlContent);
+            }
             //check if this the last question
             this.m_indexOfCurrQuestion++;
+
+            if (isQSkip)
+            {
+                this.answer1Button.Visible = false;
+                this.answer2Button.Visible = false;
+                this.answer3Button.Visible = false;
+                this.answer4Button.Visible = false;
+                nextQuestionButtonClick(null, null);
+                return;
+            }
+
             if (m_indexOfCurrQuestion == this.questionDetails.Count)//if questions end
             {
-                this.nextQuestionButton.Text = "summrize";
+                this.nextQuestionButton.Text = "summarize";
                 this.nextQuestionButton.BackColor = System.Drawing.Color.Yellow;
             }
             //wait until user clicks on the continue button to display another q 
@@ -269,52 +301,64 @@ namespace clientForQuestions2._0
         }
         private void answer1Button_Click(object sender, EventArgs e)
         {
-            if(this.questionDetails[this.m_indexOfCurrQuestion].rightAnswer == 1)
+            if (!isQSkip)
             {
-                answerCorrect();
-            }
-            else
-            {
-                answerinCorrect();
+                if (this.questionDetails[this.m_indexOfCurrQuestion].rightAnswer == 1)
+                {
+                    answerCorrect();
+                }
+                else
+                {
+                    answerinCorrect();
+                }
             }
             afterAnswerQuestion(1);
         }
 
         private void answer2Button_Click(object sender, EventArgs e)
         {
-            if (this.questionDetails[this.m_indexOfCurrQuestion].rightAnswer == 2)
+            if (!isQSkip)
             {
-                answerCorrect();
-            }
-            else
-            {
-                answerinCorrect();
+                if (this.questionDetails[this.m_indexOfCurrQuestion].rightAnswer == 2)
+                {
+                    answerCorrect();
+                }
+                else
+                {
+                    answerinCorrect();
+                }
             }
             afterAnswerQuestion(2);
         }
 
         private void answer3Button_Click(object sender, EventArgs e)
         {
-            if (this.questionDetails[this.m_indexOfCurrQuestion].rightAnswer == 3)
+            if (!isQSkip)
             {
-                answerCorrect();
-            }
-            else
-            {
-                answerinCorrect();
+                if (this.questionDetails[this.m_indexOfCurrQuestion].rightAnswer == 3)
+                {
+                    answerCorrect();
+                }
+                else
+                {
+                    answerinCorrect();
+                }
             }
             afterAnswerQuestion(3);
         }
 
         private void answer4Button_Click(object sender, EventArgs e)
         {
-            if (this.questionDetails[this.m_indexOfCurrQuestion].rightAnswer == 4)
+            if (!isQSkip)
             {
-                answerCorrect();
-            }
-            else
-            {
-                answerinCorrect();
+                if (this.questionDetails[this.m_indexOfCurrQuestion].rightAnswer == 4)
+                {
+                    answerCorrect();
+                }
+                else
+                {
+                    answerinCorrect();
+                }
             }
             afterAnswerQuestion(4);
         }
