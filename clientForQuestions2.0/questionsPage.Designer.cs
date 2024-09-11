@@ -1,4 +1,6 @@
-﻿namespace clientForQuestions2._0
+﻿using System.Drawing;
+
+namespace clientForQuestions2._0
 {
     partial class questionsPage
     {
@@ -37,6 +39,7 @@
             this.isUserRightLabel = new System.Windows.Forms.Label();
             this.answersTrackLabel = new System.Windows.Forms.Label();
             this.questionTrackLabel = new System.Windows.Forms.Label();
+            this.timer = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // nextQuestionButton
@@ -137,11 +140,26 @@
             this.questionTrackLabel.TabIndex = 7;
             this.questionTrackLabel.Text = "questionTrack";
             // 
+            // timer
+            // 
+            this.timer.AutoSize = true;
+            this.timer.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.timer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.timer.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Bold);
+            this.timer.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.timer.Location = new System.Drawing.Point(873, 140);
+            this.timer.Name = "timer";
+            this.timer.Size = new System.Drawing.Size(89, 41);
+            this.timer.TabIndex = 8;
+            this.timer.Text = "0:00";
+            this.timer.Click += new System.EventHandler(this.label1_Click);
+            // 
             // questionsPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1050, 755);
+            this.Controls.Add(this.timer);
             this.Controls.Add(this.questionTrackLabel);
             this.Controls.Add(this.answersTrackLabel);
             this.Controls.Add(this.isUserRightLabel);
@@ -171,6 +189,7 @@
         private System.Windows.Forms.Label isUserRightLabel;
         private System.Windows.Forms.Label answersTrackLabel;
         private System.Windows.Forms.Label questionTrackLabel;
+        private System.Windows.Forms.Label timer;
     }
 }
 

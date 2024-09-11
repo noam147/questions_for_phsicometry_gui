@@ -22,6 +22,7 @@ namespace clientForQuestions2._0
         private WebView2 webView2_col;
         private bool isFinishInit = false;
 
+        private int h_statsPlace = 40;
         private int h_questionsPlace = 70;
         private int w_screen;
         private int h_screen;
@@ -43,6 +44,8 @@ namespace clientForQuestions2._0
                 this.Size = new Size(w_screen * 2, h_screen);
 
             this.timeTookForQLabel.Text = "";
+            displayTotalAvrageTime();
+
             Thread thread = new Thread(() =>
             {
                 while (!this.IsHandleCreated)
@@ -63,6 +66,18 @@ namespace clientForQuestions2._0
             createButtons(questions);
             displayButtons();
         }
+
+        private void displayTotalAvrageTime()
+        {
+            int time = 0;
+            foreach(afterQuestionParametrs qp in m_questions)
+            {
+                time += qp.timeForAnswer;
+            }
+            this.total_time.Text = $"Total time: {time}";
+            this.avrage_time.Text = $"Avrage time: {time / m_questions.Count}";
+        }
+
         private void Form_Resize(object sender, EventArgs e)
         {
             return;
@@ -75,7 +90,7 @@ namespace clientForQuestions2._0
             }
             if (webView2_col != null && col_id != 0)
             {
-                Location = new Point((int)this.ClientSize.Width / 2, h_questionsPlace); // Adjust Y coordinate to leave space for buttons
+                Location = new Point((int)this.ClientSize.Width / 2, h_questionsPlace + h_statsPlace); // Adjust Y coordinate to leave space for buttons
 
                 webView2_col.Size = new Size((int)this.ClientSize.Width / 2, this.ClientSize.Height - h_questionsPlace); // Adjust height based on form size
             
@@ -101,8 +116,8 @@ namespace clientForQuestions2._0
             // Initialize the WebView2 control
             webView21 = new WebView2
             {
-                Location = new Point(0, h_questionsPlace), // Adjust Y coordinate to leave space for buttons
-                Size = new Size(w_screen, h_screen - h_questionsPlace), // Adjust size to fit below the buttons
+                Location = new Point(0, h_questionsPlace + h_statsPlace), // Adjust Y coordinate to leave space for buttons
+                Size = new Size(w_screen, h_screen - h_questionsPlace - h_statsPlace), // Adjust size to fit below the buttons
                 Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right
             };
 
@@ -189,8 +204,8 @@ namespace clientForQuestions2._0
             // Initialize the WebView2 control
             webView2_col = new WebView2
             {
-                Location = new Point(w_screen, h_questionsPlace), // Adjust Y coordinate to leave space for buttons
-                Size = new Size(w_screen, h_screen - h_questionsPlace), // Adjust size to fit below the buttons
+                Location = new Point(w_screen, h_questionsPlace + h_statsPlace), // Adjust Y coordinate to leave space for buttons
+                Size = new Size(w_screen, h_screen - h_questionsPlace - h_statsPlace), // Adjust size to fit below the buttons
                 Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right
             };
 
@@ -330,6 +345,7 @@ namespace clientForQuestions2._0
             string toDisplay = OperationsAndOtherUseful.get_string_of_question_and_explanation(this.m_questions[questionIndex].question, this.m_questions[questionIndex].userAnswer);
             int secondsTook = this.m_questions[questionIndex].timeForAnswer;
             updateQuestionTimerText(secondsTook);
+            updateCategory(this.m_questions[questionIndex].question.category);
             this.webView21.NavigateToString(toDisplay);
         }
         private void button1_Click(object sender, EventArgs e)
@@ -351,7 +367,21 @@ namespace clientForQuestions2._0
             }
 
         }
+        private void updateCategory(String c)
+        {
+            this.category_of_q.Text = c;
+        }
         private void timeTookForQLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
         {
 
         }

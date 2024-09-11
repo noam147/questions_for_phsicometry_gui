@@ -146,6 +146,15 @@ namespace clientForQuestions2._0
         private void OnTimedEvent(Object source, ElapsedEventArgs e)
         {
             this.secondsTookForCurrq++;
+            // Ensure the label is updated on the UI thread
+            this.timer.Invoke((MethodInvoker)delegate
+            {
+                if (secondsTookForCurrq % 60 < 10)
+                    this.timer.Text = $"{(int)secondsTookForCurrq / 60}:0{secondsTookForCurrq % 60}";
+                else
+                    this.timer.Text = $"{(int)secondsTookForCurrq / 60}:{secondsTookForCurrq % 60}";
+            });
+
         }
         private void SetTimer()
         {
@@ -438,6 +447,7 @@ namespace clientForQuestions2._0
         private void nextQuestionButtonClick(object sender, EventArgs e)
         {
             m_questionCounter++;
+            this.timer.Text = "0:00";
             this.updateLabelAnswers();
             //if questions end
             if (m_indexOfCurrQuestion == this.questionDetails.Count)
@@ -565,6 +575,11 @@ namespace clientForQuestions2._0
         }
 
         private void isUserRightLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
         {
 
         }
