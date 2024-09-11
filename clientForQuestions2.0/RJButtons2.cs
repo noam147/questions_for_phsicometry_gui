@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Runtime.Remoting.Channels;
 
 namespace clientForQuestions2._0
 {
@@ -13,8 +14,8 @@ namespace clientForQuestions2._0
     {
         //https://www.youtube.com/watch?v=u8SL5g9QGcI
         //the code taken from here
-        private int borderSize = 0;
-        private int borderRadiuos = 40;
+        private int borderSize = 1;
+        private int borderRadiuos = 400;
         private Color borderColor = Color.Black;
         public RJButtons2()
         {
@@ -23,6 +24,13 @@ namespace clientForQuestions2._0
             this.Size = new Size(150, 40);
             this.BackColor = Color.MediumSlateBlue;
             this.ForeColor = Color.White;
+            this.Resize += new EventHandler(Button_Resize);
+        }
+        private void Button_Resize(object sender, EventArgs e)
+        {
+            if(this.borderRadiuos > this.Height)
+                this.borderRadiuos = this.Height;
+
         }
         public int BorderSize
         {
@@ -32,7 +40,11 @@ namespace clientForQuestions2._0
         public int BorderRadiuos
         {
             get { return borderRadiuos; }
-            set { borderRadiuos = value; }
+            set {
+                if(value <= this.Height )
+                borderRadiuos = value;
+                else { this.borderRadiuos = Height; }
+            }
         }
         public GraphicsPath GetFigureGraph(RectangleF rect, float radious)
         {

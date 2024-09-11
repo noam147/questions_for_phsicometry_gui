@@ -23,7 +23,7 @@ namespace clientForQuestions2._0
         {
             this.m_questions = questions;
             InitializeComponent();
-            
+            this.timeTookForQLabel.Text = "";
             Thread thread = new Thread(() =>
             {
                 while (!this.IsHandleCreated)

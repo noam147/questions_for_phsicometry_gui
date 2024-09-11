@@ -67,6 +67,11 @@ namespace clientForQuestions2._0
         }
         private void updateAtStart(int amount, List<string> listOfTopics)
         {
+            //wait until webview is init
+            this.answer1Button.Enabled = false;
+            this.answer2Button.Enabled = false;
+            this.answer3Button.Enabled = false;
+            this.answer4Button.Enabled = false;
             questionDetails = sqlDb.get_n_questions_from_arr_of_categorys(amount, listOfTopics);
             writeQuestionToLogFile();
             m_maxQuestions = questionDetails.Count;//if amount is bigger that questions avelible
@@ -87,6 +92,16 @@ namespace clientForQuestions2._0
             m_aTimer.Elapsed += OnTimedEvent;
             m_aTimer.AutoReset = true;
             m_aTimer.Enabled = true;
+        }
+
+
+        private void whenFinishInitWebView()
+        {
+            this.answer1Button.Enabled = true;
+            this.answer2Button.Enabled = true;
+            this.answer3Button.Enabled = true;
+            this.answer4Button.Enabled = true;
+            SetTimer();//start the timer here
         }
         //func is not intersting - just prepering html displayer
         private async void InitializeWebView2()
@@ -162,7 +177,7 @@ namespace clientForQuestions2._0
                 // Safely add the control to the form on the main thread
                 try
                 {
-                    SetTimer();//start the timer here
+                    whenFinishInitWebView();
                     Controls.Add(webView21);
                     webView21.SendToBack(); // Send WebView2 to the back
                 }
@@ -192,10 +207,11 @@ namespace clientForQuestions2._0
             this.questionTrackLabel.Text = $"Current question is: {m_questionCounter}/{m_maxQuestions}";
         }
 
-        private void stopTest(object sender, EventArgs e)
+        private void stopTestButtonClick(object sender, EventArgs e)
         {
             if (this.m_afterQuestionParametrs.Count == 0)
             {
+                //if user didnt answer questions at all - direct him to the menu
                 var mp = new menuPage();
                 mp.Show();
                 this.Close();

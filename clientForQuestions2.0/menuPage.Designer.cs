@@ -34,8 +34,7 @@ namespace clientForQuestions2._0
             this.normalQuestions = new System.Windows.Forms.Button();
             this.questionByIDtextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.questionbyIdButton = new System.Windows.Forms.Button();
-            this.rjButtons22 = new clientForQuestions2._0.RJButtons2();
+            this.questionByIdButton = new clientForQuestions2._0.RJButtons2();
             this.SuspendLayout();
             // 
             // normalQuestions
@@ -66,40 +65,31 @@ namespace clientForQuestions2._0
             this.label1.TabIndex = 15;
             this.label1.Text = "שאלה לפי מספר מזהה";
             // 
-            // questionbyIdButton
+            // questionByIdButton
             // 
-            this.questionbyIdButton.Location = new System.Drawing.Point(94, 371);
-            this.questionbyIdButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.questionbyIdButton.Name = "questionbyIdButton";
-            this.questionbyIdButton.Size = new System.Drawing.Size(84, 58);
-            this.questionbyIdButton.TabIndex = 16;
-            this.questionbyIdButton.Text = "הצגת שאלה";
-            this.questionbyIdButton.UseVisualStyleBackColor = true;
-            this.questionbyIdButton.Click += new System.EventHandler(this.questionbyIdButton_Click);
-            // 
-            // rjButtons22
-            // 
-            this.rjButtons22.BackColor = System.Drawing.Color.MediumSlateBlue;
-            this.rjButtons22.FlatAppearance.BorderSize = 0;
-            this.rjButtons22.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rjButtons22.ForeColor = System.Drawing.Color.White;
-            this.rjButtons22.Location = new System.Drawing.Point(225, 534);
-            this.rjButtons22.Name = "rjButtons22";
-            this.rjButtons22.Size = new System.Drawing.Size(400, 100);
-            this.rjButtons22.TabIndex = 18;
-            this.rjButtons22.Text = "rjButtons22";
-            this.rjButtons22.UseVisualStyleBackColor = false;
+            this.questionByIdButton.BackColor = System.Drawing.Color.MediumSlateBlue;
+            this.questionByIdButton.BorderRadiuos = 40;
+            this.questionByIdButton.BorderSize = 1;
+            this.questionByIdButton.FlatAppearance.BorderSize = 0;
+            this.questionByIdButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.questionByIdButton.ForeColor = System.Drawing.Color.White;
+            this.questionByIdButton.Location = new System.Drawing.Point(49, 376);
+            this.questionByIdButton.Name = "questionByIdButton";
+            this.questionByIdButton.Size = new System.Drawing.Size(176, 60);
+            this.questionByIdButton.TabIndex = 18;
+            this.questionByIdButton.Text = "הצג שאלה";
+            this.questionByIdButton.UseVisualStyleBackColor = false;
+            this.questionByIdButton.Click += new System.EventHandler(this.questionbyIdButton_Click);
             // 
             // menuPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1243, 1050);
-            this.Controls.Add(this.rjButtons22);
+            this.Controls.Add(this.questionByIdButton);
             this.Controls.Add(this.normalQuestions);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.questionByIDtextBox);
-            this.Controls.Add(this.questionbyIdButton);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "menuPage";
             this.Text = "menuPage";
@@ -115,7 +105,6 @@ namespace clientForQuestions2._0
 
         private System.Windows.Forms.TextBox questionByIDtextBox;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button questionbyIdButton;
-        private RJButtons2 rjButtons22;
+        private RJButtons2 questionByIdButton;
     }
 }

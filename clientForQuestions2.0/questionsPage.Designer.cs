@@ -104,7 +104,7 @@
             this.stopTestButton.TabIndex = 4;
             this.stopTestButton.Text = "stop test";
             this.stopTestButton.UseVisualStyleBackColor = true;
-            this.stopTestButton.Click += new System.EventHandler(this.stopTest);
+            this.stopTestButton.Click += new System.EventHandler(this.stopTestButtonClick);
             // 
             // isUserRightLabel
             // 
