@@ -66,38 +66,59 @@ namespace clientForQuestions2._0
         public static string get_string_of_question_and_option_from_json(dbQuestionParmeters qp,int userAnswer)
         {
             //optionToMarkRed = user answer
+            bool isTextOptions = ((JArray)qp.json_content["options"]).Count != 0;
             int optionToMarkCyan = qp.rightAnswer;
             string question = qp.json_content["question"].ToString();
             string option1;
             string option2;
             string option3;
             string option4;
-            try
+            List<string> listOfOptions  = new List<string>();
+            if (isTextOptions)
             {
                  option1 = qp.json_content["options"][0]["text"].ToString();
                  option2 = qp.json_content["options"][1]["text"].ToString();
                  option3 = qp.json_content["options"][2]["text"].ToString();
                  option4 = qp.json_content["options"][3]["text"].ToString();
-            }
-            catch
-            {
-                //FIX_THIS
-                //this is a question with images not with text options
-                return "";
-            }
-            List<string> listOfOptions = addNumberToQuestions(option1, option2, option3, option4);
-            
-            
-            //if the user answsered go to this - mark an answer
-            if(userAnswer != DO_NOT_MARK)
-            {
-                listOfOptions[optionToMarkCyan - 1] = $"<div style = \"background-color: cyan;display: inline-block;\">{listOfOptions[optionToMarkCyan - 1]}</div><br>";
-                //cyan will always be
-                if (userAnswer != optionToMarkCyan)//if the user got right - do not need to mark in red
+                 listOfOptions = addNumberToQuestions(option1, option2, option3, option4);
+                //if the user answsered go to this - mark an answer
+                if (userAnswer != DO_NOT_MARK)
                 {
-                    listOfOptions[userAnswer - 1] = $"<div style = \"background-color: red;display: inline-block;\">{listOfOptions[userAnswer - 1]}</div><br>";
+                    listOfOptions[optionToMarkCyan - 1] = $"<div style = \"background-color: cyan;display: inline-block;\">{listOfOptions[optionToMarkCyan - 1]}</div><br>";
+                    //cyan will always be
+                    if (userAnswer != optionToMarkCyan)//if the user got right - do not need to mark in red
+                    {
+                        listOfOptions[userAnswer - 1] = $"<div style = \"background-color: red;display: inline-block;\">{listOfOptions[userAnswer - 1]}</div><br>";
+                    }
                 }
             }
+            else
+            {
+                option1 = $"<img src=\"https://lmsapi.kidum-me.com/storage/{qp.json_content["option_images"][0]["file_path"].ToString()}\" alt=\"Question Image\" style=\"max-width:100%; height:auto;\">"; 
+                option2 = $"<img src=\"https://lmsapi.kidum-me.com/storage/{qp.json_content["option_images"][1]["file_path"].ToString()}\" alt=\"Question Image\" style=\"max-width:100%; height:auto;\">";
+                option3 = $"<img src=\"https://lmsapi.kidum-me.com/storage/{qp.json_content["option_images"][2]["file_path"].ToString()}\" alt=\"Question Image\" style=\"max-width:100%; height:auto;\">";
+                option4 = $"<img src=\"https://lmsapi.kidum-me.com/storage/{qp.json_content["option_images"][3]["file_path"].ToString()}\" alt=\"Question Image\" style=\"max-width:100%; height:auto;\">";
+                listOfOptions = new List<string> { option1, option2, option3, option4 };
+
+                if (userAnswer != DO_NOT_MARK)
+                {
+                    listOfOptions[optionToMarkCyan - 1] = $"<div style = \"background-color: cyan;display: inline-block;\"> <p> ({optionToMarkCyan})\t</div>" + listOfOptions[optionToMarkCyan - 1];
+                    //cyan will always be
+                    if (userAnswer != optionToMarkCyan)//if the user got right - do not need to mark in red
+                    {
+                        listOfOptions[userAnswer - 1] = $"<div style = \"background-color: red;display: inline-block;\"> <p> ({userAnswer})\t</div>" + listOfOptions[userAnswer - 1];
+                    }
+                    for(int i = 0; i < listOfOptions.Count; i++)
+                    {
+                        if (listOfOptions[i].StartsWith("<img"))
+                           listOfOptions[i] = $"<p>({i+1})\t" + listOfOptions[i];
+                    }
+                }
+            }
+
+            
+            
+
 
 
 
@@ -142,12 +163,8 @@ namespace clientForQuestions2._0
             string answer = qp.json_content["solving_explanation"].ToString();
             string line = "<div style=\"top: 50%; left: 0; width: 100vw; height: 1px; background-color: lightgray;\"></div>\r\n<br>explanation:";
             var img = qp.json_content["explanation_image"];
-            if(qp.category == "Restatements" || qp.category == "Reading Comprehension" || qp.category == "אוצר-מילים" || qp.category == "Sentence Completions")
-            {
-                return get_string_of_question_and_option_from_json(qp, clientanswer) + right2left(line + answer + get_string_of_img_html(img));
-            }
-            return right2left(get_string_of_question_and_option_from_json(qp, clientanswer) + line + answer + get_string_of_img_html(img));
 
+            return get_string_of_question_and_option_from_json(qp, clientanswer) + right2left(line + answer + get_string_of_img_html(img));
         }
        
     }
