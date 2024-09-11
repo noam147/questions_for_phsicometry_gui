@@ -72,6 +72,7 @@ namespace clientForQuestions2._0
         }
         public static string get_string_of_question_and_option_from_json(JToken json, int answer)
         {
+            string libToAdd = "<head><script type=\"text/javascript\" async src=\"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.0/es5/tex-mml-chtml.js\"></script></head>\r\n";
             string question = json["question"].ToString();
             string option1 = json["options"][0]["text"].ToString();
             string option2 = json["options"][1]["text"].ToString();
@@ -89,7 +90,7 @@ namespace clientForQuestions2._0
             int option2tf = (int)json["options"][1]["is_correct"];
             int option3tf = (int)json["options"][2]["is_correct"];
             int option4tf = (int)json["options"][3]["is_correct"];
-            string startOfMsg = question + get_string_of_img_html(json["image"]) + "<br><br>";
+            string startOfMsg = libToAdd+question + get_string_of_img_html(json["image"]) + "<br><br>";
             string[] options = { option1, option2, option3, option4 }; // Assuming you have these defined
             int[] optionFlags = { option1tf, option2tf, option3tf, option4tf };
             //option[n]tf = 1 - this is the real true answer

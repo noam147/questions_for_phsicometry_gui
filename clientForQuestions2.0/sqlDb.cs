@@ -89,6 +89,7 @@ namespace clientForQuestions2._0
         {
             string query = $"SELECT * FROM questions where question_id = \'{questionId}\'"; 
             var questionParameters = doQuery(query);
+            
             if(questionParameters != null && questionParameters.Count != 0)
                 return questionParameters[0];
 

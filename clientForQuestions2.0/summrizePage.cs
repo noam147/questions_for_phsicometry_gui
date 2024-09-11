@@ -199,10 +199,10 @@ namespace clientForQuestions2._0
         }
         private void Button_Click(int questionIndex)
         {
+            //here we display the question and answer based on the index
             string toDisplay = OperationsAndOtherUseful.get_string_of_question_and_explanation(this.m_questions[questionIndex].question.json_content, this.m_questions[questionIndex].userAnswer);
             int secondsTook = this.m_questions[questionIndex].timeForAnswer;
             updateQuestionTimerText(secondsTook);
-            
             this.webView21.NavigateToString(toDisplay);
         }
         private void button1_Click(object sender, EventArgs e)
