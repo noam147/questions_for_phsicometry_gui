@@ -11,6 +11,12 @@ namespace clientForQuestions2._0
     internal class OperationsAndOtherUseful
     {
         public static int QUESTION_THAT_DID_NOT_ANSWERED = -1;
+
+        public static string right2left(string s)
+        {
+            return "<div style=" + '"' + "direction: rtl" + '"' + ">" + s + "</div>";
+        }
+
         private static string get_string_of_img_html(JToken json)
         {
             //this should be in a separate file
@@ -37,16 +43,21 @@ namespace clientForQuestions2._0
             q4 = "<p>(4)\t" + q4.Substring(3, q4.Length - 3);
             return q1 + q2 + q3 + q4;
         }
-        public static string get_string_of_question_and_option_from_json(JToken json)
+        public static string get_string_of_question_and_option_from_json(dbQuestionParmeters qp)
         {
-            string question = json["question"].ToString();
-            string option1 = json["options"][0]["text"].ToString();
-            string option2 = json["options"][1]["text"].ToString();
-            string option3 = json["options"][2]["text"].ToString();
-            string option4 = json["options"][3]["text"].ToString();
+            string question = qp.json_content["question"].ToString();
+            string option1 = qp.json_content["options"][0]["text"].ToString();
+            string option2 = qp.json_content["options"][1]["text"].ToString();
+            string option3 = qp.json_content["options"][2]["text"].ToString();
+            string option4 = qp.json_content["options"][3]["text"].ToString();
 
             string allOptions = addNumberToQuestions(option1, option2, option3, option4);
-            return question + get_string_of_img_html(json["image"]) + "<br><br>" + allOptions;
+            if (qp.category == "Restatements" || qp.category == "Reading Comprehension" || qp.category == "אוצר-מילים" || qp.category == "Sentence Completions")
+            {
+                return question + get_string_of_img_html(qp.json_content["image"]) + "<br><br>" + allOptions;
+            }
+
+            return right2left(question + get_string_of_img_html(qp.json_content["image"]) + "<br><br>" + allOptions);
         }
 
 
@@ -111,12 +122,16 @@ namespace clientForQuestions2._0
             return "";
         }
 
-        public static string get_string_of_question_and_explanation(JToken json, int clientanswer)
+        public static string get_string_of_question_and_explanation(dbQuestionParmeters qp, int clientanswer)
         {
-            string answer = json["solving_explanation"].ToString();
+            string answer = qp.json_content["solving_explanation"].ToString();
             string line = "<div style=\"top: 50%; left: 0; width: 100vw; height: 1px; background-color: lightgray;\"></div>\r\n<br>explanation:";
-            var img = json["explanation_image"];
-            return get_string_of_question_and_option_from_json(json, clientanswer) + line + answer + get_string_of_img_html(img);
+            var img = qp.json_content["explanation_image"];
+            if(qp.category == "Restatements" || qp.category == "Reading Comprehension" || qp.category == "אוצר-מילים" || qp.category == "Sentence Completions")
+            {
+                return get_string_of_question_and_option_from_json(qp.json_content, clientanswer) + right2left(line + answer + get_string_of_img_html(img));
+            }
+            return right2left(get_string_of_question_and_option_from_json(qp.json_content, clientanswer) + line + answer + get_string_of_img_html(img));
 
         }
        

@@ -41,21 +41,22 @@
             // 
             // nextQuestionButton
             // 
-            this.nextQuestionButton.Location = new System.Drawing.Point(296, 441);
+            this.nextQuestionButton.BackColor = System.Drawing.Color.Transparent;
+            this.nextQuestionButton.Location = new System.Drawing.Point(886, 288);
             this.nextQuestionButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.nextQuestionButton.Name = "nextQuestionButton";
-            this.nextQuestionButton.Size = new System.Drawing.Size(174, 109);
+            this.nextQuestionButton.Size = new System.Drawing.Size(129, 69);
             this.nextQuestionButton.TabIndex = 0;
             this.nextQuestionButton.Text = "continue";
-            this.nextQuestionButton.UseVisualStyleBackColor = true;
+            this.nextQuestionButton.UseVisualStyleBackColor = false;
             this.nextQuestionButton.Click += new System.EventHandler(this.nextQuestionButtonClick);
             // 
             // answer1Button
             // 
-            this.answer1Button.Location = new System.Drawing.Point(140, 474);
+            this.answer1Button.Location = new System.Drawing.Point(915, 378);
             this.answer1Button.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.answer1Button.Name = "answer1Button";
-            this.answer1Button.Size = new System.Drawing.Size(111, 67);
+            this.answer1Button.Size = new System.Drawing.Size(90, 70);
             this.answer1Button.TabIndex = 1;
             this.answer1Button.Text = "option1";
             this.answer1Button.UseVisualStyleBackColor = true;
@@ -63,10 +64,10 @@
             // 
             // answer2Button
             // 
-            this.answer2Button.Location = new System.Drawing.Point(296, 474);
+            this.answer2Button.Location = new System.Drawing.Point(915, 452);
             this.answer2Button.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.answer2Button.Name = "answer2Button";
-            this.answer2Button.Size = new System.Drawing.Size(97, 67);
+            this.answer2Button.Size = new System.Drawing.Size(90, 70);
             this.answer2Button.TabIndex = 2;
             this.answer2Button.Text = "option2";
             this.answer2Button.UseVisualStyleBackColor = true;
@@ -74,10 +75,10 @@
             // 
             // answer3Button
             // 
-            this.answer3Button.Location = new System.Drawing.Point(419, 474);
+            this.answer3Button.Location = new System.Drawing.Point(915, 526);
             this.answer3Button.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.answer3Button.Name = "answer3Button";
-            this.answer3Button.Size = new System.Drawing.Size(88, 67);
+            this.answer3Button.Size = new System.Drawing.Size(90, 70);
             this.answer3Button.TabIndex = 3;
             this.answer3Button.Text = "option3";
             this.answer3Button.UseVisualStyleBackColor = true;
@@ -85,10 +86,10 @@
             // 
             // answer4Button
             // 
-            this.answer4Button.Location = new System.Drawing.Point(523, 474);
+            this.answer4Button.Location = new System.Drawing.Point(915, 600);
             this.answer4Button.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.answer4Button.Name = "answer4Button";
-            this.answer4Button.Size = new System.Drawing.Size(103, 66);
+            this.answer4Button.Size = new System.Drawing.Size(90, 70);
             this.answer4Button.TabIndex = 4;
             this.answer4Button.Text = "option4";
             this.answer4Button.UseVisualStyleBackColor = true;
@@ -97,20 +98,21 @@
             // stopTestButton
             // 
             this.stopTestButton.AutoSize = true;
-            this.stopTestButton.Location = new System.Drawing.Point(764, 477);
+            this.stopTestButton.BackColor = System.Drawing.Color.Transparent;
+            this.stopTestButton.Location = new System.Drawing.Point(912, 11);
             this.stopTestButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.stopTestButton.Name = "stopTestButton";
             this.stopTestButton.Size = new System.Drawing.Size(103, 37);
             this.stopTestButton.TabIndex = 4;
             this.stopTestButton.Text = "stop test";
-            this.stopTestButton.UseVisualStyleBackColor = true;
+            this.stopTestButton.UseVisualStyleBackColor = false;
             this.stopTestButton.Click += new System.EventHandler(this.stopTestButtonClick);
             // 
             // isUserRightLabel
             // 
             this.isUserRightLabel.AutoSize = true;
             this.isUserRightLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.isUserRightLabel.Location = new System.Drawing.Point(636, 267);
+            this.isUserRightLabel.Location = new System.Drawing.Point(867, 226);
             this.isUserRightLabel.Name = "isUserRightLabel";
             this.isUserRightLabel.Size = new System.Drawing.Size(86, 31);
             this.isUserRightLabel.TabIndex = 5;
@@ -120,7 +122,7 @@
             // answersTrackLabel
             // 
             this.answersTrackLabel.AutoSize = true;
-            this.answersTrackLabel.Location = new System.Drawing.Point(647, 132);
+            this.answersTrackLabel.Location = new System.Drawing.Point(837, 95);
             this.answersTrackLabel.Name = "answersTrackLabel";
             this.answersTrackLabel.Size = new System.Drawing.Size(126, 16);
             this.answersTrackLabel.TabIndex = 6;
@@ -129,7 +131,7 @@
             // questionTrackLabel
             // 
             this.questionTrackLabel.AutoSize = true;
-            this.questionTrackLabel.Location = new System.Drawing.Point(651, 98);
+            this.questionTrackLabel.Location = new System.Drawing.Point(841, 73);
             this.questionTrackLabel.Name = "questionTrackLabel";
             this.questionTrackLabel.Size = new System.Drawing.Size(93, 16);
             this.questionTrackLabel.TabIndex = 7;
@@ -139,7 +141,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(869, 755);
+            this.ClientSize = new System.Drawing.Size(1050, 755);
             this.Controls.Add(this.questionTrackLabel);
             this.Controls.Add(this.answersTrackLabel);
             this.Controls.Add(this.isUserRightLabel);

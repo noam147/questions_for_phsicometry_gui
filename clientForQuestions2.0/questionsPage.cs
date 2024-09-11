@@ -41,7 +41,7 @@ namespace clientForQuestions2._0
             InitializeComponent();
             updateAtStart(amount, listOfTopics);
             this.isQSkip = isQSkip;
-            PositionNextQuestionButton();
+            //PositionNextQuestionButton();
             this.Resize += MainForm_Resize;
             Thread thread = new Thread(() =>
             {
@@ -125,7 +125,7 @@ namespace clientForQuestions2._0
             webView21 = new WebView2
             {
                 Location = new Point(0, 0),
-                Size = new Size(this.ClientSize.Width, this.ClientSize.Height)
+                Size = new Size(this.ClientSize.Width-170, this.ClientSize.Height)
             };
 
             webView21.CoreWebView2InitializationCompleted += OnCoreWebView2InitializationCompleted;
@@ -198,7 +198,7 @@ namespace clientForQuestions2._0
         //sender and e are not in use
         private void OnCoreWebView2InitializationCompleted(object sender, EventArgs e)
         {
-            webTaker.OnCoreWebView2InitializationCompleted(webView21,this.questionDetails[this.m_indexOfCurrQuestion].json_content);
+            webTaker.OnCoreWebView2InitializationCompleted(webView21,this.questionDetails[this.m_indexOfCurrQuestion]);
             return;
         }
         private void updateLabelAnswers()
@@ -246,7 +246,7 @@ namespace clientForQuestions2._0
             //after user submit an answer give to him a feedback
             if (!isQSkip)
             {
-                string htmlContent = OperationsAndOtherUseful.get_string_of_question_and_explanation(this.questionDetails[m_indexOfCurrQuestion].json_content, answer);
+                string htmlContent = OperationsAndOtherUseful.get_string_of_question_and_explanation(this.questionDetails[m_indexOfCurrQuestion], answer);
                 webView21.NavigateToString(htmlContent);
             }
             //check if this the last question
@@ -385,11 +385,12 @@ namespace clientForQuestions2._0
         private void MainForm_Resize(object sender, EventArgs e)
         {
             // Reposition the button on form resize
-            PositionNextQuestionButton();
+            //PositionNextQuestionButton();
         }
 
         private void PositionNextQuestionButton()
         {
+            return;
             // Position the button on the far right with a fixed height, and optional margin
             int rightMargin = 10; // Adjust as needed
             int topMargin = 50;   // Adjust as needed

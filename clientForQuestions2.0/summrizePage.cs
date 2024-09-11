@@ -148,7 +148,7 @@ namespace clientForQuestions2._0
         private void OnCoreWebView2InitializationCompleted(object sender, EventArgs e)
         {
 
-            webTaker.OnCoreWebView2InitializationCompleted(webView21,null);
+            webTaker.OnCoreWebView2InitializationCompleted(webView21,new dbQuestionParmeters());
             return;
         }
             private void createButtons(List<afterQuestionParametrs> currQuestionRight)
@@ -200,7 +200,7 @@ namespace clientForQuestions2._0
         private void Button_Click(int questionIndex)
         {
             //here we display the question and answer based on the index
-            string toDisplay = OperationsAndOtherUseful.get_string_of_question_and_explanation(this.m_questions[questionIndex].question.json_content, this.m_questions[questionIndex].userAnswer);
+            string toDisplay = OperationsAndOtherUseful.get_string_of_question_and_explanation(this.m_questions[questionIndex].question, this.m_questions[questionIndex].userAnswer);
             int secondsTook = this.m_questions[questionIndex].timeForAnswer;
             updateQuestionTimerText(secondsTook);
             this.webView21.NavigateToString(toDisplay);

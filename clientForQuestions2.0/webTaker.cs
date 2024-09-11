@@ -11,12 +11,12 @@ namespace clientForQuestions2._0
 {
     internal class webTaker
     {
-        public static void OnCoreWebView2InitializationCompleted(WebView2 web, JToken textInJson)
+        public static void OnCoreWebView2InitializationCompleted(WebView2 web, dbQuestionParmeters textInJson)
         {
             //update html content in here
             if (web.CoreWebView2 != null)
             {
-                if(textInJson == null)
+                if(textInJson.json_content == null)
                 {
                     return;
                 }
