@@ -220,7 +220,7 @@ namespace clientForQuestions2._0
             }
             else
             {
-                this.timeTookForQLabel.Text = $"Time took for question: {seconds}";
+                this.timeTookForQLabel.Text = $"Time took for question: {seconds}S";
             }
 
         }

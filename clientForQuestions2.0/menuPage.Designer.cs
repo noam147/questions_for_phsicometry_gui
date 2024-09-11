@@ -39,7 +39,7 @@ namespace clientForQuestions2._0
             // 
             // normalQuestions
             // 
-            this.normalQuestions.Location = new System.Drawing.Point(555, 293);
+            this.normalQuestions.Location = new System.Drawing.Point(733, 186);
             this.normalQuestions.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.normalQuestions.Name = "normalQuestions";
             this.normalQuestions.Size = new System.Drawing.Size(141, 112);

@@ -372,5 +372,18 @@ namespace clientForQuestions2._0
         {
 
         }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if(this.dificultLevelcheckBox.Checked)
+            {
+                this.difficulyLevelUpAndDown.Enabled = true;
+            }
+            else
+            {
+                this.difficulyLevelUpAndDown.Value = this.difficulyLevelUpAndDown.Minimum;
+                this.difficulyLevelUpAndDown.Enabled = false;
+            }
+        }
     }
 }

@@ -18,7 +18,8 @@ namespace clientForQuestions2._0
             //LogFileHandler.ClearFileContent();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-
+            List<string> list = new List<string>();
+            list.Add("אנלוגיות");
             var main = new menuPage();
             main.FormClosed += new FormClosedEventHandler(FormClosed);
             main.Show();
