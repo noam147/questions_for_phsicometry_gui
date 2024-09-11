@@ -31,7 +31,6 @@
             this.back2MainMenuButton = new System.Windows.Forms.Button();
             this.amountOfQuestionText = new System.Windows.Forms.Label();
             this.continueButton = new System.Windows.Forms.Button();
-            this.themeBase1 = new System.Windows.Forms.Button();
             this.themeBase2 = new System.Windows.Forms.Button();
             this.themeBase3 = new System.Windows.Forms.Button();
             this.themeBase4 = new System.Windows.Forms.Button();
@@ -63,14 +62,12 @@
             this.themeBase31 = new System.Windows.Forms.Button();
             this.themeBase32 = new System.Windows.Forms.Button();
             this.themeBase33 = new System.Windows.Forms.Button();
-            this.themeBase34 = new System.Windows.Forms.Button();
             this.themeBase35 = new System.Windows.Forms.Button();
             this.themeBase36 = new System.Windows.Forms.Button();
             this.themeBase37 = new System.Windows.Forms.Button();
             this.themeBase38 = new System.Windows.Forms.Button();
             this.themeBase39 = new System.Windows.Forms.Button();
             this.themeBase40 = new System.Windows.Forms.Button();
-            this.themeBase41 = new System.Windows.Forms.Button();
             this.themeBase42 = new System.Windows.Forms.Button();
             this.themeBase43 = new System.Windows.Forms.Button();
             this.theme1 = new System.Windows.Forms.Button();
@@ -121,22 +118,10 @@
             this.continueButton.UseVisualStyleBackColor = true;
             this.continueButton.Click += new System.EventHandler(this.continueButton_Click);
             // 
-            // themeBase1
-            // 
-            this.themeBase1.AutoSize = true;
-            this.themeBase1.Location = new System.Drawing.Point(216, 95);
-            this.themeBase1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.themeBase1.Name = "themeBase1";
-            this.themeBase1.Size = new System.Drawing.Size(100, 30);
-            this.themeBase1.TabIndex = 10;
-            this.themeBase1.Text = "הסקה מתרשים";
-            this.themeBase1.UseVisualStyleBackColor = true;
-            this.themeBase1.Click += new System.EventHandler(this.themebase_Click);
-            // 
             // themeBase2
             // 
             this.themeBase2.AutoSize = true;
-            this.themeBase2.Location = new System.Drawing.Point(216, 125);
+            this.themeBase2.Location = new System.Drawing.Point(216, 95);
             this.themeBase2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.themeBase2.Name = "themeBase2";
             this.themeBase2.Size = new System.Drawing.Size(102, 30);
@@ -148,7 +133,7 @@
             // themeBase3
             // 
             this.themeBase3.AutoSize = true;
-            this.themeBase3.Location = new System.Drawing.Point(216, 155);
+            this.themeBase3.Location = new System.Drawing.Point(216, 125);
             this.themeBase3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.themeBase3.Name = "themeBase3";
             this.themeBase3.Size = new System.Drawing.Size(115, 51);
@@ -160,7 +145,7 @@
             // themeBase4
             // 
             this.themeBase4.AutoSize = true;
-            this.themeBase4.Location = new System.Drawing.Point(216, 206);
+            this.themeBase4.Location = new System.Drawing.Point(216, 176);
             this.themeBase4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.themeBase4.Name = "themeBase4";
             this.themeBase4.Size = new System.Drawing.Size(100, 30);
@@ -172,7 +157,7 @@
             // themeBase5
             // 
             this.themeBase5.AutoSize = true;
-            this.themeBase5.Location = new System.Drawing.Point(235, 291);
+            this.themeBase5.Location = new System.Drawing.Point(235, 261);
             this.themeBase5.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.themeBase5.Name = "themeBase5";
             this.themeBase5.Size = new System.Drawing.Size(100, 30);
@@ -184,7 +169,7 @@
             // themeBase6
             // 
             this.themeBase6.AutoSize = true;
-            this.themeBase6.Location = new System.Drawing.Point(235, 321);
+            this.themeBase6.Location = new System.Drawing.Point(235, 291);
             this.themeBase6.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.themeBase6.Name = "themeBase6";
             this.themeBase6.Size = new System.Drawing.Size(100, 30);
@@ -196,7 +181,7 @@
             // themeBase7
             // 
             this.themeBase7.AutoSize = true;
-            this.themeBase7.Location = new System.Drawing.Point(235, 351);
+            this.themeBase7.Location = new System.Drawing.Point(235, 321);
             this.themeBase7.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.themeBase7.Name = "themeBase7";
             this.themeBase7.Size = new System.Drawing.Size(100, 30);
@@ -208,7 +193,7 @@
             // themeBase8
             // 
             this.themeBase8.AutoSize = true;
-            this.themeBase8.Location = new System.Drawing.Point(235, 381);
+            this.themeBase8.Location = new System.Drawing.Point(235, 351);
             this.themeBase8.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.themeBase8.Name = "themeBase8";
             this.themeBase8.Size = new System.Drawing.Size(100, 30);
@@ -220,7 +205,7 @@
             // themeBase9
             // 
             this.themeBase9.AutoSize = true;
-            this.themeBase9.Location = new System.Drawing.Point(235, 411);
+            this.themeBase9.Location = new System.Drawing.Point(235, 381);
             this.themeBase9.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.themeBase9.Name = "themeBase9";
             this.themeBase9.Size = new System.Drawing.Size(100, 30);
@@ -232,7 +217,7 @@
             // themeBase10
             // 
             this.themeBase10.AutoSize = true;
-            this.themeBase10.Location = new System.Drawing.Point(235, 441);
+            this.themeBase10.Location = new System.Drawing.Point(235, 411);
             this.themeBase10.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.themeBase10.Name = "themeBase10";
             this.themeBase10.Size = new System.Drawing.Size(100, 30);
@@ -244,7 +229,7 @@
             // themeBase11
             // 
             this.themeBase11.AutoSize = true;
-            this.themeBase11.Location = new System.Drawing.Point(253, 514);
+            this.themeBase11.Location = new System.Drawing.Point(253, 484);
             this.themeBase11.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.themeBase11.Name = "themeBase11";
             this.themeBase11.Size = new System.Drawing.Size(100, 30);
@@ -256,7 +241,7 @@
             // themeBase12
             // 
             this.themeBase12.AutoSize = true;
-            this.themeBase12.Location = new System.Drawing.Point(253, 544);
+            this.themeBase12.Location = new System.Drawing.Point(253, 514);
             this.themeBase12.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.themeBase12.Name = "themeBase12";
             this.themeBase12.Size = new System.Drawing.Size(100, 30);
@@ -268,7 +253,7 @@
             // themeBase13
             // 
             this.themeBase13.AutoSize = true;
-            this.themeBase13.Location = new System.Drawing.Point(253, 574);
+            this.themeBase13.Location = new System.Drawing.Point(253, 544);
             this.themeBase13.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.themeBase13.Name = "themeBase13";
             this.themeBase13.Size = new System.Drawing.Size(100, 30);
@@ -280,7 +265,7 @@
             // themeBase14
             // 
             this.themeBase14.AutoSize = true;
-            this.themeBase14.Location = new System.Drawing.Point(253, 604);
+            this.themeBase14.Location = new System.Drawing.Point(253, 574);
             this.themeBase14.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.themeBase14.Name = "themeBase14";
             this.themeBase14.Size = new System.Drawing.Size(100, 30);
@@ -505,22 +490,10 @@
             this.themeBase33.UseVisualStyleBackColor = true;
             this.themeBase33.Click += new System.EventHandler(this.themebase_Click);
             // 
-            // themeBase34
-            // 
-            this.themeBase34.AutoSize = true;
-            this.themeBase34.Location = new System.Drawing.Point(692, 123);
-            this.themeBase34.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.themeBase34.Name = "themeBase34";
-            this.themeBase34.Size = new System.Drawing.Size(100, 30);
-            this.themeBase34.TabIndex = 10;
-            this.themeBase34.Text = "קטע קריאה";
-            this.themeBase34.UseVisualStyleBackColor = true;
-            this.themeBase34.Click += new System.EventHandler(this.themebase_Click);
-            // 
             // themeBase35
             // 
             this.themeBase35.AutoSize = true;
-            this.themeBase35.Location = new System.Drawing.Point(705, 195);
+            this.themeBase35.Location = new System.Drawing.Point(705, 174);
             this.themeBase35.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.themeBase35.Name = "themeBase35";
             this.themeBase35.Size = new System.Drawing.Size(100, 30);
@@ -532,7 +505,7 @@
             // themeBase36
             // 
             this.themeBase36.AutoSize = true;
-            this.themeBase36.Location = new System.Drawing.Point(705, 225);
+            this.themeBase36.Location = new System.Drawing.Point(705, 204);
             this.themeBase36.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.themeBase36.Name = "themeBase36";
             this.themeBase36.Size = new System.Drawing.Size(153, 48);
@@ -544,7 +517,7 @@
             // themeBase37
             // 
             this.themeBase37.AutoSize = true;
-            this.themeBase37.Location = new System.Drawing.Point(705, 276);
+            this.themeBase37.Location = new System.Drawing.Point(705, 255);
             this.themeBase37.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.themeBase37.Name = "themeBase37";
             this.themeBase37.Size = new System.Drawing.Size(100, 30);
@@ -556,7 +529,7 @@
             // themeBase38
             // 
             this.themeBase38.AutoSize = true;
-            this.themeBase38.Location = new System.Drawing.Point(705, 306);
+            this.themeBase38.Location = new System.Drawing.Point(705, 285);
             this.themeBase38.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.themeBase38.Name = "themeBase38";
             this.themeBase38.Size = new System.Drawing.Size(117, 47);
@@ -568,7 +541,7 @@
             // themeBase39
             // 
             this.themeBase39.AutoSize = true;
-            this.themeBase39.Location = new System.Drawing.Point(705, 352);
+            this.themeBase39.Location = new System.Drawing.Point(705, 331);
             this.themeBase39.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.themeBase39.Name = "themeBase39";
             this.themeBase39.Size = new System.Drawing.Size(107, 48);
@@ -589,22 +562,10 @@
             this.themeBase40.UseVisualStyleBackColor = true;
             this.themeBase40.Click += new System.EventHandler(this.themebase_Click);
             // 
-            // themeBase41
-            // 
-            this.themeBase41.AutoSize = true;
-            this.themeBase41.Location = new System.Drawing.Point(901, 125);
-            this.themeBase41.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.themeBase41.Name = "themeBase41";
-            this.themeBase41.Size = new System.Drawing.Size(173, 41);
-            this.themeBase41.TabIndex = 10;
-            this.themeBase41.Text = "Reading Comprehension";
-            this.themeBase41.UseVisualStyleBackColor = true;
-            this.themeBase41.Click += new System.EventHandler(this.themebase_Click);
-            // 
             // themeBase42
             // 
             this.themeBase42.AutoSize = true;
-            this.themeBase42.Location = new System.Drawing.Point(914, 212);
+            this.themeBase42.Location = new System.Drawing.Point(914, 174);
             this.themeBase42.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.themeBase42.Name = "themeBase42";
             this.themeBase42.Size = new System.Drawing.Size(100, 30);
@@ -616,7 +577,7 @@
             // themeBase43
             // 
             this.themeBase43.AutoSize = true;
-            this.themeBase43.Location = new System.Drawing.Point(914, 246);
+            this.themeBase43.Location = new System.Drawing.Point(914, 208);
             this.themeBase43.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.themeBase43.Name = "themeBase43";
             this.themeBase43.Size = new System.Drawing.Size(160, 41);
@@ -643,7 +604,7 @@
             // 
             this.theme2.AutoSize = true;
             this.theme2.BackColor = System.Drawing.Color.LightGreen;
-            this.theme2.Location = new System.Drawing.Point(216, 247);
+            this.theme2.Location = new System.Drawing.Point(216, 217);
             this.theme2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.theme2.Name = "theme2";
             this.theme2.Size = new System.Drawing.Size(102, 40);
@@ -656,7 +617,7 @@
             // 
             this.theme3.AutoSize = true;
             this.theme3.BackColor = System.Drawing.Color.LightGreen;
-            this.theme3.Location = new System.Drawing.Point(235, 469);
+            this.theme3.Location = new System.Drawing.Point(235, 439);
             this.theme3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.theme3.Name = "theme3";
             this.theme3.Size = new System.Drawing.Size(102, 40);
@@ -722,7 +683,7 @@
             // 
             this.theme8.AutoSize = true;
             this.theme8.BackColor = System.Drawing.Color.LightGreen;
-            this.theme8.Location = new System.Drawing.Point(692, 151);
+            this.theme8.Location = new System.Drawing.Point(692, 130);
             this.theme8.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.theme8.Name = "theme8";
             this.theme8.Size = new System.Drawing.Size(102, 40);
@@ -749,7 +710,7 @@
             // 
             this.theme10.AutoSize = true;
             this.theme10.BackColor = System.Drawing.Color.LightGreen;
-            this.theme10.Location = new System.Drawing.Point(901, 168);
+            this.theme10.Location = new System.Drawing.Point(901, 130);
             this.theme10.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.theme10.Name = "theme10";
             this.theme10.Size = new System.Drawing.Size(102, 40);
@@ -803,7 +764,6 @@
             this.Controls.Add(this.amountOfQuestionText);
             this.Controls.Add(this.continueButton);
             this.Controls.Add(this.isQSkip_checkBox);
-            this.Controls.Add(this.themeBase1);
             this.Controls.Add(this.themeBase2);
             this.Controls.Add(this.themeBase3);
             this.Controls.Add(this.themeBase4);
@@ -835,14 +795,12 @@
             this.Controls.Add(this.themeBase31);
             this.Controls.Add(this.themeBase32);
             this.Controls.Add(this.themeBase33);
-            this.Controls.Add(this.themeBase34);
             this.Controls.Add(this.themeBase35);
             this.Controls.Add(this.themeBase36);
             this.Controls.Add(this.themeBase37);
             this.Controls.Add(this.themeBase38);
             this.Controls.Add(this.themeBase39);
             this.Controls.Add(this.themeBase40);
-            this.Controls.Add(this.themeBase41);
             this.Controls.Add(this.themeBase42);
             this.Controls.Add(this.themeBase43);
             this.Controls.Add(this.theme1);
@@ -871,8 +829,6 @@
 
         private System.Windows.Forms.Label amountOfQuestionText;
         private System.Windows.Forms.Button continueButton;
-
-        private System.Windows.Forms.Button themeBase1;
         private System.Windows.Forms.Button themeBase2;
         private System.Windows.Forms.Button themeBase3;
         private System.Windows.Forms.Button themeBase4;
@@ -904,14 +860,12 @@
         private System.Windows.Forms.Button themeBase31;
         private System.Windows.Forms.Button themeBase32;
         private System.Windows.Forms.Button themeBase33;
-        private System.Windows.Forms.Button themeBase34;
         private System.Windows.Forms.Button themeBase35;
         private System.Windows.Forms.Button themeBase36;
         private System.Windows.Forms.Button themeBase37;
         private System.Windows.Forms.Button themeBase38;
         private System.Windows.Forms.Button themeBase39;
         private System.Windows.Forms.Button themeBase40;
-        private System.Windows.Forms.Button themeBase41;
         private System.Windows.Forms.Button themeBase42;
         private System.Windows.Forms.Button themeBase43;
 

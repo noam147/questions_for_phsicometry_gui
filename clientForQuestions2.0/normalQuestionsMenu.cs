@@ -20,7 +20,6 @@ namespace clientForQuestions2._0
 
                 "בחירת כל הנושאים", new List<string>
                 {
-                    "הסקה מתרשים",
                     "אותיות וספרות",
                     "פעולות מומצאות",
                     "הצבת תשובות",
@@ -54,14 +53,12 @@ namespace clientForQuestions2._0
                     "אי-שוויון",
                     "עצרת",
                     "אנלוגיות",
-                    "קטע קריאה",
                     "שאלות פסקה",
                     "השלמת משפטים מילולי",
                     "עריכת ניסוי",
                     "משמעות מילולית",
                     "כללים וסידורים",
                     "Restatements",
-                    "Reading Comprehension",
                     "אוצר-מילים",
                     "Sentence Completions"
                 }
@@ -69,7 +66,6 @@ namespace clientForQuestions2._0
             {
                 "חשיבה כמותית", new List<string>
                 {
-                    "הסקה מתרשים",
                     "אותיות וספרות",
                     "פעולות מומצאות",
                     "הצבת תשובות",
@@ -108,7 +104,6 @@ namespace clientForQuestions2._0
                 "חשיבה מילולית", new List<string>
                 {
                     "אנלוגיות",
-                    "קטע קריאה",
                     "שאלות פסקה",
                     "השלמת משפטים מילולי",
                     "עריכת ניסוי",
@@ -120,7 +115,6 @@ namespace clientForQuestions2._0
                 "אנגלית", new List<string>
                 {
                     "Restatements",
-                    "Reading Comprehension",
                     "אוצר-מילים",
                     "Sentence Completions"
                 }

@@ -99,7 +99,7 @@
             // 
             this.stopTestButton.AutoSize = true;
             this.stopTestButton.BackColor = System.Drawing.Color.Transparent;
-            this.stopTestButton.Location = new System.Drawing.Point(912, 11);
+            this.stopTestButton.Location = new System.Drawing.Point(851, 11);
             this.stopTestButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.stopTestButton.Name = "stopTestButton";
             this.stopTestButton.Size = new System.Drawing.Size(103, 37);

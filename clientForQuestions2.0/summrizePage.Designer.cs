@@ -34,9 +34,10 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(682, 79);
+            this.button1.Location = new System.Drawing.Point(12, 13);
+            this.button1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(119, 96);
+            this.button1.Size = new System.Drawing.Size(106, 57);
             this.button1.TabIndex = 1;
             this.button1.Text = "back to menu";
             this.button1.UseVisualStyleBackColor = true;
@@ -45,20 +46,21 @@
             // timeTookForQLabel
             // 
             this.timeTookForQLabel.AutoSize = true;
-            this.timeTookForQLabel.Location = new System.Drawing.Point(610, 194);
+            this.timeTookForQLabel.Location = new System.Drawing.Point(9, 72);
             this.timeTookForQLabel.Name = "timeTookForQLabel";
-            this.timeTookForQLabel.Size = new System.Drawing.Size(174, 20);
+            this.timeTookForQLabel.Size = new System.Drawing.Size(145, 16);
             this.timeTookForQLabel.TabIndex = 2;
             this.timeTookForQLabel.Text = "Time took for question: ";
             this.timeTookForQLabel.Click += new System.EventHandler(this.timeTookForQLabel_Click);
             // 
             // summrizePage
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(856, 523);
+            this.ClientSize = new System.Drawing.Size(761, 739);
             this.Controls.Add(this.timeTookForQLabel);
             this.Controls.Add(this.button1);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "summrizePage";
             this.Text = "summrizePage";
             this.ResumeLayout(false);

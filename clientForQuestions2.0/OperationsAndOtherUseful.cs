@@ -17,6 +17,23 @@ namespace clientForQuestions2._0
             return "<div style=" + '"' + "direction: rtl" + '"' + ">" + s + "</div>";
         }
 
+        public static string get_string_of_img_col_html(JToken json)
+        {
+            //this should be in a separate file
+            if (json == null)
+            {
+                return "";
+            }
+            if (!json.HasValues)
+            {
+                return "";
+            }
+            string img_path = "https://lmsapi.kidum-me.com/storage/";
+            string file_path = img_path + json["collections"][0]["file"]["file_path"].ToString();
+            string fullImg = $"<img src=\"{file_path}\" alt=\"Question Image\" style=\"max-width:100%; height:auto;\">";
+            return fullImg;
+        }
+
         private static string get_string_of_img_html(JToken json)
         {
             //this should be in a separate file
