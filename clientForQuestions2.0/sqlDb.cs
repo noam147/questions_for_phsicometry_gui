@@ -16,13 +16,14 @@ namespace clientForQuestions2._0
         public dbQuestionParmeters question;
         public int userAnswer;
         public int timeForAnswer;
+        public int indexOfQuestion;
     }
     public struct dbQuestionParmeters
     {
         public JToken json_content;
         public int questionId;
         public string category;
-        public int rightAnswer;
+        public int rightAnswer;  
     }
     internal class sqlDb
     {

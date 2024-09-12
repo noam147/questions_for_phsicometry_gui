@@ -39,7 +39,7 @@ namespace clientForQuestions2._0
         {
             LogFileHandler.writeIntoFile("Opened new collections questions menu");
             //get the questions here
-            textQuestions t = new textQuestions();
+            collectionsQuestionsMenu t = new collectionsQuestionsMenu();
 
             t.Show();
             this.Close();

@@ -33,6 +33,7 @@ namespace clientForQuestions2._0
         public summrizePage(List<afterQuestionParametrs> questions)
         {
             this.m_questions = questions;
+            orgnizeQuestions();
             InitializeComponent();
 
             if (((JArray)questions[0].question.json_content["collections"]).Count != 0)
@@ -70,7 +71,10 @@ namespace clientForQuestions2._0
             Form_Resize(this, EventArgs.Empty);
 
         }
-
+        private void orgnizeQuestions()
+        {
+            m_questions.Sort((q1, q2) => q1.indexOfQuestion.CompareTo(q2.indexOfQuestion));
+        }
         private void displayTotalAvrageTime()
         {
             int time = 0;
@@ -331,7 +335,7 @@ namespace clientForQuestions2._0
                 else
                 {
                     if (currQuestionRight[i].question.rightAnswer == currQuestionRight[i].userAnswer)
-                        btn.BackColor = Color.Green;
+                        btn.BackColor = Color.LightGreen;
                     else
                         btn.BackColor = Color.Red;
                 }
