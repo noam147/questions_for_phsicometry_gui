@@ -115,7 +115,7 @@ namespace clientForQuestions2._0
             
             return doQuery(query);
         }
-        public static List<dbQuestionParmeters> get_n_questions_from_arr_of_categorysWithDiffcultyLevel(int n, List<string> categories,float difficulty)
+        public static List<dbQuestionParmeters> get_n_questions_from_arr_of_categorysWithDiffcultyLevel(int n, List<string> categories,questionsDifficultyLevel difficulty)
         {
             string add = "";
             for (int i = 0; i < categories.Count; i++)
@@ -123,7 +123,14 @@ namespace clientForQuestions2._0
                 add += "\'" + categories[i] + "\',";
             }
             add = add.Substring(0, add.Length - 1);
-            string query = $"SELECT * FROM questions WHERE question_type IN ({add}) AND JSON_EXTRACT(json_question, '$.data[0].difficulty_level') = {difficulty} ORDER BY RANDOM() LIMIT {n}";
+            string query = $@"
+    SELECT * 
+    FROM questions 
+    WHERE question_type IN ({add}) 
+      AND JSON_EXTRACT(json_question, '$.data[0].difficulty_level') >= {difficulty.minlevel} 
+      AND JSON_EXTRACT(json_question, '$.data[0].difficulty_level') <= {difficulty.maxLevel} 
+    ORDER BY RANDOM() 
+    LIMIT {n}";
 
             return doQuery(query);
         }

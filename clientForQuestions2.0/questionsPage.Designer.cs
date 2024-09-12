@@ -1,4 +1,6 @@
-﻿namespace clientForQuestions2._0
+﻿using System.Drawing;
+
+namespace clientForQuestions2._0
 {
     partial class questionsPage
     {
@@ -37,6 +39,7 @@
             this.isUserRightLabel = new System.Windows.Forms.Label();
             this.answersTrackLabel = new System.Windows.Forms.Label();
             this.questionTrackLabel = new System.Windows.Forms.Label();
+            this.timer = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // nextQuestionButton
@@ -47,7 +50,7 @@
             this.nextQuestionButton.Name = "nextQuestionButton";
             this.nextQuestionButton.Size = new System.Drawing.Size(129, 69);
             this.nextQuestionButton.TabIndex = 0;
-            this.nextQuestionButton.Text = "continue";
+            this.nextQuestionButton.Text = "המשך";
             this.nextQuestionButton.UseVisualStyleBackColor = false;
             this.nextQuestionButton.Click += new System.EventHandler(this.nextQuestionButtonClick);
             // 
@@ -58,7 +61,7 @@
             this.answer1Button.Name = "answer1Button";
             this.answer1Button.Size = new System.Drawing.Size(90, 70);
             this.answer1Button.TabIndex = 1;
-            this.answer1Button.Text = "option1";
+            this.answer1Button.Text = "אפשרות 1";
             this.answer1Button.UseVisualStyleBackColor = true;
             this.answer1Button.Click += new System.EventHandler(this.answer1Button_Click);
             // 
@@ -69,7 +72,7 @@
             this.answer2Button.Name = "answer2Button";
             this.answer2Button.Size = new System.Drawing.Size(90, 70);
             this.answer2Button.TabIndex = 2;
-            this.answer2Button.Text = "option2";
+            this.answer2Button.Text = "אפשרות 2";
             this.answer2Button.UseVisualStyleBackColor = true;
             this.answer2Button.Click += new System.EventHandler(this.answer2Button_Click);
             // 
@@ -80,7 +83,7 @@
             this.answer3Button.Name = "answer3Button";
             this.answer3Button.Size = new System.Drawing.Size(90, 70);
             this.answer3Button.TabIndex = 3;
-            this.answer3Button.Text = "option3";
+            this.answer3Button.Text = "אפשרות 3";
             this.answer3Button.UseVisualStyleBackColor = true;
             this.answer3Button.Click += new System.EventHandler(this.answer3Button_Click);
             // 
@@ -91,20 +94,20 @@
             this.answer4Button.Name = "answer4Button";
             this.answer4Button.Size = new System.Drawing.Size(90, 70);
             this.answer4Button.TabIndex = 4;
-            this.answer4Button.Text = "option4";
+            this.answer4Button.Text = "אפשרות 4";
             this.answer4Button.UseVisualStyleBackColor = true;
             this.answer4Button.Click += new System.EventHandler(this.answer4Button_Click);
             // 
             // stopTestButton
             // 
             this.stopTestButton.AutoSize = true;
-            this.stopTestButton.BackColor = System.Drawing.Color.Transparent;
-            this.stopTestButton.Location = new System.Drawing.Point(912, 11);
+            this.stopTestButton.BackColor = System.Drawing.Color.Tomato;
+            this.stopTestButton.Location = new System.Drawing.Point(854, 11);
             this.stopTestButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.stopTestButton.Name = "stopTestButton";
             this.stopTestButton.Size = new System.Drawing.Size(103, 37);
             this.stopTestButton.TabIndex = 4;
-            this.stopTestButton.Text = "stop test";
+            this.stopTestButton.Text = "סיום התרגול";
             this.stopTestButton.UseVisualStyleBackColor = false;
             this.stopTestButton.Click += new System.EventHandler(this.stopTestButtonClick);
             // 
@@ -114,6 +117,7 @@
             this.isUserRightLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.isUserRightLabel.Location = new System.Drawing.Point(867, 226);
             this.isUserRightLabel.Name = "isUserRightLabel";
+            this.isUserRightLabel.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.isUserRightLabel.Size = new System.Drawing.Size(86, 31);
             this.isUserRightLabel.TabIndex = 5;
             this.isUserRightLabel.Text = "label1";
@@ -124,6 +128,7 @@
             this.answersTrackLabel.AutoSize = true;
             this.answersTrackLabel.Location = new System.Drawing.Point(837, 95);
             this.answersTrackLabel.Name = "answersTrackLabel";
+            this.answersTrackLabel.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.answersTrackLabel.Size = new System.Drawing.Size(126, 16);
             this.answersTrackLabel.TabIndex = 6;
             this.answersTrackLabel.Text = "answersTrackLabel";
@@ -133,15 +138,32 @@
             this.questionTrackLabel.AutoSize = true;
             this.questionTrackLabel.Location = new System.Drawing.Point(841, 73);
             this.questionTrackLabel.Name = "questionTrackLabel";
+            this.questionTrackLabel.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.questionTrackLabel.Size = new System.Drawing.Size(93, 16);
             this.questionTrackLabel.TabIndex = 7;
             this.questionTrackLabel.Text = "questionTrack";
+            // 
+            // timer
+            // 
+            this.timer.AutoSize = true;
+            this.timer.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.timer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.timer.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Bold);
+            this.timer.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.timer.Location = new System.Drawing.Point(873, 140);
+            this.timer.Name = "timer";
+            this.timer.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.timer.Size = new System.Drawing.Size(89, 41);
+            this.timer.TabIndex = 8;
+            this.timer.Text = "0:00";
+            this.timer.Click += new System.EventHandler(this.label1_Click);
             // 
             // questionsPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1050, 755);
+            this.Controls.Add(this.timer);
             this.Controls.Add(this.questionTrackLabel);
             this.Controls.Add(this.answersTrackLabel);
             this.Controls.Add(this.isUserRightLabel);
@@ -171,6 +193,7 @@
         private System.Windows.Forms.Label isUserRightLabel;
         private System.Windows.Forms.Label answersTrackLabel;
         private System.Windows.Forms.Label questionTrackLabel;
+        private System.Windows.Forms.Label timer;
     }
 }
 

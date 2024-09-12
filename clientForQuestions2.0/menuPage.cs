@@ -35,6 +35,15 @@ namespace clientForQuestions2._0
             this.Close();
         }
 
+        private void collectionsQuestions_Clicked(object sender, EventArgs e)
+        {
+            LogFileHandler.writeIntoFile("Opened new collections questions menu");
+            //get the questions here
+            textQuestions t = new textQuestions();
+
+            t.Show();
+            this.Close();
+        }
 
         private void menuPage_Load_1(object sender, EventArgs e)
         {

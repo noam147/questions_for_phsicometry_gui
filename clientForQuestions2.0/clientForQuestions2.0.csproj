@@ -77,6 +77,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="collectionsQuestionsMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="collectionsQuestionsMenu.Designer.cs">
+      <DependentUpon>collectionsQuestionsMenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="HtmlTextExtractor.cs" />
     <Compile Include="LogFileHandler.cs" />
     <Compile Include="menuPage.cs">
       <SubType>Form</SubType>
@@ -109,7 +116,16 @@
     <Compile Include="summrizePage.Designer.cs">
       <DependentUpon>summrizePage.cs</DependentUpon>
     </Compile>
+    <Compile Include="textQuestions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="textQuestions.Designer.cs">
+      <DependentUpon>textQuestions.cs</DependentUpon>
+    </Compile>
     <Compile Include="webTaker.cs" />
+    <EmbeddedResource Include="collectionsQuestionsMenu.resx">
+      <DependentUpon>collectionsQuestionsMenu.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="menuPage.resx">
       <DependentUpon>menuPage.cs</DependentUpon>
     </EmbeddedResource>
@@ -130,6 +146,9 @@
     </Compile>
     <EmbeddedResource Include="summrizePage.resx">
       <DependentUpon>summrizePage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="textQuestions.resx">
+      <DependentUpon>textQuestions.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

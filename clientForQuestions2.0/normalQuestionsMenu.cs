@@ -4,14 +4,22 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace clientForQuestions2._0
 {
+    
+    public struct questionsDifficultyLevel
+    {
+        public int minlevel;
+        public int maxLevel;
+    }
     public partial class normalQuestionsMenu : Form
     {
+        questionsDifficultyLevel difficultyLevels = new questionsDifficultyLevel();
         private List<Button> m_buttonsList = new List<Button>();
         private List<string> topicsList = new List<string>();
         private Dictionary<string, List<string>> topicsdict = new Dictionary<string, List<string>>
@@ -20,7 +28,6 @@ namespace clientForQuestions2._0
 
                 "בחירת כל הנושאים", new List<string>
                 {
-                    "הסקה מתרשים",
                     "אותיות וספרות",
                     "פעולות מומצאות",
                     "הצבת תשובות",
@@ -54,14 +61,12 @@ namespace clientForQuestions2._0
                     "אי-שוויון",
                     "עצרת",
                     "אנלוגיות",
-                    "קטע קריאה",
                     "שאלות פסקה",
                     "השלמת משפטים מילולי",
                     "עריכת ניסוי",
                     "משמעות מילולית",
                     "כללים וסידורים",
                     "Restatements",
-                    "Reading Comprehension",
                     "אוצר-מילים",
                     "Sentence Completions"
                 }
@@ -69,7 +74,6 @@ namespace clientForQuestions2._0
             {
                 "חשיבה כמותית", new List<string>
                 {
-                    "הסקה מתרשים",
                     "אותיות וספרות",
                     "פעולות מומצאות",
                     "הצבת תשובות",
@@ -108,7 +112,6 @@ namespace clientForQuestions2._0
                 "חשיבה מילולית", new List<string>
                 {
                     "אנלוגיות",
-                    "קטע קריאה",
                     "שאלות פסקה",
                     "השלמת משפטים מילולי",
                     "עריכת ניסוי",
@@ -120,7 +123,6 @@ namespace clientForQuestions2._0
                 "אנגלית", new List<string>
                 {
                     "Restatements",
-                    "Reading Comprehension",
                     "אוצר-מילים",
                     "Sentence Completions"
                 }
@@ -262,6 +264,7 @@ namespace clientForQuestions2._0
         {
             InitializeComponent();
             updatebuttons();
+            unVisibleDifficulyLevelItems();
             LogFileHandler.writeIntoFile("logged on");
             //this.WindowState = FormWindowState.Maximized;
             //this.FormBorderStyle = FormBorderStyle.None;
@@ -269,6 +272,14 @@ namespace clientForQuestions2._0
 
             this.amountOfQuestionNumericUpDown.Value = 5;
             this.continueButton.Enabled = false;
+
+            this.difficultyLevels.minlevel = OperationsAndOtherUseful.MIN_LEVEL;
+            this.difficultyLevels.maxLevel = OperationsAndOtherUseful.MAX_LEVEL;
+
+            this.difficulyLevelMinVal.Maximum = OperationsAndOtherUseful.MAX_LEVEL;
+            this.difficulyLevelMinVal.Minimum = OperationsAndOtherUseful.MIN_LEVEL;
+            this.difficulyLevelMaxVal.Maximum = OperationsAndOtherUseful.MAX_LEVEL;
+            this.difficulyLevelMaxVal.Minimum = OperationsAndOtherUseful.MIN_LEVEL;
         }
 
         private void back2MainMenuButton_Click(object sender, EventArgs e)
@@ -362,7 +373,7 @@ namespace clientForQuestions2._0
 
             LogFileHandler.writeIntoFile("Opened new questions page");
             //get the questions here
-            questionsPage c = new questionsPage(amount, this.topicsList, this.isQSkip_checkBox.Checked);
+            questionsPage c = new questionsPage(amount, this.topicsList, this.skipFeedBackCheckBox.Checked,this.difficultyLevels);
 
             c.Show();
             this.Close();
@@ -377,13 +388,36 @@ namespace clientForQuestions2._0
         {
             if(this.dificultLevelcheckBox.Checked)
             {
-                this.difficulyLevelUpAndDown.Enabled = true;
+                visibleDifficulyLevelItems();
             }
             else
             {
-                this.difficulyLevelUpAndDown.Value = this.difficulyLevelUpAndDown.Minimum;
-                this.difficulyLevelUpAndDown.Enabled = false;
+                unVisibleDifficulyLevelItems();
             }
+        }
+        private void unVisibleDifficulyLevelItems()
+        {
+            this.difficulyLevelMaxVal.Visible = false;
+            this.difficulyLevelMinVal.Visible = false;
+            this.difficulyLevelMaxValLabel.Visible = false;
+            this.difficulyLevelMinValLabel.Visible = false;
+        }
+        private void visibleDifficulyLevelItems()
+        {
+            this.difficulyLevelMaxVal.Visible = true;
+            this.difficulyLevelMinVal.Visible = true;
+            this.difficulyLevelMaxValLabel.Visible = true;
+            this.difficulyLevelMinValLabel.Visible = true;
+        }
+
+        private void difficulyLevelMinVal_ValueChanged(object sender, EventArgs e)
+        {
+            this.difficultyLevels.minlevel = (int)this.difficulyLevelMinVal.Value;
+        }
+
+        private void difficulyLevelMaxVal_ValueChanged(object sender, EventArgs e)
+        {
+            this.difficultyLevels.maxLevel = (int)this.difficulyLevelMaxVal.Value;
         }
     }
 }

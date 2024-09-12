@@ -11,11 +11,30 @@ namespace clientForQuestions2._0
     
     internal class OperationsAndOtherUseful
     {
+        public static int MIN_LEVEL = 0;
+        public static int MAX_LEVEL = 15;
         public static int QUESTION_THAT_DID_NOT_ANSWERED = -1;
         public static int DO_NOT_MARK = -1;
         public static string right2left(string s)
         {
             return "<div style=\"direction: rtl\">" + s + "</div>";
+        }
+
+        public static string get_string_of_img_col_html(JToken json)
+        {
+            //this should be in a separate file
+            if (json == null)
+            {
+                return "";
+            }
+            if (!json.HasValues)
+            {
+                return "";
+            }
+            string img_path = "https://lmsapi.kidum-me.com/storage/";
+            string file_path = img_path + json["collections"][0]["file"]["file_path"].ToString();
+            string fullImg = $"<img src=\"{file_path}\" alt=\"Question Image\" style=\"max-width:100%; height:auto;\">";
+            return fullImg;
         }
 
         private static string get_string_of_img_html(JToken json)
@@ -37,8 +56,6 @@ namespace clientForQuestions2._0
 
         public static List<string> addNumberToQuestions(string q1, string q2, string q3, string q4)
         {
-            //this should be in a separate file
-            
             const int lenOfString = 3;
 
             //id = 3426
@@ -47,7 +64,7 @@ namespace clientForQuestions2._0
 
             //create me a func that kee[just the text without the html in c#
 
-            int currIndex = q1.IndexOf("<p>")+lenOfString;
+            int currIndex = q1.IndexOf("<p>") + lenOfString;
             q1 = "<p>(1)\t" + q1.Substring(currIndex, q1.Length - currIndex);
             currIndex = q2.IndexOf("<p>") + lenOfString;
             q2 = "<p>(2)\t" + q2.Substring(currIndex, q2.Length - currIndex);
@@ -56,82 +73,79 @@ namespace clientForQuestions2._0
             currIndex = q4.IndexOf("<p>") + lenOfString;
             q4 = "<p>(4)\t" + q4.Substring(currIndex, q4.Length - currIndex);
             List<string> list = new List<string> { q1, q2, q3, q4 };
-            return list; 
+            return list;
         }
 
 
         public static string get_string_of_question_and_option_from_json(dbQuestionParmeters qp,int userAnswer)
         {
             //optionToMarkRed = user answer
-            int optionToMarkCyan = qp.rightAnswer;
+            bool isTextOptions = ((JArray)qp.json_content["options"]).Count != 0;
+            int optionToMarkGreen = qp.rightAnswer;
             string question = qp.json_content["question"].ToString();
             string option1;
             string option2;
             string option3;
             string option4;
-            try
+            List<string> listOfOptions  = new List<string>();
+            if (isTextOptions)
             {
                  option1 = qp.json_content["options"][0]["text"].ToString();
                  option2 = qp.json_content["options"][1]["text"].ToString();
                  option3 = qp.json_content["options"][2]["text"].ToString();
                  option4 = qp.json_content["options"][3]["text"].ToString();
-            }
-            catch
-            {
-                //FIX_THIS
-                //this is a question with images not with text options
-                return "";
-            }
-            List<string> listOfOptions = addNumberToQuestions(option1, option2, option3, option4);
-            
-            
-            //if the user answsered go to this - mark an answer
-            if(userAnswer != DO_NOT_MARK)
-            {
-                listOfOptions[optionToMarkCyan - 1] = $"<div style = \"background-color: cyan;display: inline-block;\">{listOfOptions[optionToMarkCyan - 1]}</div><br>";
-                //cyan will always be
-                if (userAnswer != optionToMarkCyan)//if the user got right - do not need to mark in red
+                 listOfOptions = addNumberToQuestions(option1, option2, option3, option4);
+                //if the user answsered go to this - mark an answer
+                if (userAnswer != DO_NOT_MARK)
                 {
-                    listOfOptions[userAnswer - 1] = $"<div style = \"background-color: red;display: inline-block;\">{listOfOptions[userAnswer - 1]}</div><br>";
+                    listOfOptions[optionToMarkGreen - 1] = $"<div style = \"background-color: lightgreen;display: inline-block;\">{listOfOptions[optionToMarkGreen - 1]}</div><br>";
+                    //green will always be
+                    if (userAnswer != optionToMarkGreen)//if the user got right - do not need to mark in red
+                    {
+                        listOfOptions[userAnswer - 1] = $"<div style = \"background-color: red;display: inline-block;\">{listOfOptions[userAnswer - 1]}</div><br>";
+                    }
                 }
             }
+            else
+            {
+                option1 = $"<img src=\"https://lmsapi.kidum-me.com/storage/{qp.json_content["option_images"][0]["file_path"].ToString()}\" alt=\"Question Image\" style=\"max-width:100%; height:auto;\">"; 
+                option2 = $"<img src=\"https://lmsapi.kidum-me.com/storage/{qp.json_content["option_images"][1]["file_path"].ToString()}\" alt=\"Question Image\" style=\"max-width:100%; height:auto;\">";
+                option3 = $"<img src=\"https://lmsapi.kidum-me.com/storage/{qp.json_content["option_images"][2]["file_path"].ToString()}\" alt=\"Question Image\" style=\"max-width:100%; height:auto;\">";
+                option4 = $"<img src=\"https://lmsapi.kidum-me.com/storage/{qp.json_content["option_images"][3]["file_path"].ToString()}\" alt=\"Question Image\" style=\"max-width:100%; height:auto;\">";
+                listOfOptions = new List<string> { option1, option2, option3, option4 };
+
+                if (userAnswer != DO_NOT_MARK)
+                {
+                    listOfOptions[optionToMarkGreen - 1] = $"<div style = \"background-color: lightgreen;display: inline-block;\"> ({optionToMarkGreen})\t</div>" + listOfOptions[optionToMarkGreen - 1];
+                    //green will always be
+                    if (userAnswer != optionToMarkGreen)//if the user got right - do not need to mark in red
+                    {
+                        listOfOptions[userAnswer - 1] = $"<div style = \"background-color: red;display: inline-block;\"> ({userAnswer})\t</div>" + listOfOptions[userAnswer - 1];
+                    }
+                }
+                for (int i = 0; i < listOfOptions.Count; i++)
+                {
+                    if (listOfOptions[i].StartsWith("<img"))
+                        listOfOptions[i] = $"({i + 1})\t" + listOfOptions[i];
+                }
+            }
+
+
+
+
 
 
 
             string finalOptionsString = listOfOptions[0] + listOfOptions[1] + listOfOptions[2] + listOfOptions[3];
-
-
-                if (qp.category == "Restatements" || qp.category == "Reading Comprehension" || qp.category == "אוצר-מילים" || qp.category == "Sentence Completions")
+            if(!isTextOptions)
+                finalOptionsString = listOfOptions[0] + listOfOptions[1] + "<br>" + listOfOptions[2] + listOfOptions[3];
+            //if question is in english
+            if (!isQuestionInHebrew(qp.category))
                 {
                     return question + get_string_of_img_html(qp.json_content["image"]) + "<br><br>" + finalOptionsString;
                 }
 
-                return right2left(question + get_string_of_img_html(qp.json_content["image"]) + "<br><br>" + finalOptionsString);
-
-
-
-        }
-
-
-        private static string getFinalStringOfOptions(string option1, string option2, string option3, string option4, int wrongUserChoice)
-        {
-            if (wrongUserChoice == 1)
-            {
-                option1 = $"<div style = \"background-color: red;display: inline-block;\">{option1}</div><br>";
-            }
-            if (wrongUserChoice == 2)
-            {
-                option2 = $"<div style = \"background-color: red;display: inline-block;\">{option2}</div><br>";
-            }
-            if (wrongUserChoice == 3)
-            {
-                option3 = $"<div style = \"background-color: red;display: inline-block;\">{option3}</div><br>";
-            }
-            if (wrongUserChoice == 4)
-            {
-                option4 = $"<div style = \"background-color: red;display: inline-block;\">{option4}</div><br>";
-            }
-            return option1 + option2 + option3 + option4;
+            return right2left(question + get_string_of_img_html(qp.json_content["image"]) + "<br><br>" + finalOptionsString);
         }
 
         public static string get_string_of_question_and_explanation(dbQuestionParmeters qp, int clientanswer)
@@ -139,12 +153,8 @@ namespace clientForQuestions2._0
             string answer = qp.json_content["solving_explanation"].ToString();
             string line = "<div style=\"top: 50%; left: 0; width: 100vw; height: 1px; background-color: lightgray;\"></div>\r\n<br>הסבר:";
             var img = qp.json_content["explanation_image"];
-            if(qp.category == "Restatements" || qp.category == "Reading Comprehension" || qp.category == "אוצר-מילים" || qp.category == "Sentence Completions")
-            {
-                return get_string_of_question_and_option_from_json(qp, clientanswer) + right2left(line + answer + get_string_of_img_html(img));
-            }
-            return right2left(get_string_of_question_and_option_from_json(qp, clientanswer) + line + answer + get_string_of_img_html(img));
 
+            return get_string_of_question_and_option_from_json(qp, clientanswer) + right2left(line + answer + get_string_of_img_html(img));
         }
         private static bool isQuestionInHebrew(string category)
         {

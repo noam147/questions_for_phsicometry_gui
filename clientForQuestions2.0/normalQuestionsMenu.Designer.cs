@@ -31,7 +31,6 @@
             this.back2MainMenuButton = new System.Windows.Forms.Button();
             this.amountOfQuestionText = new System.Windows.Forms.Label();
             this.continueButton = new System.Windows.Forms.Button();
-            this.themeBase1 = new System.Windows.Forms.Button();
             this.themeBase2 = new System.Windows.Forms.Button();
             this.themeBase3 = new System.Windows.Forms.Button();
             this.themeBase4 = new System.Windows.Forms.Button();
@@ -63,14 +62,12 @@
             this.themeBase31 = new System.Windows.Forms.Button();
             this.themeBase32 = new System.Windows.Forms.Button();
             this.themeBase33 = new System.Windows.Forms.Button();
-            this.themeBase34 = new System.Windows.Forms.Button();
             this.themeBase35 = new System.Windows.Forms.Button();
             this.themeBase36 = new System.Windows.Forms.Button();
             this.themeBase37 = new System.Windows.Forms.Button();
             this.themeBase38 = new System.Windows.Forms.Button();
             this.themeBase39 = new System.Windows.Forms.Button();
             this.themeBase40 = new System.Windows.Forms.Button();
-            this.themeBase41 = new System.Windows.Forms.Button();
             this.themeBase42 = new System.Windows.Forms.Button();
             this.themeBase43 = new System.Windows.Forms.Button();
             this.theme1 = new System.Windows.Forms.Button();
@@ -85,11 +82,15 @@
             this.theme10 = new System.Windows.Forms.Button();
             this.all_t = new System.Windows.Forms.Button();
             this.amountOfQuestionNumericUpDown = new System.Windows.Forms.NumericUpDown();
-            this.isQSkip_checkBox = new System.Windows.Forms.CheckBox();
-            this.difficulyLevelUpAndDown = new System.Windows.Forms.NumericUpDown();
+            this.skipFeedBackCheckBox = new System.Windows.Forms.CheckBox();
+            this.difficulyLevelMaxVal = new System.Windows.Forms.NumericUpDown();
             this.dificultLevelcheckBox = new System.Windows.Forms.CheckBox();
+            this.difficulyLevelMinVal = new System.Windows.Forms.NumericUpDown();
+            this.difficulyLevelMinValLabel = new System.Windows.Forms.Label();
+            this.difficulyLevelMaxValLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.amountOfQuestionNumericUpDown)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.difficulyLevelUpAndDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.difficulyLevelMaxVal)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.difficulyLevelMinVal)).BeginInit();
             this.SuspendLayout();
             // 
             // back2MainMenuButton
@@ -124,22 +125,10 @@
             this.continueButton.UseVisualStyleBackColor = true;
             this.continueButton.Click += new System.EventHandler(this.continueButton_Click);
             // 
-            // themeBase1
-            // 
-            this.themeBase1.AutoSize = true;
-            this.themeBase1.Location = new System.Drawing.Point(243, 119);
-            this.themeBase1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.themeBase1.Name = "themeBase1";
-            this.themeBase1.Size = new System.Drawing.Size(113, 38);
-            this.themeBase1.TabIndex = 10;
-            this.themeBase1.Text = "הסקה מתרשים";
-            this.themeBase1.UseVisualStyleBackColor = true;
-            this.themeBase1.Click += new System.EventHandler(this.themebase_Click);
-            // 
             // themeBase2
             // 
             this.themeBase2.AutoSize = true;
-            this.themeBase2.Location = new System.Drawing.Point(243, 156);
+            this.themeBase2.Location = new System.Drawing.Point(249, 124);
             this.themeBase2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.themeBase2.Name = "themeBase2";
             this.themeBase2.Size = new System.Drawing.Size(115, 38);
@@ -151,10 +140,10 @@
             // themeBase3
             // 
             this.themeBase3.AutoSize = true;
-            this.themeBase3.Location = new System.Drawing.Point(243, 194);
+            this.themeBase3.Location = new System.Drawing.Point(249, 162);
             this.themeBase3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.themeBase3.Name = "themeBase3";
-            this.themeBase3.Size = new System.Drawing.Size(129, 64);
+            this.themeBase3.Size = new System.Drawing.Size(129, 42);
             this.themeBase3.TabIndex = 10;
             this.themeBase3.Text = "פעולות מומצאות";
             this.themeBase3.UseVisualStyleBackColor = true;
@@ -163,7 +152,7 @@
             // themeBase4
             // 
             this.themeBase4.AutoSize = true;
-            this.themeBase4.Location = new System.Drawing.Point(243, 258);
+            this.themeBase4.Location = new System.Drawing.Point(249, 205);
             this.themeBase4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.themeBase4.Name = "themeBase4";
             this.themeBase4.Size = new System.Drawing.Size(112, 38);
@@ -175,7 +164,7 @@
             // themeBase5
             // 
             this.themeBase5.AutoSize = true;
-            this.themeBase5.Location = new System.Drawing.Point(264, 364);
+            this.themeBase5.Location = new System.Drawing.Point(268, 308);
             this.themeBase5.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.themeBase5.Name = "themeBase5";
             this.themeBase5.Size = new System.Drawing.Size(112, 38);
@@ -187,7 +176,7 @@
             // themeBase6
             // 
             this.themeBase6.AutoSize = true;
-            this.themeBase6.Location = new System.Drawing.Point(264, 401);
+            this.themeBase6.Location = new System.Drawing.Point(268, 345);
             this.themeBase6.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.themeBase6.Name = "themeBase6";
             this.themeBase6.Size = new System.Drawing.Size(112, 38);
@@ -199,7 +188,7 @@
             // themeBase7
             // 
             this.themeBase7.AutoSize = true;
-            this.themeBase7.Location = new System.Drawing.Point(264, 439);
+            this.themeBase7.Location = new System.Drawing.Point(268, 382);
             this.themeBase7.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.themeBase7.Name = "themeBase7";
             this.themeBase7.Size = new System.Drawing.Size(112, 38);
@@ -211,7 +200,7 @@
             // themeBase8
             // 
             this.themeBase8.AutoSize = true;
-            this.themeBase8.Location = new System.Drawing.Point(264, 476);
+            this.themeBase8.Location = new System.Drawing.Point(268, 420);
             this.themeBase8.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.themeBase8.Name = "themeBase8";
             this.themeBase8.Size = new System.Drawing.Size(112, 38);
@@ -223,7 +212,7 @@
             // themeBase9
             // 
             this.themeBase9.AutoSize = true;
-            this.themeBase9.Location = new System.Drawing.Point(264, 514);
+            this.themeBase9.Location = new System.Drawing.Point(268, 458);
             this.themeBase9.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.themeBase9.Name = "themeBase9";
             this.themeBase9.Size = new System.Drawing.Size(112, 38);
@@ -235,7 +224,7 @@
             // themeBase10
             // 
             this.themeBase10.AutoSize = true;
-            this.themeBase10.Location = new System.Drawing.Point(264, 551);
+            this.themeBase10.Location = new System.Drawing.Point(268, 495);
             this.themeBase10.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.themeBase10.Name = "themeBase10";
             this.themeBase10.Size = new System.Drawing.Size(112, 38);
@@ -247,7 +236,7 @@
             // themeBase11
             // 
             this.themeBase11.AutoSize = true;
-            this.themeBase11.Location = new System.Drawing.Point(285, 642);
+            this.themeBase11.Location = new System.Drawing.Point(286, 589);
             this.themeBase11.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.themeBase11.Name = "themeBase11";
             this.themeBase11.Size = new System.Drawing.Size(112, 38);
@@ -259,7 +248,7 @@
             // themeBase12
             // 
             this.themeBase12.AutoSize = true;
-            this.themeBase12.Location = new System.Drawing.Point(285, 680);
+            this.themeBase12.Location = new System.Drawing.Point(286, 626);
             this.themeBase12.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.themeBase12.Name = "themeBase12";
             this.themeBase12.Size = new System.Drawing.Size(112, 38);
@@ -271,7 +260,7 @@
             // themeBase13
             // 
             this.themeBase13.AutoSize = true;
-            this.themeBase13.Location = new System.Drawing.Point(285, 718);
+            this.themeBase13.Location = new System.Drawing.Point(286, 662);
             this.themeBase13.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.themeBase13.Name = "themeBase13";
             this.themeBase13.Size = new System.Drawing.Size(112, 38);
@@ -283,7 +272,7 @@
             // themeBase14
             // 
             this.themeBase14.AutoSize = true;
-            this.themeBase14.Location = new System.Drawing.Point(285, 755);
+            this.themeBase14.Location = new System.Drawing.Point(286, 700);
             this.themeBase14.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.themeBase14.Name = "themeBase14";
             this.themeBase14.Size = new System.Drawing.Size(112, 38);
@@ -499,7 +488,7 @@
             // themeBase33
             // 
             this.themeBase33.AutoSize = true;
-            this.themeBase33.Location = new System.Drawing.Point(778, 116);
+            this.themeBase33.Location = new System.Drawing.Point(778, 129);
             this.themeBase33.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.themeBase33.Name = "themeBase33";
             this.themeBase33.Size = new System.Drawing.Size(112, 38);
@@ -508,22 +497,10 @@
             this.themeBase33.UseVisualStyleBackColor = true;
             this.themeBase33.Click += new System.EventHandler(this.themebase_Click);
             // 
-            // themeBase34
-            // 
-            this.themeBase34.AutoSize = true;
-            this.themeBase34.Location = new System.Drawing.Point(778, 154);
-            this.themeBase34.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.themeBase34.Name = "themeBase34";
-            this.themeBase34.Size = new System.Drawing.Size(112, 38);
-            this.themeBase34.TabIndex = 10;
-            this.themeBase34.Text = "קטע קריאה";
-            this.themeBase34.UseVisualStyleBackColor = true;
-            this.themeBase34.Click += new System.EventHandler(this.themebase_Click);
-            // 
             // themeBase35
             // 
             this.themeBase35.AutoSize = true;
-            this.themeBase35.Location = new System.Drawing.Point(793, 244);
+            this.themeBase35.Location = new System.Drawing.Point(792, 234);
             this.themeBase35.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.themeBase35.Name = "themeBase35";
             this.themeBase35.Size = new System.Drawing.Size(112, 38);
@@ -535,7 +512,7 @@
             // themeBase36
             // 
             this.themeBase36.AutoSize = true;
-            this.themeBase36.Location = new System.Drawing.Point(793, 281);
+            this.themeBase36.Location = new System.Drawing.Point(792, 271);
             this.themeBase36.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.themeBase36.Name = "themeBase36";
             this.themeBase36.Size = new System.Drawing.Size(172, 60);
@@ -547,7 +524,7 @@
             // themeBase37
             // 
             this.themeBase37.AutoSize = true;
-            this.themeBase37.Location = new System.Drawing.Point(793, 345);
+            this.themeBase37.Location = new System.Drawing.Point(792, 331);
             this.themeBase37.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.themeBase37.Name = "themeBase37";
             this.themeBase37.Size = new System.Drawing.Size(112, 38);
@@ -559,7 +536,7 @@
             // themeBase38
             // 
             this.themeBase38.AutoSize = true;
-            this.themeBase38.Location = new System.Drawing.Point(793, 382);
+            this.themeBase38.Location = new System.Drawing.Point(792, 369);
             this.themeBase38.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.themeBase38.Name = "themeBase38";
             this.themeBase38.Size = new System.Drawing.Size(132, 59);
@@ -571,7 +548,7 @@
             // themeBase39
             // 
             this.themeBase39.AutoSize = true;
-            this.themeBase39.Location = new System.Drawing.Point(793, 440);
+            this.themeBase39.Location = new System.Drawing.Point(792, 428);
             this.themeBase39.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.themeBase39.Name = "themeBase39";
             this.themeBase39.Size = new System.Drawing.Size(120, 60);
@@ -592,22 +569,10 @@
             this.themeBase40.UseVisualStyleBackColor = true;
             this.themeBase40.Click += new System.EventHandler(this.themebase_Click);
             // 
-            // themeBase41
-            // 
-            this.themeBase41.AutoSize = true;
-            this.themeBase41.Location = new System.Drawing.Point(1014, 156);
-            this.themeBase41.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.themeBase41.Name = "themeBase41";
-            this.themeBase41.Size = new System.Drawing.Size(195, 51);
-            this.themeBase41.TabIndex = 10;
-            this.themeBase41.Text = "Reading Comprehension";
-            this.themeBase41.UseVisualStyleBackColor = true;
-            this.themeBase41.Click += new System.EventHandler(this.themebase_Click);
-            // 
             // themeBase42
             // 
             this.themeBase42.AutoSize = true;
-            this.themeBase42.Location = new System.Drawing.Point(1028, 265);
+            this.themeBase42.Location = new System.Drawing.Point(1026, 222);
             this.themeBase42.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.themeBase42.Name = "themeBase42";
             this.themeBase42.Size = new System.Drawing.Size(112, 38);
@@ -619,7 +584,7 @@
             // themeBase43
             // 
             this.themeBase43.AutoSize = true;
-            this.themeBase43.Location = new System.Drawing.Point(1028, 308);
+            this.themeBase43.Location = new System.Drawing.Point(1026, 260);
             this.themeBase43.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.themeBase43.Name = "themeBase43";
             this.themeBase43.Size = new System.Drawing.Size(180, 51);
@@ -646,7 +611,7 @@
             // 
             this.theme2.AutoSize = true;
             this.theme2.BackColor = System.Drawing.Color.LightGreen;
-            this.theme2.Location = new System.Drawing.Point(243, 309);
+            this.theme2.Location = new System.Drawing.Point(249, 246);
             this.theme2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.theme2.Name = "theme2";
             this.theme2.Size = new System.Drawing.Size(115, 50);
@@ -659,7 +624,7 @@
             // 
             this.theme3.AutoSize = true;
             this.theme3.BackColor = System.Drawing.Color.LightGreen;
-            this.theme3.Location = new System.Drawing.Point(264, 586);
+            this.theme3.Location = new System.Drawing.Point(268, 531);
             this.theme3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.theme3.Name = "theme3";
             this.theme3.Size = new System.Drawing.Size(115, 50);
@@ -725,7 +690,7 @@
             // 
             this.theme8.AutoSize = true;
             this.theme8.BackColor = System.Drawing.Color.LightGreen;
-            this.theme8.Location = new System.Drawing.Point(778, 189);
+            this.theme8.Location = new System.Drawing.Point(778, 178);
             this.theme8.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.theme8.Name = "theme8";
             this.theme8.Size = new System.Drawing.Size(115, 50);
@@ -752,7 +717,7 @@
             // 
             this.theme10.AutoSize = true;
             this.theme10.BackColor = System.Drawing.Color.LightGreen;
-            this.theme10.Location = new System.Drawing.Point(1014, 210);
+            this.theme10.Location = new System.Drawing.Point(1014, 164);
             this.theme10.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.theme10.Name = "theme10";
             this.theme10.Size = new System.Drawing.Size(115, 50);
@@ -787,30 +752,36 @@
             0,
             0});
             // 
-            // isQSkip_checkBox
+            // skipFeedBackCheckBox
             // 
-            this.isQSkip_checkBox.AutoSize = true;
-            this.isQSkip_checkBox.Location = new System.Drawing.Point(11, 600);
-            this.isQSkip_checkBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.isQSkip_checkBox.Name = "isQSkip_checkBox";
-            this.isQSkip_checkBox.Size = new System.Drawing.Size(179, 24);
-            this.isQSkip_checkBox.TabIndex = 14;
-            this.isQSkip_checkBox.Text = "ללא משוב על תשובות";
-            this.isQSkip_checkBox.UseVisualStyleBackColor = true;
+            this.skipFeedBackCheckBox.AutoSize = true;
+            this.skipFeedBackCheckBox.Location = new System.Drawing.Point(11, 600);
+            this.skipFeedBackCheckBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.skipFeedBackCheckBox.Name = "skipFeedBackCheckBox";
+            this.skipFeedBackCheckBox.Size = new System.Drawing.Size(179, 24);
+            this.skipFeedBackCheckBox.TabIndex = 14;
+            this.skipFeedBackCheckBox.Text = "ללא משוב על תשובות";
+            this.skipFeedBackCheckBox.UseVisualStyleBackColor = true;
             // 
-            // difficulyLevelUpAndDown
+            // difficulyLevelMaxVal
             // 
-            this.difficulyLevelUpAndDown.Enabled = false;
-            this.difficulyLevelUpAndDown.Location = new System.Drawing.Point(83, 451);
-            this.difficulyLevelUpAndDown.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.difficulyLevelUpAndDown.Name = "difficulyLevelUpAndDown";
-            this.difficulyLevelUpAndDown.Size = new System.Drawing.Size(86, 26);
-            this.difficulyLevelUpAndDown.TabIndex = 16;
+            this.difficulyLevelMaxVal.Location = new System.Drawing.Point(125, 446);
+            this.difficulyLevelMaxVal.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.difficulyLevelMaxVal.Name = "difficulyLevelMaxVal";
+            this.difficulyLevelMaxVal.Size = new System.Drawing.Size(86, 26);
+            this.difficulyLevelMaxVal.TabIndex = 16;
+            this.difficulyLevelMaxVal.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.difficulyLevelMaxVal.ValueChanged += new System.EventHandler(this.difficulyLevelMaxVal_ValueChanged);
             // 
             // dificultLevelcheckBox
             // 
             this.dificultLevelcheckBox.AutoSize = true;
-            this.dificultLevelcheckBox.Location = new System.Drawing.Point(43, 415);
+            this.dificultLevelcheckBox.Location = new System.Drawing.Point(43, 387);
+            this.dificultLevelcheckBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dificultLevelcheckBox.Name = "dificultLevelcheckBox";
             this.dificultLevelcheckBox.Size = new System.Drawing.Size(156, 24);
             this.dificultLevelcheckBox.TabIndex = 17;
@@ -818,19 +789,50 @@
             this.dificultLevelcheckBox.UseVisualStyleBackColor = true;
             this.dificultLevelcheckBox.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
+            // difficulyLevelMinVal
+            // 
+            this.difficulyLevelMinVal.Location = new System.Drawing.Point(14, 446);
+            this.difficulyLevelMinVal.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.difficulyLevelMinVal.Name = "difficulyLevelMinVal";
+            this.difficulyLevelMinVal.Size = new System.Drawing.Size(86, 26);
+            this.difficulyLevelMinVal.TabIndex = 18;
+            this.difficulyLevelMinVal.ValueChanged += new System.EventHandler(this.difficulyLevelMinVal_ValueChanged);
+            // 
+            // difficulyLevelMinValLabel
+            // 
+            this.difficulyLevelMinValLabel.AutoSize = true;
+            this.difficulyLevelMinValLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold);
+            this.difficulyLevelMinValLabel.Location = new System.Drawing.Point(29, 414);
+            this.difficulyLevelMinValLabel.Name = "difficulyLevelMinValLabel";
+            this.difficulyLevelMinValLabel.Size = new System.Drawing.Size(71, 20);
+            this.difficulyLevelMinValLabel.TabIndex = 19;
+            this.difficulyLevelMinValLabel.Text = ":מינימום";
+            // 
+            // difficulyLevelMaxValLabel
+            // 
+            this.difficulyLevelMaxValLabel.AutoSize = true;
+            this.difficulyLevelMaxValLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold);
+            this.difficulyLevelMaxValLabel.Location = new System.Drawing.Point(121, 414);
+            this.difficulyLevelMaxValLabel.Name = "difficulyLevelMaxValLabel";
+            this.difficulyLevelMaxValLabel.Size = new System.Drawing.Size(78, 20);
+            this.difficulyLevelMaxValLabel.TabIndex = 20;
+            this.difficulyLevelMaxValLabel.Text = ":מקסימום";
+            // 
             // normalQuestionsMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1243, 1050);
+            this.Controls.Add(this.difficulyLevelMaxValLabel);
+            this.Controls.Add(this.difficulyLevelMinValLabel);
+            this.Controls.Add(this.difficulyLevelMinVal);
             this.Controls.Add(this.dificultLevelcheckBox);
-            this.Controls.Add(this.difficulyLevelUpAndDown);
+            this.Controls.Add(this.difficulyLevelMaxVal);
             this.Controls.Add(this.amountOfQuestionNumericUpDown);
             this.Controls.Add(this.back2MainMenuButton);
             this.Controls.Add(this.amountOfQuestionText);
             this.Controls.Add(this.continueButton);
-            this.Controls.Add(this.isQSkip_checkBox);
-            this.Controls.Add(this.themeBase1);
+            this.Controls.Add(this.skipFeedBackCheckBox);
             this.Controls.Add(this.themeBase2);
             this.Controls.Add(this.themeBase3);
             this.Controls.Add(this.themeBase4);
@@ -862,14 +864,12 @@
             this.Controls.Add(this.themeBase31);
             this.Controls.Add(this.themeBase32);
             this.Controls.Add(this.themeBase33);
-            this.Controls.Add(this.themeBase34);
             this.Controls.Add(this.themeBase35);
             this.Controls.Add(this.themeBase36);
             this.Controls.Add(this.themeBase37);
             this.Controls.Add(this.themeBase38);
             this.Controls.Add(this.themeBase39);
             this.Controls.Add(this.themeBase40);
-            this.Controls.Add(this.themeBase41);
             this.Controls.Add(this.themeBase42);
             this.Controls.Add(this.themeBase43);
             this.Controls.Add(this.theme1);
@@ -888,7 +888,8 @@
             this.Text = "normalQuestionsMenu";
             this.Load += new System.EventHandler(this.normalQuestionsMenu_Load);
             ((System.ComponentModel.ISupportInitialize)(this.amountOfQuestionNumericUpDown)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.difficulyLevelUpAndDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.difficulyLevelMaxVal)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.difficulyLevelMinVal)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -899,8 +900,6 @@
 
         private System.Windows.Forms.Label amountOfQuestionText;
         private System.Windows.Forms.Button continueButton;
-
-        private System.Windows.Forms.Button themeBase1;
         private System.Windows.Forms.Button themeBase2;
         private System.Windows.Forms.Button themeBase3;
         private System.Windows.Forms.Button themeBase4;
@@ -932,14 +931,12 @@
         private System.Windows.Forms.Button themeBase31;
         private System.Windows.Forms.Button themeBase32;
         private System.Windows.Forms.Button themeBase33;
-        private System.Windows.Forms.Button themeBase34;
         private System.Windows.Forms.Button themeBase35;
         private System.Windows.Forms.Button themeBase36;
         private System.Windows.Forms.Button themeBase37;
         private System.Windows.Forms.Button themeBase38;
         private System.Windows.Forms.Button themeBase39;
         private System.Windows.Forms.Button themeBase40;
-        private System.Windows.Forms.Button themeBase41;
         private System.Windows.Forms.Button themeBase42;
         private System.Windows.Forms.Button themeBase43;
 
@@ -956,8 +953,11 @@
 
         private System.Windows.Forms.Button all_t;
         private System.Windows.Forms.NumericUpDown amountOfQuestionNumericUpDown;
-        private System.Windows.Forms.CheckBox isQSkip_checkBox;
-        private System.Windows.Forms.NumericUpDown difficulyLevelUpAndDown;
+        private System.Windows.Forms.CheckBox skipFeedBackCheckBox;
+        private System.Windows.Forms.NumericUpDown difficulyLevelMaxVal;
         private System.Windows.Forms.CheckBox dificultLevelcheckBox;
+        private System.Windows.Forms.NumericUpDown difficulyLevelMinVal;
+        private System.Windows.Forms.Label difficulyLevelMinValLabel;
+        private System.Windows.Forms.Label difficulyLevelMaxValLabel;
     }
 }
