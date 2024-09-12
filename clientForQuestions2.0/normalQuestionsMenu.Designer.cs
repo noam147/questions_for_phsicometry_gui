@@ -1,4 +1,7 @@
-﻿namespace clientForQuestions2._0
+﻿using System.Windows.Forms;
+using System;
+
+namespace clientForQuestions2._0
 {
     partial class normalQuestionsMenu
     {
@@ -85,6 +88,8 @@
             this.isQSkip_checkBox = new System.Windows.Forms.CheckBox();
             this.difficulyLevelUpAndDown = new System.Windows.Forms.NumericUpDown();
             this.dificultLevelcheckBox = new System.Windows.Forms.CheckBox();
+            this.timePerQPicker = new System.Windows.Forms.DateTimePicker();
+            this.timePerQCheckbox = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.amountOfQuestionNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.difficulyLevelUpAndDown)).BeginInit();
             this.SuspendLayout();
@@ -777,11 +782,39 @@
             this.dificultLevelcheckBox.UseVisualStyleBackColor = true;
             this.dificultLevelcheckBox.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
+            // timePerQPicker
+            // 
+            this.timePerQPicker.CustomFormat = "mm:ss";
+            this.timePerQPicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.timePerQPicker.Location = new System.Drawing.Point(101, 289);
+            this.timePerQPicker.MaxDate = new System.DateTime(2000, 1, 1, 0, 59, 59, 0);
+            this.timePerQPicker.MinDate = new System.DateTime(2000, 1, 1, 0, 0, 0, 0);
+            this.timePerQPicker.Name = "timePerQPicker";
+            this.timePerQPicker.ShowUpDown = true;
+            this.timePerQPicker.Size = new System.Drawing.Size(70, 22);
+            this.timePerQPicker.TabIndex = 18;
+            this.timePerQPicker.Value = new System.DateTime(2000, 1, 1, 0, 1, 0, 0);
+            // 
+            // timePerQCheckbox
+            // 
+            this.timePerQCheckbox.AutoSize = true;
+            this.timePerQCheckbox.Checked = true;
+            this.timePerQCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.timePerQCheckbox.Location = new System.Drawing.Point(35, 267);
+            this.timePerQCheckbox.Name = "timePerQCheckbox";
+            this.timePerQCheckbox.Size = new System.Drawing.Size(133, 20);
+            this.timePerQCheckbox.TabIndex = 20;
+            this.timePerQCheckbox.Text = "הגבלת זמן לשאלה";
+            this.timePerQCheckbox.UseVisualStyleBackColor = true;
+            this.timePerQCheckbox.CheckedChanged += new System.EventHandler(this.timePerQCheckbox_CheckedChanged);
+            // 
             // normalQuestionsMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1105, 840);
+            this.Controls.Add(this.timePerQCheckbox);
+            this.Controls.Add(this.timePerQPicker);
             this.Controls.Add(this.dificultLevelcheckBox);
             this.Controls.Add(this.difficulyLevelUpAndDown);
             this.Controls.Add(this.amountOfQuestionNumericUpDown);
@@ -911,5 +944,7 @@
         private System.Windows.Forms.CheckBox isQSkip_checkBox;
         private System.Windows.Forms.NumericUpDown difficulyLevelUpAndDown;
         private System.Windows.Forms.CheckBox dificultLevelcheckBox;
+        private System.Windows.Forms.DateTimePicker timePerQPicker;
+        private CheckBox timePerQCheckbox;
     }
 }

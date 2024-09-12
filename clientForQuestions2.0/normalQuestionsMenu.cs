@@ -355,8 +355,13 @@ namespace clientForQuestions2._0
             }
 
             LogFileHandler.writeIntoFile("Opened new questions page");
+
+            questionsPage c;
             //get the questions here
-            questionsPage c = new questionsPage(amount, this.topicsList, this.isQSkip_checkBox.Checked);
+            if (this.timePerQPicker.Enabled)
+                c = new questionsPage(amount, this.topicsList, this.isQSkip_checkBox.Checked, timePerQPicker.Value.Minute*60 + timePerQPicker.Value.Second); // CHANGE!!!!!42
+            else
+                c = new questionsPage(amount, this.topicsList, this.isQSkip_checkBox.Checked, 0); // CHANGE!!!!!42
 
             c.Show();
             this.Close();
@@ -378,6 +383,16 @@ namespace clientForQuestions2._0
                 this.difficulyLevelUpAndDown.Value = this.difficulyLevelUpAndDown.Minimum;
                 this.difficulyLevelUpAndDown.Enabled = false;
             }
+        }
+
+        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void timePerQCheckbox_CheckedChanged(object sender, EventArgs e)
+        {
+            this.timePerQPicker.Enabled = ((CheckBox)sender).Checked;
         }
     }
 }

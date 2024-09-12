@@ -72,7 +72,7 @@ namespace clientForQuestions2._0
                 return;
             }
             LogFileHandler.writeIntoFile($"got into specic question by id. id: {id}");
-            q.userAnswer = q.question.rightAnswer;
+            q.userAnswer = OperationsAndOtherUseful.SKIPPED_Q;
 
             specificquestion.Add(q);
             summrizePage s = new summrizePage(specificquestion);

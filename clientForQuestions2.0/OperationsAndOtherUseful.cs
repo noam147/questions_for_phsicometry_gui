@@ -12,9 +12,21 @@ namespace clientForQuestions2._0
     {
         public static int QUESTION_THAT_DID_NOT_ANSWERED = -1;
         public static int DO_NOT_MARK = -1;
+        public static int SKIPPED_Q = -2; // when the user didnt answer
         public static string right2left(string s)
         {
             return "<div style=" + '"' + "direction: rtl" + '"' + ">" + s + "</div>";
+        }
+
+        public static string get_time_mmss_fromseconds(int sec)
+        {
+            if (sec == -1)
+                return "-1";
+
+            if (sec % 60 < 10)
+                return $"{sec / 60}:0{sec % 60}";
+            else
+                return $"{sec / 60}:{sec % 60}";
         }
 
         public static string get_string_of_img_col_html(JToken json)
@@ -86,7 +98,7 @@ namespace clientForQuestions2._0
                 {
                     listOfOptions[optionToMarkGreen - 1] = $"<div style = \"background-color: lightgreen;display: inline-block;\">{listOfOptions[optionToMarkGreen - 1]}</div><br>";
                     //green will always be
-                    if (userAnswer != optionToMarkGreen)//if the user got right - do not need to mark in red
+                    if (userAnswer != optionToMarkGreen && userAnswer != SKIPPED_Q)//if the user got right - do not need to mark in red
                     {
                         listOfOptions[userAnswer - 1] = $"<div style = \"background-color: red;display: inline-block;\">{listOfOptions[userAnswer - 1]}</div><br>";
                     }
@@ -104,7 +116,7 @@ namespace clientForQuestions2._0
                 {
                     listOfOptions[optionToMarkGreen - 1] = $"<div style = \"background-color: lightgreen;display: inline-block;\"> ({optionToMarkGreen})\t</div>" + listOfOptions[optionToMarkGreen - 1];
                     //green will always be
-                    if (userAnswer != optionToMarkGreen)//if the user got right - do not need to mark in red
+                    if (userAnswer != optionToMarkGreen && userAnswer != SKIPPED_Q)//if the user got right - do not need to mark in red
                     {
                         listOfOptions[userAnswer - 1] = $"<div style = \"background-color: red;display: inline-block;\"> ({userAnswer})\t</div>" + listOfOptions[userAnswer - 1];
                     }

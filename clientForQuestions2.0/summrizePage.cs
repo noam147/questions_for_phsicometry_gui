@@ -78,11 +78,14 @@ namespace clientForQuestions2._0
             {
                 time += qp.timeForAnswer;
             }
-            this.total_time.Text = $"זמן כולל: {time}ש'";
-            this.avrage_time.Text = $"זמן ממוצע לשאלה: {time / m_questions.Count}ש'";
+
+            this.total_time.Text = $"זמן כולל: {OperationsAndOtherUseful.get_time_mmss_fromseconds(time)}";
+            this.avrage_time.Text = $"זמן ממוצע לשאלה: {OperationsAndOtherUseful.get_time_mmss_fromseconds(time / m_questions.Count)}";
             int corr_c = 0;
             foreach (afterQuestionParametrs qp in m_questions)
             {
+                if (qp.userAnswer == -1 || qp.userAnswer == OperationsAndOtherUseful.SKIPPED_Q)
+                    continue;
                 if (((JArray)qp.question.json_content["options"]).Count != 0)
                     if ((int) qp.question.json_content["options"][qp.userAnswer-1]["is_correct"] == 1)
                             corr_c++;
@@ -321,17 +324,18 @@ namespace clientForQuestions2._0
             };
                 btn.Click += Button_Click;
                 //if answer was correct
-                if (currQuestionRight[i].question.rightAnswer == currQuestionRight[i].userAnswer)
-                {
-                    btn.BackColor = Color.Green;
-                }
+                if (currQuestionRight[i].userAnswer == OperationsAndOtherUseful.SKIPPED_Q)
+                    btn.BackColor = Color.Gray;
                 else
                 {
-                    btn.BackColor = Color.Red;
+                    if (currQuestionRight[i].question.rightAnswer == currQuestionRight[i].userAnswer)
+                        btn.BackColor = Color.Green;
+                    else
+                        btn.BackColor = Color.Red;
                 }
                 m_buttonList.Add(btn);
             }
-            if(m_buttonList.Count != 0) 
+            if (m_buttonList.Count != 0) 
             {
                 //Button_Click(0);//index of first questin
             }
@@ -380,7 +384,7 @@ namespace clientForQuestions2._0
             }
             else
             {
-                this.timeTookForQLabel.Text = $"זמן לשאלה: {seconds}ש'";
+                this.timeTookForQLabel.Text = $"זמן לשאלה: {OperationsAndOtherUseful.get_time_mmss_fromseconds(seconds)}";
             }
 
         }
