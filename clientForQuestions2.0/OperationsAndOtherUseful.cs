@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace clientForQuestions2._0
 {
@@ -14,7 +15,7 @@ namespace clientForQuestions2._0
         public static int DO_NOT_MARK = -1;
         public static string right2left(string s)
         {
-            return "<div style=" + '"' + "direction: rtl" + '"' + ">" + s + "</div>";
+            return "<div style=\"direction: rtl\">" + s + "</div>";
         }
 
         private static string get_string_of_img_html(JToken json)
@@ -37,12 +38,25 @@ namespace clientForQuestions2._0
         public static List<string> addNumberToQuestions(string q1, string q2, string q3, string q4)
         {
             //this should be in a separate file
-            q1 = "<p>(1)\t" + q1.Substring(3, q1.Length - 3);
-            q2 = "<p>(2)\t" + q2.Substring(3, q2.Length - 3);
-            q3 = "<p>(3)\t" + q3.Substring(3, q3.Length - 3);
-            q4 = "<p>(4)\t" + q4.Substring(3, q4.Length - 3);
+            
+            const int lenOfString = 3;
+
+            //id = 3426
+            //for gpt:
+            //<p style="text-align: justify;">28</p>
+
+            //create me a func that kee[just the text without the html in c#
+
+            int currIndex = q1.IndexOf("<p>")+lenOfString;
+            q1 = "<p>(1)\t" + q1.Substring(currIndex, q1.Length - currIndex);
+            currIndex = q2.IndexOf("<p>") + lenOfString;
+            q2 = "<p>(2)\t" + q2.Substring(currIndex, q2.Length - currIndex);
+            currIndex = q3.IndexOf("<p>") + lenOfString;
+            q3 = "<p>(3)\t" + q3.Substring(currIndex, q3.Length - currIndex);
+            currIndex = q4.IndexOf("<p>") + lenOfString;
+            q4 = "<p>(4)\t" + q4.Substring(currIndex, q4.Length - currIndex);
             List<string> list = new List<string> { q1, q2, q3, q4 };
-            return list;
+            return list; 
         }
 
 
@@ -123,7 +137,7 @@ namespace clientForQuestions2._0
         public static string get_string_of_question_and_explanation(dbQuestionParmeters qp, int clientanswer)
         {
             string answer = qp.json_content["solving_explanation"].ToString();
-            string line = "<div style=\"top: 50%; left: 0; width: 100vw; height: 1px; background-color: lightgray;\"></div>\r\n<br>explanation:";
+            string line = "<div style=\"top: 50%; left: 0; width: 100vw; height: 1px; background-color: lightgray;\"></div>\r\n<br>הסבר:";
             var img = qp.json_content["explanation_image"];
             if(qp.category == "Restatements" || qp.category == "Reading Comprehension" || qp.category == "אוצר-מילים" || qp.category == "Sentence Completions")
             {
@@ -131,6 +145,14 @@ namespace clientForQuestions2._0
             }
             return right2left(get_string_of_question_and_option_from_json(qp, clientanswer) + line + answer + get_string_of_img_html(img));
 
+        }
+        private static bool isQuestionInHebrew(string category)
+        {
+            if (category == "Restatements" || category == "Reading Comprehension" || category == "אוצר-מילים" || category == "Sentence Completions")
+            {
+                return false;
+            }
+            return true;
         }
        
     }

@@ -308,12 +308,12 @@ namespace clientForQuestions2._0
         private void answerCorrect()
         {
             //when answer correct display a msg
-            this.isUserRightLabel.Text = "correct :)";
+            this.isUserRightLabel.Text = ":) נכון ";
             this.isUserRightLabel.ForeColor = System.Drawing.Color.Green;
         }
         private void answerinCorrect()
         {
-            this.isUserRightLabel.Text = "incorrect :(";
+            this.isUserRightLabel.Text = ":( לא נכון ";
             this.isUserRightLabel.ForeColor = System.Drawing.Color.Red;
         }
         private void answer1Button_Click(object sender, EventArgs e)
