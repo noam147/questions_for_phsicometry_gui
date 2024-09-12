@@ -13,6 +13,7 @@ namespace clientForQuestions2._0
     public partial class collectionsQuestionsMenu : Form
     {
         Random random = new Random();
+        String chosen_text = "";
 
         Dictionary<string, List<int>> title2colIds = new Dictionary<string, List<int>>
         {
@@ -134,10 +135,32 @@ namespace clientForQuestions2._0
 
         private void colButton_Click(object sender, EventArgs e)
         {
-            List<int> colIds = title2colIds[((Button)sender).Text];
-            int col_id = colIds[random.Next(colIds.Count)];
-            List<int> questions = colId2qIds[col_id];
+            this.continueButton.Enabled = true;
+            this.chosen_text = ((Button)sender).Text.ToString();
+
+            this.colButton1.BackColor = Color.White;
+            this.colButton2.BackColor = Color.White;
+            this.colButton3.BackColor = Color.White;
+
+            ((Button)sender).BackColor = Color.LightBlue; // show which category is chosen
+        }
+
+        private void continueButton_Click(object sender, EventArgs e)
+        {
+            List<int> colIds = title2colIds[this.chosen_text];
+
+            int col_id = colIds[random.Next(colIds.Count)]; // choose rand collection of the category
+            List<int> questions = colId2qIds[col_id]; // get the questions of the collection
+            
             questionsPage c = new questionsPage(col_id, questions);
+
+            c.Show();
+            this.Close();
+        }
+
+        private void backToMainMenu_Click(object sender, EventArgs e)
+        {
+            menuPage c = new menuPage();
 
             c.Show();
             this.Close();

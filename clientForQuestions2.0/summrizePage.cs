@@ -28,6 +28,8 @@ namespace clientForQuestions2._0
         private int h_screen;
 
         private int col_id = 0;
+        private int indexQuestion = 0;
+
         public summrizePage(List<afterQuestionParametrs> questions)
         {
             this.m_questions = questions;
@@ -46,6 +48,9 @@ namespace clientForQuestions2._0
             this.timeTookForQLabel.Text = "";
             displayTotalAvrageTime();
 
+            createButtons(questions);
+            displayButtons();
+
             Thread thread = new Thread(() =>
             {
                 while (!this.IsHandleCreated)
@@ -63,8 +68,7 @@ namespace clientForQuestions2._0
             thread.Start();
             this.Resize += Form_Resize;
             Form_Resize(this, EventArgs.Empty);
-            createButtons(questions);
-            displayButtons();
+
         }
 
         private void displayTotalAvrageTime()
@@ -181,7 +185,7 @@ namespace clientForQuestions2._0
                             webView21.SendToBack(); // Ensure WebView2 is on back of other controls
                             if (this.m_buttonList.Count != 0)
                             {
-                                Button_Click(0); // First index after init
+                                Button_Click(); // First index after init
                             }
                             enableButtons();
                         }
@@ -267,11 +271,6 @@ namespace clientForQuestions2._0
                         {
                             Controls.Add(webView2_col);
                             webView2_col.SendToBack(); // Ensure webView2_col is on back of other controls
-                            if (this.m_buttonList.Count != 0)
-                            {
-                                Button_Click(0); // First index after init
-                            }
-                            enableButtons();
                         }
                         catch (Exception addEx)
                         {
@@ -318,13 +317,13 @@ namespace clientForQuestions2._0
                     Height = 30,
                     Location = new System.Drawing.Point(110+i*55, 30), // Adjust spacing
                     Enabled = false,
-                    
-                };
+                    Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold) // make the text BOLD
+            };
                 btn.Click += Button_Click;
                 //if answer was correct
                 if (currQuestionRight[i].question.rightAnswer == currQuestionRight[i].userAnswer)
                 {
-                    btn.BackColor = Color.LightGreen;
+                    btn.BackColor = Color.Green;
                 }
                 else
                 {
@@ -348,17 +347,22 @@ namespace clientForQuestions2._0
         }
         private void Button_Click(object sender, EventArgs e)
         {
-            Button b = (Button)sender;
-            int indexQuestion = (int.Parse(b.Text)-1);
-            Button_Click(indexQuestion);
+            m_buttonList[this.indexQuestion].BackColor = m_buttonList[this.indexQuestion].ForeColor; // change the last clicked button back to normal
+            m_buttonList[this.indexQuestion].ForeColor = System.Drawing.Color.Black; // change the last clicked button back to normal
+
+            this.indexQuestion = (int.Parse(((Button)sender).Text)-1);
+            Button_Click();
         }
-        private void Button_Click(int questionIndex)
+        private void Button_Click()
         {
+            m_buttonList[this.indexQuestion].ForeColor = m_buttonList[this.indexQuestion].BackColor; // change ForeColor to green/red 
+            m_buttonList[this.indexQuestion].BackColor = System.Drawing.Color.Cyan; // change BackColor to cyan to highlight the current question
+
             //here we display the question and answer based on the index
-            string toDisplay = OperationsAndOtherUseful.get_string_of_question_and_explanation(this.m_questions[questionIndex].question, this.m_questions[questionIndex].userAnswer);
-            int secondsTook = this.m_questions[questionIndex].timeForAnswer;
+            string toDisplay = OperationsAndOtherUseful.get_string_of_question_and_explanation(this.m_questions[this.indexQuestion].question, this.m_questions[this.indexQuestion].userAnswer);
+            int secondsTook = this.m_questions[this.indexQuestion].timeForAnswer;
             updateQuestionTimerText(secondsTook);
-            updateStats(questionIndex);
+            updateStats();
             this.webView21.NavigateToString(toDisplay);
         }
         private void button1_Click(object sender, EventArgs e)
@@ -380,12 +384,12 @@ namespace clientForQuestions2._0
             }
 
         }
-        private void updateStats(int i)
+        private void updateStats()
         {
-            dbQuestionParmeters c = this.m_questions[i].question;
+            dbQuestionParmeters c = this.m_questions[this.indexQuestion].question;
             this.category_of_q.Text = $"נושא: {c.category}";
             this.diffic_level.Text = $"רמת קושי: {c.json_content["difficulty_level"].ToString()}";
-            this.curr_q.Text = $"שאלה: {i+1}/{this.m_questions.Count}";
+            this.curr_q.Text = $"שאלה: {this.indexQuestion + 1}/{this.m_questions.Count}";
             this.curr_q_id.Text = $"id: {c.questionId}";
         }
         private void timeTookForQLabel_Click(object sender, EventArgs e)
