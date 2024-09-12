@@ -24,10 +24,12 @@ namespace clientForQuestions2._0
 
         private int h_statsPlace = 40;
         private int h_questionsPlace = 70;
-        private int w_screen;
+        private int width_screen;
         private int h_screen;
 
         private int col_id = 0;
+        private int indexQuestion = 0;
+
         public summrizePage(List<afterQuestionParametrs> questions)
         {
             this.m_questions = questions;
@@ -38,13 +40,16 @@ namespace clientForQuestions2._0
                 col_id = (int) questions[0].question.json_content["collections"][0]["id"];
             }
 
-            w_screen = this.ClientSize.Width;
+            width_screen = this.ClientSize.Width;
             h_screen = this.ClientSize.Height;
             if (col_id != 0)
-                this.Size = new Size(w_screen * 2, h_screen);
+                this.Size = new Size(width_screen * 2, h_screen);
 
             this.timeTookForQLabel.Text = "";
             displayTotalAvrageTime();
+
+            createButtons(questions);
+            displayButtons();
 
             Thread thread = new Thread(() =>
             {
@@ -63,8 +68,7 @@ namespace clientForQuestions2._0
             thread.Start();
             this.Resize += Form_Resize;
             Form_Resize(this, EventArgs.Empty);
-            createButtons(questions);
-            displayButtons();
+
         }
 
         private void displayTotalAvrageTime()
@@ -74,13 +78,16 @@ namespace clientForQuestions2._0
             {
                 time += qp.timeForAnswer;
             }
-            this.total_time.Text = $"זמן כולל: {time}ש'";
 
-            //fix avg - do when closet to the num - 3.9 - > 4
-            this.avrage_time.Text = $"זמן ממוצע לשאלה: {time / m_questions.Count}ש'";
+
+            this.total_time.Text = $"זמן כולל: {OperationsAndOtherUseful.get_time_mmss_fromseconds(time)}";
+            this.avrage_time.Text = $"זמן ממוצע לשאלה: {OperationsAndOtherUseful.get_time_mmss_fromseconds(time / m_questions.Count)}";
+
             int corr_c = 0;
             foreach (afterQuestionParametrs qp in m_questions)
             {
+                if (qp.userAnswer == -1 || qp.userAnswer == OperationsAndOtherUseful.SKIPPED_Q)
+                    continue;
                 if (((JArray)qp.question.json_content["options"]).Count != 0)
                     if ((int) qp.question.json_content["options"][qp.userAnswer-1]["is_correct"] == 1)
                             corr_c++;
@@ -132,7 +139,7 @@ namespace clientForQuestions2._0
             webView21 = new WebView2
             {
                 Location = new Point(0, h_questionsPlace + h_statsPlace), // Adjust Y coordinate to leave space for buttons
-                Size = new Size(w_screen, h_screen - h_questionsPlace - h_statsPlace), // Adjust size to fit below the buttons
+                Size = new Size(width_screen, h_screen - h_questionsPlace - h_statsPlace), // Adjust size to fit below the buttons
                 Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right
             };
 
@@ -183,7 +190,7 @@ namespace clientForQuestions2._0
                             webView21.SendToBack(); // Ensure WebView2 is on back of other controls
                             if (this.m_buttonList.Count != 0)
                             {
-                                Button_Click(0); // First index after init
+                                Button_Click(); // First index after init
                             }
                             enableButtons();
                         }
@@ -219,8 +226,8 @@ namespace clientForQuestions2._0
             // Initialize the WebView2 control
             webView2_col = new WebView2
             {
-                Location = new Point(w_screen, h_questionsPlace + h_statsPlace), // Adjust Y coordinate to leave space for buttons
-                Size = new Size(w_screen, h_screen - h_questionsPlace - h_statsPlace), // Adjust size to fit below the buttons
+                Location = new Point(width_screen, h_questionsPlace + h_statsPlace), // Adjust Y coordinate to leave space for buttons
+                Size = new Size(width_screen, h_screen - h_questionsPlace - h_statsPlace), // Adjust size to fit below the buttons
                 Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right
             };
 
@@ -269,11 +276,6 @@ namespace clientForQuestions2._0
                         {
                             Controls.Add(webView2_col);
                             webView2_col.SendToBack(); // Ensure webView2_col is on back of other controls
-                            if (this.m_buttonList.Count != 0)
-                            {
-                                Button_Click(0); // First index after init
-                            }
-                            enableButtons();
                         }
                         catch (Exception addEx)
                         {
@@ -320,21 +322,22 @@ namespace clientForQuestions2._0
                     Height = 30,
                     Location = new System.Drawing.Point(110+i*55, 30), // Adjust spacing
                     Enabled = false,
-                    
-                };
+                    Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold) // make the text BOLD
+            };
                 btn.Click += Button_Click;
                 //if answer was correct
-                if (currQuestionRight[i].question.rightAnswer == currQuestionRight[i].userAnswer)
-                {
-                    btn.BackColor = Color.LightGreen;
-                }
+                if (currQuestionRight[i].userAnswer == OperationsAndOtherUseful.SKIPPED_Q)
+                    btn.BackColor = Color.Gray;
                 else
                 {
-                    btn.BackColor = Color.Red;
+                    if (currQuestionRight[i].question.rightAnswer == currQuestionRight[i].userAnswer)
+                        btn.BackColor = Color.Green;
+                    else
+                        btn.BackColor = Color.Red;
                 }
                 m_buttonList.Add(btn);
             }
-            if(m_buttonList.Count != 0) 
+            if (m_buttonList.Count != 0) 
             {
                 //Button_Click(0);//index of first questin
             }
@@ -350,17 +353,22 @@ namespace clientForQuestions2._0
         }
         private void Button_Click(object sender, EventArgs e)
         {
-            Button b = (Button)sender;
-            int indexQuestion = (int.Parse(b.Text)-1);
-            Button_Click(indexQuestion);
+            m_buttonList[this.indexQuestion].BackColor = m_buttonList[this.indexQuestion].ForeColor; // change the last clicked button back to normal
+            m_buttonList[this.indexQuestion].ForeColor = System.Drawing.Color.Black; // change the last clicked button back to normal
+
+            this.indexQuestion = (int.Parse(((Button)sender).Text)-1);
+            Button_Click();
         }
-        private void Button_Click(int questionIndex)
+        private void Button_Click()
         {
+            m_buttonList[this.indexQuestion].ForeColor = m_buttonList[this.indexQuestion].BackColor; // change ForeColor to green/red 
+            m_buttonList[this.indexQuestion].BackColor = System.Drawing.Color.Cyan; // change BackColor to cyan to highlight the current question
+
             //here we display the question and answer based on the index
-            string toDisplay = OperationsAndOtherUseful.get_string_of_question_and_explanation(this.m_questions[questionIndex].question, this.m_questions[questionIndex].userAnswer);
-            int secondsTook = this.m_questions[questionIndex].timeForAnswer;
+            string toDisplay = OperationsAndOtherUseful.get_string_of_question_and_explanation(this.m_questions[this.indexQuestion].question, this.m_questions[this.indexQuestion].userAnswer);
+            int secondsTook = this.m_questions[this.indexQuestion].timeForAnswer;
             updateQuestionTimerText(secondsTook);
-            updateStats(questionIndex);
+            updateStats();
             this.webView21.NavigateToString(toDisplay);
         }
         private void button1_Click(object sender, EventArgs e)
@@ -378,16 +386,16 @@ namespace clientForQuestions2._0
             }
             else
             {
-                this.timeTookForQLabel.Text = $"זמן לשאלה: {seconds}ש'";
+                this.timeTookForQLabel.Text = $"זמן לשאלה: {OperationsAndOtherUseful.get_time_mmss_fromseconds(seconds)}";
             }
 
         }
-        private void updateStats(int i)
+        private void updateStats()
         {
-            dbQuestionParmeters c = this.m_questions[i].question;
+            dbQuestionParmeters c = this.m_questions[this.indexQuestion].question;
             this.category_of_q.Text = $"נושא: {c.category}";
             this.diffic_level.Text = $"רמת קושי: {c.json_content["difficulty_level"].ToString()}";
-            this.curr_q.Text = $"שאלה: {i+1}/{this.m_questions.Count}";
+            this.curr_q.Text = $"שאלה: {this.indexQuestion + 1}/{this.m_questions.Count}";
             this.curr_q_id.Text = $"id: {c.questionId}";
         }
     }

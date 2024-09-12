@@ -42,16 +42,23 @@ namespace clientForQuestions2._0
 
         private int secondsTookForCurrq = 0;
         private System.Timers.Timer m_aTimer;
-
         private questionsDifficultyLevel m_aDifficultyLevels;
-        public questionsPage(int amount, List<string> listOfTopics, bool isQSkip, questionsDifficultyLevel difficultyLevel)
+
+
+        private int timePerQ = 0; // 0 means "stoper" (no time limit), positive value means "timer" (count backwards to 0)
+        public questionsPage(int amount, List<string> listOfTopics, bool isQSkip, int timePerQ,questionsDifficultyLevel difficultyLevel)
         {
             m_aDifficultyLevels = difficultyLevel;
             InitializeComponent();
 
+
             width_screen = this.ClientSize.Width;
             height_screen = this.ClientSize.Height;
             this.isUserDoNotGetFeedBack = isQSkip;
+
+            this.timePerQ = timePerQ;
+            rewriteTimer();
+
 
             updateAtStart(amount, listOfTopics);
 
@@ -73,8 +80,11 @@ namespace clientForQuestions2._0
 
             width_screen = this.ClientSize.Width;
             height_screen = this.ClientSize.Height;
-
             this.isUserDoNotGetFeedBack = true;
+
+            this.timePerQ = timePerQ;
+            rewriteTimer();
+
 
             updateAtStartCol(questions);
 
@@ -94,6 +104,12 @@ namespace clientForQuestions2._0
             thread.Start();
 
         }
+
+        private void rewriteTimer()
+        {
+            this.timer.Text = OperationsAndOtherUseful.get_time_mmss_fromseconds(timePerQ);
+        }
+
         private void writeQuestionToLogFile()
         {
             if (questionDetails == null)
@@ -154,13 +170,17 @@ namespace clientForQuestions2._0
             // Ensure the label is updated on the UI thread
             this.timer.Invoke((MethodInvoker)delegate
             {
-                if (secondsTookForCurrq % 60 < 10)
-                    this.timer.Text = $"{(int)secondsTookForCurrq / 60}:0{secondsTookForCurrq % 60}";
-                else
-                    this.timer.Text = $"{(int)secondsTookForCurrq / 60}:{secondsTookForCurrq % 60}";
+                this.timer.Text = OperationsAndOtherUseful.get_time_mmss_fromseconds(Math.Abs(timePerQ - secondsTookForCurrq));
+
+                if (secondsTookForCurrq >= timePerQ && timePerQ != 0) // check if time ran out
+                {
+                    answerinnotAnswered();
+                    afterAnswerQuestion(OperationsAndOtherUseful.SKIPPED_Q); // if time ran out, it counts as he didn't answer
+                }
             });
 
-        }
+
+        }       
         private void SetTimer()
         {
             //src= https://learn.microsoft.com/en-us/dotnet/api/system.timers.timer?view=net-8.0
@@ -171,7 +191,6 @@ namespace clientForQuestions2._0
             m_aTimer.AutoReset = true;
             m_aTimer.Enabled = true;
         }
-
 
         private void whenFinishInitWebView()
         {
@@ -424,6 +443,7 @@ namespace clientForQuestions2._0
                 string htmlContent = OperationsAndOtherUseful.get_string_of_question_and_explanation(this.questionDetails[m_indexOfCurrQuestion], answer);
                 webView21.NavigateToString(htmlContent);
             }
+
             //check if this the last question
             this.m_indexOfCurrQuestion++;
 
@@ -452,8 +472,10 @@ namespace clientForQuestions2._0
         private void nextQuestionButtonClick(object sender, EventArgs e)
         {
             m_questionCounter++;
-            this.timer.Text = "0:00";
+
+            rewriteTimer();
             this.updateLabelAnswers();
+
             //if questions end
             if (m_indexOfCurrQuestion == this.questionDetails.Count)
             {
@@ -491,6 +513,11 @@ namespace clientForQuestions2._0
         {
             this.isUserRightLabel.Text = ":( לא נכון ";
             this.isUserRightLabel.ForeColor = System.Drawing.Color.Red;
+        }
+        private void answerinnotAnswered()
+        {
+            this.isUserRightLabel.Text = "נגמר הזמן :(";
+            this.isUserRightLabel.ForeColor = System.Drawing.Color.DarkGray;
         }
         private void answer1Button_Click(object sender, EventArgs e)
         {
