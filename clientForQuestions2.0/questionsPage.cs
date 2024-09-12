@@ -373,9 +373,9 @@ namespace clientForQuestions2._0
 
         private void updateLabelAnswers()
         {
-            if (!isQSkip) { this.answersTrackLabel.Text = $"{m_rightQuestions}/{m_maxQuestions} correct"; }
+            if (!isQSkip) { this.answersTrackLabel.Text = $"תשובות נכונות: {m_rightQuestions}/{m_maxQuestions}"; }
             else { this.answersTrackLabel.Text = "";  }
-            this.questionTrackLabel.Text = $"Current question is: {m_questionCounter}/{m_maxQuestions}";
+            this.questionTrackLabel.Text = $"שאלה נוכחית: {m_questionCounter}/{m_maxQuestions}";
         }
 
         private void stopTestButtonClick(object sender, EventArgs e)
@@ -395,7 +395,7 @@ namespace clientForQuestions2._0
 
         private void afterAnswerQuestion(int answer)
         {
-            this.stopTestButton.Text = "stop test and summarize";
+            this.stopTestButton.Text = "סיום התרגול וסיכום";
             //this func happens after the user clicked on an answer
             this.m_aTimer.Stop();
             //func check if answer is true and return explantion 
@@ -434,7 +434,7 @@ namespace clientForQuestions2._0
 
             if (m_indexOfCurrQuestion == this.questionDetails.Count)//if questions end
             {
-                this.nextQuestionButton.Text = "summarize";
+                this.nextQuestionButton.Text = "סיכום";
                 this.nextQuestionButton.BackColor = System.Drawing.Color.Yellow;
             }
             //wait until user clicks on the continue button to display another q 
@@ -479,12 +479,12 @@ namespace clientForQuestions2._0
         private void answerCorrect()
         {
             //when answer correct display a msg
-            this.isUserRightLabel.Text = "correct :)";
+            this.isUserRightLabel.Text = "נכון :)";
             this.isUserRightLabel.ForeColor = System.Drawing.Color.Green;
         }
         private void answerinCorrect()
         {
-            this.isUserRightLabel.Text = "incorrect :(";
+            this.isUserRightLabel.Text = "שגוי :(";
             this.isUserRightLabel.ForeColor = System.Drawing.Color.Red;
         }
         private void answer1Button_Click(object sender, EventArgs e)

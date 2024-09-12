@@ -67,7 +67,7 @@ namespace clientForQuestions2._0
         {
             //optionToMarkRed = user answer
             bool isTextOptions = ((JArray)qp.json_content["options"]).Count != 0;
-            int optionToMarkCyan = qp.rightAnswer;
+            int optionToMarkGreen = qp.rightAnswer;
             string question = qp.json_content["question"].ToString();
             string option1;
             string option2;
@@ -84,9 +84,9 @@ namespace clientForQuestions2._0
                 //if the user answsered go to this - mark an answer
                 if (userAnswer != DO_NOT_MARK)
                 {
-                    listOfOptions[optionToMarkCyan - 1] = $"<div style = \"background-color: cyan;display: inline-block;\">{listOfOptions[optionToMarkCyan - 1]}</div><br>";
-                    //cyan will always be
-                    if (userAnswer != optionToMarkCyan)//if the user got right - do not need to mark in red
+                    listOfOptions[optionToMarkGreen - 1] = $"<div style = \"background-color: lightgreen;display: inline-block;\">{listOfOptions[optionToMarkGreen - 1]}</div><br>";
+                    //green will always be
+                    if (userAnswer != optionToMarkGreen)//if the user got right - do not need to mark in red
                     {
                         listOfOptions[userAnswer - 1] = $"<div style = \"background-color: red;display: inline-block;\">{listOfOptions[userAnswer - 1]}</div><br>";
                     }
@@ -102,38 +102,36 @@ namespace clientForQuestions2._0
 
                 if (userAnswer != DO_NOT_MARK)
                 {
-                    listOfOptions[optionToMarkCyan - 1] = $"<div style = \"background-color: cyan;display: inline-block;\"> <p> ({optionToMarkCyan})\t</div>" + listOfOptions[optionToMarkCyan - 1];
-                    //cyan will always be
-                    if (userAnswer != optionToMarkCyan)//if the user got right - do not need to mark in red
+                    listOfOptions[optionToMarkGreen - 1] = $"<div style = \"background-color: lightgreen;display: inline-block;\"> ({optionToMarkGreen})\t</div>" + listOfOptions[optionToMarkGreen - 1];
+                    //green will always be
+                    if (userAnswer != optionToMarkGreen)//if the user got right - do not need to mark in red
                     {
-                        listOfOptions[userAnswer - 1] = $"<div style = \"background-color: red;display: inline-block;\"> <p> ({userAnswer})\t</div>" + listOfOptions[userAnswer - 1];
+                        listOfOptions[userAnswer - 1] = $"<div style = \"background-color: red;display: inline-block;\"> ({userAnswer})\t</div>" + listOfOptions[userAnswer - 1];
                     }
-                    for(int i = 0; i < listOfOptions.Count; i++)
-                    {
-                        if (listOfOptions[i].StartsWith("<img"))
-                           listOfOptions[i] = $"<p>({i+1})\t" + listOfOptions[i];
-                    }
+                }
+                for (int i = 0; i < listOfOptions.Count; i++)
+                {
+                    if (listOfOptions[i].StartsWith("<img"))
+                        listOfOptions[i] = $"({i + 1})\t" + listOfOptions[i];
                 }
             }
 
-            
-            
+
+
 
 
 
 
             string finalOptionsString = listOfOptions[0] + listOfOptions[1] + listOfOptions[2] + listOfOptions[3];
+            if(!isTextOptions)
+                finalOptionsString = listOfOptions[0] + listOfOptions[1] + "<br>" + listOfOptions[2] + listOfOptions[3];
 
-
-                if (qp.category == "Restatements" || qp.category == "Reading Comprehension" || qp.category == "אוצר-מילים" || qp.category == "Sentence Completions")
+            if (qp.category == "Restatements" || qp.category == "Reading Comprehension" || qp.category == "אוצר-מילים" || qp.category == "Sentence Completions")
                 {
                     return question + get_string_of_img_html(qp.json_content["image"]) + "<br><br>" + finalOptionsString;
                 }
 
-                return right2left(question + get_string_of_img_html(qp.json_content["image"]) + "<br><br>" + finalOptionsString);
-
-
-
+            return right2left(question + get_string_of_img_html(qp.json_content["image"]) + "<br><br>" + finalOptionsString);
         }
 
 
@@ -161,7 +159,7 @@ namespace clientForQuestions2._0
         public static string get_string_of_question_and_explanation(dbQuestionParmeters qp, int clientanswer)
         {
             string answer = qp.json_content["solving_explanation"].ToString();
-            string line = "<div style=\"top: 50%; left: 0; width: 100vw; height: 1px; background-color: lightgray;\"></div>\r\n<br>explanation:";
+            string line = "<div style=\"top: 50%; left: 0; width: 100vw; height: 1px; background-color: lightgray;\"></div>\r\n<br>הסבר:";
             var img = qp.json_content["explanation_image"];
 
             return get_string_of_question_and_option_from_json(qp, clientanswer) + right2left(line + answer + get_string_of_img_html(img));

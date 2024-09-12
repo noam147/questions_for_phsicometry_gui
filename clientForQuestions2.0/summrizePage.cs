@@ -74,8 +74,21 @@ namespace clientForQuestions2._0
             {
                 time += qp.timeForAnswer;
             }
-            this.total_time.Text = $"Total time: {time}";
-            this.avrage_time.Text = $"Avrage time: {time / m_questions.Count}";
+            this.total_time.Text = $"זמן כולל: {time}ש'";
+            this.avrage_time.Text = $"זמן ממוצע לשאלה: {time / m_questions.Count}ש'";
+            int corr_c = 0;
+            foreach (afterQuestionParametrs qp in m_questions)
+            {
+                if (((JArray)qp.question.json_content["options"]).Count != 0)
+                    if ((int) qp.question.json_content["options"][qp.userAnswer-1]["is_correct"] == 1)
+                            corr_c++;
+                else
+                    if (((JArray)qp.question.json_content["option_images"]).Count != 0)
+                        if ((int)qp.question.json_content["option_images"][qp.userAnswer-1]["is_correct"] == 1)
+                            corr_c++;
+            }
+            this.correct_answers.Text = $"תשובות נכונות: {corr_c}/{m_questions.Count}";
+
         }
 
         private void Form_Resize(object sender, EventArgs e)
@@ -311,7 +324,7 @@ namespace clientForQuestions2._0
                 //if answer was correct
                 if (currQuestionRight[i].question.rightAnswer == currQuestionRight[i].userAnswer)
                 {
-                    btn.BackColor = Color.Cyan;
+                    btn.BackColor = Color.LightGreen;
                 }
                 else
                 {
@@ -345,7 +358,7 @@ namespace clientForQuestions2._0
             string toDisplay = OperationsAndOtherUseful.get_string_of_question_and_explanation(this.m_questions[questionIndex].question, this.m_questions[questionIndex].userAnswer);
             int secondsTook = this.m_questions[questionIndex].timeForAnswer;
             updateQuestionTimerText(secondsTook);
-            updateCategory(this.m_questions[questionIndex].question.category);
+            updateStats(questionIndex);
             this.webView21.NavigateToString(toDisplay);
         }
         private void button1_Click(object sender, EventArgs e)
@@ -363,13 +376,17 @@ namespace clientForQuestions2._0
             }
             else
             {
-                this.timeTookForQLabel.Text = $"Time took for question: {seconds}seconds";
+                this.timeTookForQLabel.Text = $"זמן לשאלה: {seconds}ש'";
             }
 
         }
-        private void updateCategory(String c)
+        private void updateStats(int i)
         {
-            this.category_of_q.Text = c;
+            dbQuestionParmeters c = this.m_questions[i].question;
+            this.category_of_q.Text = $"נושא: {c.category}";
+            this.diffic_level.Text = $"רמת קושי: {c.json_content["difficulty_level"].ToString()}";
+            this.curr_q.Text = $"שאלה: {i+1}/{this.m_questions.Count}";
+            this.curr_q_id.Text = $"id: {c.questionId}";
         }
         private void timeTookForQLabel_Click(object sender, EventArgs e)
         {
@@ -382,6 +399,21 @@ namespace clientForQuestions2._0
         }
 
         private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void summrizePage_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void correct_answers_Click(object sender, EventArgs e)
         {
 
         }
