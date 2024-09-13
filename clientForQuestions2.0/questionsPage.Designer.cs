@@ -63,7 +63,7 @@ namespace clientForQuestions2._0
             this.answer1Button.TabIndex = 1;
             this.answer1Button.Text = "אפשרות 1";
             this.answer1Button.UseVisualStyleBackColor = true;
-            this.answer1Button.Click += new System.EventHandler(this.answer1Button_Click);
+            this.answer1Button.Click += new System.EventHandler(this.answerButton_Click);
             // 
             // answer2Button
             // 
@@ -74,7 +74,7 @@ namespace clientForQuestions2._0
             this.answer2Button.TabIndex = 2;
             this.answer2Button.Text = "אפשרות 2";
             this.answer2Button.UseVisualStyleBackColor = true;
-            this.answer2Button.Click += new System.EventHandler(this.answer2Button_Click);
+            this.answer2Button.Click += new System.EventHandler(this.answerButton_Click);
             // 
             // answer3Button
             // 
@@ -85,7 +85,7 @@ namespace clientForQuestions2._0
             this.answer3Button.TabIndex = 3;
             this.answer3Button.Text = "אפשרות 3";
             this.answer3Button.UseVisualStyleBackColor = true;
-            this.answer3Button.Click += new System.EventHandler(this.answer3Button_Click);
+            this.answer3Button.Click += new System.EventHandler(this.answerButton_Click);
             // 
             // answer4Button
             // 
@@ -96,7 +96,7 @@ namespace clientForQuestions2._0
             this.answer4Button.TabIndex = 4;
             this.answer4Button.Text = "אפשרות 4";
             this.answer4Button.UseVisualStyleBackColor = true;
-            this.answer4Button.Click += new System.EventHandler(this.answer4Button_Click);
+            this.answer4Button.Click += new System.EventHandler(this.answerButton_Click);
             // 
             // stopTestButton
             // 

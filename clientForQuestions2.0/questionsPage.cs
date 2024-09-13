@@ -83,7 +83,7 @@ namespace clientForQuestions2._0
             for(int i =0; i <this.m_questionDetails.Count;i++)
             {
                 //the defult is skipped question - will be updated as the user clicks on the option buttons
-                afterQuestionParametrs af = new afterQuestionParametrs { indexOfQuestion = i, question = m_questionDetails[i], timeForAnswer = -1, userAnswer = OperationsAndOtherUseful.SKIPPED_Q };
+                afterQuestionParametrs af = new afterQuestionParametrs { indexOfQuestion = i, question = m_questionDetails[i], timeForAnswer = -1, userAnswer = OperationsAndOtherUseful.SKIPPED_Q }; // CHANGE TIME FOR ANSWER 42
                 this.m_afterQuestionParametrs.Add(af);
             }
             updateToNextButtonQuestion(0);
@@ -92,22 +92,22 @@ namespace clientForQuestions2._0
         public questionsPage(int collection_id, List<int> questions)
         {
             //when is text
-            //this should go to another form!
             InitializeComponent();
             setAnswerButtonsToNormalcolor();
             width_screen = this.ClientSize.Width;
             height_screen = this.ClientSize.Height;
-            this.isUserDoNotGetFeedBack = true;
-
-            this.timePerQ = 5;//FIX
             this.isUserDoNotGetFeedBack = true;//in text user does not get immdiate feedback
+
+            this.timePerQ = 0;//FIX 42
             rewriteTimer();
 
 
             updateAtStartCol(questions);
+            this.col_id = collection_id;
+
             createButtons(questions.Count);
             displayButtons();
-            this.col_id = collection_id;
+
 
             //PositionNextQuestionButton();
             this.Resize += MainForm_Resize;
@@ -504,12 +504,6 @@ namespace clientForQuestions2._0
 
         private void afterAnswerQuestion(int answer)
         {
-            if(this.isUserDoNotGetFeedBack)
-            {
-                setAnswerButtonsToNormalcolor();
-                markUserAnswerInYellow(this.m_indexOfCurrQuestion +1);
-            }
-
             this.nextQuestionButton.BackColor = Color.White;
             if (this.m_buttonList.Count != 0)
             {
@@ -535,7 +529,7 @@ namespace clientForQuestions2._0
             {
                 if (m_afterQuestionParametrs[i].indexOfQuestion == this.m_indexOfCurrQuestion)
                 {
-                    // Retrieve the element, modify it, and then assign it back
+                    // Retrieve the element, modify it, and then assign it back, add time 42
                     var parameter = m_afterQuestionParametrs[i];  // Retrieve the element
                     parameter.userAnswer = answer;                // Modify the property
                     m_afterQuestionParametrs[i] = parameter;      // Assign it back to the list
@@ -549,7 +543,7 @@ namespace clientForQuestions2._0
             }
             
 
-            if (this.m_questionDetails[m_indexOfCurrQuestion].rightAnswer == answer)
+            if (this.m_questionDetails[m_indexOfCurrQuestion].rightAnswer == answer && !this.isUserDoNotGetFeedBack)
             {
                 this.m_rightQuestions++;
             }
@@ -560,34 +554,57 @@ namespace clientForQuestions2._0
             {
                 string htmlContent = OperationsAndOtherUseful.get_string_of_question_and_explanation(this.m_questionDetails[m_indexOfCurrQuestion], answer);
                 webView21.NavigateToString(htmlContent);
-            }
 
-            //check if this the last question
-            this.m_indexOfCurrQuestion++;
+                //check if this the last question
+                this.m_indexOfCurrQuestion++;
+
+            }
 
             if (isUserDoNotGetFeedBack)
             {
-                this.answer1Button.Visible = false;
-                this.answer2Button.Visible = false;
-                this.answer3Button.Visible = false;
-                this.answer4Button.Visible = false;
-                nextQuestionButtonClick(null, null);
-                return;
+                this.answer1Button.Visible = true;
+                this.answer2Button.Visible = true;
+                this.answer3Button.Visible = true;
+                this.answer4Button.Visible = true;
+                //nextQuestionButtonClick(null, null);
+                //return;
+
+                setAnswerButtonsToNormalcolor();
+                markUserAnswerInYellow(this.m_indexOfCurrQuestion); //the curr q
+
+                if ((m_buttonList.Any() && m_buttonList.All(b => b.BackColor == Color.Yellow)))
+                {
+                    this.nextQuestionButton.Text = "סיכום";
+                    this.nextQuestionButton.BackColor = System.Drawing.Color.Yellow;
+                }
+
+                // if it is the last question and not all the qs are answered, dont show the next button
+                if (m_indexOfCurrQuestion == this.m_questionDetails.Count - 1 && !m_buttonList.All(b => b.BackColor == Color.Yellow))
+                    this.nextQuestionButton.Visible = false;
+                else
+                    this.nextQuestionButton.Visible = true;
+
             }
 
-            
+
             if (m_indexOfCurrQuestion == this.m_questionDetails.Count)//if questions end
             {
                 this.nextQuestionButton.Text = "סיכום";
                 this.nextQuestionButton.BackColor = System.Drawing.Color.Yellow;
             }
             //wait until user clicks on the continue button to display another q 
-            this.nextQuestionButton.Visible = true;
-            this.answer1Button.Visible = false;
-            this.answer2Button.Visible = false;
-            this.answer3Button.Visible = false;
-            this.answer4Button.Visible = false;
+
+            if (!isUserDoNotGetFeedBack)
+            {
+                this.nextQuestionButton.Visible = true;
+
+                this.answer1Button.Visible = false;
+                this.answer2Button.Visible = false;
+                this.answer3Button.Visible = false;
+                this.answer4Button.Visible = false;
+            }
         }
+
         private void nextQuestionButtonClick(object sender, EventArgs e)
         {
             m_questionCounter++;
@@ -595,8 +612,13 @@ namespace clientForQuestions2._0
             rewriteTimer();
             this.updateLabelAnswers();
 
-            //if questions end
-            if (m_indexOfCurrQuestion == this.m_questionDetails.Count)
+            if (isUserDoNotGetFeedBack)
+            {
+                this.m_indexOfCurrQuestion++;
+            }
+
+            //if questions end, check if all q are answered
+            if ( (m_indexOfCurrQuestion == this.m_questionDetails.Count && !isUserDoNotGetFeedBack) || (m_buttonList.All(b => b.BackColor == Color.Yellow && isUserDoNotGetFeedBack) ) )
             {
                 if(sender == null)
                 {
@@ -610,6 +632,12 @@ namespace clientForQuestions2._0
                 var s = new summrizePage(this.m_afterQuestionParametrs);
                 s.Show();
                 this.Close();
+                return;
+            }
+
+            if (isUserDoNotGetFeedBack)
+            {
+                swichQuestionButton_Click(m_indexOfCurrQuestion);
                 return;
             }
             if (webView21.CoreWebView2 != null)
@@ -647,11 +675,13 @@ namespace clientForQuestions2._0
             this.isUserRightLabel.Text = "נגמר הזמן :(";
             this.isUserRightLabel.ForeColor = System.Drawing.Color.DarkGray;
         }
-        private void answer1Button_Click(object sender, EventArgs e)
+        private void answerButton_Click(object sender, EventArgs e)
         {
+            int clicked_answer = int.Parse((((Button)sender).Text.ToString()[((Button)sender).Text.ToString().Length - 1]).ToString());
+
             if (!isUserDoNotGetFeedBack)
             {
-                if (this.m_questionDetails[this.m_indexOfCurrQuestion].rightAnswer == 1)
+                if (this.m_questionDetails[this.m_indexOfCurrQuestion].rightAnswer == clicked_answer)
                 {
                     answerCorrect();
                 }
@@ -660,73 +690,9 @@ namespace clientForQuestions2._0
                     answerinCorrect();
                 }
             }
-            else
-            {
-                updateToNextButtonQuestion(m_indexOfCurrQuestion+1);//for next question
-            }
-            afterAnswerQuestion(1);
-        }
 
-        private void answer2Button_Click(object sender, EventArgs e)
-        {
-            if (!isUserDoNotGetFeedBack)
-            {
-                if (this.m_questionDetails[this.m_indexOfCurrQuestion].rightAnswer == 2)
-                {
-                    answerCorrect();
-                }
-                else
-                {
-                    answerinCorrect();
-                }
-            }
-            else
-            {
-                updateToNextButtonQuestion(m_indexOfCurrQuestion+1);
-            }
-            afterAnswerQuestion(2);
+            afterAnswerQuestion(clicked_answer);
         }
-
-        private void answer3Button_Click(object sender, EventArgs e)
-        {
-            if (!isUserDoNotGetFeedBack)
-            {
-                if (this.m_questionDetails[this.m_indexOfCurrQuestion].rightAnswer == 3)
-                {
-                    answerCorrect();
-                }
-                else
-                {
-                    answerinCorrect();
-                }
-            }
-            else
-            {
-                updateToNextButtonQuestion(m_indexOfCurrQuestion+1);
-            }
-            afterAnswerQuestion(3);
-        }
-
-        private void answer4Button_Click(object sender, EventArgs e)
-        {
-            if (!isUserDoNotGetFeedBack)
-            {
-                if (this.m_questionDetails[this.m_indexOfCurrQuestion].rightAnswer == 4)
-                {
-                    answerCorrect();
-                }
-                else
-                {
-                    answerinCorrect();
-                }
-            }
-            else
-            {
-                updateToNextButtonQuestion(m_indexOfCurrQuestion+1);
-            }
-            afterAnswerQuestion(4);
-        }
-
 
 
         private void MainForm_Resize(object sender, EventArgs e)
@@ -763,7 +729,7 @@ namespace clientForQuestions2._0
         //from here - relevant to when user doesnt want a feedback - so we give him the possebility to navigate throgh questions
         private void swichQuestionButton_Click(object sender, EventArgs e)
         {
-           
+
             int index = int.Parse(((Button)sender).Text) -1;
             swichQuestionButton_Click(index);
           
@@ -775,19 +741,29 @@ namespace clientForQuestions2._0
             setButtonsToNormalSize();
             updateToNextButtonQuestion(indexOfQuestion);
 
+            //afterAnswerQuestion();
+
             this.answer1Button.Visible = true;
             this.answer2Button.Visible = true;
             this.answer3Button.Visible = true;
             this.answer4Button.Visible = true;
-            this.nextQuestionButton.Visible = false;
             this.m_indexOfCurrQuestion = indexOfQuestion;
+
+
 
             //need to also mark the current user answer!
             string htmlContent = OperationsAndOtherUseful.get_string_of_question_and_option_from_json(this.m_questionDetails[indexOfQuestion], OperationsAndOtherUseful.DO_NOT_MARK);
             this.webView21.NavigateToString(htmlContent);
             markUserAnswerInYellow(indexOfQuestion);
-            
 
+            if ((m_buttonList.Any() && m_buttonList.All(b => b.BackColor == Color.Yellow)))
+            {
+                this.nextQuestionButton.Visible = true;
+                this.nextQuestionButton.Text = "סיכום";
+                this.nextQuestionButton.BackColor = System.Drawing.Color.Yellow;
+            }
+            else
+                this.nextQuestionButton.Visible = false;
         }
         private void markUserAnswerInYellow(int index)
         {
