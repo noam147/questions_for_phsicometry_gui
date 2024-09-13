@@ -69,14 +69,35 @@ namespace clientForQuestions2._0
         public static List<string> addNumberToQuestions(string q1, string q2, string q3, string q4)
         {
             const int lenOfString = 3;
-
+            List<string> list = new List<string> { q1, q2, q3, q4 };
+            int currIndex = -1;
+            int secondsIndex = -1;
             //id = 3426
             //for gpt:
+            //this is problomatic:
             //<p style="text-align: justify;">28</p>
+            //this is not prblomatic:
+            //'<p><span style="font-weight: 400;">זוגי</span></p>'
+      
+            
+            //this method sucseed
+            for(int i =0; i <list.Count;i++)
+            {
+                currIndex = q1.IndexOf("<p>");
 
-            //create me a func that kee[just the text without the html in c#
-
-            int currIndex = q1.IndexOf("<p>") + lenOfString;
+                if (currIndex == -1)
+                {
+                    currIndex = list[i].IndexOf("<p ");
+                    secondsIndex = list[i].IndexOf(">");//find the closing tag of p
+                    list[i] = $"<p>({i+1})\t" + list[i].Substring(secondsIndex + 1, list[i].Length - (secondsIndex+1));
+                }
+                else
+                {
+                    list[i] = $"<p>({i+1})\t" + list[i].Substring(currIndex + lenOfString, list[i].Length - currIndex - lenOfString);
+                }
+            }
+            return list;
+            
             q1 = "<p>(1)\t" + q1.Substring(currIndex, q1.Length - currIndex);
             currIndex = q2.IndexOf("<p>") + lenOfString;
             q2 = "<p>(2)\t" + q2.Substring(currIndex, q2.Length - currIndex);
@@ -84,7 +105,7 @@ namespace clientForQuestions2._0
             q3 = "<p>(3)\t" + q3.Substring(currIndex, q3.Length - currIndex);
             currIndex = q4.IndexOf("<p>") + lenOfString;
             q4 = "<p>(4)\t" + q4.Substring(currIndex, q4.Length - currIndex);
-            List<string> list = new List<string> { q1, q2, q3, q4 };
+            
             return list;
         }
 
