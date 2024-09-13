@@ -42,6 +42,7 @@ namespace clientForQuestions2._0
         private int col_id = 0;
 
         private int secondsTookForCurrq = 0;
+        private int timeElapsed = 0; // to get the time per question when isUserDoNotGetFeedBack == true
         private System.Timers.Timer m_aTimer;
         private questionsDifficultyLevel m_aDifficultyLevels;
 
@@ -60,11 +61,13 @@ namespace clientForQuestions2._0
             this.isUserDoNotGetFeedBack = isQSkip;
            
             this.timePerQ = timePerQ;
-            rewriteTimer();
-
 
             updateAtStart(amount, listOfTopics);
 
+            if (this.isUserDoNotGetFeedBack)
+                this.timePerQ = timePerQ * m_questionDetails.Count;
+
+            rewriteTimer();
 
             //PositionNextQuestionButton();
             this.Resize += MainForm_Resize;
@@ -78,18 +81,18 @@ namespace clientForQuestions2._0
 
         private void whenDoNotGetFeedBack()
         {
-            this.timer.Visible = false;
+            this.timer.Visible = true;
             //here we will init *all* the answer after questions without userchoice
             for(int i =0; i <this.m_questionDetails.Count;i++)
             {
                 //the defult is skipped question - will be updated as the user clicks on the option buttons
-                afterQuestionParametrs af = new afterQuestionParametrs { indexOfQuestion = i, question = m_questionDetails[i], timeForAnswer = -1, userAnswer = OperationsAndOtherUseful.SKIPPED_Q }; // CHANGE TIME FOR ANSWER 42
+                afterQuestionParametrs af = new afterQuestionParametrs { indexOfQuestion = i, question = m_questionDetails[i], timeForAnswer = 0, userAnswer = OperationsAndOtherUseful.SKIPPED_Q };
                 this.m_afterQuestionParametrs.Add(af);
             }
             updateToNextButtonQuestion(0);
         }
 
-        public questionsPage(int collection_id, List<int> questions)
+        public questionsPage(int collection_id, List<int> questions, int tpq)
         {
             //when is text
             InitializeComponent();
@@ -98,8 +101,6 @@ namespace clientForQuestions2._0
             height_screen = this.ClientSize.Height;
             this.isUserDoNotGetFeedBack = true;//in text user does not get immdiate feedback
 
-            this.timePerQ = 0;//FIX 42
-            rewriteTimer();
 
 
             updateAtStartCol(questions);
@@ -107,6 +108,9 @@ namespace clientForQuestions2._0
 
             createButtons(questions.Count);
             displayButtons();
+
+            this.timePerQ = tpq * m_questionDetails.Count;
+            rewriteTimer();
 
 
             //PositionNextQuestionButton();
@@ -238,8 +242,15 @@ namespace clientForQuestions2._0
 
                     if (secondsTookForCurrq >= timePerQ && timePerQ != 0) // check if time ran out
                     {
+                        if (isUserDoNotGetFeedBack) // if time ran out && navigate questions, go to summary
+                        {
+                            var s = new summrizePage(this.m_afterQuestionParametrs);
+                            s.Show();
+                            this.Close();
+                            return;
+                        }
                         answerinnotAnswered();
-                        afterAnswerQuestion(OperationsAndOtherUseful.SKIPPED_Q); // if time ran out, it counts as he didn't answer
+                        afterAnswerQuestion(OperationsAndOtherUseful.SKIPPED_Q); // if time ran out, it counts as he didn't answer.
                     }
                 });
             }
@@ -512,7 +523,10 @@ namespace clientForQuestions2._0
            
             this.stopTestButton.Text = "סיום התרגול וסיכום";
             //this func happens after the user clicked on an answer
-            this.m_aTimer.Stop();
+            // dont stop the timer if you navigate qs
+            if (!isUserDoNotGetFeedBack)
+                this.m_aTimer.Stop();
+            
             //func check if answer is true and return explantion 
 
             //for summrize page get data on user choice and time
@@ -529,10 +543,10 @@ namespace clientForQuestions2._0
             {
                 if (m_afterQuestionParametrs[i].indexOfQuestion == this.m_indexOfCurrQuestion)
                 {
-                    // Retrieve the element, modify it, and then assign it back, add time 42
-                    var parameter = m_afterQuestionParametrs[i];  // Retrieve the element
-                    parameter.userAnswer = answer;                // Modify the property
-                    m_afterQuestionParametrs[i] = parameter;      // Assign it back to the list
+                    // Retrieve the element, modify it, and then assign it back, add time to current 42
+                    var parameter = m_afterQuestionParametrs[i];      // Retrieve the element
+                    parameter.userAnswer = answer;                    // Modify the property
+                    m_afterQuestionParametrs[i] = parameter;          // Assign it back to the list
                     isExsist = true;
                     break;
                 }
@@ -609,7 +623,27 @@ namespace clientForQuestions2._0
         {
             m_questionCounter++;
 
-            rewriteTimer();
+
+            if (!isUserDoNotGetFeedBack)
+            {
+                rewriteTimer();
+            }
+            else
+            {
+                for (int i = 0; i < m_afterQuestionParametrs.Count; i++)
+                {
+                    if (m_afterQuestionParametrs[i].indexOfQuestion == this.m_indexOfCurrQuestion)
+                    {
+                        // Retrieve the element, modify it, and then assign it back, add time to current
+                        var parameter = m_afterQuestionParametrs[i];                 // Retrieve the element
+                        parameter.timeForAnswer += secondsTookForCurrq - timeElapsed; // add the time since the user entered the q
+                        m_afterQuestionParametrs[i] = parameter;                     // Assign it back to the list
+                        break;
+                    }
+                }
+
+                timeElapsed = secondsTookForCurrq; // save the time when the user left the curr q and enter a new one
+            }
             this.updateLabelAnswers();
 
             if (isUserDoNotGetFeedBack)
@@ -618,7 +652,7 @@ namespace clientForQuestions2._0
             }
 
             //if questions end, check if all q are answered
-            if ( (m_indexOfCurrQuestion == this.m_questionDetails.Count && !isUserDoNotGetFeedBack) || (m_buttonList.All(b => b.BackColor == Color.Yellow && isUserDoNotGetFeedBack) ) )
+            if ( (m_indexOfCurrQuestion == this.m_questionDetails.Count && !isUserDoNotGetFeedBack) || (m_buttonList.Any() && m_buttonList.All(b => b.BackColor == Color.Yellow && isUserDoNotGetFeedBack) ) )
             {
                 if(sender == null)
                 {
@@ -651,8 +685,11 @@ namespace clientForQuestions2._0
                 this.answer3Button.Visible = true;
                 this.answer4Button.Visible = true;
 
-                this.secondsTookForCurrq = 0;
-                this.m_aTimer.Start();
+                if (!isUserDoNotGetFeedBack)
+                {
+                    this.secondsTookForCurrq = 0;
+                    this.m_aTimer.Start();
+                }
             }
             else
             {
@@ -741,7 +778,19 @@ namespace clientForQuestions2._0
             setButtonsToNormalSize();
             updateToNextButtonQuestion(indexOfQuestion);
 
-            //afterAnswerQuestion();
+            for (int i = 0; i < m_afterQuestionParametrs.Count; i++)
+            {
+                if (m_afterQuestionParametrs[i].indexOfQuestion == this.m_indexOfCurrQuestion)
+                {
+                    // Retrieve the element, modify it, and then assign it back, add time to current
+                    var parameter = m_afterQuestionParametrs[i];                 // Retrieve the element
+                    parameter.timeForAnswer += secondsTookForCurrq - timeElapsed; // add the time since the user entered the q
+                    m_afterQuestionParametrs[i] = parameter;                     // Assign it back to the list
+                    break;
+                }
+            }
+
+            timeElapsed = secondsTookForCurrq; // save the time when the user left the curr q and enter a new one
 
             this.answer1Button.Visible = true;
             this.answer2Button.Visible = true;

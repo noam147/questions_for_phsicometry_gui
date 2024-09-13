@@ -151,8 +151,14 @@ namespace clientForQuestions2._0
 
             int col_id = colIds[random.Next(colIds.Count)]; // choose rand collection of the category
             List<int> questions = colId2qIds[col_id]; // get the questions of the collection
-            
-            questionsPage c = new questionsPage(col_id, questions);
+
+            questionsPage c;
+            //get the questions here
+
+            if (this.timePerQPicker.Enabled)
+                c = new questionsPage(col_id, questions, timePerQPicker.Value.Minute * 60 + timePerQPicker.Value.Second); // CHANGE!!!!!42
+            else
+                c = new questionsPage(col_id, questions, 0); // CHANGE!!!!!42
 
             c.Show();
             this.Close();
@@ -164,6 +170,10 @@ namespace clientForQuestions2._0
 
             c.Show();
             this.Close();
+        }
+        private void timePerQCheckbox_CheckedChanged(object sender, EventArgs e)
+        {
+            this.timePerQPicker.Enabled = ((CheckBox)sender).Checked;
         }
     }
 }

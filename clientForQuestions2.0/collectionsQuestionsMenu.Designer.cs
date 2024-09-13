@@ -33,6 +33,8 @@
             this.colButton3 = new System.Windows.Forms.Button();
             this.backToMainMenu = new System.Windows.Forms.Button();
             this.continueButton = new System.Windows.Forms.Button();
+            this.timePerQCheckbox = new System.Windows.Forms.CheckBox();
+            this.timePerQPicker = new System.Windows.Forms.DateTimePicker();
             this.SuspendLayout();
             // 
             // colButton1
@@ -86,11 +88,41 @@
             this.continueButton.UseVisualStyleBackColor = true;
             this.continueButton.Click += new System.EventHandler(this.continueButton_Click);
             // 
+            // timePerQCheckbox
+            // 
+            this.timePerQCheckbox.AutoSize = true;
+            this.timePerQCheckbox.Checked = true;
+            this.timePerQCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.timePerQCheckbox.Location = new System.Drawing.Point(90, 197);
+            this.timePerQCheckbox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.timePerQCheckbox.Name = "timePerQCheckbox";
+            this.timePerQCheckbox.Size = new System.Drawing.Size(133, 20);
+            this.timePerQCheckbox.TabIndex = 22;
+            this.timePerQCheckbox.Text = "הגבלת זמן לשאלה";
+            this.timePerQCheckbox.UseVisualStyleBackColor = true;
+            this.timePerQCheckbox.CheckedChanged += new System.EventHandler(this.timePerQCheckbox_CheckedChanged);
+            // 
+            // timePerQPicker
+            // 
+            this.timePerQPicker.CustomFormat = "mm:ss";
+            this.timePerQPicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.timePerQPicker.Location = new System.Drawing.Point(149, 214);
+            this.timePerQPicker.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.timePerQPicker.MaxDate = new System.DateTime(2000, 1, 1, 0, 59, 59, 0);
+            this.timePerQPicker.MinDate = new System.DateTime(2000, 1, 1, 0, 0, 0, 0);
+            this.timePerQPicker.Name = "timePerQPicker";
+            this.timePerQPicker.ShowUpDown = true;
+            this.timePerQPicker.Size = new System.Drawing.Size(63, 22);
+            this.timePerQPicker.TabIndex = 21;
+            this.timePerQPicker.Value = new System.DateTime(2000, 1, 1, 0, 1, 0, 0);
+            // 
             // collectionsQuestionsMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.timePerQCheckbox);
+            this.Controls.Add(this.timePerQPicker);
             this.Controls.Add(this.continueButton);
             this.Controls.Add(this.backToMainMenu);
             this.Controls.Add(this.colButton3);
@@ -99,6 +131,7 @@
             this.Name = "collectionsQuestionsMenu";
             this.Text = "collectionsQuestionsMenu";
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -109,5 +142,7 @@
         private System.Windows.Forms.Button colButton3;
         private System.Windows.Forms.Button backToMainMenu;
         private System.Windows.Forms.Button continueButton;
+        private System.Windows.Forms.CheckBox timePerQCheckbox;
+        private System.Windows.Forms.DateTimePicker timePerQPicker;
     }
 }
