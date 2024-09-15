@@ -407,7 +407,7 @@ namespace clientForQuestions2._0
             // Initialize a new instance of WebView2
             webView2_col = new WebView2
             {
-                Location = new Point(width_screen, 0),
+                Location = new Point(width_screen-10, 0),
                 Size = new Size(width_screen - w_buttonsPlace, height_screen)
             };
 

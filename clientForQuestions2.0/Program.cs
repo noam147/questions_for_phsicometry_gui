@@ -20,7 +20,7 @@ namespace clientForQuestions2._0
             Application.SetCompatibleTextRenderingDefault(false);
             List<string> list = new List<string>();
             list.Add("אנלוגיות");
-            var main = new menuPage();
+            var main = new PasswordPage();
             main.FormClosed += new FormClosedEventHandler(FormClosed);
             main.Show();
 

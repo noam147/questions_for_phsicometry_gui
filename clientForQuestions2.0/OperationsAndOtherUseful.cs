@@ -2,13 +2,16 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.NetworkInformation;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace clientForQuestions2._0
 {
-    
+
     internal class OperationsAndOtherUseful
     {
         public static int MIN_LEVEL = 0;
@@ -52,7 +55,7 @@ namespace clientForQuestions2._0
         private static string get_string_of_img_html(JToken json)
         {
             //this should be in a separate file
-            if (json == null )
+            if (json == null)
             {
                 return "";
             }
@@ -78,10 +81,10 @@ namespace clientForQuestions2._0
             //<p style="text-align: justify;">28</p>
             //this is not prblomatic:
             //'<p><span style="font-weight: 400;">זוגי</span></p>'
-      
-            
+
+
             //this method sucseed
-            for(int i =0; i <list.Count;i++)
+            for (int i = 0; i < list.Count; i++)
             {
                 currIndex = q1.IndexOf("<p>");
 
@@ -89,15 +92,15 @@ namespace clientForQuestions2._0
                 {
                     currIndex = list[i].IndexOf("<p ");
                     secondsIndex = list[i].IndexOf(">");//find the closing tag of p
-                    list[i] = $"<p>({i+1})\t" + list[i].Substring(secondsIndex + 1, list[i].Length - (secondsIndex+1));
+                    list[i] = $"<p>({i + 1})\t" + list[i].Substring(secondsIndex + 1, list[i].Length - (secondsIndex + 1));
                 }
                 else
                 {
-                    list[i] = $"<p>({i+1})\t" + list[i].Substring(currIndex + lenOfString, list[i].Length - currIndex - lenOfString);
+                    list[i] = $"<p>({i + 1})\t" + list[i].Substring(currIndex + lenOfString, list[i].Length - currIndex - lenOfString);
                 }
             }
             return list;
-            
+
             q1 = "<p>(1)\t" + q1.Substring(currIndex, q1.Length - currIndex);
             currIndex = q2.IndexOf("<p>") + lenOfString;
             q2 = "<p>(2)\t" + q2.Substring(currIndex, q2.Length - currIndex);
@@ -105,12 +108,12 @@ namespace clientForQuestions2._0
             q3 = "<p>(3)\t" + q3.Substring(currIndex, q3.Length - currIndex);
             currIndex = q4.IndexOf("<p>") + lenOfString;
             q4 = "<p>(4)\t" + q4.Substring(currIndex, q4.Length - currIndex);
-            
+
             return list;
         }
 
 
-        public static string get_string_of_question_and_option_from_json(dbQuestionParmeters qp,int userAnswer)
+        public static string get_string_of_question_and_option_from_json(dbQuestionParmeters qp, int userAnswer)
         {
             //optionToMarkRed = user answer
             bool isTextOptions = ((JArray)qp.json_content["options"]).Count != 0;
@@ -120,14 +123,14 @@ namespace clientForQuestions2._0
             string option2;
             string option3;
             string option4;
-            List<string> listOfOptions  = new List<string>();
+            List<string> listOfOptions = new List<string>();
             if (isTextOptions)
             {
-                 option1 = qp.json_content["options"][0]["text"].ToString();
-                 option2 = qp.json_content["options"][1]["text"].ToString();
-                 option3 = qp.json_content["options"][2]["text"].ToString();
-                 option4 = qp.json_content["options"][3]["text"].ToString();
-                 listOfOptions = addNumberToQuestions(option1, option2, option3, option4);
+                option1 = qp.json_content["options"][0]["text"].ToString();
+                option2 = qp.json_content["options"][1]["text"].ToString();
+                option3 = qp.json_content["options"][2]["text"].ToString();
+                option4 = qp.json_content["options"][3]["text"].ToString();
+                listOfOptions = addNumberToQuestions(option1, option2, option3, option4);
                 //if the user answsered go to this - mark an answer
                 if (userAnswer != DO_NOT_MARK)
                 {
@@ -141,7 +144,7 @@ namespace clientForQuestions2._0
             }
             else
             {
-                option1 = $"<img src=\"https://lmsapi.kidum-me.com/storage/{qp.json_content["option_images"][0]["file_path"].ToString()}\" alt=\"Question Image\" style=\"max-width:100%; height:auto;\">"; 
+                option1 = $"<img src=\"https://lmsapi.kidum-me.com/storage/{qp.json_content["option_images"][0]["file_path"].ToString()}\" alt=\"Question Image\" style=\"max-width:100%; height:auto;\">";
                 option2 = $"<img src=\"https://lmsapi.kidum-me.com/storage/{qp.json_content["option_images"][1]["file_path"].ToString()}\" alt=\"Question Image\" style=\"max-width:100%; height:auto;\">";
                 option3 = $"<img src=\"https://lmsapi.kidum-me.com/storage/{qp.json_content["option_images"][2]["file_path"].ToString()}\" alt=\"Question Image\" style=\"max-width:100%; height:auto;\">";
                 option4 = $"<img src=\"https://lmsapi.kidum-me.com/storage/{qp.json_content["option_images"][3]["file_path"].ToString()}\" alt=\"Question Image\" style=\"max-width:100%; height:auto;\">";
@@ -170,13 +173,13 @@ namespace clientForQuestions2._0
 
 
             string finalOptionsString = listOfOptions[0] + listOfOptions[1] + listOfOptions[2] + listOfOptions[3];
-            if(!isTextOptions)
+            if (!isTextOptions)
                 finalOptionsString = listOfOptions[0] + listOfOptions[1] + "<br>" + listOfOptions[2] + listOfOptions[3];
             //if question is in english
             if (!isQuestionInHebrew(qp.category))
-                {
-                    return question + get_string_of_img_html(qp.json_content["image"]) + "<br><br>" + finalOptionsString;
-                }
+            {
+                return question + get_string_of_img_html(qp.json_content["image"]) + "<br><br>" + finalOptionsString;
+            }
 
             return right2left(question + get_string_of_img_html(qp.json_content["image"]) + "<br><br>" + finalOptionsString);
         }
@@ -197,6 +200,44 @@ namespace clientForQuestions2._0
             }
             return true;
         }
-       
+
+
+
+        public static string getMacAdd()
+        {
+            var macAddress = NetworkInterface
+            .GetAllNetworkInterfaces()
+            .Where(nic => nic.OperationalStatus == OperationalStatus.Up && nic.NetworkInterfaceType != NetworkInterfaceType.Loopback)
+            .Select(nic => nic.GetPhysicalAddress().ToString())
+            .FirstOrDefault();
+            return macAddress;
+        }
+        public static string getEncodedMacAdd(string mac)
+        {
+            string hashedMac = ComputeSha256Hash(mac + "b");
+            return hashedMac + "1";
+
+        }
+
+        //func to encode from gpt
+        static string ComputeSha256Hash(string rawData)
+        {
+            // Create a SHA256 instance
+            using (SHA256 sha256Hash = SHA256.Create())
+            {
+                // Convert the input string to a byte array and compute the hash
+                byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(rawData));
+
+                // Convert the byte array to a hexadecimal string
+                StringBuilder builder = new StringBuilder();
+                foreach (byte b in bytes)
+                {
+                    builder.Append(b.ToString("x2"));
+                }
+                return builder.ToString();
+            }
+
+
+        }
     }
 }
