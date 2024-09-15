@@ -50,17 +50,24 @@ namespace clientForQuestions2._0
         private questionsDifficultyLevel m_aDifficultyLevels;
 
         private List<Button> m_buttonList = new List<Button>();
+        private int m_currentIndexOfFirstButton = 0;
 
 
         private int timePerQ = 0; // 0 means "stoper" (no time limit), positive value means "timer" (count backwards to 0)
+        
+        
+        private void atStart()
+        {
+            InitializeComponent();
+            setAnswerButtonsToNormalcolor();
+            width_screen = this.ClientSize.Width;
+            height_screen = this.ClientSize.Height;
+            this.Resize += MainForm_Resize;
+        }
         public questionsPage(int amount, List<string> listOfTopics, bool isQSkip, int timePerQ, questionsDifficultyLevel difficultyLevel)
         {
             m_aDifficultyLevels = difficultyLevel;
-            InitializeComponent();
-            setAnswerButtonsToNormalcolor();
-
-            width_screen = this.ClientSize.Width;
-            height_screen = this.ClientSize.Height;
+            atStart();
             this.isUserDoNotGetFeedBack = isQSkip;
 
             this.timePerQ = timePerQ;
@@ -74,8 +81,8 @@ namespace clientForQuestions2._0
 
             rewriteTimer();
 
-            //PositionNextQuestionButton();
-            this.Resize += MainForm_Resize;
+
+            
             Thread thread = new Thread(() =>
             {
                 InitializeWebView21();
@@ -100,10 +107,7 @@ namespace clientForQuestions2._0
         public questionsPage(int collection_id, List<int> questions, int tpq)
         {
             //when is text
-            InitializeComponent();
-            setAnswerButtonsToNormalcolor();
-            width_screen = this.ClientSize.Width;
-            height_screen = this.ClientSize.Height;
+            atStart();
             this.isUserDoNotGetFeedBack = true;//in text user does not get immdiate feedback
 
 
@@ -111,15 +115,14 @@ namespace clientForQuestions2._0
             updateAtStartCol(questions);
             this.col_id = collection_id;
 
-            createButtons(questions.Count);
+
+            createButtons();
             displayButtons();
 
             this.timePerQ = tpq * m_questionDetails.Count;
             rewriteTimer();
 
 
-            //PositionNextQuestionButton();
-            this.Resize += MainForm_Resize;
 
             this.ClientSize = new System.Drawing.Size(2 * width_screen - w_buttonsPlace, height_screen);
             //this.ClientSize = new System.Drawing.Size(2 * width_screen - w_buttonsPlace, height_screen);
@@ -160,7 +163,7 @@ namespace clientForQuestions2._0
             updateLabelAnswers();
 
 
-            createButtons(this.m_questionDetails.Count);
+            createButtons();
             displayButtons();
 
             this.timePerQ = tpq;
@@ -181,9 +184,18 @@ namespace clientForQuestions2._0
             thread.Start();
         }
 
-        private void createButtons(int amountOfQuestions)
+
+        private void unvisibleButtonsFromButtonList()
         {
-            for (int i = 0; i < amountOfQuestions; i++)
+            for(int i  =0;i<m_buttonList.Count;i++)
+            {
+                m_buttonList[i].Visible = false;
+            }
+        }
+
+        private void createButtons()
+        {
+            for (int i = 0; i < m_questionDetails.Count; i++)
             {
 
                 Button btn = new Button
@@ -191,30 +203,40 @@ namespace clientForQuestions2._0
                     Text = $"{i + 1}",
                     Width = 30,
                     Height = 30,
-                    Location = new System.Drawing.Point(110 + i * 55, 30), // Adjust spacing
-                    Enabled = false,
+                    Location = new System.Drawing.Point(140 +( i % 10 )* 45, 30), // Adjust spacing
+                    Enabled = true,
                     Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold) // make the text BOLD
                 };
                 //at start user didnt answer anything
                 btn.BackColor = Color.Gray;
                 btn.Click += swichQuestionButton_Click;
                 m_buttonList.Add(btn);
+                Controls.Add(btn);
             }
-            if (m_buttonList.Count != 0)
+
+        }
+        private void displayButtons(int startIndex,int endIndex)
+        {
+            m_currentIndexOfFirstButton = startIndex;
+            unvisibleButtonsFromButtonList();
+            if (endIndex > m_buttonList.Count)
             {
-                //Button_Click(0);//index of first questin
+                endIndex = m_buttonList.Count;
             }
+      
+            for (int i = startIndex; i < endIndex; i++)
+            {
+                Button btn = m_buttonList[i];
+                btn.Visible = true;
+                btn.BringToFront();
+                //
+            }
+            int tcheck = 0;
         }
         private void displayButtons()
         {
-            for (int i = 0; i < m_buttonList.Count; i++)
-            {
-                Button btn = m_buttonList[i];
-                btn.BringToFront();
-                Controls.Add(btn);
-            }
+            displayButtons(0, 10);
         }
-
 
         private void rewriteTimer()
         {
@@ -255,7 +277,7 @@ namespace clientForQuestions2._0
 
             if (this.isUserDoNotGetFeedBack)
             {
-                createButtons(m_questionDetails.Count);
+                createButtons();
                 displayButtons();
             }
         }
@@ -585,6 +607,7 @@ namespace clientForQuestions2._0
             this.nextQuestionButton.BackColor = Color.White;
             if (this.m_buttonList.Count != 0)
             {
+                
                 m_buttonList[m_indexOfCurrQuestion].BackColor = Color.Yellow;
             }
 
@@ -689,7 +712,7 @@ namespace clientForQuestions2._0
         private void nextQuestionButtonClick(object sender, EventArgs e)
         {
             m_questionCounter++; // 42
-
+         
 
             if (!isUserDoNotGetFeedBack)
             {
@@ -956,6 +979,10 @@ namespace clientForQuestions2._0
         }
         private void updateToNextButtonQuestion(int index)
         {
+            if(this.m_currentIndexOfFirstButton + 10 <= index)
+            {
+                displayButtons(this.m_currentIndexOfFirstButton + 10, this.m_currentIndexOfFirstButton + 20);
+            }
             setButtonsToNormalSize();
             try
             {
@@ -965,6 +992,50 @@ namespace clientForQuestions2._0
                 m_buttonList[index].Location = new System.Drawing.Point(m_buttonList[index].Location.X - ((int)Q_CHOSEN_BUTTON_ADD_SIZE / 2), m_buttonList[index].Location.Y - ((int)Q_CHOSEN_BUTTON_ADD_SIZE / 2));
             }
             catch (Exception e) { }
+        }
+
+        private void nextQuestionsButton_Click(object sender, EventArgs e)
+        {
+
+
+            if(m_currentIndexOfFirstButton == 0)
+                displayButtons(10,20);
+
+            else if (m_currentIndexOfFirstButton == 10)
+                displayButtons(20, 30);
+            else if (m_currentIndexOfFirstButton == 20)
+                displayButtons(30, 40);
+            else if (m_currentIndexOfFirstButton == 30)
+                displayButtons(40, 50);
+            else if (m_currentIndexOfFirstButton == 40)
+                displayButtons(50, 60);
+            else if (m_currentIndexOfFirstButton == 50)
+                displayButtons(60, 70);
+
+
+        }
+
+        private void previousQuestionsButton_Click(object sender, EventArgs e)
+        {
+            int maxQuestions = this.m_questionDetails.Count;
+           
+
+            if (m_currentIndexOfFirstButton == 0)
+            {
+                //do nothing
+            }
+            else if (m_currentIndexOfFirstButton == 10)
+                displayButtons(0, 10);
+            else if (m_currentIndexOfFirstButton == 20)
+                displayButtons(10, 20);
+            else if (m_currentIndexOfFirstButton == 30)
+                displayButtons(20, 30);
+            else if (m_currentIndexOfFirstButton == 40)
+                displayButtons(30, 40);
+            else if (m_currentIndexOfFirstButton == 50)
+                displayButtons(40, 50);
+            else if (m_currentIndexOfFirstButton == 60)
+                displayButtons(50, 60);
         }
     }
 }

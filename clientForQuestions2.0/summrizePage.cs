@@ -17,6 +17,7 @@ namespace clientForQuestions2._0
     public partial class summrizePage : Form
     {
         List<Button> m_buttonList= new List<Button>();
+
         List<afterQuestionParametrs> m_questions;
         private WebView2 webView21;
         private WebView2 webView2_col;
