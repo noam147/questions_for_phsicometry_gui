@@ -62,7 +62,7 @@
             this.timePerQPicker.ShowUpDown = true;
             this.timePerQPicker.Size = new System.Drawing.Size(63, 22);
             this.timePerQPicker.TabIndex = 28;
-            this.timePerQPicker.Value = new System.DateTime(2000, 1, 1, 0, 1, 0, 0);
+            this.timePerQPicker.Value = new System.DateTime(2000, 1, 1, 0, 20, 0, 0);
             // 
             // continueButton
             // 
