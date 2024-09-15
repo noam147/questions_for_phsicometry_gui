@@ -102,7 +102,7 @@ namespace clientForQuestions2._0
             // 
             this.stopTestButton.AutoSize = true;
             this.stopTestButton.BackColor = System.Drawing.Color.Tomato;
-            this.stopTestButton.Location = new System.Drawing.Point(854, 11);
+            this.stopTestButton.Location = new System.Drawing.Point(854, 0);
             this.stopTestButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.stopTestButton.Name = "stopTestButton";
             this.stopTestButton.Size = new System.Drawing.Size(103, 37);
@@ -126,7 +126,7 @@ namespace clientForQuestions2._0
             // answersTrackLabel
             // 
             this.answersTrackLabel.AutoSize = true;
-            this.answersTrackLabel.Location = new System.Drawing.Point(837, 95);
+            this.answersTrackLabel.Location = new System.Drawing.Point(837, 106);
             this.answersTrackLabel.Name = "answersTrackLabel";
             this.answersTrackLabel.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.answersTrackLabel.Size = new System.Drawing.Size(126, 16);
@@ -136,7 +136,7 @@ namespace clientForQuestions2._0
             // questionTrackLabel
             // 
             this.questionTrackLabel.AutoSize = true;
-            this.questionTrackLabel.Location = new System.Drawing.Point(841, 73);
+            this.questionTrackLabel.Location = new System.Drawing.Point(841, 84);
             this.questionTrackLabel.Name = "questionTrackLabel";
             this.questionTrackLabel.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.questionTrackLabel.Size = new System.Drawing.Size(93, 16);

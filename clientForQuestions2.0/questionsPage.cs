@@ -37,6 +37,7 @@ namespace clientForQuestions2._0
         private int width_screen;
         private int height_screen;
         private int w_buttonsPlace = 170;
+        private int h_buttonsQuestionsPlace = 70; // for the buttons of the questions when isUserDoNotGetFeedBack
 
         private bool isUserDoNotGetFeedBack;
         private int col_id = 0;
@@ -59,8 +60,10 @@ namespace clientForQuestions2._0
             width_screen = this.ClientSize.Width;
             height_screen = this.ClientSize.Height;
             this.isUserDoNotGetFeedBack = isQSkip;
-           
+
             this.timePerQ = timePerQ;
+            if (!isUserDoNotGetFeedBack)
+                h_buttonsQuestionsPlace = 0;
 
             updateAtStart(amount, listOfTopics);
 
@@ -82,8 +85,8 @@ namespace clientForQuestions2._0
         private void whenDoNotGetFeedBack()
         {
             this.timer.Visible = true;
-            //here we will init *all* the answer after questions without userchoice
-            for(int i =0; i <this.m_questionDetails.Count;i++)
+            //here we will init all the answer after questions without userchoice
+            for (int i = 0; i < this.m_questionDetails.Count; i++)
             {
                 //the defult is skipped question - will be updated as the user clicks on the option buttons
                 afterQuestionParametrs af = new afterQuestionParametrs { indexOfQuestion = i, question = m_questionDetails[i], timeForAnswer = 0, userAnswer = OperationsAndOtherUseful.SKIPPED_Q };
@@ -116,8 +119,8 @@ namespace clientForQuestions2._0
             //PositionNextQuestionButton();
             this.Resize += MainForm_Resize;
 
-            this.Size = new System.Drawing.Size(2 * width_screen - w_buttonsPlace, height_screen);
-
+            this.ClientSize = new System.Drawing.Size(2 * width_screen - w_buttonsPlace, height_screen);
+            //this.ClientSize = new System.Drawing.Size(2 * width_screen - w_buttonsPlace, height_screen);
             Thread thread = new Thread(() =>
             {
                 InitializeWebView2_col();
@@ -126,6 +129,54 @@ namespace clientForQuestions2._0
             thread.SetApartmentState(ApartmentState.STA);
             thread.Start();
 
+        }
+
+        public questionsPage(List<dbQuestionParmeters> questions, int tpq)
+        {
+            //when is text
+            InitializeComponent();
+            setAnswerButtonsToNormalcolor();
+            width_screen = this.ClientSize.Width;
+            height_screen = this.ClientSize.Height;
+            this.isUserDoNotGetFeedBack = true;//in text user does not get immdiate feedback
+
+            //wait until webview is init
+            this.answer1Button.Enabled = false;
+            this.answer2Button.Enabled = false;
+            this.answer3Button.Enabled = false;
+            this.answer4Button.Enabled = false;
+
+            this.m_questionDetails = questions;
+
+            m_maxQuestions = m_questionDetails.Count;//if amount is bigger that questions avelible
+            writeQuestionToLogFile();
+
+            this.isUserRightLabel.Text = "";
+            this.nextQuestionButton.Visible = false;
+
+
+            updateLabelAnswers();
+
+
+            createButtons(this.m_questionDetails.Count);
+            displayButtons();
+
+            this.timePerQ = tpq;
+            rewriteTimer();
+
+
+            //PositionNextQuestionButton();
+            this.Resize += MainForm_Resize;
+
+
+            this.ClientSize = new System.Drawing.Size(width_screen, height_screen);
+            Thread thread = new Thread(() =>
+            {
+                InitializeWebView2_col();
+                InitializeWebView21();
+            });
+            thread.SetApartmentState(ApartmentState.STA);
+            thread.Start();
         }
 
         private void createButtons(int amountOfQuestions)
@@ -306,8 +357,8 @@ namespace clientForQuestions2._0
             {
                 webView21 = new WebView2
                 {
-                    Location = new Point(0, 70),
-                    Size = new Size(width_screen - w_buttonsPlace, height_screen)
+                    Location = new Point(0, h_buttonsQuestionsPlace),
+                    Size = new Size(width_screen - w_buttonsPlace, height_screen - h_buttonsQuestionsPlace)
                 };
             }
             else
@@ -407,8 +458,10 @@ namespace clientForQuestions2._0
             // Initialize a new instance of WebView2
             webView2_col = new WebView2
             {
-                Location = new Point(width_screen-10, 0),
-                Size = new Size(width_screen - w_buttonsPlace, height_screen)
+
+                Location = new Point(width_screen-10, h_buttonsQuestionsPlace),
+                Size = new Size(width_screen - w_buttonsPlace, height_screen - h_buttonsQuestionsPlace)
+
             };
 
             webView2_col.CoreWebView2InitializationCompleted += OnCoreWebView2_colInitializationCompleted;
@@ -487,15 +540,22 @@ namespace clientForQuestions2._0
         //sender and e are not in use
         private void OnCoreWebView2_colInitializationCompleted(object sender, EventArgs e)
         {
-            webTaker.OnCoreWebView2_colInitializationCompleted(webView2_col, this.m_questionDetails[0]);
+            displayCol(0);
+            if (col_id != 0)
+                webTaker.OnCoreWebView2_colInitializationCompleted(webView2_col, this.m_questionDetails[0]);
             return;
         }
 
         private void updateLabelAnswers()
         {
-            if (!isUserDoNotGetFeedBack) { this.answersTrackLabel.Text = $"תשובות נכונות: {m_rightQuestions}/{m_maxQuestions}"; }
-            else { this.answersTrackLabel.Text = ""; }
-            this.questionTrackLabel.Text = $"שאלה נוכחית: {m_questionCounter}/{m_maxQuestions}";
+            if (!isUserDoNotGetFeedBack) {
+                this.answersTrackLabel.Text = $"תשובות נכונות: {m_rightQuestions}/{m_maxQuestions}";
+                this.questionTrackLabel.Text = $"שאלה נוכחית: {m_questionCounter}/{m_maxQuestions}";
+            }
+            else {
+                this.answersTrackLabel.Text = "";
+                this.questionTrackLabel.Text = $"שאלות שנענו: {m_buttonList.Count(b => b.BackColor == Color.Yellow)}/{m_maxQuestions}";
+            }
         }
 
         private void stopTestButtonClick(object sender, EventArgs e)
@@ -520,13 +580,13 @@ namespace clientForQuestions2._0
             {
                 m_buttonList[m_indexOfCurrQuestion].BackColor = Color.Yellow;
             }
-           
+
             this.stopTestButton.Text = "סיום התרגול וסיכום";
             //this func happens after the user clicked on an answer
             // dont stop the timer if you navigate qs
             if (!isUserDoNotGetFeedBack)
                 this.m_aTimer.Stop();
-            
+
             //func check if answer is true and return explantion 
 
             //for summrize page get data on user choice and time
@@ -551,11 +611,11 @@ namespace clientForQuestions2._0
                     break;
                 }
             }
-            if(!isExsist)
+            if (!isExsist)
             {
                 m_afterQuestionParametrs.Add(after_questionParametrs);
             }
-            
+
 
             if (this.m_questionDetails[m_indexOfCurrQuestion].rightAnswer == answer && !this.isUserDoNotGetFeedBack)
             {
@@ -621,7 +681,7 @@ namespace clientForQuestions2._0
 
         private void nextQuestionButtonClick(object sender, EventArgs e)
         {
-            m_questionCounter++;
+            m_questionCounter++; // 42
 
 
             if (!isUserDoNotGetFeedBack)
@@ -652,9 +712,9 @@ namespace clientForQuestions2._0
             }
 
             //if questions end, check if all q are answered
-            if ( (m_indexOfCurrQuestion == this.m_questionDetails.Count && !isUserDoNotGetFeedBack) || (m_buttonList.Any() && m_buttonList.All(b => b.BackColor == Color.Yellow && isUserDoNotGetFeedBack) ) )
+            if ((m_indexOfCurrQuestion == this.m_questionDetails.Count && !isUserDoNotGetFeedBack) || (m_buttonList.Any() && m_buttonList.All(b => b.BackColor == Color.Yellow && isUserDoNotGetFeedBack)))
             {
-                if(sender == null)
+                if (sender == null)
                 {
                     //if this is not a real click and just we want to move on but its the end
                     this.nextQuestionButton.Text = "סיכום";
@@ -763,17 +823,50 @@ namespace clientForQuestions2._0
 
         }
 
+        private void displayCol(int indexOfQuestion)
+        {
+            dbQuestionParmeters q = this.m_questionDetails[indexOfQuestion];
+            JArray collection = (JArray) q.json_content["collections"];
+            if (collection == null || collection.Count == 0)
+            {
+                this.col_id = 0;
+                hideCol();
+            }
+            else
+            {
+                int q_col_id = (int) collection[0]["id"];
+                if (this.col_id == q_col_id) // this is the same collection, we dont need to display it again
+                    return;
+
+                this.col_id = q_col_id;
+                showCol(q);
+            }
+        }
+
+        private void hideCol()
+        {
+            this.ClientSize = new System.Drawing.Size(width_screen, height_screen);
+        }
+
+        private void showCol(dbQuestionParmeters q)
+        {
+            this.ClientSize = new System.Drawing.Size(2 * width_screen - w_buttonsPlace, height_screen);
+            webTaker.OnCoreWebView2_colInitializationCompleted(webView2_col, q);
+        }
+
+
         //from here - relevant to when user doesnt want a feedback - so we give him the possebility to navigate throgh questions
         private void swichQuestionButton_Click(object sender, EventArgs e)
         {
 
-            int index = int.Parse(((Button)sender).Text) -1;
+            int index = int.Parse(((Button)sender).Text) - 1;
             swichQuestionButton_Click(index);
-          
+
 
         }
         private void swichQuestionButton_Click(int indexOfQuestion)
         {
+            displayCol(indexOfQuestion);
             setAnswerButtonsToNormalcolor();
             setButtonsToNormalSize();
             updateToNextButtonQuestion(indexOfQuestion);
@@ -843,7 +936,7 @@ namespace clientForQuestions2._0
         }
         private void setButtonsToNormalSize()
         {
-            for(int i =0; i <this.m_buttonList.Count; i++)
+            for (int i = 0; i < this.m_buttonList.Count; i++)
             {
                 m_buttonList[i].Width = 30;
                 m_buttonList[i].Height = 30;
@@ -855,7 +948,7 @@ namespace clientForQuestions2._0
             try
             {
                 m_buttonList[index].Width = 30 + 10;
-                m_buttonList[index].Height = 30 +10;
+                m_buttonList[index].Height = 30 + 10;
             }
             catch (Exception e) { }
         }

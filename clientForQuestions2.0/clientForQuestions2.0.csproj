@@ -77,6 +77,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="chaptersQuestionsMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="chaptersQuestionsMenu.Designer.cs">
+      <DependentUpon>chaptersQuestionsMenu.cs</DependentUpon>
+    </Compile>
     <Compile Include="collectionsQuestionsMenu.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -129,6 +135,9 @@
       <DependentUpon>textQuestions.cs</DependentUpon>
     </Compile>
     <Compile Include="webTaker.cs" />
+    <EmbeddedResource Include="chaptersQuestionsMenu.resx">
+      <DependentUpon>chaptersQuestionsMenu.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="collectionsQuestionsMenu.resx">
       <DependentUpon>collectionsQuestionsMenu.cs</DependentUpon>
     </EmbeddedResource>

@@ -71,7 +71,7 @@
             // 
             this.backToMainMenu.Location = new System.Drawing.Point(13, 13);
             this.backToMainMenu.Name = "backToMainMenu";
-            this.backToMainMenu.Size = new System.Drawing.Size(94, 50);
+            this.backToMainMenu.Size = new System.Drawing.Size(114, 68);
             this.backToMainMenu.TabIndex = 3;
             this.backToMainMenu.Text = "חזרה לתפריט הראשי";
             this.backToMainMenu.UseVisualStyleBackColor = true;

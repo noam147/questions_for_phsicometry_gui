@@ -25,7 +25,7 @@ namespace clientForQuestions2._0
         private int h_statsPlace = 40;
         private int h_questionsPlace = 70;
         private int width_screen;
-        private int h_screen;
+        private int height_screen;
 
         private int col_id = 0;
         private int indexQuestion = 0;
@@ -42,9 +42,9 @@ namespace clientForQuestions2._0
             }
 
             width_screen = this.ClientSize.Width;
-            h_screen = this.ClientSize.Height;
+            height_screen = this.ClientSize.Height;
             if (col_id != 0)
-                this.Size = new Size(width_screen * 2, h_screen);
+                this.ClientSize = new Size(width_screen * 2, height_screen);
 
             this.timeTookForQLabel.Text = "";
             displayTotalAvrageTime();
@@ -59,10 +59,8 @@ namespace clientForQuestions2._0
                     // Introduce a small delay to avoid tight looping
                     Thread.Sleep(100);
                 }
-                if (col_id != 0)
-                {
-                    InitializeWebView2_col();
-                }
+
+                InitializeWebView2_col();
                 InitializeWebView21();
             });
             thread.SetApartmentState(ApartmentState.STA);
@@ -107,6 +105,8 @@ namespace clientForQuestions2._0
         private void Form_Resize(object sender, EventArgs e)
         {
             return;
+
+
             if (webView21 != null)
             {
                 if(col_id == 0)
@@ -130,6 +130,39 @@ namespace clientForQuestions2._0
                 m_buttonList[i].Enabled = true;
             }
         }
+
+        private void displayCol()
+        {
+            dbQuestionParmeters q = this.m_questions[this.indexQuestion].question;
+            JArray collection = (JArray)q.json_content["collections"];
+            if (collection == null || collection.Count == 0)
+            {
+                this.col_id = 0;
+                hideCol();
+            }
+            else
+            {
+                int q_col_id = (int)collection[0]["id"];
+                if (this.col_id == q_col_id) // this is the same collection, we dont need to display it again
+                    return;
+
+                this.col_id = q_col_id;
+                showCol(q);
+            }
+        }
+
+        private void hideCol()
+        {
+            this.ClientSize = new System.Drawing.Size(width_screen, height_screen);
+        }
+
+        private void showCol(dbQuestionParmeters q)
+        {
+            //this.webView21.Size = new Size(width_screen, height_screen - h_questionsPlace - h_statsPlace); // Adjust size to fit below the buttons
+            this.ClientSize = new System.Drawing.Size(2 * width_screen, height_screen);
+            webTaker.OnCoreWebView2_colInitializationCompleted(webView2_col, q);
+        }
+
         private void InitializeWebView21()
         {
             // Use InvokeRequired check to ensure all UI operations are marshaled back to the main thread
@@ -143,8 +176,7 @@ namespace clientForQuestions2._0
             webView21 = new WebView2
             {
                 Location = new Point(0, h_questionsPlace + h_statsPlace), // Adjust Y coordinate to leave space for buttons
-                Size = new Size(width_screen, h_screen - h_questionsPlace - h_statsPlace), // Adjust size to fit below the buttons
-                Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right
+                Size = new Size(width_screen, height_screen - h_questionsPlace - h_statsPlace), // Adjust size to fit below the buttons
             };
 
             webView21.CoreWebView2InitializationCompleted += OnCoreWebView21InitializationCompleted;
@@ -231,8 +263,8 @@ namespace clientForQuestions2._0
             webView2_col = new WebView2
             {
                 Location = new Point(width_screen, h_questionsPlace + h_statsPlace), // Adjust Y coordinate to leave space for buttons
-                Size = new Size(width_screen, h_screen - h_questionsPlace - h_statsPlace), // Adjust size to fit below the buttons
-                Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right
+                Size = new Size(width_screen, height_screen - h_questionsPlace - h_statsPlace), // Adjust size to fit below the buttons
+                //Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right
             };
 
             webView2_col.CoreWebView2InitializationCompleted += OnCoreWebView2_colInitializationCompleted;
@@ -310,8 +342,8 @@ namespace clientForQuestions2._0
 
         private void OnCoreWebView2_colInitializationCompleted(object sender, EventArgs e)
         {
-
-            webTaker.OnCoreWebView2_colInitializationCompleted(webView2_col, m_questions[0].question);
+            if (col_id != 0)
+                webTaker.OnCoreWebView2_colInitializationCompleted(webView2_col, m_questions[0].question);
             return;
         }
         private void createButtons(List<afterQuestionParametrs> currQuestionRight)
@@ -370,6 +402,9 @@ namespace clientForQuestions2._0
 
             //here we display the question and answer based on the index
             string toDisplay = OperationsAndOtherUseful.get_string_of_question_and_explanation(this.m_questions[this.indexQuestion].question, this.m_questions[this.indexQuestion].userAnswer);
+            displayCol();
+
+
             int secondsTook = this.m_questions[this.indexQuestion].timeForAnswer;
             updateQuestionTimerText(secondsTook);
             updateStats();
