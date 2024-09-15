@@ -80,5 +80,15 @@ namespace clientForQuestions2._0
             this.Close();
 
         }
+
+        private void chaptersQuestions_Click(object sender, EventArgs e)
+        {
+            LogFileHandler.writeIntoFile("Opened new chapters questions menu");
+            //get the questions here
+            chaptersQuestionsMenu t = new chaptersQuestionsMenu();
+
+            t.Show();
+            this.Close();
+        }
     }
 }

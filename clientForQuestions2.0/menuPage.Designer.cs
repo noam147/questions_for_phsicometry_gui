@@ -36,6 +36,7 @@ namespace clientForQuestions2._0
             this.questionByIDtextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.questionByIdButton = new clientForQuestions2._0.RJButtons2();
+            this.chaptersQuestions = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // normalQuestions
@@ -94,11 +95,23 @@ namespace clientForQuestions2._0
             this.questionByIdButton.UseVisualStyleBackColor = false;
             this.questionByIdButton.Click += new System.EventHandler(this.questionbyIdButton_Click);
             // 
+            // chaptersQuestions
+            // 
+            this.chaptersQuestions.Location = new System.Drawing.Point(493, 328);
+            this.chaptersQuestions.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.chaptersQuestions.Name = "chaptersQuestions";
+            this.chaptersQuestions.Size = new System.Drawing.Size(125, 90);
+            this.chaptersQuestions.TabIndex = 19;
+            this.chaptersQuestions.Text = "תרגול פרקים מלאים";
+            this.chaptersQuestions.UseVisualStyleBackColor = true;
+            this.chaptersQuestions.Click += new System.EventHandler(this.chaptersQuestions_Click);
+            // 
             // menuPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1105, 840);
+            this.Controls.Add(this.chaptersQuestions);
             this.Controls.Add(this.questionByIdButton);
             this.Controls.Add(this.normalQuestions);
             this.Controls.Add(this.collectionsQuestions);
@@ -121,5 +134,6 @@ namespace clientForQuestions2._0
         private System.Windows.Forms.TextBox questionByIDtextBox;
         private System.Windows.Forms.Label label1;
         private RJButtons2 questionByIdButton;
+        private System.Windows.Forms.Button chaptersQuestions;
     }
 }
