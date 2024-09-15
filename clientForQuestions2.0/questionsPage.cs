@@ -38,6 +38,8 @@ namespace clientForQuestions2._0
         private int height_screen;
         private int w_buttonsPlace = 170;
         private int h_buttonsQuestionsPlace = 70; // for the buttons of the questions when isUserDoNotGetFeedBack
+        private int Q_BUTTON_SIZE = 30;
+        private int Q_CHOSEN_BUTTON_ADD_SIZE = 10;
 
         private bool isUserDoNotGetFeedBack;
         private int col_id = 0;
@@ -190,7 +192,7 @@ namespace clientForQuestions2._0
                     Width = 30,
                     Height = 30,
                     Location = new System.Drawing.Point(110 + i * 55, 30), // Adjust spacing
-                    Enabled = true,
+                    Enabled = false,
                     Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold) // make the text BOLD
                 };
                 //at start user didnt answer anything
@@ -328,6 +330,11 @@ namespace clientForQuestions2._0
             this.answer2Button.Enabled = true;
             this.answer3Button.Enabled = true;
             this.answer4Button.Enabled = true;
+
+            for (int i = 0; i < m_buttonList.Count; i++)
+                m_buttonList[i].Enabled = true;
+            
+
             SetTimer();//start the timer here
             if (isUserDoNotGetFeedBack)
             {
@@ -938,8 +945,13 @@ namespace clientForQuestions2._0
         {
             for (int i = 0; i < this.m_buttonList.Count; i++)
             {
-                m_buttonList[i].Width = 30;
-                m_buttonList[i].Height = 30;
+                if (m_buttonList[i].Width != Q_BUTTON_SIZE)
+                    m_buttonList[i].Location = new System.Drawing.Point(m_buttonList[i].Location.X + ((int)Q_CHOSEN_BUTTON_ADD_SIZE / 2), m_buttonList[i].Location.Y + ((int)Q_CHOSEN_BUTTON_ADD_SIZE / 2));
+
+                m_buttonList[i].Width = Q_BUTTON_SIZE;
+                m_buttonList[i].Height = Q_BUTTON_SIZE;
+
+
             }
         }
         private void updateToNextButtonQuestion(int index)
@@ -947,8 +959,10 @@ namespace clientForQuestions2._0
             setButtonsToNormalSize();
             try
             {
-                m_buttonList[index].Width = 30 + 10;
-                m_buttonList[index].Height = 30 + 10;
+                m_buttonList[index].Width = Q_BUTTON_SIZE + Q_CHOSEN_BUTTON_ADD_SIZE;
+                m_buttonList[index].Height = Q_BUTTON_SIZE + Q_CHOSEN_BUTTON_ADD_SIZE;
+
+                m_buttonList[index].Location = new System.Drawing.Point(m_buttonList[index].Location.X - ((int)Q_CHOSEN_BUTTON_ADD_SIZE / 2), m_buttonList[index].Location.Y - ((int)Q_CHOSEN_BUTTON_ADD_SIZE / 2));
             }
             catch (Exception e) { }
         }
