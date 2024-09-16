@@ -748,6 +748,11 @@ namespace clientForQuestions2._0
             // amountOfQuestionNumericUpDown
             // 
             this.amountOfQuestionNumericUpDown.Location = new System.Drawing.Point(87, 438);
+            this.amountOfQuestionNumericUpDown.Maximum = new decimal(new int[] {
+            99,
+            0,
+            0,
+            0});
             this.amountOfQuestionNumericUpDown.Name = "amountOfQuestionNumericUpDown";
             this.amountOfQuestionNumericUpDown.Size = new System.Drawing.Size(76, 22);
             this.amountOfQuestionNumericUpDown.TabIndex = 13;
