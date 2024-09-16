@@ -366,7 +366,10 @@ namespace clientForQuestions2._0
             {
                 return;
             }
-
+            if(amount > 99)
+            {
+                amount = 99;
+            }
             LogFileHandler.writeIntoFile("Opened new questions page");
 
             questionsPage c;
