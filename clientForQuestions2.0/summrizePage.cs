@@ -1,13 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using Newtonsoft.Json.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.Web.WebView2.WinForms;
@@ -21,7 +16,6 @@ namespace clientForQuestions2._0
         List<afterQuestionParametrs> m_questions;
         private WebView2 webView21;
         private WebView2 webView2_col;
-        private bool isFinishInit = false;
 
         private int h_statsPlace = 40;
         private int h_questionsPlace = 70;
@@ -59,9 +53,9 @@ namespace clientForQuestions2._0
 
             createButtons(questions);
             displayButtons();
-            this.Resize += Form_Resize;
+            //this.Resize += Form_Resize;
             this.Load += Form_Load;
-            Form_Resize(this, EventArgs.Empty);
+            //Form_Resize(this, EventArgs.Empty);
 
         }
         private async Task WaitForHandleAndInitializeAsync()
@@ -117,27 +111,27 @@ namespace clientForQuestions2._0
 
         }
 
-        private void Form_Resize(object sender, EventArgs e)
-        {
-            return;
+        //private void Form_Resize(object sender, EventArgs e)
+        //{
+        //    return;
 
 
-            if (webView21 != null)
-            {
-                if(col_id == 0)
-                    webView21.Size = new Size(this.ClientSize.Width, this.ClientSize.Height - h_questionsPlace); // Adjust height based on form size
-                else
-                    webView21.Size = new Size((int) this.ClientSize.Width / 2, this.ClientSize.Height - h_questionsPlace); // Adjust height based on form size
-            }
-            if (webView2_col != null && col_id != 0)
-            {
-                Location = new Point((int)this.ClientSize.Width / 2, h_questionsPlace + h_statsPlace); // Adjust Y coordinate to leave space for buttons
+        //    if (webView21 != null)
+        //    {
+        //        if(col_id == 0)
+        //            webView21.Size = new Size(this.ClientSize.Width, this.ClientSize.Height - h_questionsPlace); // Adjust height based on form size
+        //        else
+        //            webView21.Size = new Size((int) this.ClientSize.Width / 2, this.ClientSize.Height - h_questionsPlace); // Adjust height based on form size
+        //    }
+        //    if (webView2_col != null && col_id != 0)
+        //    {
+        //        Location = new Point((int)this.ClientSize.Width / 2, h_questionsPlace + h_statsPlace); // Adjust Y coordinate to leave space for buttons
 
-                webView2_col.Size = new Size((int)this.ClientSize.Width / 2, this.ClientSize.Height - h_questionsPlace); // Adjust height based on form size
+        //        webView2_col.Size = new Size((int)this.ClientSize.Width / 2, this.ClientSize.Height - h_questionsPlace); // Adjust height based on form size
             
-            }
-            this.button1.Location = new Point(this.ClientSize.Width - button1.Width - 40, 20);
-        }
+        //    }
+        //    this.button1.Location = new Point(this.ClientSize.Width - button1.Width - 40, 20);
+        //}
         private void enableButtons()
         {
             for(int i =0; i <m_buttonList.Count;i++)

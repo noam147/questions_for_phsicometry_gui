@@ -1,21 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Security.Policy;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.Web.WebView2.WinForms;
-using System.IO;
 using Newtonsoft.Json.Linq;
-using System.Threading;
 using System.Timers;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
-using System.Runtime.CompilerServices;
-using System.Reflection;
 
 
 namespace clientForQuestions2._0
@@ -32,7 +24,6 @@ namespace clientForQuestions2._0
         private int m_rightQuestions = 0;
         private int m_questionCounter = 1;
         private int m_indexOfCurrQuestion = 0;
-        private int m_currAnswer = 0;
 
         private int width_screen;
         private int height_screen;
@@ -231,7 +222,6 @@ namespace clientForQuestions2._0
                 btn.BringToFront();
                 //
             }
-            int tcheck = 0;
         }
         private void displayButtons()
         {
@@ -843,31 +833,6 @@ namespace clientForQuestions2._0
             //PositionNextQuestionButton();
         }
 
-        private void PositionNextQuestionButton()
-        {
-            return;
-            // Position the button on the far right with a fixed height, and optional margin
-            int rightMargin = 10; // Adjust as needed
-            int topMargin = 50;   // Adjust as needed
-            this.isUserRightLabel.Location = new Point(this.ClientSize.Width - continueToQuestionButton.Width - rightMargin, topMargin + this.continueToQuestionButton.Height + 20);
-            continueToQuestionButton.Location = new Point(this.ClientSize.Width - continueToQuestionButton.Width - rightMargin, topMargin);
-        }
-
-        private void questionsPage_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void isUserRightLabel_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void displayCol(int indexOfQuestion)
         {
             dbQuestionParmeters q = this.m_questionDetails[indexOfQuestion];
@@ -1023,22 +988,6 @@ namespace clientForQuestions2._0
                     return;
                 }
             }
-            return;
-            if(m_currentIndexOfFirstButton == 0)
-                displayButtons(10,20);
-
-            else if (m_currentIndexOfFirstButton == 10)
-                displayButtons(20, 30);
-            else if (m_currentIndexOfFirstButton == 20)
-                displayButtons(30, 40);
-            else if (m_currentIndexOfFirstButton == 30)
-                displayButtons(40, 50);
-            else if (m_currentIndexOfFirstButton == 40)
-                displayButtons(50, 60);
-            else if (m_currentIndexOfFirstButton == 50)
-                displayButtons(60, 70);
-
-
         }
 
         private void previousQuestionsButton_Click(object sender, EventArgs e)

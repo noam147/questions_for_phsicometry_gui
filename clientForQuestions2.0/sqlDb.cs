@@ -1,14 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Data.SQLite;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using static System.Net.Mime.MediaTypeNames;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.TrayNotify;
-using System.Runtime.CompilerServices;
 namespace clientForQuestions2._0
 {
     public struct afterQuestionParametrs
@@ -28,7 +21,6 @@ namespace clientForQuestions2._0
     internal class sqlDb
     {
         static string file_path = AppDomain.CurrentDomain.BaseDirectory + "kidum_jsons.db";
-        static string second_file_path = "kidum_jsons.db";
         static string connectionString = $"Data Source={file_path};Version=3;";
 
 

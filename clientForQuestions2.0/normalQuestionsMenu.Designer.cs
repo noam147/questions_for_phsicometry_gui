@@ -833,7 +833,6 @@ namespace clientForQuestions2._0
             this.timePerQPicker.Size = new System.Drawing.Size(63, 22);
             this.timePerQPicker.TabIndex = 18;
             this.timePerQPicker.Value = new System.DateTime(2000, 1, 1, 0, 1, 0, 0);
-            this.timePerQPicker.ValueChanged += new System.EventHandler(this.timePerQPicker_ValueChanged);
             // 
             // timePerQCheckbox
             // 
@@ -931,7 +930,6 @@ namespace clientForQuestions2._0
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "normalQuestionsMenu";
             this.Text = "normalQuestionsMenu";
-            this.Load += new System.EventHandler(this.normalQuestionsMenu_Load);
             ((System.ComponentModel.ISupportInitialize)(this.amountOfQuestionNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.difficulyLevelMaxVal)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.difficulyLevelMinVal)).EndInit();

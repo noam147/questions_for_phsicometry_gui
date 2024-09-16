@@ -1,13 +1,9 @@
 ﻿using Newtonsoft.Json.Linq;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.NetworkInformation;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace clientForQuestions2._0
 {
@@ -238,8 +234,6 @@ namespace clientForQuestions2._0
                 }
                 return builder.ToString();
             }
-
-
         }
     }
 }

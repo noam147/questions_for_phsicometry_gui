@@ -123,7 +123,6 @@ namespace clientForQuestions2._0
             this.isUserRightLabel.Size = new System.Drawing.Size(86, 31);
             this.isUserRightLabel.TabIndex = 5;
             this.isUserRightLabel.Text = "label1";
-            this.isUserRightLabel.Click += new System.EventHandler(this.isUserRightLabel_Click);
             // 
             // answersTrackLabel
             // 
@@ -158,7 +157,6 @@ namespace clientForQuestions2._0
             this.timer.Size = new System.Drawing.Size(89, 41);
             this.timer.TabIndex = 8;
             this.timer.Text = "0:00";
-            this.timer.Click += new System.EventHandler(this.label1_Click);
             // 
             // nextQuestionsButton
             // 
@@ -216,7 +214,6 @@ namespace clientForQuestions2._0
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "questionsPage";
             this.Text = "Form1";
-            this.Load += new System.EventHandler(this.questionsPage_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -120,7 +120,6 @@ namespace clientForQuestions2._0
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "menuPage";
             this.Text = "menuPage";
-            this.Load += new System.EventHandler(this.menuPage_Load_1);
             this.ResumeLayout(false);
             this.PerformLayout();
 

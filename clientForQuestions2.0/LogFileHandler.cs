@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Security.Policy;
-using System.Text;
-using System.Threading.Tasks;
 
 //this should be final!
 namespace clientForQuestions2._0
@@ -46,6 +40,5 @@ namespace clientForQuestions2._0
                 // File content is now cleared
             }
         }
-
     }
 }

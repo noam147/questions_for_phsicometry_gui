@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace clientForQuestions2._0
@@ -13,7 +8,7 @@ namespace clientForQuestions2._0
     public partial class collectionsQuestionsMenu : Form
     {
         Random random = new Random();
-        String chosen_text = "";
+        string chosen_text = "";
 
         Dictionary<string, List<int>> title2colIds = new Dictionary<string, List<int>>
         {
@@ -128,11 +123,6 @@ namespace clientForQuestions2._0
             InitializeComponent();
         }
 
-        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void colButton_Click(object sender, EventArgs e)
         {
             this.continueButton.Enabled = true;
@@ -174,11 +164,6 @@ namespace clientForQuestions2._0
         private void timePerQCheckbox_CheckedChanged(object sender, EventArgs e)
         {
             this.timePerQPicker.Enabled = ((CheckBox)sender).Checked;
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

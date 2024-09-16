@@ -1,15 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Reflection.Emit;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
 using System.Windows.Forms;
-using System.Windows.Forms.VisualStyles;
 
 namespace clientForQuestions2._0
 {
@@ -96,7 +87,7 @@ namespace clientForQuestions2._0
             }
         }
 
-        private void loggedInButton_Click(object sender, EventArgs e)
+        public void loggedInButton_Click(object sender, EventArgs e)
         {
             if (checkIfPasswordAreInFile())
             {
@@ -104,6 +95,12 @@ namespace clientForQuestions2._0
                 menuPage.Show();
                 this.Close();
             }
+        }
+
+        private void PasswordPage_Load(object sender, EventArgs e)
+        {
+            // check if already logged in when the page loaded
+            loggedInButton_Click(null, null);
         }
     }
     

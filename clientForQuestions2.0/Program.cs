@@ -23,7 +23,6 @@ namespace clientForQuestions2._0
             main.Show();
 
             Application.Run();
-
         }
 
         static void FormClosed(object sender, FormClosedEventArgs e)

@@ -1,12 +1,5 @@
 ﻿using System;
-using System.IO;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace clientForQuestions2._0
@@ -43,11 +36,6 @@ namespace clientForQuestions2._0
 
             t.Show();
             this.Close();
-        }
-
-        private void menuPage_Load_1(object sender, EventArgs e)
-        {
-
         }
 
         private void questionbyIdButton_Click(object sender, EventArgs e)

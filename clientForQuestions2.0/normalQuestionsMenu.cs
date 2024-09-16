@@ -1,12 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace clientForQuestions2._0
@@ -385,11 +381,6 @@ namespace clientForQuestions2._0
             this.Close();
         }
 
-        private void normalQuestionsMenu_Load(object sender, EventArgs e)
-        {
-
-        }
-
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
             if(this.dificultLevelcheckBox.Checked)
@@ -426,19 +417,9 @@ namespace clientForQuestions2._0
             this.difficultyLevels.maxLevel = (int)this.difficulyLevelMaxVal.Value;
         }
 
-        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void timePerQCheckbox_CheckedChanged(object sender, EventArgs e)
         {
             this.timePerQPicker.Enabled = ((CheckBox)sender).Checked;
-        }
-
-        private void timePerQPicker_ValueChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }
