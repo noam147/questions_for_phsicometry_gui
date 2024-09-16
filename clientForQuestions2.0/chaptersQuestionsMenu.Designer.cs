@@ -35,6 +35,7 @@
             this.chapterButton3 = new System.Windows.Forms.Button();
             this.chapterButton2 = new System.Windows.Forms.Button();
             this.chapterButton1 = new System.Windows.Forms.Button();
+            this.titleOfPage = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // timePerQCheckbox
@@ -115,11 +116,23 @@
             this.chapterButton1.UseVisualStyleBackColor = true;
             this.chapterButton1.Click += new System.EventHandler(this.chapterButton_Click);
             // 
+            // titleOfPage
+            // 
+            this.titleOfPage.AutoSize = true;
+            this.titleOfPage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.titleOfPage.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.titleOfPage.Location = new System.Drawing.Point(315, 9);
+            this.titleOfPage.Name = "titleOfPage";
+            this.titleOfPage.Size = new System.Drawing.Size(182, 27);
+            this.titleOfPage.TabIndex = 30;
+            this.titleOfPage.Text = "תרגול פרקים מלאים";
+            // 
             // chaptersQuestionsMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.titleOfPage);
             this.Controls.Add(this.timePerQCheckbox);
             this.Controls.Add(this.timePerQPicker);
             this.Controls.Add(this.continueButton);
@@ -143,5 +156,6 @@
         private System.Windows.Forms.Button chapterButton3;
         private System.Windows.Forms.Button chapterButton2;
         private System.Windows.Forms.Button chapterButton1;
+        private System.Windows.Forms.Label titleOfPage;
     }
 }

@@ -405,10 +405,20 @@ namespace clientForQuestions2._0
         {
             m_currentIndexOfFirstButton = startIndex;
             unvisibleButtonsFromButtonList();
-            if (endIndex > m_buttonList.Count)
+
+            // hide the nextQuestionsButton if there are no next questions
+            if (endIndex >= m_buttonList.Count - 1)
             {
+                nextQuestionsButton.Visible = false;
                 endIndex = m_buttonList.Count;
             }
+            else
+                nextQuestionsButton.Visible = true;
+            // hide the previousQuestionsButton if there are no previous questions
+            if (startIndex == 0)
+                previousQuestionsButton.Visible = false;
+            else
+                previousQuestionsButton.Visible = true;
 
             for (int i = startIndex; i < endIndex; i++)
             {

@@ -35,13 +35,14 @@
             this.continueButton = new System.Windows.Forms.Button();
             this.timePerQCheckbox = new System.Windows.Forms.CheckBox();
             this.timePerQPicker = new System.Windows.Forms.DateTimePicker();
+            this.titleOfPage = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // colButton1
             // 
             this.colButton1.Location = new System.Drawing.Point(350, 107);
             this.colButton1.Name = "colButton1";
-            this.colButton1.Size = new System.Drawing.Size(100, 71);
+            this.colButton1.Size = new System.Drawing.Size(131, 71);
             this.colButton1.TabIndex = 0;
             this.colButton1.Text = "הסקה מתרשים";
             this.colButton1.UseVisualStyleBackColor = true;
@@ -51,7 +52,7 @@
             // 
             this.colButton2.Location = new System.Drawing.Point(350, 184);
             this.colButton2.Name = "colButton2";
-            this.colButton2.Size = new System.Drawing.Size(116, 96);
+            this.colButton2.Size = new System.Drawing.Size(131, 96);
             this.colButton2.TabIndex = 1;
             this.colButton2.Text = "קטע קריאה";
             this.colButton2.UseVisualStyleBackColor = true;
@@ -61,7 +62,7 @@
             // 
             this.colButton3.Location = new System.Drawing.Point(350, 286);
             this.colButton3.Name = "colButton3";
-            this.colButton3.Size = new System.Drawing.Size(112, 83);
+            this.colButton3.Size = new System.Drawing.Size(131, 83);
             this.colButton3.TabIndex = 2;
             this.colButton3.Text = "Reading Comprehension";
             this.colButton3.UseVisualStyleBackColor = true;
@@ -116,11 +117,23 @@
             this.timePerQPicker.TabIndex = 21;
             this.timePerQPicker.Value = new System.DateTime(2000, 1, 1, 0, 1, 0, 0);
             // 
+            // titleOfPage
+            // 
+            this.titleOfPage.AutoSize = true;
+            this.titleOfPage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.titleOfPage.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.titleOfPage.Location = new System.Drawing.Point(289, 9);
+            this.titleOfPage.Name = "titleOfPage";
+            this.titleOfPage.Size = new System.Drawing.Size(261, 27);
+            this.titleOfPage.TabIndex = 25;
+            this.titleOfPage.Text = "תרגול קטעי קריאה ותרשימים";
+            // 
             // collectionsQuestionsMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.titleOfPage);
             this.Controls.Add(this.timePerQCheckbox);
             this.Controls.Add(this.timePerQPicker);
             this.Controls.Add(this.continueButton);
@@ -144,5 +157,6 @@
         private System.Windows.Forms.Button continueButton;
         private System.Windows.Forms.CheckBox timePerQCheckbox;
         private System.Windows.Forms.DateTimePicker timePerQPicker;
+        private System.Windows.Forms.Label titleOfPage;
     }
 }

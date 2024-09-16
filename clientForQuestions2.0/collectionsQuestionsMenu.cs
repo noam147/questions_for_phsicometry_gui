@@ -175,5 +175,10 @@ namespace clientForQuestions2._0
         {
             this.timePerQPicker.Enabled = ((CheckBox)sender).Checked;
         }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

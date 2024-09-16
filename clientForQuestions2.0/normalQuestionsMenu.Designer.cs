@@ -93,6 +93,7 @@ namespace clientForQuestions2._0
             this.difficulyLevelMaxValLabel = new System.Windows.Forms.Label();
             this.timePerQPicker = new System.Windows.Forms.DateTimePicker();
             this.timePerQCheckbox = new System.Windows.Forms.CheckBox();
+            this.titleOfPage = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.amountOfQuestionNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.difficulyLevelMaxVal)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.difficulyLevelMinVal)).BeginInit();
@@ -113,7 +114,7 @@ namespace clientForQuestions2._0
             // 
             this.amountOfQuestionText.AutoSize = true;
             this.amountOfQuestionText.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold);
-            this.amountOfQuestionText.Location = new System.Drawing.Point(70, 412);
+            this.amountOfQuestionText.Location = new System.Drawing.Point(70, 409);
             this.amountOfQuestionText.Name = "amountOfQuestionText";
             this.amountOfQuestionText.Size = new System.Drawing.Size(93, 16);
             this.amountOfQuestionText.TabIndex = 12;
@@ -121,7 +122,7 @@ namespace clientForQuestions2._0
             // 
             // continueButton
             // 
-            this.continueButton.Location = new System.Drawing.Point(38, 513);
+            this.continueButton.Location = new System.Drawing.Point(38, 562);
             this.continueButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.continueButton.Name = "continueButton";
             this.continueButton.Size = new System.Drawing.Size(125, 90);
@@ -746,7 +747,7 @@ namespace clientForQuestions2._0
             // 
             // amountOfQuestionNumericUpDown
             // 
-            this.amountOfQuestionNumericUpDown.Location = new System.Drawing.Point(87, 441);
+            this.amountOfQuestionNumericUpDown.Location = new System.Drawing.Point(87, 438);
             this.amountOfQuestionNumericUpDown.Name = "amountOfQuestionNumericUpDown";
             this.amountOfQuestionNumericUpDown.Size = new System.Drawing.Size(76, 22);
             this.amountOfQuestionNumericUpDown.TabIndex = 13;
@@ -759,11 +760,11 @@ namespace clientForQuestions2._0
             // skipFeedBackCheckBox
             // 
             this.skipFeedBackCheckBox.AutoSize = true;
-            this.skipFeedBackCheckBox.Location = new System.Drawing.Point(10, 480);
+            this.skipFeedBackCheckBox.Location = new System.Drawing.Point(10, 483);
             this.skipFeedBackCheckBox.Name = "skipFeedBackCheckBox";
-            this.skipFeedBackCheckBox.Size = new System.Drawing.Size(153, 20);
+            this.skipFeedBackCheckBox.Size = new System.Drawing.Size(187, 20);
             this.skipFeedBackCheckBox.TabIndex = 14;
-            this.skipFeedBackCheckBox.Text = "ללא משוב על תשובות";
+            this.skipFeedBackCheckBox.Text = "ללא משוב מיידי על תשובות";
             this.skipFeedBackCheckBox.UseVisualStyleBackColor = true;
             // 
             // difficulyLevelMaxVal
@@ -848,11 +849,23 @@ namespace clientForQuestions2._0
             this.timePerQCheckbox.UseVisualStyleBackColor = true;
             this.timePerQCheckbox.CheckedChanged += new System.EventHandler(this.timePerQCheckbox_CheckedChanged);
             // 
+            // titleOfPage
+            // 
+            this.titleOfPage.AutoSize = true;
+            this.titleOfPage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.titleOfPage.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.titleOfPage.Location = new System.Drawing.Point(552, 9);
+            this.titleOfPage.Name = "titleOfPage";
+            this.titleOfPage.Size = new System.Drawing.Size(63, 27);
+            this.titleOfPage.TabIndex = 24;
+            this.titleOfPage.Text = "תרגול";
+            // 
             // normalQuestionsMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1105, 840);
+            this.Controls.Add(this.titleOfPage);
             this.Controls.Add(this.difficulyLevelMaxValLabel);
             this.Controls.Add(this.difficulyLevelMinValLabel);
             this.Controls.Add(this.difficulyLevelMinVal);
@@ -995,6 +1008,6 @@ namespace clientForQuestions2._0
 
         private System.Windows.Forms.DateTimePicker timePerQPicker;
         private CheckBox timePerQCheckbox;
-
+        private Label titleOfPage;
     }
 }

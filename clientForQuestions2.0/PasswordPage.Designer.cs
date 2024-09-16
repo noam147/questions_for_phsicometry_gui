@@ -37,40 +37,42 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(282, 282);
+            this.textBox1.Location = new System.Drawing.Point(251, 226);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(228, 26);
+            this.textBox1.Size = new System.Drawing.Size(203, 22);
             this.textBox1.TabIndex = 0;
             // 
             // hintPassLabel
             // 
             this.hintPassLabel.AutoSize = true;
-            this.hintPassLabel.Location = new System.Drawing.Point(54, 164);
+            this.hintPassLabel.Location = new System.Drawing.Point(48, 131);
             this.hintPassLabel.Name = "hintPassLabel";
-            this.hintPassLabel.Size = new System.Drawing.Size(109, 20);
+            this.hintPassLabel.Size = new System.Drawing.Size(92, 16);
             this.hintPassLabel.TabIndex = 1;
             this.hintPassLabel.Text = "hintPassLabel";
             // 
             // macLabel
             // 
             this.macLabel.AutoSize = true;
-            this.macLabel.Location = new System.Drawing.Point(562, 164);
+            this.macLabel.Location = new System.Drawing.Point(500, 131);
             this.macLabel.Name = "macLabel";
-            this.macLabel.Size = new System.Drawing.Size(78, 20);
+            this.macLabel.Size = new System.Drawing.Size(67, 16);
             this.macLabel.TabIndex = 3;
             this.macLabel.Text = "macLabel";
             // 
             // continueButton
             // 
-            this.continueButton.BackColor = System.Drawing.Color.MediumSlateBlue;
-            this.continueButton.BorderRadiuos = 40;
+            this.continueButton.BackColor = System.Drawing.Color.Black;
+            this.continueButton.BorderRadiuos = 32;
             this.continueButton.BorderSize = 1;
             this.continueButton.FlatAppearance.BorderSize = 0;
             this.continueButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.continueButton.ForeColor = System.Drawing.Color.White;
-            this.continueButton.Location = new System.Drawing.Point(308, 367);
+            this.continueButton.Location = new System.Drawing.Point(289, 269);
+            this.continueButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.continueButton.Name = "continueButton";
-            this.continueButton.Size = new System.Drawing.Size(150, 40);
+            this.continueButton.Size = new System.Drawing.Size(133, 32);
             this.continueButton.TabIndex = 2;
             this.continueButton.Text = "continue";
             this.continueButton.UseVisualStyleBackColor = false;
@@ -84,9 +86,10 @@
             this.loggedInButton.FlatAppearance.BorderSize = 0;
             this.loggedInButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.loggedInButton.ForeColor = System.Drawing.Color.White;
-            this.loggedInButton.Location = new System.Drawing.Point(85, 46);
+            this.loggedInButton.Location = new System.Drawing.Point(76, 37);
+            this.loggedInButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.loggedInButton.Name = "loggedInButton";
-            this.loggedInButton.Size = new System.Drawing.Size(162, 63);
+            this.loggedInButton.Size = new System.Drawing.Size(144, 59);
             this.loggedInButton.TabIndex = 4;
             this.loggedInButton.Text = "Already logged in?\nClick here";
             this.loggedInButton.UseVisualStyleBackColor = false;
@@ -94,14 +97,15 @@
             // 
             // PasswordPage
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(842, 525);
+            this.ClientSize = new System.Drawing.Size(748, 420);
             this.Controls.Add(this.loggedInButton);
             this.Controls.Add(this.macLabel);
             this.Controls.Add(this.continueButton);
             this.Controls.Add(this.hintPassLabel);
             this.Controls.Add(this.textBox1);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "PasswordPage";
             this.Text = "PasswordPage";
             this.ResumeLayout(false);

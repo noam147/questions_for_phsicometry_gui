@@ -38,9 +38,7 @@ namespace clientForQuestions2._0
             password = OperationsAndOtherUseful.getEncodedMacAdd(macAdd);
             //this.macLabel.Text = password;  // to copy the passward
 
-            this.hintPassLabel.Text = "hint for password: (click on the text that looks like gibrish to copy)";
-  
-        
+            this.hintPassLabel.Text = "hint for password: (click on the text that looks like gibrish to copy it)";
         }
 
 
