@@ -169,13 +169,8 @@ namespace clientForQuestions2._0
             rewriteTimer();
 
             this.ClientSize = new System.Drawing.Size(width_screen, height_screen);
-            Thread thread = new Thread(() =>
-            {
                 InitializeWebView2_col();
                 InitializeWebView21();
-            });
-            thread.SetApartmentState(ApartmentState.STA);
-            thread.Start();
         }
 
 
