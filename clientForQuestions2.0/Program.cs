@@ -18,7 +18,7 @@ namespace clientForQuestions2._0
             //LogFileHandler.ClearFileContent();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            var main = new menuPage();
+            var main = new PasswordPage();
             main.FormClosed += new FormClosedEventHandler(FormClosed);
             main.Show();
 

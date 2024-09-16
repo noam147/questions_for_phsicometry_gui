@@ -31,6 +31,8 @@ namespace clientForQuestions2._0
         private int col_id = 0;
         private int indexQuestion = 0;
 
+        private int m_currentIndexOfFirstButton = 0;
+
         public summrizePage(List<afterQuestionParametrs> questions)
         {
             this.m_questions = questions;
@@ -355,6 +357,9 @@ namespace clientForQuestions2._0
                 webTaker.OnCoreWebView2_colInitializationCompleted(webView2_col, m_questions[0].question);
             return;
         }
+
+
+
         private void createButtons(List<afterQuestionParametrs> currQuestionRight)
         {
             for(int i = 0;i<currQuestionRight.Count;i++) 
@@ -365,8 +370,8 @@ namespace clientForQuestions2._0
                     Text = $"{i + 1}",
                     Width = 30,
                     Height = 30,
-                    Location = new System.Drawing.Point(110+i*55, 30), // Adjust spacing
-                    Enabled = false,
+                    Location = new System.Drawing.Point(230+(i%10)*40, 30), // Adjust spacing
+                    Enabled = true,
                     Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold) // make the text BOLD
             };
                 btn.Click += Button_Click;
@@ -381,21 +386,43 @@ namespace clientForQuestions2._0
                         btn.BackColor = Color.Red;
                 }
                 m_buttonList.Add(btn);
+                Controls.Add(btn);
             }
             if (m_buttonList.Count != 0) 
             {
                 //Button_Click(0);//index of first questin
             }
         }
-        private void displayButtons()
+
+        private void unvisibleButtonsFromButtonList()
         {
-            for(int i = 0; i<m_buttonList.Count;i++) 
+            for (int i = 0; i < m_buttonList.Count; i++)
             {
-                Button btn = m_buttonList[i];
-                btn.BringToFront();
-                Controls.Add(btn);
+                m_buttonList[i].Visible = false;
             }
         }
+        private void displayButtons(int startIndex, int endIndex)
+        {
+            m_currentIndexOfFirstButton = startIndex;
+            unvisibleButtonsFromButtonList();
+            if (endIndex > m_buttonList.Count)
+            {
+                endIndex = m_buttonList.Count;
+            }
+
+            for (int i = startIndex; i < endIndex; i++)
+            {
+                Button btn = m_buttonList[i];
+                btn.Visible = true;
+                btn.BringToFront();
+                //
+            }
+        }
+        private void displayButtons()
+        {
+            displayButtons(0, 10);
+        }
+  
         private void Button_Click(object sender, EventArgs e)
         {
             m_buttonList[this.indexQuestion].BackColor = m_buttonList[this.indexQuestion].ForeColor; // change the last clicked button back to normal
@@ -404,6 +431,7 @@ namespace clientForQuestions2._0
             this.indexQuestion = (int.Parse(((Button)sender).Text)-1);
             Button_Click();
         }
+
         private void Button_Click()
         {
             m_buttonList[this.indexQuestion].ForeColor = m_buttonList[this.indexQuestion].BackColor; // change ForeColor to green/red 
@@ -445,6 +473,37 @@ namespace clientForQuestions2._0
             this.diffic_level.Text = $"רמת קושי: {c.json_content["difficulty_level"].ToString()}";
             this.curr_q.Text = $"שאלה: {this.indexQuestion + 1}/{this.m_questions.Count}";
             this.curr_q_id.Text = $"id: {c.questionId}";
+        }
+
+        private void nextQuestionsButton_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < m_questions.Count - 10; i += 10)
+            {
+                if (m_currentIndexOfFirstButton == i)
+                {
+                    displayButtons(i + 10, i + 20);
+                    this.indexQuestion = i + 10;
+                    Button_Click();
+                    return;
+                }
+            }
+        }
+
+        private void previousQuestionsButton_Click(object sender, EventArgs e)
+        {
+            int maxQuestions = this.m_questions.Count;
+
+            for (int i = 10; i < maxQuestions; i += 10)
+            {
+                if (m_currentIndexOfFirstButton == i)
+                {
+                    displayButtons(i - 10, i);
+                    this.indexQuestion = i - 10;
+                    Button_Click();
+                    return;
+                }
+            }
+            return;
         }
     }
 }
