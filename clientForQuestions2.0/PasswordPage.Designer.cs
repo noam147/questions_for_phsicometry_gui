@@ -32,6 +32,7 @@
             this.hintPassLabel = new System.Windows.Forms.Label();
             this.macLabel = new System.Windows.Forms.Label();
             this.continueButton = new clientForQuestions2._0.RJButtons2();
+            this.loggedInButton = new clientForQuestions2._0.RJButtons2();
             this.SuspendLayout();
             // 
             // textBox1
@@ -75,11 +76,28 @@
             this.continueButton.UseVisualStyleBackColor = false;
             this.continueButton.Click += new System.EventHandler(this.continueButton_Click);
             // 
+            // loggedInButton
+            // 
+            this.loggedInButton.BackColor = System.Drawing.Color.MediumSlateBlue;
+            this.loggedInButton.BorderRadiuos = 40;
+            this.loggedInButton.BorderSize = 1;
+            this.loggedInButton.FlatAppearance.BorderSize = 0;
+            this.loggedInButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.loggedInButton.ForeColor = System.Drawing.Color.White;
+            this.loggedInButton.Location = new System.Drawing.Point(85, 46);
+            this.loggedInButton.Name = "loggedInButton";
+            this.loggedInButton.Size = new System.Drawing.Size(162, 63);
+            this.loggedInButton.TabIndex = 4;
+            this.loggedInButton.Text = "Already logged in?\nClick here";
+            this.loggedInButton.UseVisualStyleBackColor = false;
+            this.loggedInButton.Click += new System.EventHandler(this.loggedInButton_Click);
+            // 
             // PasswordPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(842, 525);
+            this.Controls.Add(this.loggedInButton);
             this.Controls.Add(this.macLabel);
             this.Controls.Add(this.continueButton);
             this.Controls.Add(this.hintPassLabel);
@@ -97,5 +115,6 @@
         private System.Windows.Forms.Label hintPassLabel;
         private RJButtons2 continueButton;
         private System.Windows.Forms.Label macLabel;
+        private RJButtons2 loggedInButton;
     }
 }
