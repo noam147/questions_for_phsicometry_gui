@@ -3,7 +3,7 @@
   "WorkspaceRootPath": "C:\\Users\\Magshimim\\questions_for_phsicometry_gui\\clientForQuestions2.0\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{37A48BAD-BE42-4C9C-B4B6-5D6F762697A9}|clientForQuestions2.0.csproj|C:\\Users\\Magshimim\\questions_for_phsicometry_gui\\clientForQuestions2.0\\questionspage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{37A48BAD-BE42-4C9C-B4B6-5D6F762697A9}|clientForQuestions2.0.csproj|c:\\users\\magshimim\\questions_for_phsicometry_gui\\clientforquestions2.0\\questionspage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{37A48BAD-BE42-4C9C-B4B6-5D6F762697A9}|clientForQuestions2.0.csproj|solutionrelative:questionspage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
@@ -11,7 +11,7 @@
       "RelativeMoniker": "D:0:0:{37A48BAD-BE42-4C9C-B4B6-5D6F762697A9}|clientForQuestions2.0.csproj|solutionrelative:questionspage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{37A48BAD-BE42-4C9C-B4B6-5D6F762697A9}|clientForQuestions2.0.csproj|c:\\users\\magshimim\\questions_for_phsicometry_gui\\clientforquestions2.0\\summrizepage.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{37A48BAD-BE42-4C9C-B4B6-5D6F762697A9}|clientForQuestions2.0.csproj|C:\\Users\\Magshimim\\questions_for_phsicometry_gui\\clientForQuestions2.0\\summrizepage.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{37A48BAD-BE42-4C9C-B4B6-5D6F762697A9}|clientForQuestions2.0.csproj|solutionrelative:summrizepage.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
@@ -118,8 +118,7 @@
               "RelativeToolTip": "summrizePage.Designer.cs",
               "ViewState": "AQIAAMMAAAAAAAAAAAAwwNMAAAAnAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-16T14:12:58.59Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-16T14:12:58.59Z"
             },
             {
               "$type": "Document",
