@@ -53,16 +53,28 @@ namespace clientForQuestions2._0
 
         public static void OnCoreWebView2_colDeleteContent(WebView2 web)
         {
-            //update html content in here
-            if (web.CoreWebView2 != null)
+            if(web == null)
             {
-                // Load the HTML content into WebView2
-                web.NavigateToString("<br>[אזור לקטעי קריאה ותרשימים, יכול לקחת להם זמן להיטען או שלשאלה אין אותם]");
+                return;
             }
-            else
+            try
             {
-                MessageBox.Show("WebView_col initialization failed.", "Initialization Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //update html content in here
+                if (web.CoreWebView2 != null)
+                {
+                    // Load the HTML content into WebView2
+                    web.NavigateToString("<br>[אזור לקטעי קריאה ותרשימים, יכול לקחת להם זמן להיטען או שלשאלה אין אותם]");
+                }
+                else
+                {
+                    MessageBox.Show("WebView_col initialization failed.", "Initialization Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
+            catch(Exception e)
+            {
+
+            }
+
         }
     }
 }
