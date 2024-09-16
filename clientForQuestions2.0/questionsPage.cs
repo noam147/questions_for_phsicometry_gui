@@ -147,10 +147,7 @@ namespace clientForQuestions2._0
         public questionsPage(List<dbQuestionParmeters> questions, int tpq)
         {
             //when is text
-            InitializeComponent();
-            setAnswerButtonsToNormalcolor();
-            width_screen = this.ClientSize.Width;
-            height_screen = this.ClientSize.Height;
+            atStart();
             this.isUserDoNotGetFeedBack = true;//in text user does not get immdiate feedback
 
             //wait until webview is init
@@ -176,11 +173,6 @@ namespace clientForQuestions2._0
 
             this.timePerQ = tpq;
             rewriteTimer();
-
-
-            //PositionNextQuestionButton();
-            this.Resize += MainForm_Resize;
-
 
             this.ClientSize = new System.Drawing.Size(width_screen, height_screen);
             Thread thread = new Thread(() =>
@@ -227,11 +219,22 @@ namespace clientForQuestions2._0
         {
             m_currentIndexOfFirstButton = startIndex;
             unvisibleButtonsFromButtonList();
-            if (endIndex > m_buttonList.Count)
+
+            // hide the nextQuestionsButton if there are no next questions
+            if (endIndex >= m_buttonList.Count - 1)
             {
+                nextQuestionsButton.Visible = false;
                 endIndex = m_buttonList.Count;
             }
-      
+            else
+                nextQuestionsButton.Visible = true;
+            // hide the previousQuestionsButton if there are no previous questions
+            if (startIndex == 0)
+                previousQuestionsButton.Visible = false;
+            else
+                previousQuestionsButton.Visible = true;
+
+
             for (int i = startIndex; i < endIndex; i++)
             {
                 Button btn = m_buttonList[i];
@@ -884,6 +887,9 @@ namespace clientForQuestions2._0
         private void hideCol()
         {
             this.ClientSize = new System.Drawing.Size(width_screen, height_screen);
+
+            //to remove previous html content
+            webTaker.OnCoreWebView2_colDeleteContent(webView2_col);
         }
 
         private void showCol(dbQuestionParmeters q)

@@ -46,10 +46,12 @@ namespace clientForQuestions2._0
             {
                 return "";
             }
+            string cover = json["collections"][0]["cover"].ToString();
+
             string img_path = "https://lmsapi.kidum-me.com/storage/";
             string file_path = img_path + json["collections"][0]["file"]["file_path"].ToString();
             string fullImg = $"<img src=\"{file_path}\" alt=\"Question Image\" style=\"max-width:100%; height:auto;\">";
-            return fullImg;
+            return cover + "<br>" + fullImg;
         }
 
         private static string get_string_of_img_html(JToken json)
@@ -174,7 +176,7 @@ namespace clientForQuestions2._0
 
             string finalOptionsString = listOfOptions[0] + listOfOptions[1] + listOfOptions[2] + listOfOptions[3];
             if (!isTextOptions)
-                finalOptionsString = listOfOptions[0] + listOfOptions[1] + "<br>" + listOfOptions[2] + listOfOptions[3];
+                finalOptionsString = listOfOptions[0] + "<br>" + listOfOptions[1] + "<br>" + listOfOptions[2] + "<br>" + listOfOptions[3];
             //if question is in english
             if (!isQuestionInHebrew(qp.category))
             {

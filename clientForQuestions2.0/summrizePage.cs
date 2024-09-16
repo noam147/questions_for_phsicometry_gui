@@ -37,6 +37,11 @@ namespace clientForQuestions2._0
             orgnizeQuestions();
             InitializeComponent();
 
+            this.WindowState = FormWindowState.Maximized;
+            //this.FormBorderStyle = FormBorderStyle.None;
+            this.StartPosition = FormStartPosition.CenterScreen;
+
+
             if (((JArray)questions[0].question.json_content["collections"]).Count != 0)
             {
                 col_id = (int) questions[0].question.json_content["collections"][0]["id"];
@@ -155,6 +160,9 @@ namespace clientForQuestions2._0
         private void hideCol()
         {
             this.ClientSize = new System.Drawing.Size(width_screen, height_screen);
+
+            //to remove previous html content
+            webTaker.OnCoreWebView2_colDeleteContent(webView2_col);
         }
 
         private void showCol(dbQuestionParmeters q)

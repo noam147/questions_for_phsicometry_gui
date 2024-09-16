@@ -47,10 +47,10 @@ namespace clientForQuestions2._0
             // continueToQuestionButton
             // 
             this.continueToQuestionButton.BackColor = System.Drawing.Color.Transparent;
-            this.continueToQuestionButton.Location = new System.Drawing.Point(997, 360);
+            this.continueToQuestionButton.Location = new System.Drawing.Point(886, 288);
             this.continueToQuestionButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.continueToQuestionButton.Name = "continueToQuestionButton";
-            this.continueToQuestionButton.Size = new System.Drawing.Size(145, 86);
+            this.continueToQuestionButton.Size = new System.Drawing.Size(129, 69);
             this.continueToQuestionButton.TabIndex = 0;
             this.continueToQuestionButton.Text = "המשך";
             this.continueToQuestionButton.UseVisualStyleBackColor = false;
@@ -58,10 +58,10 @@ namespace clientForQuestions2._0
             // 
             // answer1Button
             // 
-            this.answer1Button.Location = new System.Drawing.Point(1029, 472);
+            this.answer1Button.Location = new System.Drawing.Point(915, 378);
             this.answer1Button.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.answer1Button.Name = "answer1Button";
-            this.answer1Button.Size = new System.Drawing.Size(101, 88);
+            this.answer1Button.Size = new System.Drawing.Size(90, 70);
             this.answer1Button.TabIndex = 1;
             this.answer1Button.Text = "אפשרות 1";
             this.answer1Button.UseVisualStyleBackColor = true;
@@ -69,10 +69,10 @@ namespace clientForQuestions2._0
             // 
             // answer2Button
             // 
-            this.answer2Button.Location = new System.Drawing.Point(1029, 565);
+            this.answer2Button.Location = new System.Drawing.Point(915, 452);
             this.answer2Button.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.answer2Button.Name = "answer2Button";
-            this.answer2Button.Size = new System.Drawing.Size(101, 88);
+            this.answer2Button.Size = new System.Drawing.Size(90, 70);
             this.answer2Button.TabIndex = 2;
             this.answer2Button.Text = "אפשרות 2";
             this.answer2Button.UseVisualStyleBackColor = true;
@@ -80,10 +80,10 @@ namespace clientForQuestions2._0
             // 
             // answer3Button
             // 
-            this.answer3Button.Location = new System.Drawing.Point(1029, 658);
+            this.answer3Button.Location = new System.Drawing.Point(915, 526);
             this.answer3Button.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.answer3Button.Name = "answer3Button";
-            this.answer3Button.Size = new System.Drawing.Size(101, 88);
+            this.answer3Button.Size = new System.Drawing.Size(90, 70);
             this.answer3Button.TabIndex = 3;
             this.answer3Button.Text = "אפשרות 3";
             this.answer3Button.UseVisualStyleBackColor = true;
@@ -91,10 +91,10 @@ namespace clientForQuestions2._0
             // 
             // answer4Button
             // 
-            this.answer4Button.Location = new System.Drawing.Point(1029, 750);
+            this.answer4Button.Location = new System.Drawing.Point(915, 600);
             this.answer4Button.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.answer4Button.Name = "answer4Button";
-            this.answer4Button.Size = new System.Drawing.Size(101, 88);
+            this.answer4Button.Size = new System.Drawing.Size(90, 70);
             this.answer4Button.TabIndex = 4;
             this.answer4Button.Text = "אפשרות 4";
             this.answer4Button.UseVisualStyleBackColor = true;
@@ -104,10 +104,10 @@ namespace clientForQuestions2._0
             // 
             this.stopTestButton.AutoSize = true;
             this.stopTestButton.BackColor = System.Drawing.Color.Tomato;
-            this.stopTestButton.Location = new System.Drawing.Point(1015, 881);
+            this.stopTestButton.Location = new System.Drawing.Point(902, 705);
             this.stopTestButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.stopTestButton.Name = "stopTestButton";
-            this.stopTestButton.Size = new System.Drawing.Size(116, 46);
+            this.stopTestButton.Size = new System.Drawing.Size(103, 37);
             this.stopTestButton.TabIndex = 4;
             this.stopTestButton.Text = "סיום התרגול";
             this.stopTestButton.UseVisualStyleBackColor = false;
@@ -117,10 +117,10 @@ namespace clientForQuestions2._0
             // 
             this.isUserRightLabel.AutoSize = true;
             this.isUserRightLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.isUserRightLabel.Location = new System.Drawing.Point(975, 282);
+            this.isUserRightLabel.Location = new System.Drawing.Point(867, 226);
             this.isUserRightLabel.Name = "isUserRightLabel";
             this.isUserRightLabel.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.isUserRightLabel.Size = new System.Drawing.Size(100, 37);
+            this.isUserRightLabel.Size = new System.Drawing.Size(86, 31);
             this.isUserRightLabel.TabIndex = 5;
             this.isUserRightLabel.Text = "label1";
             this.isUserRightLabel.Click += new System.EventHandler(this.isUserRightLabel_Click);
@@ -128,20 +128,20 @@ namespace clientForQuestions2._0
             // answersTrackLabel
             // 
             this.answersTrackLabel.AutoSize = true;
-            this.answersTrackLabel.Location = new System.Drawing.Point(942, 132);
+            this.answersTrackLabel.Location = new System.Drawing.Point(837, 106);
             this.answersTrackLabel.Name = "answersTrackLabel";
             this.answersTrackLabel.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.answersTrackLabel.Size = new System.Drawing.Size(146, 20);
+            this.answersTrackLabel.Size = new System.Drawing.Size(126, 16);
             this.answersTrackLabel.TabIndex = 6;
             this.answersTrackLabel.Text = "answersTrackLabel";
             // 
             // questionTrackLabel
             // 
             this.questionTrackLabel.AutoSize = true;
-            this.questionTrackLabel.Location = new System.Drawing.Point(946, 105);
+            this.questionTrackLabel.Location = new System.Drawing.Point(841, 84);
             this.questionTrackLabel.Name = "questionTrackLabel";
             this.questionTrackLabel.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.questionTrackLabel.Size = new System.Drawing.Size(109, 20);
+            this.questionTrackLabel.Size = new System.Drawing.Size(93, 16);
             this.questionTrackLabel.TabIndex = 7;
             this.questionTrackLabel.Text = "questionTrack";
             // 
@@ -152,51 +152,55 @@ namespace clientForQuestions2._0
             this.timer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.timer.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Bold);
             this.timer.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.timer.Location = new System.Drawing.Point(982, 175);
+            this.timer.Location = new System.Drawing.Point(873, 140);
             this.timer.Name = "timer";
             this.timer.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.timer.Size = new System.Drawing.Size(103, 48);
+            this.timer.Size = new System.Drawing.Size(89, 41);
             this.timer.TabIndex = 8;
             this.timer.Text = "0:00";
             this.timer.Click += new System.EventHandler(this.label1_Click);
             // 
             // nextQuestionsButton
             // 
-            this.nextQuestionsButton.BackColor = System.Drawing.Color.MediumSlateBlue;
-            this.nextQuestionsButton.BorderRadiuos = 40;
+            this.nextQuestionsButton.BackColor = System.Drawing.Color.Chocolate;
+            this.nextQuestionsButton.BorderRadiuos = 32;
             this.nextQuestionsButton.BorderSize = 1;
             this.nextQuestionsButton.FlatAppearance.BorderSize = 0;
             this.nextQuestionsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.nextQuestionsButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.nextQuestionsButton.ForeColor = System.Drawing.Color.White;
-            this.nextQuestionsButton.Location = new System.Drawing.Point(901, 51);
+            this.nextQuestionsButton.Location = new System.Drawing.Point(801, 41);
+            this.nextQuestionsButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.nextQuestionsButton.Name = "nextQuestionsButton";
-            this.nextQuestionsButton.Size = new System.Drawing.Size(150, 40);
+            this.nextQuestionsButton.Size = new System.Drawing.Size(32, 32);
             this.nextQuestionsButton.TabIndex = 9;
-            this.nextQuestionsButton.Text = "next";
+            this.nextQuestionsButton.Text = "🢂";
             this.nextQuestionsButton.UseVisualStyleBackColor = false;
             this.nextQuestionsButton.Click += new System.EventHandler(this.nextQuestionsButton_Click);
             // 
             // previousQuestionsButton
             // 
-            this.previousQuestionsButton.BackColor = System.Drawing.Color.MediumSlateBlue;
-            this.previousQuestionsButton.BorderRadiuos = 40;
+            this.previousQuestionsButton.BackColor = System.Drawing.Color.Chocolate;
+            this.previousQuestionsButton.BorderRadiuos = 32;
             this.previousQuestionsButton.BorderSize = 1;
             this.previousQuestionsButton.FlatAppearance.BorderSize = 0;
             this.previousQuestionsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.previousQuestionsButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.previousQuestionsButton.ForeColor = System.Drawing.Color.White;
-            this.previousQuestionsButton.Location = new System.Drawing.Point(31, 51);
+            this.previousQuestionsButton.Location = new System.Drawing.Point(128, 41);
+            this.previousQuestionsButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.previousQuestionsButton.Name = "previousQuestionsButton";
-            this.previousQuestionsButton.Size = new System.Drawing.Size(150, 40);
+            this.previousQuestionsButton.Size = new System.Drawing.Size(32, 32);
             this.previousQuestionsButton.TabIndex = 10;
-            this.previousQuestionsButton.Text = "previous";
+            this.previousQuestionsButton.Text = "🢀";
             this.previousQuestionsButton.UseVisualStyleBackColor = false;
             this.previousQuestionsButton.Click += new System.EventHandler(this.previousQuestionsButton_Click);
             // 
             // questionsPage
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1181, 1050);
+            this.ClientSize = new System.Drawing.Size(1050, 755);
             this.Controls.Add(this.previousQuestionsButton);
             this.Controls.Add(this.nextQuestionsButton);
             this.Controls.Add(this.timer);
