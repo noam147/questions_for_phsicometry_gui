@@ -63,6 +63,9 @@ namespace clientForQuestions2._0
             width_screen = this.ClientSize.Width;
             height_screen = this.ClientSize.Height;
             this.Resize += MainForm_Resize;
+            this.WindowState = FormWindowState.Maximized;
+            //this.FormBorderStyle = FormBorderStyle.None;
+            this.StartPosition = FormStartPosition.CenterScreen;
         }
         public questionsPage(int amount, List<string> listOfTopics, bool isQSkip, int timePerQ, questionsDifficultyLevel difficultyLevel)
         {
@@ -72,7 +75,12 @@ namespace clientForQuestions2._0
 
             this.timePerQ = timePerQ;
             if (!isUserDoNotGetFeedBack)
+            {
                 h_buttonsQuestionsPlace = 0;
+                this.nextQuestionsButton.Visible = false;
+                this.previousQuestionsButton.Visible = false;
+            }
+                
 
             updateAtStart(amount, listOfTopics);
 
@@ -157,7 +165,7 @@ namespace clientForQuestions2._0
             writeQuestionToLogFile();
 
             this.isUserRightLabel.Text = "";
-            this.nextQuestionButton.Visible = false;
+            this.continueToQuestionButton.Visible = false;
 
 
             updateLabelAnswers();
@@ -272,7 +280,7 @@ namespace clientForQuestions2._0
             m_maxQuestions = m_questionDetails.Count;//if amount is bigger that questions avelible
             writeQuestionToLogFile();
             this.isUserRightLabel.Text = "";
-            this.nextQuestionButton.Visible = false;
+            this.continueToQuestionButton.Visible = false;
             updateLabelAnswers();
 
             if (this.isUserDoNotGetFeedBack)
@@ -298,7 +306,7 @@ namespace clientForQuestions2._0
             writeQuestionToLogFile();
 
             this.isUserRightLabel.Text = "";
-            this.nextQuestionButton.Visible = false;
+            this.continueToQuestionButton.Visible = false;
 
 
             updateLabelAnswers();
@@ -604,7 +612,7 @@ namespace clientForQuestions2._0
 
         private void afterAnswerQuestion(int answer)
         {
-            this.nextQuestionButton.BackColor = Color.White;
+            this.continueToQuestionButton.BackColor = Color.White;
             if (this.m_buttonList.Count != 0)
             {
                 
@@ -678,29 +686,29 @@ namespace clientForQuestions2._0
 
                 if ((m_buttonList.Any() && m_buttonList.All(b => b.BackColor == Color.Yellow)))
                 {
-                    this.nextQuestionButton.Text = "סיכום";
-                    this.nextQuestionButton.BackColor = System.Drawing.Color.Yellow;
+                    this.continueToQuestionButton.Text = "סיכום";
+                    this.continueToQuestionButton.BackColor = System.Drawing.Color.Yellow;
                 }
 
                 // if it is the last question and not all the qs are answered, dont show the next button
                 if (m_indexOfCurrQuestion == this.m_questionDetails.Count - 1 && !m_buttonList.All(b => b.BackColor == Color.Yellow))
-                    this.nextQuestionButton.Visible = false;
+                    this.continueToQuestionButton.Visible = false;
                 else
-                    this.nextQuestionButton.Visible = true;
+                    this.continueToQuestionButton.Visible = true;
 
             }
 
 
             if (m_indexOfCurrQuestion == this.m_questionDetails.Count)//if questions end
             {
-                this.nextQuestionButton.Text = "סיכום";
-                this.nextQuestionButton.BackColor = System.Drawing.Color.Yellow;
+                this.continueToQuestionButton.Text = "סיכום";
+                this.continueToQuestionButton.BackColor = System.Drawing.Color.Yellow;
             }
             //wait until user clicks on the continue button to display another q 
 
             if (!isUserDoNotGetFeedBack)
             {
-                this.nextQuestionButton.Visible = true;
+                this.continueToQuestionButton.Visible = true;
 
                 this.answer1Button.Visible = false;
                 this.answer2Button.Visible = false;
@@ -747,9 +755,9 @@ namespace clientForQuestions2._0
                 if (sender == null)
                 {
                     //if this is not a real click and just we want to move on but its the end
-                    this.nextQuestionButton.Text = "סיכום";
-                    this.nextQuestionButton.Visible = true;
-                    this.nextQuestionButton.BackColor = Color.Yellow;
+                    this.continueToQuestionButton.Text = "סיכום";
+                    this.continueToQuestionButton.Visible = true;
+                    this.continueToQuestionButton.BackColor = Color.Yellow;
                     return;
                 }
 
@@ -768,7 +776,7 @@ namespace clientForQuestions2._0
             {
                 OnCoreWebView21InitializationCompleted(sender, e);
 
-                this.nextQuestionButton.Visible = false;
+                this.continueToQuestionButton.Visible = false;
                 this.isUserRightLabel.Text = "";
                 this.answer1Button.Visible = true;
                 this.answer2Button.Visible = true;
@@ -834,8 +842,8 @@ namespace clientForQuestions2._0
             // Position the button on the far right with a fixed height, and optional margin
             int rightMargin = 10; // Adjust as needed
             int topMargin = 50;   // Adjust as needed
-            this.isUserRightLabel.Location = new Point(this.ClientSize.Width - nextQuestionButton.Width - rightMargin, topMargin + this.nextQuestionButton.Height + 20);
-            nextQuestionButton.Location = new Point(this.ClientSize.Width - nextQuestionButton.Width - rightMargin, topMargin);
+            this.isUserRightLabel.Location = new Point(this.ClientSize.Width - continueToQuestionButton.Width - rightMargin, topMargin + this.continueToQuestionButton.Height + 20);
+            continueToQuestionButton.Location = new Point(this.ClientSize.Width - continueToQuestionButton.Width - rightMargin, topMargin);
         }
 
         private void questionsPage_Load(object sender, EventArgs e)
@@ -930,12 +938,12 @@ namespace clientForQuestions2._0
 
             if ((m_buttonList.Any() && m_buttonList.All(b => b.BackColor == Color.Yellow)))
             {
-                this.nextQuestionButton.Visible = true;
-                this.nextQuestionButton.Text = "סיכום";
-                this.nextQuestionButton.BackColor = System.Drawing.Color.Yellow;
+                this.continueToQuestionButton.Visible = true;
+                this.continueToQuestionButton.Text = "סיכום";
+                this.continueToQuestionButton.BackColor = System.Drawing.Color.Yellow;
             }
             else
-                this.nextQuestionButton.Visible = false;
+                this.continueToQuestionButton.Visible = false;
         }
         private void markUserAnswerInYellow(int index)
         {
@@ -996,8 +1004,16 @@ namespace clientForQuestions2._0
 
         private void nextQuestionsButton_Click(object sender, EventArgs e)
         {
-
-
+            for(int i=0;i<m_questionDetails.Count-10;i+=10)
+            {
+                if(m_currentIndexOfFirstButton == i)
+                {
+                    displayButtons(i + 10, i + 20);
+                    swichQuestionButton_Click(i + 10);
+                    return;
+                }
+            }
+            return;
             if(m_currentIndexOfFirstButton == 0)
                 displayButtons(10,20);
 
@@ -1018,24 +1034,17 @@ namespace clientForQuestions2._0
         private void previousQuestionsButton_Click(object sender, EventArgs e)
         {
             int maxQuestions = this.m_questionDetails.Count;
-           
 
-            if (m_currentIndexOfFirstButton == 0)
+            for (int i = 10; i < maxQuestions; i += 10)
             {
-                //do nothing
+                if (m_currentIndexOfFirstButton == i)
+                {
+                    displayButtons(i - 10, i );
+                    swichQuestionButton_Click(i -10);
+                    return;
+                }
             }
-            else if (m_currentIndexOfFirstButton == 10)
-                displayButtons(0, 10);
-            else if (m_currentIndexOfFirstButton == 20)
-                displayButtons(10, 20);
-            else if (m_currentIndexOfFirstButton == 30)
-                displayButtons(20, 30);
-            else if (m_currentIndexOfFirstButton == 40)
-                displayButtons(30, 40);
-            else if (m_currentIndexOfFirstButton == 50)
-                displayButtons(40, 50);
-            else if (m_currentIndexOfFirstButton == 60)
-                displayButtons(50, 60);
+            return;
         }
     }
 }

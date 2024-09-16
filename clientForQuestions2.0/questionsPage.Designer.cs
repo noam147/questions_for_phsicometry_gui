@@ -30,7 +30,7 @@ namespace clientForQuestions2._0
         /// </summary>
         private void InitializeComponent()
         {
-            this.nextQuestionButton = new System.Windows.Forms.Button();
+            this.continueToQuestionButton = new System.Windows.Forms.Button();
             this.answer1Button = new System.Windows.Forms.Button();
             this.answer2Button = new System.Windows.Forms.Button();
             this.answer3Button = new System.Windows.Forms.Button();
@@ -44,17 +44,17 @@ namespace clientForQuestions2._0
             this.previousQuestionsButton = new clientForQuestions2._0.RJButtons2();
             this.SuspendLayout();
             // 
-            // nextQuestionButton
+            // continueToQuestionButton
             // 
-            this.nextQuestionButton.BackColor = System.Drawing.Color.Transparent;
-            this.nextQuestionButton.Location = new System.Drawing.Point(997, 360);
-            this.nextQuestionButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.nextQuestionButton.Name = "nextQuestionButton";
-            this.nextQuestionButton.Size = new System.Drawing.Size(145, 86);
-            this.nextQuestionButton.TabIndex = 0;
-            this.nextQuestionButton.Text = "המשך";
-            this.nextQuestionButton.UseVisualStyleBackColor = false;
-            this.nextQuestionButton.Click += new System.EventHandler(this.nextQuestionButtonClick);
+            this.continueToQuestionButton.BackColor = System.Drawing.Color.Transparent;
+            this.continueToQuestionButton.Location = new System.Drawing.Point(997, 360);
+            this.continueToQuestionButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.continueToQuestionButton.Name = "continueToQuestionButton";
+            this.continueToQuestionButton.Size = new System.Drawing.Size(145, 86);
+            this.continueToQuestionButton.TabIndex = 0;
+            this.continueToQuestionButton.Text = "המשך";
+            this.continueToQuestionButton.UseVisualStyleBackColor = false;
+            this.continueToQuestionButton.Click += new System.EventHandler(this.nextQuestionButtonClick);
             // 
             // answer1Button
             // 
@@ -163,7 +163,7 @@ namespace clientForQuestions2._0
             // nextQuestionsButton
             // 
             this.nextQuestionsButton.BackColor = System.Drawing.Color.MediumSlateBlue;
-            this.nextQuestionsButton.BorderRadiuos = 400;
+            this.nextQuestionsButton.BorderRadiuos = 40;
             this.nextQuestionsButton.BorderSize = 1;
             this.nextQuestionsButton.FlatAppearance.BorderSize = 0;
             this.nextQuestionsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -179,7 +179,7 @@ namespace clientForQuestions2._0
             // previousQuestionsButton
             // 
             this.previousQuestionsButton.BackColor = System.Drawing.Color.MediumSlateBlue;
-            this.previousQuestionsButton.BorderRadiuos = 400;
+            this.previousQuestionsButton.BorderRadiuos = 40;
             this.previousQuestionsButton.BorderSize = 1;
             this.previousQuestionsButton.FlatAppearance.BorderSize = 0;
             this.previousQuestionsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -207,7 +207,7 @@ namespace clientForQuestions2._0
             this.Controls.Add(this.answer3Button);
             this.Controls.Add(this.answer2Button);
             this.Controls.Add(this.answer1Button);
-            this.Controls.Add(this.nextQuestionButton);
+            this.Controls.Add(this.continueToQuestionButton);
             this.Controls.Add(this.stopTestButton);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "questionsPage";
@@ -220,7 +220,7 @@ namespace clientForQuestions2._0
 
         #endregion
 
-        private System.Windows.Forms.Button nextQuestionButton;
+        private System.Windows.Forms.Button continueToQuestionButton;
         private System.Windows.Forms.Button answer1Button;
         private System.Windows.Forms.Button answer2Button;
         private System.Windows.Forms.Button answer3Button;
