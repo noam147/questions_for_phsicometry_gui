@@ -91,12 +91,9 @@ namespace clientForQuestions2._0
 
 
             
-            Thread thread = new Thread(() =>
-            {
+
                 InitializeWebView21();
-            });
-            thread.SetApartmentState(ApartmentState.STA);
-            thread.Start();
+
         }
 
         private void whenDoNotGetFeedBack()
@@ -134,13 +131,10 @@ namespace clientForQuestions2._0
 
             this.ClientSize = new System.Drawing.Size(2 * width_screen - w_buttonsPlace, height_screen);
             //this.ClientSize = new System.Drawing.Size(2 * width_screen - w_buttonsPlace, height_screen);
-            Thread thread = new Thread(() =>
-            {
+
                 InitializeWebView2_col();
                 InitializeWebView21();
-            });
-            thread.SetApartmentState(ApartmentState.STA);
-            thread.Start();
+
 
         }
 
@@ -330,6 +324,7 @@ namespace clientForQuestions2._0
                     {
                         if (isUserDoNotGetFeedBack) // if time ran out && navigate questions, go to summary
                         {
+                            disposedWebViews();
                             var s = new summrizePage(this.m_afterQuestionParametrs);
                             s.Show();
                             this.Close();
@@ -532,8 +527,8 @@ namespace clientForQuestions2._0
                             ? string.Join("\n", task.Exception.InnerExceptions.Select(ex => ex.Message))
                             : "Unknown error initializing webView2_col.";
 
-                        MessageBox.Show($"Attempt {retryCount} failed: {exceptionMessage}",
-                            "Initialization Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        //MessageBox.Show($"Attempt {retryCount} failed: {exceptionMessage}",
+                         //   "Initialization Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
 
                     // Add delay between retries
@@ -541,8 +536,8 @@ namespace clientForQuestions2._0
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Error during webView2_col initialization attempt {retryCount}: {ex.Message}",
-                        "Initialization Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    //MessageBox.Show($"Error during webView2_col initialization attempt {retryCount}: {ex.Message}",
+                     //   "Initialization Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                     // Wait before next retry
                     await Task.Delay(500); // Wait for 2 seconds
@@ -608,11 +603,25 @@ namespace clientForQuestions2._0
                 this.Close();
                 return;
             }
+            disposedWebViews();
             var s = new summrizePage(this.m_afterQuestionParametrs);
             s.Show();
             this.Close();
         }
-
+        private void disposedWebViews()
+        {
+            if(webView21 != null)
+            {
+                this.webView21.Dispose();
+                this.webView21 = null;
+            }
+            
+            if (this.webView2_col != null)
+            {
+                this.webView2_col.Dispose();
+                this.webView2_col = null;
+            }     
+        }
         private void afterAnswerQuestion(int answer)
         {
             this.continueToQuestionButton.BackColor = Color.White;
@@ -763,7 +772,7 @@ namespace clientForQuestions2._0
                     this.continueToQuestionButton.BackColor = Color.Yellow;
                     return;
                 }
-
+                disposedWebViews();
                 var s = new summrizePage(this.m_afterQuestionParametrs);
                 s.Show();
                 this.Close();

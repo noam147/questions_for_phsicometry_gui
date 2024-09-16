@@ -59,24 +59,31 @@ namespace clientForQuestions2._0
 
             createButtons(questions);
             displayButtons();
-
-            Thread thread = new Thread(() =>
-            {
-                while (!this.IsHandleCreated)
-                {
-                    // Introduce a small delay to avoid tight looping
-                    Thread.Sleep(100);
-                }
-
-                InitializeWebView2_col();
-                InitializeWebView21();
-            });
-            thread.SetApartmentState(ApartmentState.STA);
-            thread.Start();
             this.Resize += Form_Resize;
+            this.Load += Form_Load;
             Form_Resize(this, EventArgs.Empty);
 
         }
+        private async Task WaitForHandleAndInitializeAsync()
+        {
+            // Wait until the form's handle is created
+            while (!this.IsHandleCreated)
+            {
+                await Task.Delay(100); // Asynchronous delay
+            }
+
+            // Perform initialization after the handle is created
+            InitializeWebView2_col();
+            InitializeWebView21();
+        }
+
+
+        private async void Form_Load(object sender, EventArgs e)
+        {
+            // Call the asynchronous method to wait and initialize
+            await WaitForHandleAndInitializeAsync();
+        }
+
         private void orgnizeQuestions()
         {
             m_questions.Sort((q1, q2) => q1.indexOfQuestion.CompareTo(q2.indexOfQuestion));
@@ -515,5 +522,7 @@ namespace clientForQuestions2._0
             }
             return;
         }
+
+
     }
 }
