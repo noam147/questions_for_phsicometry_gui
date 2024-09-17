@@ -51,12 +51,13 @@ namespace clientForQuestions2._0
         {
             InitializeComponent();
             setAnswerButtonsToNormalcolor();
-            width_screen = this.ClientSize.Width;
-            height_screen = this.ClientSize.Height;
-            this.Resize += MainForm_Resize;
             this.WindowState = FormWindowState.Maximized;
             //this.FormBorderStyle = FormBorderStyle.None;
             this.StartPosition = FormStartPosition.CenterScreen;
+
+            width_screen = this.ClientSize.Width;
+            height_screen = this.ClientSize.Height;
+            this.Resize += MainForm_Resize;
         }
         public questionsPage(int amount, List<string> listOfTopics, bool isQSkip, int timePerQ, questionsDifficultyLevel difficultyLevel)
         {
@@ -121,7 +122,6 @@ namespace clientForQuestions2._0
 
 
             this.ClientSize = new System.Drawing.Size(2 * width_screen - w_buttonsPlace, height_screen);
-            //this.ClientSize = new System.Drawing.Size(2 * width_screen - w_buttonsPlace, height_screen);
 
                 InitializeWebView2_col();
                 InitializeWebView21();

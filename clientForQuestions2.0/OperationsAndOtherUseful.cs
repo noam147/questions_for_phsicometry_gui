@@ -208,7 +208,7 @@ namespace clientForQuestions2._0
             { "קטע קריאה", new List<int> { 37, 38, 39, 40, 56, 57, 58, 60, 61, 62, 75, 76, 77, 98, 119, 120, 121, 122, 123, 124, 125, 126 } },
             // only collections who have 6 questions
             { "קטע קריאה פרקים", new List<int> { 39, 40, 56, 57, 58, 60, 61, 62, 75, 77, 98, 119, 120, 123, 124, 125, 126 } },
-            { "Reading Comprehension", new List<int> { 41, 42, 43, 44, 46, 51, 52, 53, 54, 59, 66, 67, 68, 69, 83, 84, 85, 86, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 136 } }
+            { "Reading Comprehension", new List<int> { 41, 42, 43, 44, 46, 51, 52, 53, 54, 59, 66, 67, 68, 69, 83, 84, 85, 86, 107, 108 } } //  109, 110, 111, 112, 113, 114, 115, 116, 136, 117
         };
         public static Dictionary<int, List<int>> colId2qIds = new Dictionary<int, List<int>>()
 {
@@ -284,15 +284,15 @@ namespace clientForQuestions2._0
     { 106, new List<int> { 8778, 8779, 8780, 8781, 8782 } },
     { 107, new List<int> { 8783, 8784, 8785, 8786, 8788 } },
     { 108, new List<int> { 8789, 8790, 8791, 8792, 8793 } },
-    { 109, new List<int> { 8849, 8850, 8851, 8852, 8853 } },
-    { 110, new List<int> { 8854, 8855, 8856, 8857, 8858 } },
-    { 111, new List<int> { 8859, 8860, 8861, 8862, 8863 } },
-    { 112, new List<int> { 8864, 8865, 8866, 8867, 8868 } },
-    { 113, new List<int> { 8869, 8870, 8871, 8872, 8873 } },
-    { 114, new List<int> { 8874, 8875, 8876, 8877, 8878 } },
-    { 115, new List<int> { 8879, 8880, 8881, 8882, 8883 } },
-    { 116, new List<int> { 8884, 8885, 8886, 8887, 8888 } },
-    { 117, new List<int> { 8889, 8890, 8891, 8892, 8893 } },
+    //{ 109, new List<int> { 8849, 8850, 8851, 8852, 8853 } },
+    //{ 110, new List<int> { 8854, 8855, 8856, 8857, 8858 } },
+    //{ 111, new List<int> { 8859, 8860, 8861, 8862, 8863 } },
+    //{ 112, new List<int> { 8864, 8865, 8866, 8867, 8868 } },
+    //{ 113, new List<int> { 8869, 8870, 8871, 8872, 8873 } },
+    //{ 114, new List<int> { 8874, 8875, 8876, 8877, 8878 } },
+    //{ 115, new List<int> { 8879, 8880, 8881, 8882, 8883 } },
+    //{ 116, new List<int> { 8884, 8885, 8886, 8887, 8888 } },
+    //{ 117, new List<int> { 8889, 8890, 8891, 8892, 8893 } },
     { 119, new List<int> { 8918, 8919, 8920, 8921, 8922, 8923 } },
     { 120, new List<int> { 8924, 8925, 8926, 8927, 8928, 8929 } },
     { 121, new List<int> { 8931, 8932, 8933, 8935, 8936 } },
@@ -309,7 +309,7 @@ namespace clientForQuestions2._0
     { 133, new List<int> { 10305, 10306, 10307, 10308 } },
     { 134, new List<int> { 10391, 10392, 10393, 10394, 10395 } },
     { 135, new List<int> { 10401, 10402, 10403, 10404 } },
-    { 136, new List<int> { 11157, 11158, 11159, 11160, 11161 } }
+    //{ 136, new List<int> { 11157, 11158, 11159, 11160, 11161 } }
 };
 
 
@@ -345,7 +345,7 @@ namespace clientForQuestions2._0
             string img_path = "https://lmsapi.kidum-me.com/storage/";
             string file_path = img_path + json["collections"][0]["file"]["file_path"].ToString();
             string fullImg = $"<img src=\"{file_path}\" alt=\"Question Image\" style=\"max-width:100%; height:auto;\">";
-            return cover + "<br>" + fullImg;
+            return cover + fullImg;
         }
 
         private static string get_string_of_img_html(JToken json)

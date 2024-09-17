@@ -160,19 +160,48 @@ namespace clientForQuestions2._0
                 col_id2 = colIds[random.Next(colIds.Count)]; // choose rand collection of the category
 
             // qs of קטע קריאה
-            List<dbQuestionParmeters> col_qs = new List<dbQuestionParmeters>();
+            List<dbQuestionParmeters> col1_qs = new List<dbQuestionParmeters>();
+            List<dbQuestionParmeters> col2_qs = new List<dbQuestionParmeters>();
+
+            LogFileHandler.writeIntoFile($"try to accsess col ids, id1: {col_id1}; id2: {col_id2}");
 
             foreach (int col_qID in OperationsAndOtherUseful.colId2qIds[col_id1])
             {
-                col_qs.Add(sqlDb.get_question_based_on_id(col_qID));
+                col1_qs.Add(sqlDb.get_question_based_on_id(col_qID));
             }
             foreach (int col_qID in OperationsAndOtherUseful.colId2qIds[col_id2]) // TODO the easier text first
             {
-                col_qs.Add(sqlDb.get_question_based_on_id(col_qID));
+                col2_qs.Add(sqlDb.get_question_based_on_id(col_qID));
             }
 
+
             Sentence_Completions_qs.AddRange(Restatements_qs);
-            Sentence_Completions_qs.AddRange(col_qs);
+
+            // if col2 is harder than col1
+            if ((float)col2_qs[0].json_content["collections"][0]["difficulty_level"] > (float)col1_qs[0].json_content["collections"][0]["difficulty_level"])
+            {
+                for (int i = 0; i < col1_qs.Count; i++)
+                    col1_qs[i].json_content["collections"][0]["cover"] += "<p style=\"font-size: 18px; font-style: italic;\">Text I</p>";
+
+                for (int i = 0; i < col2_qs.Count; i++)
+                    col2_qs[i].json_content["collections"][0]["cover"] += "<p style=\"font-size: 18px; font-style: italic;\">Text II</p>";
+
+                Sentence_Completions_qs.AddRange(col1_qs);
+                Sentence_Completions_qs.AddRange(col2_qs);
+            }
+            // if col1 is harder than col2
+            else
+            {
+                for (int i = 0; i < col2_qs.Count; i++)
+                    col2_qs[i].json_content["collections"][0]["cover"] += "<p style=\"font-size: 18px; font-style: italic;\">Text I</p>";
+
+                for (int i = 0; i < col1_qs.Count; i++)
+                    col1_qs[i].json_content["collections"][0]["cover"] += "<p style=\"font-size: 18px; font-style: italic;\">Text II</p>";
+
+                Sentence_Completions_qs.AddRange(col2_qs);
+                Sentence_Completions_qs.AddRange(col1_qs);
+            }
+
 
             questionsPage c;
             if (this.timePerQPicker.Enabled)

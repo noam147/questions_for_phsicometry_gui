@@ -115,7 +115,7 @@ namespace clientForQuestions2._0
 
                 if (question.question.questionId == 0)
                 {
-                    LogFileHandler.writeIntoFile($"try to accsess id that is not exsist, id: {q_ids[i]}");
+                    LogFileHandler.writeIntoFile($"try to accsess collection id that has invalid questions, id: {col_id}");
                     return;
                 }
 
