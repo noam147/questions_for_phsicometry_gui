@@ -779,7 +779,18 @@ namespace clientForQuestions2._0
             // 
             // difficulyLevelMaxVal
             // 
+            this.difficulyLevelMaxVal.DecimalPlaces = 1;
+            this.difficulyLevelMaxVal.Increment = new decimal(new int[] {
+            5,
+            0,
+            0,
+            65536});
             this.difficulyLevelMaxVal.Location = new System.Drawing.Point(111, 357);
+            this.difficulyLevelMaxVal.Maximum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
             this.difficulyLevelMaxVal.Name = "difficulyLevelMaxVal";
             this.difficulyLevelMaxVal.Size = new System.Drawing.Size(76, 22);
             this.difficulyLevelMaxVal.TabIndex = 16;
@@ -804,7 +815,18 @@ namespace clientForQuestions2._0
             // 
             // difficulyLevelMinVal
             // 
+            this.difficulyLevelMinVal.DecimalPlaces = 1;
+            this.difficulyLevelMinVal.Increment = new decimal(new int[] {
+            5,
+            0,
+            0,
+            65536});
             this.difficulyLevelMinVal.Location = new System.Drawing.Point(12, 357);
+            this.difficulyLevelMinVal.Maximum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
             this.difficulyLevelMinVal.Name = "difficulyLevelMinVal";
             this.difficulyLevelMinVal.Size = new System.Drawing.Size(76, 22);
             this.difficulyLevelMinVal.TabIndex = 18;
@@ -834,7 +856,7 @@ namespace clientForQuestions2._0
             // 
             this.timePerQPicker.CustomFormat = "mm:ss";
             this.timePerQPicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.timePerQPicker.Location = new System.Drawing.Point(90, 231);
+            this.timePerQPicker.Location = new System.Drawing.Point(90, 232);
             this.timePerQPicker.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.timePerQPicker.MaxDate = new System.DateTime(2000, 1, 1, 0, 59, 59, 0);
             this.timePerQPicker.MinDate = new System.DateTime(2000, 1, 1, 0, 0, 0, 0);

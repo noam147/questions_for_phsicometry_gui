@@ -10,8 +10,8 @@ namespace clientForQuestions2._0
     
     public struct questionsDifficultyLevel
     {
-        public int minlevel;
-        public int maxLevel;
+        public decimal minlevel;
+        public decimal maxLevel;
     }
     public partial class normalQuestionsMenu : Form
     {
@@ -228,12 +228,15 @@ namespace clientForQuestions2._0
 
         private void difficulyLevelMinVal_ValueChanged(object sender, EventArgs e)
         {
-            this.difficultyLevels.minlevel = (int)this.difficulyLevelMinVal.Value;
+            this.difficultyLevels.minlevel = (decimal)this.difficulyLevelMinVal.Value;
+            this.difficulyLevelMaxVal.Minimum = this.difficultyLevels.minlevel;
+
         }
 
         private void difficulyLevelMaxVal_ValueChanged(object sender, EventArgs e)
         {
-            this.difficultyLevels.maxLevel = (int)this.difficulyLevelMaxVal.Value;
+            this.difficultyLevels.maxLevel = (decimal)this.difficulyLevelMaxVal.Value;
+            this.difficulyLevelMinVal.Maximum = this.difficultyLevels.maxLevel;
         }
 
         private void timePerQCheckbox_CheckedChanged(object sender, EventArgs e)

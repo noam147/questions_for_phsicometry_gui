@@ -37,10 +37,10 @@
             this.curr_q = new System.Windows.Forms.Label();
             this.curr_q_id = new System.Windows.Forms.Label();
             this.correct_answers = new System.Windows.Forms.Label();
-            this.previousQuestionsButton = new clientForQuestions2._0.RJButtons2();
-            this.nextQuestionsButton = new clientForQuestions2._0.RJButtons2();
             this.diffic_level_col = new System.Windows.Forms.Label();
             this.curr_col_id = new System.Windows.Forms.Label();
+            this.nextQuestionsButton = new clientForQuestions2._0.RJButtons2();
+            this.previousQuestionsButton = new clientForQuestions2._0.RJButtons2();
             this.SuspendLayout();
             // 
             // button1
@@ -144,6 +144,7 @@
             this.curr_q_id.Size = new System.Drawing.Size(26, 18);
             this.curr_q_id.TabIndex = 8;
             this.curr_q_id.Text = "id: ";
+            this.curr_q_id.Click += new System.EventHandler(this.curr_q_id_Click);
             // 
             // correct_answers
             // 
@@ -156,42 +157,6 @@
             this.correct_answers.TabIndex = 9;
             this.correct_answers.Text = "תשובות נכונות: ";
             this.correct_answers.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // previousQuestionsButton
-            // 
-            this.previousQuestionsButton.BackColor = System.Drawing.Color.Chocolate;
-            this.previousQuestionsButton.BorderRadiuos = 32;
-            this.previousQuestionsButton.BorderSize = 1;
-            this.previousQuestionsButton.FlatAppearance.BorderSize = 0;
-            this.previousQuestionsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.previousQuestionsButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.previousQuestionsButton.ForeColor = System.Drawing.Color.White;
-            this.previousQuestionsButton.Location = new System.Drawing.Point(243, 36);
-            this.previousQuestionsButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.previousQuestionsButton.Name = "previousQuestionsButton";
-            this.previousQuestionsButton.Size = new System.Drawing.Size(32, 32);
-            this.previousQuestionsButton.TabIndex = 11;
-            this.previousQuestionsButton.Text = "🢀";
-            this.previousQuestionsButton.UseVisualStyleBackColor = false;
-            this.previousQuestionsButton.Click += new System.EventHandler(this.previousQuestionsButton_Click);
-            // 
-            // nextQuestionsButton
-            // 
-            this.nextQuestionsButton.BackColor = System.Drawing.Color.Chocolate;
-            this.nextQuestionsButton.BorderRadiuos = 32;
-            this.nextQuestionsButton.BorderSize = 1;
-            this.nextQuestionsButton.FlatAppearance.BorderSize = 0;
-            this.nextQuestionsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.nextQuestionsButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.nextQuestionsButton.ForeColor = System.Drawing.Color.White;
-            this.nextQuestionsButton.Location = new System.Drawing.Point(870, 36);
-            this.nextQuestionsButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.nextQuestionsButton.Name = "nextQuestionsButton";
-            this.nextQuestionsButton.Size = new System.Drawing.Size(32, 32);
-            this.nextQuestionsButton.TabIndex = 12;
-            this.nextQuestionsButton.Text = "🢂";
-            this.nextQuestionsButton.UseVisualStyleBackColor = false;
-            this.nextQuestionsButton.Click += new System.EventHandler(this.nextQuestionsButton_Click);
             // 
             // diffic_level_col
             // 
@@ -211,11 +176,47 @@
             this.curr_col_id.AutoSize = true;
             this.curr_col_id.BackColor = System.Drawing.SystemColors.HighlightText;
             this.curr_col_id.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.curr_col_id.Location = new System.Drawing.Point(956, 44);
+            this.curr_col_id.Location = new System.Drawing.Point(956, 2);
             this.curr_col_id.Name = "curr_col_id";
             this.curr_col_id.Size = new System.Drawing.Size(86, 18);
             this.curr_col_id.TabIndex = 14;
             this.curr_col_id.Text = "collection id: ";
+            // 
+            // nextQuestionsButton
+            // 
+            this.nextQuestionsButton.BackColor = System.Drawing.Color.Chocolate;
+            this.nextQuestionsButton.BorderRadiuos = 32;
+            this.nextQuestionsButton.BorderSize = 1;
+            this.nextQuestionsButton.FlatAppearance.BorderSize = 0;
+            this.nextQuestionsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.nextQuestionsButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.nextQuestionsButton.ForeColor = System.Drawing.Color.White;
+            this.nextQuestionsButton.Location = new System.Drawing.Point(870, 36);
+            this.nextQuestionsButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.nextQuestionsButton.Name = "nextQuestionsButton";
+            this.nextQuestionsButton.Size = new System.Drawing.Size(32, 32);
+            this.nextQuestionsButton.TabIndex = 12;
+            this.nextQuestionsButton.Text = "🢂";
+            this.nextQuestionsButton.UseVisualStyleBackColor = false;
+            this.nextQuestionsButton.Click += new System.EventHandler(this.nextQuestionsButton_Click);
+            // 
+            // previousQuestionsButton
+            // 
+            this.previousQuestionsButton.BackColor = System.Drawing.Color.Chocolate;
+            this.previousQuestionsButton.BorderRadiuos = 32;
+            this.previousQuestionsButton.BorderSize = 1;
+            this.previousQuestionsButton.FlatAppearance.BorderSize = 0;
+            this.previousQuestionsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.previousQuestionsButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.previousQuestionsButton.ForeColor = System.Drawing.Color.White;
+            this.previousQuestionsButton.Location = new System.Drawing.Point(243, 36);
+            this.previousQuestionsButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.previousQuestionsButton.Name = "previousQuestionsButton";
+            this.previousQuestionsButton.Size = new System.Drawing.Size(32, 32);
+            this.previousQuestionsButton.TabIndex = 11;
+            this.previousQuestionsButton.Text = "🢀";
+            this.previousQuestionsButton.UseVisualStyleBackColor = false;
+            this.previousQuestionsButton.Click += new System.EventHandler(this.previousQuestionsButton_Click);
             // 
             // summrizePage
             // 

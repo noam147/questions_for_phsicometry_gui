@@ -10,8 +10,8 @@ namespace clientForQuestions2._0
 
     internal class OperationsAndOtherUseful
     {
-        public static int MIN_LEVEL = 0;
-        public static int MAX_LEVEL = 15;
+        public static decimal MIN_LEVEL = 0;
+        public static decimal MAX_LEVEL = 10;
         public static int QUESTION_THAT_DID_NOT_ANSWERED = -1;
         public static int DO_NOT_MARK = -1;
         public static int SKIPPED_Q = -2; // when the user didnt answer

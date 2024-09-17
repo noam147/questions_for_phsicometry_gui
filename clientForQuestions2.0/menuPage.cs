@@ -41,6 +41,8 @@ namespace clientForQuestions2._0
 
         private void questionbyIdButton_Click(object sender, EventArgs e)
         {
+            this.error_qById_label.Text = "";
+
             int id = -1;
             try
             {
@@ -48,6 +50,8 @@ namespace clientForQuestions2._0
             }
             catch
             {
+                this.error_qById_label.Text = "המספר המזהה אינו תקין";
+
                 return;
             }
             //init the question
@@ -58,6 +62,8 @@ namespace clientForQuestions2._0
             if (q.question.questionId == 0)
             {
                 LogFileHandler.writeIntoFile($"try to accsess id that is not exsist, id: {id}");
+                this.error_qById_label.Text = "המספר המזהה אינו קיים";
+
                 return;
             }
             LogFileHandler.writeIntoFile($"got into specic question by id. id: {id}");
@@ -87,6 +93,8 @@ namespace clientForQuestions2._0
 
         private void collectionbyIdButton_Click(object sender, EventArgs e)
         {
+            this.error_colById_label.Text = "";
+
             int col_id = -1;
             try
             {
@@ -94,11 +102,14 @@ namespace clientForQuestions2._0
             }
             catch
             {
+                this.error_colById_label.Text = "המספר המזהה אינו תקין";
                 return;
             }
             if (!OperationsAndOtherUseful.title2colIds.Values.Any(list => list.Contains(col_id)))
+            {
+                this.error_colById_label.Text = "המספר המזהה אינו קיים";
                 return;
-
+            }
 
 
             //init the question
@@ -116,6 +127,8 @@ namespace clientForQuestions2._0
                 if (question.question.questionId == 0)
                 {
                     LogFileHandler.writeIntoFile($"try to accsess collection id that has invalid questions, id: {col_id}");
+                    this.error_colById_label.Text = "חלה שגיאה באתחול התצוגה, שאלה לא תקינה במאגר";
+
                     return;
                 }
 

@@ -40,6 +40,8 @@ namespace clientForQuestions2._0
             this.label2 = new System.Windows.Forms.Label();
             this.collectionbyIdtextBox = new System.Windows.Forms.TextBox();
             this.collectionbyIdButton = new clientForQuestions2._0.RJButtons2();
+            this.error_qById_label = new System.Windows.Forms.Label();
+            this.error_colById_label = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // normalQuestions
@@ -139,15 +141,35 @@ namespace clientForQuestions2._0
             this.collectionbyIdButton.Name = "collectionbyIdButton";
             this.collectionbyIdButton.Size = new System.Drawing.Size(156, 48);
             this.collectionbyIdButton.TabIndex = 22;
-            this.collectionbyIdButton.Text = "הצג שאלה";
+            this.collectionbyIdButton.Text = "הצג תרשים או קטע קריאה";
             this.collectionbyIdButton.UseVisualStyleBackColor = false;
             this.collectionbyIdButton.Click += new System.EventHandler(this.collectionbyIdButton_Click);
+            // 
+            // error_qById_label
+            // 
+            this.error_qById_label.AutoSize = true;
+            this.error_qById_label.ForeColor = System.Drawing.Color.Red;
+            this.error_qById_label.Location = new System.Drawing.Point(55, 218);
+            this.error_qById_label.Name = "error_qById_label";
+            this.error_qById_label.Size = new System.Drawing.Size(0, 16);
+            this.error_qById_label.TabIndex = 23;
+            // 
+            // error_colById_label
+            // 
+            this.error_colById_label.AutoSize = true;
+            this.error_colById_label.ForeColor = System.Drawing.Color.Red;
+            this.error_colById_label.Location = new System.Drawing.Point(55, 505);
+            this.error_colById_label.Name = "error_colById_label";
+            this.error_colById_label.Size = new System.Drawing.Size(0, 16);
+            this.error_colById_label.TabIndex = 24;
             // 
             // menuPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1105, 840);
+            this.Controls.Add(this.error_colById_label);
+            this.Controls.Add(this.error_qById_label);
             this.Controls.Add(this.collectionbyIdButton);
             this.Controls.Add(this.collectionbyIdtextBox);
             this.Controls.Add(this.label2);
@@ -178,5 +200,7 @@ namespace clientForQuestions2._0
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox collectionbyIdtextBox;
         private RJButtons2 collectionbyIdButton;
+        private System.Windows.Forms.Label error_qById_label;
+        private System.Windows.Forms.Label error_colById_label;
     }
 }

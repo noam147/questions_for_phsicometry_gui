@@ -529,6 +529,14 @@ namespace clientForQuestions2._0
             return;
         }
 
-
+        private void curr_q_id_Click(object sender, EventArgs e)
+        {
+            Label clickedLabel = sender as Label;
+            if (clickedLabel != null && clickedLabel.Text.Length > 4)
+            {
+                // Copy the label text to the clipboard
+                Clipboard.SetText(clickedLabel.Text.Substring(4));
+            }
+        }
     }
 }
