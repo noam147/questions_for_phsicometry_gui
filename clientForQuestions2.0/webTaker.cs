@@ -63,7 +63,8 @@ namespace clientForQuestions2._0
                 if (web.CoreWebView2 != null)
                 {
                     // Load the HTML content into WebView2
-                    web.NavigateToString("<br>[אזור לקטעי קריאה ותרשימים, יכול לקחת להם זמן להיטען או שלשאלה אין אותם]");
+                    //web.NavigateToString("<br>[אזור לקטעי קריאה ותרשימים, יכול לקחת להם זמן להיטען או שלשאלה אין אותם]");
+                    web.NavigateToString("");
                 }
                 else
                 {

@@ -373,23 +373,12 @@ namespace clientForQuestions2._0
 
 
             // Initialize a new instance of WebView2
-            if (this.isUserDoNotGetFeedBack)
-            {
                 webView21 = new WebView2
                 {
-                    Location = new Point(0, h_buttonsQuestionsPlace),
+                    Location = new Point(w_buttonsPlace, h_buttonsQuestionsPlace),
                     Size = new Size(width_screen - w_buttonsPlace, height_screen - h_buttonsQuestionsPlace)
                 };
-            }
-            else
-            {
-                webView21 = new WebView2
-                {
-                    Location = new Point(0, 0),
-                    Size = new Size(width_screen - w_buttonsPlace, height_screen)
-                };
 
-            }
 
             webView21.CoreWebView2InitializationCompleted += OnCoreWebView21InitializationCompleted;
 
@@ -479,7 +468,7 @@ namespace clientForQuestions2._0
             webView2_col = new WebView2
             {
 
-                Location = new Point(width_screen-10, h_buttonsQuestionsPlace),
+                Location = new Point(width_screen, h_buttonsQuestionsPlace),
                 Size = new Size(width_screen - w_buttonsPlace, height_screen - h_buttonsQuestionsPlace)
 
             };
@@ -1004,6 +993,16 @@ namespace clientForQuestions2._0
                 }
             }
             return;
+        }
+
+        private void questionTrackLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void answersTrackLabel_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
