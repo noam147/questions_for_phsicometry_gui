@@ -87,7 +87,7 @@ namespace clientForQuestions2._0
             }
         }
 
-        public void loggedInButton_Click(object sender, EventArgs e)
+        private void loggedInButton_Click(object sender, EventArgs e)
         {
             if (checkIfPasswordAreInFile())
             {

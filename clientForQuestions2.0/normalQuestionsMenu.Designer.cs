@@ -753,6 +753,11 @@ namespace clientForQuestions2._0
             0,
             0,
             0});
+            this.amountOfQuestionNumericUpDown.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.amountOfQuestionNumericUpDown.Name = "amountOfQuestionNumericUpDown";
             this.amountOfQuestionNumericUpDown.Size = new System.Drawing.Size(76, 22);
             this.amountOfQuestionNumericUpDown.TabIndex = 13;

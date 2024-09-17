@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using System.Linq;
 
 namespace clientForQuestions2._0
 {
@@ -76,6 +77,54 @@ namespace clientForQuestions2._0
             chaptersQuestionsMenu t = new chaptersQuestionsMenu();
 
             t.Show();
+            this.Close();
+        }
+
+        private void menuPage_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void collectionbyIdButton_Click(object sender, EventArgs e)
+        {
+            int col_id = -1;
+            try
+            {
+                col_id = int.Parse(this.collectionbyIdtextBox.Text);
+            }
+            catch
+            {
+                return;
+            }
+            if (!OperationsAndOtherUseful.title2colIds.Values.Any(list => list.Contains(col_id)))
+                return;
+
+
+
+            //init the question
+            List<int> q_ids = OperationsAndOtherUseful.colId2qIds[col_id];
+            List<afterQuestionParametrs> questions = new List<afterQuestionParametrs>();
+
+            for (int i = 0; i < q_ids.Count; i++)
+            {
+                afterQuestionParametrs question = new afterQuestionParametrs();
+                question.question = sqlDb.get_question_based_on_id(q_ids[i]);
+                question.userAnswer = OperationsAndOtherUseful.SKIPPED_Q;
+                question.timeForAnswer = OperationsAndOtherUseful.QUESTION_THAT_DID_NOT_ANSWERED;
+                question.indexOfQuestion = i;
+
+                if (question.question.questionId == 0)
+                {
+                    LogFileHandler.writeIntoFile($"try to accsess id that is not exsist, id: {q_ids[i]}");
+                    return;
+                }
+
+                questions.Add(question);
+            }
+            LogFileHandler.writeIntoFile($"got into specic collection by id. id: {col_id}");
+
+            summrizePage s = new summrizePage(questions);
+            s.Show();
             this.Close();
         }
     }

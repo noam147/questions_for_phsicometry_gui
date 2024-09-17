@@ -484,6 +484,18 @@ namespace clientForQuestions2._0
             this.diffic_level.Text = $"רמת קושי: {c.json_content["difficulty_level"].ToString()}";
             this.curr_q.Text = $"שאלה: {this.indexQuestion + 1}/{this.m_questions.Count}";
             this.curr_q_id.Text = $"id: {c.questionId}";
+
+            if (col_id != 0)
+            {
+                this.curr_col_id.Text = $"collection id: {col_id}";
+                this.diffic_level_col.Text = $"רמת הקושי של קטע הקריאה או התרשים: {c.json_content["collections"][0]["difficulty_level"].ToString()}";
+            }
+            else
+            {
+                this.curr_col_id.Text = $"";
+                this.diffic_level_col.Text = $"";
+
+            }
         }
 
         private void nextQuestionsButton_Click(object sender, EventArgs e)
