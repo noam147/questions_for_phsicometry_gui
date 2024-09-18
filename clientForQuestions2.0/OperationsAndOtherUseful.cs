@@ -382,7 +382,7 @@ namespace clientForQuestions2._0
             //this method sucseed
             for (int i = 0; i < list.Count; i++)
             {
-                currIndex = q1.IndexOf("<p>");
+                currIndex = list[i].IndexOf("<p>");
 
                 if (currIndex == -1)
                 {
