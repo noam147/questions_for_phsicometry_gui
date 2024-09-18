@@ -569,7 +569,15 @@ namespace clientForQuestions2._0
 
         private void stopTestButtonClick(object sender, EventArgs e)
         {
-            if (this.m_afterQuestionParametrs.Count == 0)
+            // check if the user is sure to leave the test
+            DialogResult result = MessageBox.Show("?האם אתה בטוח שאתה רוצה לצאת מהתרגול",
+                                      "Confirmation",
+                                      MessageBoxButtons.YesNo,
+                                      MessageBoxIcon.Question);
+            if (result == DialogResult.No) // the user isn't sure
+                return;
+
+                if (this.m_afterQuestionParametrs.Count == 0)
             {
                 //if user didnt answer questions at all - direct him to the menu
                 var mp = new menuPage();
@@ -705,8 +713,39 @@ namespace clientForQuestions2._0
 
         private void nextQuestionButtonClick(object sender, EventArgs e)
         {
-            m_questionCounter++; // 42
-         
+            //if questions end, check if all q are answered
+            if ((m_indexOfCurrQuestion == this.m_questionDetails.Count && !isUserDoNotGetFeedBack) || (m_buttonList.Any() && m_buttonList.All(b => b.BackColor == Color.Yellow && isUserDoNotGetFeedBack)))
+            {
+                // if isUserDoNotGetFeedBack, we ask the user if he is sure he wants to end the test, or he wants to continue
+                if (isUserDoNotGetFeedBack)
+                {
+                    // check if the user is sure to leave the test
+                    DialogResult result = MessageBox.Show("?האם אתה בטוח שאתה רוצה לסיים את התרגול",
+                                              "Confirmation",
+                                              MessageBoxButtons.YesNo,
+                                              MessageBoxIcon.Question);
+                    if (result == DialogResult.No) // the user isn't sure
+                        return;
+                }
+
+
+                if (sender == null)
+                {
+                    //if this is not a real click and just we want to move on but its the end
+                    this.continueToQuestionButton.Text = "סיכום";
+                    this.continueToQuestionButton.Visible = true;
+                    this.continueToQuestionButton.BackColor = Color.Yellow;
+                    return;
+                }
+                disposedWebViews();
+                var s = new summrizePage(this.m_afterQuestionParametrs);
+                s.Show();
+                this.Close();
+                return;
+            }
+
+            m_questionCounter++;
+
 
             if (!isUserDoNotGetFeedBack)
             {
@@ -728,36 +767,16 @@ namespace clientForQuestions2._0
 
                 timeElapsed = secondsTookForCurrq; // save the time when the user left the curr q and enter a new one
             }
+
             this.updateLabelAnswers();
 
             if (isUserDoNotGetFeedBack)
             {
                 this.m_indexOfCurrQuestion++;
-            }
-
-            //if questions end, check if all q are answered
-            if ((m_indexOfCurrQuestion == this.m_questionDetails.Count && !isUserDoNotGetFeedBack) || (m_buttonList.Any() && m_buttonList.All(b => b.BackColor == Color.Yellow && isUserDoNotGetFeedBack)))
-            {
-                if (sender == null)
-                {
-                    //if this is not a real click and just we want to move on but its the end
-                    this.continueToQuestionButton.Text = "סיכום";
-                    this.continueToQuestionButton.Visible = true;
-                    this.continueToQuestionButton.BackColor = Color.Yellow;
-                    return;
-                }
-                disposedWebViews();
-                var s = new summrizePage(this.m_afterQuestionParametrs);
-                s.Show();
-                this.Close();
-                return;
-            }
-
-            if (isUserDoNotGetFeedBack)
-            {
                 swichQuestionButton_Click(m_indexOfCurrQuestion);
                 return;
             }
+
             if (webView21.CoreWebView2 != null)
             {
                 OnCoreWebView21InitializationCompleted(sender, e);
