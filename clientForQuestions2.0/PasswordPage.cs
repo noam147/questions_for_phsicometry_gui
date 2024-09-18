@@ -13,6 +13,7 @@ namespace clientForQuestions2._0
         public PasswordPage()
         {
             InitializeComponent();
+            LogFileHandler.writeIntoFile("logged on");
             filePath = Environment.CurrentDirectory + "/" + filename;
             macLabel.MouseDown += (sender, e) =>
             {
@@ -22,7 +23,8 @@ namespace clientForQuestions2._0
                     MessageBox.Show("Text copied to clipboard!");
                 }
             };
-           
+            this.KeyPreview = true; // Set KeyPreview to true to capture key presses
+            this.KeyDown += new KeyEventHandler(Form1_KeyDown);
 
             macAdd = OperationsAndOtherUseful.getMacAdd();
             this.macLabel.Text = macAdd;
@@ -32,7 +34,17 @@ namespace clientForQuestions2._0
             this.hintPassLabel.Text = "hint for password: (click on the text that looks like gibrish to copy it)";
         }
 
-
+        private void Form1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                // Your code here when Enter is pressed
+                continueButton_Click(null, null);
+                // Optionally, prevent the 'ding' sound on Enter key press
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+            }
+        }
 
         private void continueButton_Click(object sender, EventArgs e)
         {

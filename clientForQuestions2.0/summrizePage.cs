@@ -436,12 +436,14 @@ namespace clientForQuestions2._0
   
         private void Button_Click(object sender, EventArgs e)
         {
+            //previous button clicked:
             m_buttonList[this.indexQuestion].BackColor = m_buttonList[this.indexQuestion].ForeColor; // change the last clicked button back to normal
             m_buttonList[this.indexQuestion].ForeColor = System.Drawing.Color.Black; // change the last clicked button back to normal
-
+            //update to next button:
             this.indexQuestion = (int.Parse(((Button)sender).Text)-1);
             Button_Click();
         }
+
 
         private void Button_Click()
         {

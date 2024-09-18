@@ -121,6 +121,7 @@
     <Compile Include="RJButtons2.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="SettingsFileHandler.cs" />
     <Compile Include="sqlDb.cs" />
     <Compile Include="summrizePage.cs">
       <SubType>Form</SubType>

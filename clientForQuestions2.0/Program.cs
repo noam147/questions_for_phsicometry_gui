@@ -15,6 +15,8 @@ namespace clientForQuestions2._0
         static void Main()
         {
             LogFileHandler.openFile();
+            SettingsFileHandler.openFile();
+            //SettingsFileHandler.writeSettingsIntoFile(new Settings { seconds = 30,amount = 7,maxLevel = 10,minLevel = 4,minuets = 10,withoutFeedback=0 });
             //LogFileHandler.ClearFileContent();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

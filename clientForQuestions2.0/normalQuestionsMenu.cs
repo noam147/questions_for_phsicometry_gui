@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
 using System.Windows.Forms;
 
 namespace clientForQuestions2._0
@@ -74,10 +75,10 @@ namespace clientForQuestions2._0
             InitializeComponent();
             updatebuttons();
             unVisibleDifficulyLevelItems();
-            LogFileHandler.writeIntoFile("logged on");
-            //this.WindowState = FormWindowState.Maximized;
+            
+            this.WindowState = FormWindowState.Maximized;
             //this.FormBorderStyle = FormBorderStyle.None;
-            //this.StartPosition = FormStartPosition.CenterScreen;
+            this.StartPosition = FormStartPosition.CenterScreen;
 
             this.amountOfQuestionNumericUpDown.Value = 5;
             this.continueButton.Enabled = false;
@@ -89,8 +90,58 @@ namespace clientForQuestions2._0
             this.difficulyLevelMinVal.Minimum = OperationsAndOtherUseful.MIN_LEVEL;
             this.difficulyLevelMaxVal.Maximum = OperationsAndOtherUseful.MAX_LEVEL;
             this.difficulyLevelMaxVal.Minimum = OperationsAndOtherUseful.MIN_LEVEL;
+            initByPreviousSettingsOfUser();
         }
+        private void initByPreviousSettingsOfUser()
+        {
+            Settings settings = SettingsFileHandler.getSettingsFromFile();
+            if(settings.isExsist == SettingsFileHandler.NOT_EXSIST)
+            {
+                return;
+            }
+            if(settings.minLevel != SettingsFileHandler.WITHOUT_SETTING)
+            {
+                this.dificultLevelcheckBox.Checked = true;
+                this.difficulyLevelMinVal.Value = settings.minLevel;
+            }
+            if (settings.maxLevel != SettingsFileHandler.WITHOUT_SETTING)
+            {
+                this.dificultLevelcheckBox.Checked = true;
+                this.difficulyLevelMaxVal.Value = settings.maxLevel;
+            }
+            if (settings.amount != SettingsFileHandler.WITHOUT_SETTING)
+            {
+                this.amountOfQuestionNumericUpDown.Value = settings.amount;
+            }
+            if (settings.minuets != SettingsFileHandler.WITHOUT_SETTING)
+            {
+                this.timePerQPicker.Value = new DateTime(2000, 1, 1, 0, settings.minuets, 0);
+                if (settings.seconds != SettingsFileHandler.WITHOUT_SETTING)
+                {
+                    this.timePerQPicker.Value = new DateTime(2000, 1, 1, 0, settings.minuets, settings.seconds);
+                }
+            }
+            else
+            {
+                this.timePerQCheckbox.Checked = false;
+            }
+            if (settings.withoutFeedback == 0)
+            {
+                this.skipFeedBackCheckBox.Checked = false;
+            }
+            if (settings.withoutFeedback == 1)
+            {
 
+                this.skipFeedBackCheckBox.Checked = true;
+            }
+            //iterate on settings as a dict:
+            foreach (FieldInfo field in typeof(Settings).GetFields())
+            {
+                string name = field.Name;
+                object value = field.GetValue(settings);
+            }
+
+        }
         private void back2MainMenuButton_Click(object sender, EventArgs e)
         {
             menuPage c = new menuPage();
@@ -171,6 +222,44 @@ namespace clientForQuestions2._0
             }
         }
 
+        private void updateSettingsForNextMenu()
+        {
+            
+            int amount1 = (int)this.amountOfQuestionNumericUpDown.Value;
+            int maxLevel;
+            int minLevel;
+            if(this.dificultLevelcheckBox.Checked)
+            {
+                maxLevel = (int)this.difficulyLevelMaxVal.Value;
+                minLevel = (int)this.difficulyLevelMinVal.Value;
+            }
+            else
+            {
+                maxLevel = SettingsFileHandler.WITHOUT_SETTING;
+                minLevel = SettingsFileHandler.WITHOUT_SETTING;
+            }
+            int seconds;
+            int minutes;
+            if(this.timePerQCheckbox.Checked)
+            {
+                minutes = this.timePerQPicker.Value.Minute;
+                seconds = (int)this.timePerQPicker.Value.Second;
+            }
+            else
+            {
+                seconds = SettingsFileHandler.WITHOUT_SETTING;
+                minutes = SettingsFileHandler.WITHOUT_SETTING;
+            }
+            int withoutFeedBack;
+            if(this.skipFeedBackCheckBox.Checked)
+            {
+                withoutFeedBack = 1;
+            }
+            else
+            { withoutFeedBack = 0; }
+            Settings settings = new Settings{amount = amount1,seconds=seconds,minuets=minutes,withoutFeedback=withoutFeedBack,maxLevel=maxLevel,minLevel=minLevel,isExsist=1};
+            SettingsFileHandler.writeSettingsIntoFile(settings);
+        }
         private void continueButton_Click(object sender, EventArgs e)
         {
             int amount = 0;
@@ -195,7 +284,7 @@ namespace clientForQuestions2._0
                 c = new questionsPage(amount, this.topicsList, this.skipFeedBackCheckBox.Checked, timePerQPicker.Value.Minute*60 + timePerQPicker.Value.Second,difficultyLevels); // CHANGE!!!!!42
             else
                 c = new questionsPage(amount, this.topicsList, this.skipFeedBackCheckBox.Checked, 0,difficultyLevels); // CHANGE!!!!!42
-
+            updateSettingsForNextMenu();
             c.Show();
             this.Close();
         }
