@@ -23,7 +23,7 @@ namespace clientForQuestions2._0
         private int height_screen;
 
         private int col_id = 0;
-        private int indexQuestion = 0;
+        private int indexQuestion = -1;
 
         private int m_currentIndexOfFirstButton = 0;
 
@@ -33,6 +33,7 @@ namespace clientForQuestions2._0
             orgnizeQuestions();
             InitializeComponent();
 
+            // full screen
             this.WindowState = FormWindowState.Maximized;
             //this.FormBorderStyle = FormBorderStyle.None;
             this.StartPosition = FormStartPosition.CenterScreen;
@@ -111,6 +112,36 @@ namespace clientForQuestions2._0
 
         }
 
+        // to detect arrow keys preesed
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            switch (keyData)
+            {
+                case Keys.Left:
+                    LogFileHandler.writeIntoFile($"clicked left in summarize, trying to enter q no. {this.indexQuestion} from q no. {this.indexQuestion + 1}");
+                    if (this.indexQuestion > 0 && this.indexQuestion < this.m_questions.Count)
+                    {
+                        if ((this.indexQuestion + 1) % 10 == 1)
+                            displayButtons(this.indexQuestion - 10, this.indexQuestion);
+
+                        Button_Click(this.indexQuestion - 1);
+                    }
+                    return true;
+                case Keys.Right:
+                    LogFileHandler.writeIntoFile($"clicked right in summarize, trying to enter q no. {this.indexQuestion + 2} from q no. {this.indexQuestion + 1}");
+                    if (this.indexQuestion >= 0 && this.indexQuestion < this.m_questions.Count - 1)
+                    {
+                        if ((this.indexQuestion + 1) % 10 == 0)
+                            displayButtons(this.indexQuestion + 1, this.indexQuestion + 11);
+
+                        Button_Click(this.indexQuestion + 1);
+                    }
+                    return true;
+            }
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+
         //private void Form_Resize(object sender, EventArgs e)
         //{
         //    return;
@@ -128,7 +159,7 @@ namespace clientForQuestions2._0
         //        Location = new Point((int)this.ClientSize.Width / 2, h_questionsPlace + h_statsPlace); // Adjust Y coordinate to leave space for buttons
 
         //        webView2_col.Size = new Size((int)this.ClientSize.Width / 2, this.ClientSize.Height - h_questionsPlace); // Adjust height based on form size
-            
+
         //    }
         //    this.button1.Location = new Point(this.ClientSize.Width - button1.Width - 40, 20);
         //}
@@ -238,7 +269,7 @@ namespace clientForQuestions2._0
                             webView21.SendToBack(); // Ensure WebView2 is on back of other controls
                             if (this.m_buttonList.Count != 0)
                             {
-                                Button_Click(); // First index after init
+                                Button_Click(0); // First index after init
                             }
                             enableButtons();
                         }
@@ -404,6 +435,8 @@ namespace clientForQuestions2._0
         }
         private void displayButtons(int startIndex, int endIndex)
         {
+            if (startIndex < 0)
+                return;
             m_currentIndexOfFirstButton = startIndex;
             unvisibleButtonsFromButtonList();
 
@@ -436,6 +469,7 @@ namespace clientForQuestions2._0
   
         private void Button_Click(object sender, EventArgs e)
         {
+/*<<<<<<< HEAD
             //previous button clicked:
             m_buttonList[this.indexQuestion].BackColor = m_buttonList[this.indexQuestion].ForeColor; // change the last clicked button back to normal
             m_buttonList[this.indexQuestion].ForeColor = System.Drawing.Color.Black; // change the last clicked button back to normal
@@ -446,7 +480,24 @@ namespace clientForQuestions2._0
 
 
         private void Button_Click()
+=======*/
+            Button_Click((int.Parse(((Button)sender).Text)-1));
+        }
+
+        private void Button_Click(int iQ)
+//>>>>>>> 417be51f8b0ed105be95d0ddf17446bb40720811
         {
+            if (iQ < 0 || iQ >= this.m_questions.Count)
+                return;
+
+            if (this.indexQuestion >= 0 && this.indexQuestion < this.m_questions.Count)
+            {
+                m_buttonList[this.indexQuestion].BackColor = m_buttonList[this.indexQuestion].ForeColor; // change the last clicked button back to normal
+                m_buttonList[this.indexQuestion].ForeColor = System.Drawing.Color.Black; // change the last clicked button back to normal
+            }
+
+            this.indexQuestion = iQ;
+
             m_buttonList[this.indexQuestion].ForeColor = m_buttonList[this.indexQuestion].BackColor; // change ForeColor to green/red 
             m_buttonList[this.indexQuestion].BackColor = System.Drawing.Color.Cyan; // change BackColor to cyan to highlight the current question
 
@@ -507,8 +558,7 @@ namespace clientForQuestions2._0
                 if (m_currentIndexOfFirstButton == i)
                 {
                     displayButtons(i + 10, i + 20);
-                    this.indexQuestion = i + 10;
-                    Button_Click();
+                    Button_Click(i + 10);
                     return;
                 }
             }
@@ -523,8 +573,7 @@ namespace clientForQuestions2._0
                 if (m_currentIndexOfFirstButton == i)
                 {
                     displayButtons(i - 10, i);
-                    this.indexQuestion = i - 10;
-                    Button_Click();
+                    Button_Click(i - 10);
                     return;
                 }
             }
