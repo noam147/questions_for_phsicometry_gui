@@ -105,30 +105,59 @@ namespace clientForQuestions2._0
                 col_qs.Add(sqlDb.get_question_based_on_id(col_qID));
             }
 
-            List<dbQuestionParmeters> normal_qs = sqlDb.get_n_questions_from_arr_of_categorys(20 - col_qs.Count, topics); // qs of normal qs
+            //List<dbQuestionParmeters> normal_qs = sqlDb.get_n_questions_from_arr_of_categorys(20 - col_qs.Count, topics); // qs of normal qs
 
             // sort by "difficulty_level", from easiest to hardest
-            normal_qs.Sort((x, y) => ((float)x.json_content["difficulty_level"]).CompareTo((float)y.json_content["difficulty_level"]));
+          //normal_qs.Sort((x, y) => ((float)x.json_content["difficulty_level"]).CompareTo((float)y.json_content["difficulty_level"]));
             // difficulty_level of the tarshim to determine if it would be at the start, middle or end. 
             float col_diffLvl = (float) col_qs[0].json_content["collections"][0]["difficulty_level"];
 
             List<dbQuestionParmeters> questions = new List<dbQuestionParmeters>();
 
             // add to start
-            if (col_diffLvl >= 0 && col_diffLvl <= 4)
+            if (col_diffLvl >= 0 && col_diffLvl <= 4.5)
             {
+                questionsDifficultyLevel difflvl = new questionsDifficultyLevel();
+                difflvl.minlevel = 4.5m;
+                difflvl.maxLevel = 10.0m;
+
+                List<dbQuestionParmeters> normal_qs = sqlDb.get_n_questions_from_arr_of_categorysWithDiffcultyLevel(20 - col_qs.Count, topics, difflvl);
+                normal_qs.Sort((x, y) => ((float)x.json_content["difficulty_level"]).CompareTo((float)y.json_content["difficulty_level"]));
+                
                 col_qs.AddRange(normal_qs);
                 questions = col_qs;
             }
             // add to middle
-            if (col_diffLvl > 4 && col_diffLvl <= 7)
+            if (col_diffLvl > 4.5 && col_diffLvl <= 6.5)
             {
-                normal_qs.InsertRange(8, col_qs); //after the 8th element
-                questions = normal_qs;
+                questionsDifficultyLevel difflvl = new questionsDifficultyLevel();
+                difflvl.minlevel = 0.0m;
+                difflvl.maxLevel = 4.5m;
+
+                List<dbQuestionParmeters> normal_qs = sqlDb.get_n_questions_from_arr_of_categorysWithDiffcultyLevel(8, topics, difflvl);
+                normal_qs.Sort((x, y) => ((float)x.json_content["difficulty_level"]).CompareTo((float)y.json_content["difficulty_level"]));
+
+                questions.AddRange(normal_qs);
+                questions.AddRange(col_qs); //after the 8th element
+
+                difflvl.minlevel = 6.5m;
+                difflvl.maxLevel = 10.0m;
+
+                normal_qs = sqlDb.get_n_questions_from_arr_of_categorysWithDiffcultyLevel(12 - col_qs.Count, topics, difflvl);
+                normal_qs.Sort((x, y) => ((float)x.json_content["difficulty_level"]).CompareTo((float)y.json_content["difficulty_level"]));
+
+                questions.AddRange(normal_qs);
             }
             // add to end
-            if (col_diffLvl > 7 && col_diffLvl <= 10)
+            if (col_diffLvl > 6.5 && col_diffLvl <= 10)
             {
+                questionsDifficultyLevel difflvl = new questionsDifficultyLevel();
+                difflvl.minlevel = 0.0m;
+                difflvl.maxLevel = 7.0m;
+
+                List<dbQuestionParmeters> normal_qs = sqlDb.get_n_questions_from_arr_of_categorysWithDiffcultyLevel(20 - col_qs.Count, topics, difflvl);
+                normal_qs.Sort((x, y) => ((float)x.json_content["difficulty_level"]).CompareTo((float)y.json_content["difficulty_level"]));
+
                 normal_qs.AddRange(col_qs);
                 questions = normal_qs;
             }
