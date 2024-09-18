@@ -94,6 +94,7 @@ namespace clientForQuestions2._0
             this.timePerQPicker = new System.Windows.Forms.DateTimePicker();
             this.timePerQCheckbox = new System.Windows.Forms.CheckBox();
             this.titleOfPage = new System.Windows.Forms.Label();
+            this.resetButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.amountOfQuestionNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.difficulyLevelMaxVal)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.difficulyLevelMinVal)).BeginInit();
@@ -101,10 +102,10 @@ namespace clientForQuestions2._0
             // 
             // back2MainMenuButton
             // 
-            this.back2MainMenuButton.Location = new System.Drawing.Point(14, 14);
+            this.back2MainMenuButton.Location = new System.Drawing.Point(12, 11);
             this.back2MainMenuButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.back2MainMenuButton.Name = "back2MainMenuButton";
-            this.back2MainMenuButton.Size = new System.Drawing.Size(141, 66);
+            this.back2MainMenuButton.Size = new System.Drawing.Size(125, 53);
             this.back2MainMenuButton.TabIndex = 8;
             this.back2MainMenuButton.Text = "חזרה לתפריט הראשי";
             this.back2MainMenuButton.UseVisualStyleBackColor = true;
@@ -114,18 +115,18 @@ namespace clientForQuestions2._0
             // 
             this.amountOfQuestionText.AutoSize = true;
             this.amountOfQuestionText.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold);
-            this.amountOfQuestionText.Location = new System.Drawing.Point(79, 511);
+            this.amountOfQuestionText.Location = new System.Drawing.Point(70, 409);
             this.amountOfQuestionText.Name = "amountOfQuestionText";
-            this.amountOfQuestionText.Size = new System.Drawing.Size(109, 20);
+            this.amountOfQuestionText.Size = new System.Drawing.Size(93, 16);
             this.amountOfQuestionText.TabIndex = 12;
             this.amountOfQuestionText.Text = ":מספר שאלות";
             // 
             // continueButton
             // 
-            this.continueButton.Location = new System.Drawing.Point(43, 702);
+            this.continueButton.Location = new System.Drawing.Point(38, 562);
             this.continueButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.continueButton.Name = "continueButton";
-            this.continueButton.Size = new System.Drawing.Size(141, 112);
+            this.continueButton.Size = new System.Drawing.Size(125, 90);
             this.continueButton.TabIndex = 8;
             this.continueButton.Text = "התחלת תרגול";
             this.continueButton.UseVisualStyleBackColor = true;
@@ -134,10 +135,10 @@ namespace clientForQuestions2._0
             // themeBase2
             // 
             this.themeBase2.AutoSize = true;
-            this.themeBase2.Location = new System.Drawing.Point(249, 124);
+            this.themeBase2.Location = new System.Drawing.Point(221, 99);
             this.themeBase2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.themeBase2.Name = "themeBase2";
-            this.themeBase2.Size = new System.Drawing.Size(115, 38);
+            this.themeBase2.Size = new System.Drawing.Size(102, 30);
             this.themeBase2.TabIndex = 10;
             this.themeBase2.Text = "אותיות וספרות";
             this.themeBase2.UseVisualStyleBackColor = true;
@@ -146,10 +147,10 @@ namespace clientForQuestions2._0
             // themeBase3
             // 
             this.themeBase3.AutoSize = true;
-            this.themeBase3.Location = new System.Drawing.Point(249, 162);
+            this.themeBase3.Location = new System.Drawing.Point(221, 130);
             this.themeBase3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.themeBase3.Name = "themeBase3";
-            this.themeBase3.Size = new System.Drawing.Size(129, 42);
+            this.themeBase3.Size = new System.Drawing.Size(115, 34);
             this.themeBase3.TabIndex = 10;
             this.themeBase3.Text = "פעולות מומצאות";
             this.themeBase3.UseVisualStyleBackColor = true;
@@ -158,10 +159,10 @@ namespace clientForQuestions2._0
             // themeBase4
             // 
             this.themeBase4.AutoSize = true;
-            this.themeBase4.Location = new System.Drawing.Point(249, 205);
+            this.themeBase4.Location = new System.Drawing.Point(221, 164);
             this.themeBase4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.themeBase4.Name = "themeBase4";
-            this.themeBase4.Size = new System.Drawing.Size(112, 38);
+            this.themeBase4.Size = new System.Drawing.Size(100, 30);
             this.themeBase4.TabIndex = 10;
             this.themeBase4.Text = "הצבה";
             this.themeBase4.UseVisualStyleBackColor = true;
@@ -170,10 +171,10 @@ namespace clientForQuestions2._0
             // themeBase5
             // 
             this.themeBase5.AutoSize = true;
-            this.themeBase5.Location = new System.Drawing.Point(268, 308);
+            this.themeBase5.Location = new System.Drawing.Point(238, 246);
             this.themeBase5.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.themeBase5.Name = "themeBase5";
-            this.themeBase5.Size = new System.Drawing.Size(112, 38);
+            this.themeBase5.Size = new System.Drawing.Size(100, 30);
             this.themeBase5.TabIndex = 10;
             this.themeBase5.Text = "דמיון צורות";
             this.themeBase5.UseVisualStyleBackColor = true;
@@ -182,10 +183,10 @@ namespace clientForQuestions2._0
             // themeBase6
             // 
             this.themeBase6.AutoSize = true;
-            this.themeBase6.Location = new System.Drawing.Point(268, 345);
+            this.themeBase6.Location = new System.Drawing.Point(238, 276);
             this.themeBase6.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.themeBase6.Name = "themeBase6";
-            this.themeBase6.Size = new System.Drawing.Size(112, 38);
+            this.themeBase6.Size = new System.Drawing.Size(100, 30);
             this.themeBase6.TabIndex = 10;
             this.themeBase6.Text = "אנליטית";
             this.themeBase6.UseVisualStyleBackColor = true;
@@ -194,10 +195,10 @@ namespace clientForQuestions2._0
             // themeBase7
             // 
             this.themeBase7.AutoSize = true;
-            this.themeBase7.Location = new System.Drawing.Point(268, 382);
+            this.themeBase7.Location = new System.Drawing.Point(238, 306);
             this.themeBase7.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.themeBase7.Name = "themeBase7";
-            this.themeBase7.Size = new System.Drawing.Size(112, 38);
+            this.themeBase7.Size = new System.Drawing.Size(100, 30);
             this.themeBase7.TabIndex = 10;
             this.themeBase7.Text = "תלת-ממד";
             this.themeBase7.UseVisualStyleBackColor = true;
@@ -206,10 +207,10 @@ namespace clientForQuestions2._0
             // themeBase8
             // 
             this.themeBase8.AutoSize = true;
-            this.themeBase8.Location = new System.Drawing.Point(268, 420);
+            this.themeBase8.Location = new System.Drawing.Point(238, 336);
             this.themeBase8.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.themeBase8.Name = "themeBase8";
-            this.themeBase8.Size = new System.Drawing.Size(112, 38);
+            this.themeBase8.Size = new System.Drawing.Size(100, 30);
             this.themeBase8.TabIndex = 10;
             this.themeBase8.Text = "פיתגורס";
             this.themeBase8.UseVisualStyleBackColor = true;
@@ -218,10 +219,10 @@ namespace clientForQuestions2._0
             // themeBase9
             // 
             this.themeBase9.AutoSize = true;
-            this.themeBase9.Location = new System.Drawing.Point(268, 458);
+            this.themeBase9.Location = new System.Drawing.Point(238, 366);
             this.themeBase9.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.themeBase9.Name = "themeBase9";
-            this.themeBase9.Size = new System.Drawing.Size(112, 38);
+            this.themeBase9.Size = new System.Drawing.Size(100, 30);
             this.themeBase9.TabIndex = 10;
             this.themeBase9.Text = "שטחים";
             this.themeBase9.UseVisualStyleBackColor = true;
@@ -230,10 +231,10 @@ namespace clientForQuestions2._0
             // themeBase10
             // 
             this.themeBase10.AutoSize = true;
-            this.themeBase10.Location = new System.Drawing.Point(268, 495);
+            this.themeBase10.Location = new System.Drawing.Point(238, 396);
             this.themeBase10.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.themeBase10.Name = "themeBase10";
-            this.themeBase10.Size = new System.Drawing.Size(112, 38);
+            this.themeBase10.Size = new System.Drawing.Size(100, 30);
             this.themeBase10.TabIndex = 10;
             this.themeBase10.Text = "קווים וזוויות";
             this.themeBase10.UseVisualStyleBackColor = true;
@@ -242,10 +243,10 @@ namespace clientForQuestions2._0
             // themeBase11
             // 
             this.themeBase11.AutoSize = true;
-            this.themeBase11.Location = new System.Drawing.Point(286, 589);
+            this.themeBase11.Location = new System.Drawing.Point(254, 471);
             this.themeBase11.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.themeBase11.Name = "themeBase11";
-            this.themeBase11.Size = new System.Drawing.Size(112, 38);
+            this.themeBase11.Size = new System.Drawing.Size(100, 30);
             this.themeBase11.TabIndex = 10;
             this.themeBase11.Text = "מצולעים";
             this.themeBase11.UseVisualStyleBackColor = true;
@@ -254,10 +255,10 @@ namespace clientForQuestions2._0
             // themeBase12
             // 
             this.themeBase12.AutoSize = true;
-            this.themeBase12.Location = new System.Drawing.Point(286, 626);
+            this.themeBase12.Location = new System.Drawing.Point(254, 501);
             this.themeBase12.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.themeBase12.Name = "themeBase12";
-            this.themeBase12.Size = new System.Drawing.Size(112, 38);
+            this.themeBase12.Size = new System.Drawing.Size(100, 30);
             this.themeBase12.TabIndex = 10;
             this.themeBase12.Text = "מרובעים";
             this.themeBase12.UseVisualStyleBackColor = true;
@@ -266,10 +267,10 @@ namespace clientForQuestions2._0
             // themeBase13
             // 
             this.themeBase13.AutoSize = true;
-            this.themeBase13.Location = new System.Drawing.Point(286, 662);
+            this.themeBase13.Location = new System.Drawing.Point(254, 530);
             this.themeBase13.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.themeBase13.Name = "themeBase13";
-            this.themeBase13.Size = new System.Drawing.Size(112, 38);
+            this.themeBase13.Size = new System.Drawing.Size(100, 30);
             this.themeBase13.TabIndex = 10;
             this.themeBase13.Text = "מעגלים";
             this.themeBase13.UseVisualStyleBackColor = true;
@@ -278,10 +279,10 @@ namespace clientForQuestions2._0
             // themeBase14
             // 
             this.themeBase14.AutoSize = true;
-            this.themeBase14.Location = new System.Drawing.Point(286, 700);
+            this.themeBase14.Location = new System.Drawing.Point(254, 560);
             this.themeBase14.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.themeBase14.Name = "themeBase14";
-            this.themeBase14.Size = new System.Drawing.Size(112, 38);
+            this.themeBase14.Size = new System.Drawing.Size(100, 30);
             this.themeBase14.TabIndex = 10;
             this.themeBase14.Text = "משולשים";
             this.themeBase14.UseVisualStyleBackColor = true;
@@ -290,10 +291,10 @@ namespace clientForQuestions2._0
             // themeBase15
             // 
             this.themeBase15.AutoSize = true;
-            this.themeBase15.Location = new System.Drawing.Point(431, 171);
+            this.themeBase15.Location = new System.Drawing.Point(383, 137);
             this.themeBase15.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.themeBase15.Name = "themeBase15";
-            this.themeBase15.Size = new System.Drawing.Size(112, 38);
+            this.themeBase15.Size = new System.Drawing.Size(100, 30);
             this.themeBase15.TabIndex = 10;
             this.themeBase15.Text = "צירופים";
             this.themeBase15.UseVisualStyleBackColor = true;
@@ -302,10 +303,10 @@ namespace clientForQuestions2._0
             // themeBase16
             // 
             this.themeBase16.AutoSize = true;
-            this.themeBase16.Location = new System.Drawing.Point(431, 209);
+            this.themeBase16.Location = new System.Drawing.Point(383, 167);
             this.themeBase16.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.themeBase16.Name = "themeBase16";
-            this.themeBase16.Size = new System.Drawing.Size(112, 38);
+            this.themeBase16.Size = new System.Drawing.Size(100, 30);
             this.themeBase16.TabIndex = 10;
             this.themeBase16.Text = "הסתברות";
             this.themeBase16.UseVisualStyleBackColor = true;
@@ -314,10 +315,10 @@ namespace clientForQuestions2._0
             // themeBase17
             // 
             this.themeBase17.AutoSize = true;
-            this.themeBase17.Location = new System.Drawing.Point(431, 246);
+            this.themeBase17.Location = new System.Drawing.Point(383, 197);
             this.themeBase17.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.themeBase17.Name = "themeBase17";
-            this.themeBase17.Size = new System.Drawing.Size(112, 38);
+            this.themeBase17.Size = new System.Drawing.Size(100, 30);
             this.themeBase17.TabIndex = 10;
             this.themeBase17.Text = "חלוקה";
             this.themeBase17.UseVisualStyleBackColor = true;
@@ -326,10 +327,10 @@ namespace clientForQuestions2._0
             // themeBase18
             // 
             this.themeBase18.AutoSize = true;
-            this.themeBase18.Location = new System.Drawing.Point(431, 284);
+            this.themeBase18.Location = new System.Drawing.Point(383, 227);
             this.themeBase18.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.themeBase18.Name = "themeBase18";
-            this.themeBase18.Size = new System.Drawing.Size(112, 38);
+            this.themeBase18.Size = new System.Drawing.Size(100, 30);
             this.themeBase18.TabIndex = 10;
             this.themeBase18.Text = "תנועה";
             this.themeBase18.UseVisualStyleBackColor = true;
@@ -338,10 +339,10 @@ namespace clientForQuestions2._0
             // themeBase19
             // 
             this.themeBase19.AutoSize = true;
-            this.themeBase19.Location = new System.Drawing.Point(431, 321);
+            this.themeBase19.Location = new System.Drawing.Point(383, 257);
             this.themeBase19.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.themeBase19.Name = "themeBase19";
-            this.themeBase19.Size = new System.Drawing.Size(112, 38);
+            this.themeBase19.Size = new System.Drawing.Size(100, 30);
             this.themeBase19.TabIndex = 10;
             this.themeBase19.Text = "הספק";
             this.themeBase19.UseVisualStyleBackColor = true;
@@ -350,10 +351,10 @@ namespace clientForQuestions2._0
             // themeBase20
             // 
             this.themeBase20.AutoSize = true;
-            this.themeBase20.Location = new System.Drawing.Point(431, 359);
+            this.themeBase20.Location = new System.Drawing.Point(383, 287);
             this.themeBase20.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.themeBase20.Name = "themeBase20";
-            this.themeBase20.Size = new System.Drawing.Size(112, 38);
+            this.themeBase20.Size = new System.Drawing.Size(100, 30);
             this.themeBase20.TabIndex = 10;
             this.themeBase20.Text = "ממוצע";
             this.themeBase20.UseVisualStyleBackColor = true;
@@ -362,10 +363,10 @@ namespace clientForQuestions2._0
             // themeBase21
             // 
             this.themeBase21.AutoSize = true;
-            this.themeBase21.Location = new System.Drawing.Point(431, 396);
+            this.themeBase21.Location = new System.Drawing.Point(383, 317);
             this.themeBase21.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.themeBase21.Name = "themeBase21";
-            this.themeBase21.Size = new System.Drawing.Size(112, 38);
+            this.themeBase21.Size = new System.Drawing.Size(100, 30);
             this.themeBase21.TabIndex = 10;
             this.themeBase21.Text = "כלליות 1";
             this.themeBase21.UseVisualStyleBackColor = true;
@@ -374,10 +375,10 @@ namespace clientForQuestions2._0
             // themeBase22
             // 
             this.themeBase22.AutoSize = true;
-            this.themeBase22.Location = new System.Drawing.Point(431, 434);
+            this.themeBase22.Location = new System.Drawing.Point(383, 347);
             this.themeBase22.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.themeBase22.Name = "themeBase22";
-            this.themeBase22.Size = new System.Drawing.Size(112, 38);
+            this.themeBase22.Size = new System.Drawing.Size(100, 30);
             this.themeBase22.TabIndex = 10;
             this.themeBase22.Text = "כלליות 2";
             this.themeBase22.UseVisualStyleBackColor = true;
@@ -386,10 +387,10 @@ namespace clientForQuestions2._0
             // themeBase23
             // 
             this.themeBase23.AutoSize = true;
-            this.themeBase23.Location = new System.Drawing.Point(431, 471);
+            this.themeBase23.Location = new System.Drawing.Point(383, 377);
             this.themeBase23.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.themeBase23.Name = "themeBase23";
-            this.themeBase23.Size = new System.Drawing.Size(112, 38);
+            this.themeBase23.Size = new System.Drawing.Size(100, 30);
             this.themeBase23.TabIndex = 10;
             this.themeBase23.Text = "אחוזים";
             this.themeBase23.UseVisualStyleBackColor = true;
@@ -398,10 +399,10 @@ namespace clientForQuestions2._0
             // themeBase24
             // 
             this.themeBase24.AutoSize = true;
-            this.themeBase24.Location = new System.Drawing.Point(431, 509);
+            this.themeBase24.Location = new System.Drawing.Point(383, 407);
             this.themeBase24.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.themeBase24.Name = "themeBase24";
-            this.themeBase24.Size = new System.Drawing.Size(112, 38);
+            this.themeBase24.Size = new System.Drawing.Size(100, 30);
             this.themeBase24.TabIndex = 10;
             this.themeBase24.Text = "יחס";
             this.themeBase24.UseVisualStyleBackColor = true;
@@ -410,10 +411,10 @@ namespace clientForQuestions2._0
             // themeBase26
             // 
             this.themeBase26.AutoSize = true;
-            this.themeBase26.Location = new System.Drawing.Point(431, 614);
+            this.themeBase26.Location = new System.Drawing.Point(383, 491);
             this.themeBase26.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.themeBase26.Name = "themeBase26";
-            this.themeBase26.Size = new System.Drawing.Size(138, 51);
+            this.themeBase26.Size = new System.Drawing.Size(123, 41);
             this.themeBase26.TabIndex = 10;
             this.themeBase26.Text = "התנהגות אלגברית";
             this.themeBase26.UseVisualStyleBackColor = true;
@@ -422,10 +423,10 @@ namespace clientForQuestions2._0
             // themeBase27
             // 
             this.themeBase27.AutoSize = true;
-            this.themeBase27.Location = new System.Drawing.Point(431, 665);
+            this.themeBase27.Location = new System.Drawing.Point(383, 532);
             this.themeBase27.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.themeBase27.Name = "themeBase27";
-            this.themeBase27.Size = new System.Drawing.Size(181, 51);
+            this.themeBase27.Size = new System.Drawing.Size(161, 41);
             this.themeBase27.TabIndex = 10;
             this.themeBase27.Text = "חיובי שלילי וערך מוחלט";
             this.themeBase27.UseVisualStyleBackColor = true;
@@ -434,10 +435,10 @@ namespace clientForQuestions2._0
             // themeBase28
             // 
             this.themeBase28.AutoSize = true;
-            this.themeBase28.Location = new System.Drawing.Point(431, 716);
+            this.themeBase28.Location = new System.Drawing.Point(383, 573);
             this.themeBase28.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.themeBase28.Name = "themeBase28";
-            this.themeBase28.Size = new System.Drawing.Size(112, 38);
+            this.themeBase28.Size = new System.Drawing.Size(100, 30);
             this.themeBase28.TabIndex = 10;
             this.themeBase28.Text = "שלמים";
             this.themeBase28.UseVisualStyleBackColor = true;
@@ -446,10 +447,10 @@ namespace clientForQuestions2._0
             // themeBase29
             // 
             this.themeBase29.AutoSize = true;
-            this.themeBase29.Location = new System.Drawing.Point(598, 171);
+            this.themeBase29.Location = new System.Drawing.Point(532, 137);
             this.themeBase29.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.themeBase29.Name = "themeBase29";
-            this.themeBase29.Size = new System.Drawing.Size(112, 38);
+            this.themeBase29.Size = new System.Drawing.Size(100, 30);
             this.themeBase29.TabIndex = 10;
             this.themeBase29.Text = "משוואות";
             this.themeBase29.UseVisualStyleBackColor = true;
@@ -458,10 +459,10 @@ namespace clientForQuestions2._0
             // themeBase30
             // 
             this.themeBase30.AutoSize = true;
-            this.themeBase30.Location = new System.Drawing.Point(598, 209);
+            this.themeBase30.Location = new System.Drawing.Point(532, 167);
             this.themeBase30.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.themeBase30.Name = "themeBase30";
-            this.themeBase30.Size = new System.Drawing.Size(112, 38);
+            this.themeBase30.Size = new System.Drawing.Size(100, 30);
             this.themeBase30.TabIndex = 10;
             this.themeBase30.Text = "ביטויים";
             this.themeBase30.UseVisualStyleBackColor = true;
@@ -470,10 +471,10 @@ namespace clientForQuestions2._0
             // themeBase31
             // 
             this.themeBase31.AutoSize = true;
-            this.themeBase31.Location = new System.Drawing.Point(598, 246);
+            this.themeBase31.Location = new System.Drawing.Point(532, 197);
             this.themeBase31.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.themeBase31.Name = "themeBase31";
-            this.themeBase31.Size = new System.Drawing.Size(112, 38);
+            this.themeBase31.Size = new System.Drawing.Size(100, 30);
             this.themeBase31.TabIndex = 10;
             this.themeBase31.Text = "אי-שוויון";
             this.themeBase31.UseVisualStyleBackColor = true;
@@ -482,10 +483,10 @@ namespace clientForQuestions2._0
             // themeBase32
             // 
             this.themeBase32.AutoSize = true;
-            this.themeBase32.Location = new System.Drawing.Point(598, 284);
+            this.themeBase32.Location = new System.Drawing.Point(532, 227);
             this.themeBase32.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.themeBase32.Name = "themeBase32";
-            this.themeBase32.Size = new System.Drawing.Size(112, 38);
+            this.themeBase32.Size = new System.Drawing.Size(100, 30);
             this.themeBase32.TabIndex = 10;
             this.themeBase32.Text = "עצרת";
             this.themeBase32.UseVisualStyleBackColor = true;
@@ -494,10 +495,10 @@ namespace clientForQuestions2._0
             // themeBase33
             // 
             this.themeBase33.AutoSize = true;
-            this.themeBase33.Location = new System.Drawing.Point(778, 129);
+            this.themeBase33.Location = new System.Drawing.Point(692, 103);
             this.themeBase33.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.themeBase33.Name = "themeBase33";
-            this.themeBase33.Size = new System.Drawing.Size(112, 38);
+            this.themeBase33.Size = new System.Drawing.Size(100, 30);
             this.themeBase33.TabIndex = 10;
             this.themeBase33.Text = "אנלוגיות";
             this.themeBase33.UseVisualStyleBackColor = true;
@@ -506,10 +507,10 @@ namespace clientForQuestions2._0
             // themeBase35
             // 
             this.themeBase35.AutoSize = true;
-            this.themeBase35.Location = new System.Drawing.Point(792, 234);
+            this.themeBase35.Location = new System.Drawing.Point(704, 187);
             this.themeBase35.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.themeBase35.Name = "themeBase35";
-            this.themeBase35.Size = new System.Drawing.Size(112, 38);
+            this.themeBase35.Size = new System.Drawing.Size(100, 30);
             this.themeBase35.TabIndex = 10;
             this.themeBase35.Text = "שאלות פסקה";
             this.themeBase35.UseVisualStyleBackColor = true;
@@ -518,10 +519,10 @@ namespace clientForQuestions2._0
             // themeBase36
             // 
             this.themeBase36.AutoSize = true;
-            this.themeBase36.Location = new System.Drawing.Point(792, 271);
+            this.themeBase36.Location = new System.Drawing.Point(704, 217);
             this.themeBase36.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.themeBase36.Name = "themeBase36";
-            this.themeBase36.Size = new System.Drawing.Size(172, 60);
+            this.themeBase36.Size = new System.Drawing.Size(153, 48);
             this.themeBase36.TabIndex = 10;
             this.themeBase36.Text = "השלמת משפטים מילולי";
             this.themeBase36.UseVisualStyleBackColor = true;
@@ -530,10 +531,10 @@ namespace clientForQuestions2._0
             // themeBase37
             // 
             this.themeBase37.AutoSize = true;
-            this.themeBase37.Location = new System.Drawing.Point(792, 331);
+            this.themeBase37.Location = new System.Drawing.Point(704, 265);
             this.themeBase37.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.themeBase37.Name = "themeBase37";
-            this.themeBase37.Size = new System.Drawing.Size(112, 38);
+            this.themeBase37.Size = new System.Drawing.Size(100, 30);
             this.themeBase37.TabIndex = 10;
             this.themeBase37.Text = "עריכת ניסוי";
             this.themeBase37.UseVisualStyleBackColor = true;
@@ -542,10 +543,10 @@ namespace clientForQuestions2._0
             // themeBase38
             // 
             this.themeBase38.AutoSize = true;
-            this.themeBase38.Location = new System.Drawing.Point(792, 369);
+            this.themeBase38.Location = new System.Drawing.Point(704, 295);
             this.themeBase38.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.themeBase38.Name = "themeBase38";
-            this.themeBase38.Size = new System.Drawing.Size(132, 59);
+            this.themeBase38.Size = new System.Drawing.Size(117, 47);
             this.themeBase38.TabIndex = 10;
             this.themeBase38.Text = "משמעות מילולית";
             this.themeBase38.UseVisualStyleBackColor = true;
@@ -554,10 +555,10 @@ namespace clientForQuestions2._0
             // themeBase39
             // 
             this.themeBase39.AutoSize = true;
-            this.themeBase39.Location = new System.Drawing.Point(792, 428);
+            this.themeBase39.Location = new System.Drawing.Point(704, 342);
             this.themeBase39.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.themeBase39.Name = "themeBase39";
-            this.themeBase39.Size = new System.Drawing.Size(120, 60);
+            this.themeBase39.Size = new System.Drawing.Size(107, 48);
             this.themeBase39.TabIndex = 10;
             this.themeBase39.Text = "כללים וסידורים";
             this.themeBase39.UseVisualStyleBackColor = true;
@@ -566,10 +567,10 @@ namespace clientForQuestions2._0
             // themeBase40
             // 
             this.themeBase40.AutoSize = true;
-            this.themeBase40.Location = new System.Drawing.Point(1014, 118);
+            this.themeBase40.Location = new System.Drawing.Point(901, 94);
             this.themeBase40.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.themeBase40.Name = "themeBase40";
-            this.themeBase40.Size = new System.Drawing.Size(120, 38);
+            this.themeBase40.Size = new System.Drawing.Size(107, 30);
             this.themeBase40.TabIndex = 10;
             this.themeBase40.Text = "Restatements";
             this.themeBase40.UseVisualStyleBackColor = true;
@@ -578,10 +579,10 @@ namespace clientForQuestions2._0
             // themeBase42
             // 
             this.themeBase42.AutoSize = true;
-            this.themeBase42.Location = new System.Drawing.Point(1026, 222);
+            this.themeBase42.Location = new System.Drawing.Point(912, 178);
             this.themeBase42.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.themeBase42.Name = "themeBase42";
-            this.themeBase42.Size = new System.Drawing.Size(112, 38);
+            this.themeBase42.Size = new System.Drawing.Size(100, 30);
             this.themeBase42.TabIndex = 10;
             this.themeBase42.Text = "אוצר-מילים";
             this.themeBase42.UseVisualStyleBackColor = true;
@@ -590,10 +591,10 @@ namespace clientForQuestions2._0
             // themeBase43
             // 
             this.themeBase43.AutoSize = true;
-            this.themeBase43.Location = new System.Drawing.Point(1026, 260);
+            this.themeBase43.Location = new System.Drawing.Point(912, 208);
             this.themeBase43.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.themeBase43.Name = "themeBase43";
-            this.themeBase43.Size = new System.Drawing.Size(180, 51);
+            this.themeBase43.Size = new System.Drawing.Size(160, 41);
             this.themeBase43.TabIndex = 10;
             this.themeBase43.Text = "Sentence Completions";
             this.themeBase43.UseVisualStyleBackColor = true;
@@ -604,10 +605,10 @@ namespace clientForQuestions2._0
             this.theme1.AutoSize = true;
             this.theme1.BackColor = System.Drawing.Color.Yellow;
             this.theme1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold);
-            this.theme1.Location = new System.Drawing.Point(343, 48);
+            this.theme1.Location = new System.Drawing.Point(305, 38);
             this.theme1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.theme1.Name = "theme1";
-            this.theme1.Size = new System.Drawing.Size(248, 58);
+            this.theme1.Size = new System.Drawing.Size(220, 46);
             this.theme1.TabIndex = 10;
             this.theme1.Text = "חשיבה כמותית";
             this.theme1.UseVisualStyleBackColor = false;
@@ -617,10 +618,10 @@ namespace clientForQuestions2._0
             // 
             this.theme2.AutoSize = true;
             this.theme2.BackColor = System.Drawing.Color.LightGreen;
-            this.theme2.Location = new System.Drawing.Point(249, 246);
+            this.theme2.Location = new System.Drawing.Point(221, 197);
             this.theme2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.theme2.Name = "theme2";
-            this.theme2.Size = new System.Drawing.Size(115, 50);
+            this.theme2.Size = new System.Drawing.Size(102, 40);
             this.theme2.TabIndex = 10;
             this.theme2.Text = "▼ גיאומטריה";
             this.theme2.UseVisualStyleBackColor = false;
@@ -630,10 +631,10 @@ namespace clientForQuestions2._0
             // 
             this.theme3.AutoSize = true;
             this.theme3.BackColor = System.Drawing.Color.LightGreen;
-            this.theme3.Location = new System.Drawing.Point(268, 531);
+            this.theme3.Location = new System.Drawing.Point(238, 425);
             this.theme3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.theme3.Name = "theme3";
-            this.theme3.Size = new System.Drawing.Size(115, 50);
+            this.theme3.Size = new System.Drawing.Size(102, 40);
             this.theme3.TabIndex = 10;
             this.theme3.Text = "▼ מצולעים";
             this.theme3.UseVisualStyleBackColor = false;
@@ -643,10 +644,10 @@ namespace clientForQuestions2._0
             // 
             this.theme4.AutoSize = true;
             this.theme4.BackColor = System.Drawing.Color.LightGreen;
-            this.theme4.Location = new System.Drawing.Point(414, 118);
+            this.theme4.Location = new System.Drawing.Point(368, 94);
             this.theme4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.theme4.Name = "theme4";
-            this.theme4.Size = new System.Drawing.Size(134, 50);
+            this.theme4.Size = new System.Drawing.Size(119, 40);
             this.theme4.TabIndex = 10;
             this.theme4.Text = "▼ בעיות מילוליות";
             this.theme4.UseVisualStyleBackColor = false;
@@ -656,10 +657,10 @@ namespace clientForQuestions2._0
             // 
             this.theme5.AutoSize = true;
             this.theme5.BackColor = System.Drawing.Color.LightGreen;
-            this.theme5.Location = new System.Drawing.Point(414, 559);
+            this.theme5.Location = new System.Drawing.Point(368, 447);
             this.theme5.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.theme5.Name = "theme5";
-            this.theme5.Size = new System.Drawing.Size(152, 50);
+            this.theme5.Size = new System.Drawing.Size(135, 40);
             this.theme5.TabIndex = 10;
             this.theme5.Text = "▼ התנהגות אלגברית";
             this.theme5.UseVisualStyleBackColor = false;
@@ -669,10 +670,10 @@ namespace clientForQuestions2._0
             // 
             this.theme6.AutoSize = true;
             this.theme6.BackColor = System.Drawing.Color.LightGreen;
-            this.theme6.Location = new System.Drawing.Point(578, 118);
+            this.theme6.Location = new System.Drawing.Point(514, 94);
             this.theme6.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.theme6.Name = "theme6";
-            this.theme6.Size = new System.Drawing.Size(115, 50);
+            this.theme6.Size = new System.Drawing.Size(102, 40);
             this.theme6.TabIndex = 10;
             this.theme6.Text = "▼ משוואות";
             this.theme6.UseVisualStyleBackColor = false;
@@ -683,10 +684,10 @@ namespace clientForQuestions2._0
             this.theme7.AutoSize = true;
             this.theme7.BackColor = System.Drawing.Color.Yellow;
             this.theme7.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold);
-            this.theme7.Location = new System.Drawing.Point(758, 58);
+            this.theme7.Location = new System.Drawing.Point(674, 46);
             this.theme7.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.theme7.Name = "theme7";
-            this.theme7.Size = new System.Drawing.Size(147, 50);
+            this.theme7.Size = new System.Drawing.Size(131, 40);
             this.theme7.TabIndex = 10;
             this.theme7.Text = "חשיבה מילולית";
             this.theme7.UseVisualStyleBackColor = false;
@@ -696,10 +697,10 @@ namespace clientForQuestions2._0
             // 
             this.theme8.AutoSize = true;
             this.theme8.BackColor = System.Drawing.Color.LightGreen;
-            this.theme8.Location = new System.Drawing.Point(778, 178);
+            this.theme8.Location = new System.Drawing.Point(692, 142);
             this.theme8.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.theme8.Name = "theme8";
-            this.theme8.Size = new System.Drawing.Size(115, 50);
+            this.theme8.Size = new System.Drawing.Size(102, 40);
             this.theme8.TabIndex = 10;
             this.theme8.Text = "▼ הבנה והסקה";
             this.theme8.UseVisualStyleBackColor = false;
@@ -710,10 +711,10 @@ namespace clientForQuestions2._0
             this.theme9.AutoSize = true;
             this.theme9.BackColor = System.Drawing.Color.Yellow;
             this.theme9.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold);
-            this.theme9.Location = new System.Drawing.Point(1004, 58);
+            this.theme9.Location = new System.Drawing.Point(892, 46);
             this.theme9.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.theme9.Name = "theme9";
-            this.theme9.Size = new System.Drawing.Size(135, 50);
+            this.theme9.Size = new System.Drawing.Size(120, 40);
             this.theme9.TabIndex = 10;
             this.theme9.Text = "אנגלית";
             this.theme9.UseVisualStyleBackColor = false;
@@ -723,10 +724,10 @@ namespace clientForQuestions2._0
             // 
             this.theme10.AutoSize = true;
             this.theme10.BackColor = System.Drawing.Color.LightGreen;
-            this.theme10.Location = new System.Drawing.Point(1014, 164);
+            this.theme10.Location = new System.Drawing.Point(901, 131);
             this.theme10.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.theme10.Name = "theme10";
-            this.theme10.Size = new System.Drawing.Size(115, 50);
+            this.theme10.Size = new System.Drawing.Size(102, 40);
             this.theme10.TabIndex = 10;
             this.theme10.Text = "▼ אוצר מילים";
             this.theme10.UseVisualStyleBackColor = false;
@@ -736,10 +737,10 @@ namespace clientForQuestions2._0
             // 
             this.all_t.BackColor = System.Drawing.Color.Orange;
             this.all_t.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold);
-            this.all_t.Location = new System.Drawing.Point(70, 138);
+            this.all_t.Location = new System.Drawing.Point(62, 110);
             this.all_t.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.all_t.Name = "all_t";
-            this.all_t.Size = new System.Drawing.Size(141, 96);
+            this.all_t.Size = new System.Drawing.Size(125, 77);
             this.all_t.TabIndex = 10;
             this.all_t.Text = "בחירת כל הנושאים";
             this.all_t.UseVisualStyleBackColor = false;
@@ -747,8 +748,7 @@ namespace clientForQuestions2._0
             // 
             // amountOfQuestionNumericUpDown
             // 
-            this.amountOfQuestionNumericUpDown.Location = new System.Drawing.Point(98, 548);
-            this.amountOfQuestionNumericUpDown.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.amountOfQuestionNumericUpDown.Location = new System.Drawing.Point(87, 438);
             this.amountOfQuestionNumericUpDown.Maximum = new decimal(new int[] {
             99,
             0,
@@ -760,7 +760,7 @@ namespace clientForQuestions2._0
             0,
             0});
             this.amountOfQuestionNumericUpDown.Name = "amountOfQuestionNumericUpDown";
-            this.amountOfQuestionNumericUpDown.Size = new System.Drawing.Size(86, 26);
+            this.amountOfQuestionNumericUpDown.Size = new System.Drawing.Size(76, 22);
             this.amountOfQuestionNumericUpDown.TabIndex = 13;
             this.amountOfQuestionNumericUpDown.Value = new decimal(new int[] {
             5,
@@ -771,25 +771,23 @@ namespace clientForQuestions2._0
             // skipFeedBackCheckBox
             // 
             this.skipFeedBackCheckBox.AutoSize = true;
-            this.skipFeedBackCheckBox.Location = new System.Drawing.Point(11, 604);
-            this.skipFeedBackCheckBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.skipFeedBackCheckBox.Location = new System.Drawing.Point(10, 483);
             this.skipFeedBackCheckBox.Name = "skipFeedBackCheckBox";
-            this.skipFeedBackCheckBox.Size = new System.Drawing.Size(217, 24);
+            this.skipFeedBackCheckBox.Size = new System.Drawing.Size(187, 20);
             this.skipFeedBackCheckBox.TabIndex = 14;
             this.skipFeedBackCheckBox.Text = "ללא משוב מיידי על תשובות";
             this.skipFeedBackCheckBox.UseVisualStyleBackColor = true;
             // 
             // difficulyLevelMaxVal
             // 
-            this.difficulyLevelMaxVal.Location = new System.Drawing.Point(125, 446);
-            this.difficulyLevelMaxVal.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.difficulyLevelMaxVal.Location = new System.Drawing.Point(111, 357);
             this.difficulyLevelMaxVal.Maximum = new decimal(new int[] {
             10,
             0,
             0,
             0});
             this.difficulyLevelMaxVal.Name = "difficulyLevelMaxVal";
-            this.difficulyLevelMaxVal.Size = new System.Drawing.Size(86, 26);
+            this.difficulyLevelMaxVal.Size = new System.Drawing.Size(76, 22);
             this.difficulyLevelMaxVal.TabIndex = 16;
             this.difficulyLevelMaxVal.Value = new decimal(new int[] {
             10,
@@ -801,10 +799,10 @@ namespace clientForQuestions2._0
             // dificultLevelcheckBox
             // 
             this.dificultLevelcheckBox.AutoSize = true;
-            this.dificultLevelcheckBox.Location = new System.Drawing.Point(43, 388);
+            this.dificultLevelcheckBox.Location = new System.Drawing.Point(38, 310);
             this.dificultLevelcheckBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dificultLevelcheckBox.Name = "dificultLevelcheckBox";
-            this.dificultLevelcheckBox.Size = new System.Drawing.Size(156, 24);
+            this.dificultLevelcheckBox.Size = new System.Drawing.Size(133, 20);
             this.dificultLevelcheckBox.TabIndex = 17;
             this.dificultLevelcheckBox.Text = "רמת קושי ספציפית";
             this.dificultLevelcheckBox.UseVisualStyleBackColor = true;
@@ -812,15 +810,14 @@ namespace clientForQuestions2._0
             // 
             // difficulyLevelMinVal
             // 
-            this.difficulyLevelMinVal.Location = new System.Drawing.Point(14, 446);
-            this.difficulyLevelMinVal.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.difficulyLevelMinVal.Location = new System.Drawing.Point(12, 357);
             this.difficulyLevelMinVal.Maximum = new decimal(new int[] {
             10,
             0,
             0,
             0});
             this.difficulyLevelMinVal.Name = "difficulyLevelMinVal";
-            this.difficulyLevelMinVal.Size = new System.Drawing.Size(86, 26);
+            this.difficulyLevelMinVal.Size = new System.Drawing.Size(76, 22);
             this.difficulyLevelMinVal.TabIndex = 18;
             this.difficulyLevelMinVal.ValueChanged += new System.EventHandler(this.difficulyLevelMinVal_ValueChanged);
             // 
@@ -828,9 +825,9 @@ namespace clientForQuestions2._0
             // 
             this.difficulyLevelMinValLabel.AutoSize = true;
             this.difficulyLevelMinValLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold);
-            this.difficulyLevelMinValLabel.Location = new System.Drawing.Point(29, 414);
+            this.difficulyLevelMinValLabel.Location = new System.Drawing.Point(26, 331);
             this.difficulyLevelMinValLabel.Name = "difficulyLevelMinValLabel";
-            this.difficulyLevelMinValLabel.Size = new System.Drawing.Size(71, 20);
+            this.difficulyLevelMinValLabel.Size = new System.Drawing.Size(62, 16);
             this.difficulyLevelMinValLabel.TabIndex = 19;
             this.difficulyLevelMinValLabel.Text = ":מינימום";
             // 
@@ -838,9 +835,9 @@ namespace clientForQuestions2._0
             // 
             this.difficulyLevelMaxValLabel.AutoSize = true;
             this.difficulyLevelMaxValLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold);
-            this.difficulyLevelMaxValLabel.Location = new System.Drawing.Point(122, 414);
+            this.difficulyLevelMaxValLabel.Location = new System.Drawing.Point(108, 331);
             this.difficulyLevelMaxValLabel.Name = "difficulyLevelMaxValLabel";
-            this.difficulyLevelMaxValLabel.Size = new System.Drawing.Size(78, 20);
+            this.difficulyLevelMaxValLabel.Size = new System.Drawing.Size(67, 16);
             this.difficulyLevelMaxValLabel.TabIndex = 20;
             this.difficulyLevelMaxValLabel.Text = ":מקסימום";
             // 
@@ -848,13 +845,13 @@ namespace clientForQuestions2._0
             // 
             this.timePerQPicker.CustomFormat = "mm:ss";
             this.timePerQPicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.timePerQPicker.Location = new System.Drawing.Point(101, 290);
+            this.timePerQPicker.Location = new System.Drawing.Point(90, 232);
             this.timePerQPicker.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.timePerQPicker.MaxDate = new System.DateTime(2000, 1, 1, 0, 59, 59, 0);
             this.timePerQPicker.MinDate = new System.DateTime(2000, 1, 1, 0, 0, 0, 0);
             this.timePerQPicker.Name = "timePerQPicker";
             this.timePerQPicker.ShowUpDown = true;
-            this.timePerQPicker.Size = new System.Drawing.Size(70, 26);
+            this.timePerQPicker.Size = new System.Drawing.Size(63, 22);
             this.timePerQPicker.TabIndex = 18;
             this.timePerQPicker.Value = new System.DateTime(2000, 1, 1, 0, 1, 0, 0);
             // 
@@ -863,10 +860,10 @@ namespace clientForQuestions2._0
             this.timePerQCheckbox.AutoSize = true;
             this.timePerQCheckbox.Checked = true;
             this.timePerQCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.timePerQCheckbox.Location = new System.Drawing.Point(35, 268);
+            this.timePerQCheckbox.Location = new System.Drawing.Point(31, 214);
             this.timePerQCheckbox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.timePerQCheckbox.Name = "timePerQCheckbox";
-            this.timePerQCheckbox.Size = new System.Drawing.Size(158, 24);
+            this.timePerQCheckbox.Size = new System.Drawing.Size(133, 20);
             this.timePerQCheckbox.TabIndex = 20;
             this.timePerQCheckbox.Text = "הגבלת זמן לשאלה";
             this.timePerQCheckbox.UseVisualStyleBackColor = true;
@@ -877,17 +874,31 @@ namespace clientForQuestions2._0
             this.titleOfPage.AutoSize = true;
             this.titleOfPage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.titleOfPage.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.titleOfPage.Location = new System.Drawing.Point(621, 11);
+            this.titleOfPage.Location = new System.Drawing.Point(552, 9);
             this.titleOfPage.Name = "titleOfPage";
-            this.titleOfPage.Size = new System.Drawing.Size(75, 31);
+            this.titleOfPage.Size = new System.Drawing.Size(63, 27);
             this.titleOfPage.TabIndex = 24;
             this.titleOfPage.Text = "תרגול";
             // 
+            // resetButton
+            // 
+            this.resetButton.AutoSize = true;
+            this.resetButton.BackColor = System.Drawing.Color.DarkSeaGreen;
+            this.resetButton.ForeColor = System.Drawing.Color.MidnightBlue;
+            this.resetButton.Location = new System.Drawing.Point(989, 630);
+            this.resetButton.Name = "resetButton";
+            this.resetButton.Size = new System.Drawing.Size(104, 44);
+            this.resetButton.TabIndex = 25;
+            this.resetButton.Text = "איפוס ההגדרות";
+            this.resetButton.UseVisualStyleBackColor = false;
+            this.resetButton.Click += new System.EventHandler(this.resetButton_Click);
+            // 
             // normalQuestionsMenu
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1243, 1050);
+            this.ClientSize = new System.Drawing.Size(1105, 840);
+            this.Controls.Add(this.resetButton);
             this.Controls.Add(this.titleOfPage);
             this.Controls.Add(this.difficulyLevelMaxValLabel);
             this.Controls.Add(this.difficulyLevelMinValLabel);
@@ -1031,5 +1042,6 @@ namespace clientForQuestions2._0
         private System.Windows.Forms.DateTimePicker timePerQPicker;
         private CheckBox timePerQCheckbox;
         private Label titleOfPage;
+        private Button resetButton;
     }
 }

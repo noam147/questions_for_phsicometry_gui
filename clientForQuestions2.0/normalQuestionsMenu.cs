@@ -92,6 +92,40 @@ namespace clientForQuestions2._0
             this.difficulyLevelMaxVal.Minimum = OperationsAndOtherUseful.MIN_LEVEL;
             initByPreviousSettingsOfUser();
         }
+        private void resetSettings()
+        {
+            // topics
+            updatebuttons();
+            topicsList = new List<string>();
+
+            // timePerQ
+            timePerQCheckbox.Checked = true;
+            timePerQCheckbox_CheckedChanged(timePerQCheckbox, null);
+            timePerQPicker.Value = new System.DateTime(2000, 1, 1, 0, 1, 0, 0);
+
+            // difficultyLevel
+            dificultLevelcheckBox.Checked = false;
+            unVisibleDifficulyLevelItems();
+            this.difficultyLevels.minlevel = OperationsAndOtherUseful.MIN_LEVEL;
+            this.difficultyLevels.maxLevel = OperationsAndOtherUseful.MAX_LEVEL;
+
+            this.difficulyLevelMinVal.Maximum = OperationsAndOtherUseful.MAX_LEVEL;
+            this.difficulyLevelMinVal.Minimum = OperationsAndOtherUseful.MIN_LEVEL;
+            this.difficulyLevelMaxVal.Maximum = OperationsAndOtherUseful.MAX_LEVEL;
+            this.difficulyLevelMaxVal.Minimum = OperationsAndOtherUseful.MIN_LEVEL;
+
+            this.difficulyLevelMinVal.Value = OperationsAndOtherUseful.MIN_LEVEL;
+            this.difficulyLevelMaxVal.Value = OperationsAndOtherUseful.MAX_LEVEL;
+
+            // amountOfQuestionNumericUpDown
+            this.amountOfQuestionNumericUpDown.Value = 5;
+
+            // skipFeedBackCheckBox
+            skipFeedBackCheckBox.Checked = false;
+
+            // continueButton
+            this.continueButton.Enabled = false;
+        }
         private void initByPreviousSettingsOfUser()
         {
             Settings settings = SettingsFileHandler.getSettingsFromFile();
@@ -331,6 +365,11 @@ namespace clientForQuestions2._0
         private void timePerQCheckbox_CheckedChanged(object sender, EventArgs e)
         {
             this.timePerQPicker.Enabled = ((CheckBox)sender).Checked;
+        }
+
+        private void resetButton_Click(object sender, EventArgs e)
+        {
+            resetSettings();
         }
     }
 }
