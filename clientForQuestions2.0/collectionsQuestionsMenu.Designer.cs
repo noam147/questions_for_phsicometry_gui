@@ -142,6 +142,7 @@
             this.Controls.Add(this.colButton2);
             this.Controls.Add(this.colButton1);
             this.Name = "collectionsQuestionsMenu";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "collectionsQuestionsMenu";
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -40,8 +40,8 @@ namespace clientForQuestions2._0
             this.answersTrackLabel = new System.Windows.Forms.Label();
             this.questionTrackLabel = new System.Windows.Forms.Label();
             this.timer = new System.Windows.Forms.Label();
-            this.nextQuestionsButton = new clientForQuestions2._0.RJButtons2();
             this.previousQuestionsButton = new clientForQuestions2._0.RJButtons2();
+            this.nextQuestionsButton = new clientForQuestions2._0.RJButtons2();
             this.SuspendLayout();
             // 
             // continueToQuestionButton
@@ -164,24 +164,6 @@ namespace clientForQuestions2._0
             this.timer.TabIndex = 8;
             this.timer.Text = "0:00";
             // 
-            // nextQuestionsButton
-            // 
-            this.nextQuestionsButton.BackColor = System.Drawing.Color.Chocolate;
-            this.nextQuestionsButton.BorderRadiuos = 32;
-            this.nextQuestionsButton.BorderSize = 1;
-            this.nextQuestionsButton.FlatAppearance.BorderSize = 0;
-            this.nextQuestionsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.nextQuestionsButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.nextQuestionsButton.ForeColor = System.Drawing.Color.White;
-            this.nextQuestionsButton.Location = new System.Drawing.Point(801, 41);
-            this.nextQuestionsButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.nextQuestionsButton.Name = "nextQuestionsButton";
-            this.nextQuestionsButton.Size = new System.Drawing.Size(32, 32);
-            this.nextQuestionsButton.TabIndex = 9;
-            this.nextQuestionsButton.Text = "🢂";
-            this.nextQuestionsButton.UseVisualStyleBackColor = false;
-            this.nextQuestionsButton.Click += new System.EventHandler(this.nextQuestionsButton_Click);
-            // 
             // previousQuestionsButton
             // 
             this.previousQuestionsButton.BackColor = System.Drawing.Color.Chocolate;
@@ -199,6 +181,24 @@ namespace clientForQuestions2._0
             this.previousQuestionsButton.Text = "🢀";
             this.previousQuestionsButton.UseVisualStyleBackColor = false;
             this.previousQuestionsButton.Click += new System.EventHandler(this.previousQuestionsButton_Click);
+            // 
+            // nextQuestionsButton
+            // 
+            this.nextQuestionsButton.BackColor = System.Drawing.Color.Chocolate;
+            this.nextQuestionsButton.BorderRadiuos = 32;
+            this.nextQuestionsButton.BorderSize = 1;
+            this.nextQuestionsButton.FlatAppearance.BorderSize = 0;
+            this.nextQuestionsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.nextQuestionsButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.nextQuestionsButton.ForeColor = System.Drawing.Color.White;
+            this.nextQuestionsButton.Location = new System.Drawing.Point(801, 41);
+            this.nextQuestionsButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.nextQuestionsButton.Name = "nextQuestionsButton";
+            this.nextQuestionsButton.Size = new System.Drawing.Size(32, 32);
+            this.nextQuestionsButton.TabIndex = 9;
+            this.nextQuestionsButton.Text = "🢂";
+            this.nextQuestionsButton.UseVisualStyleBackColor = false;
+            this.nextQuestionsButton.Click += new System.EventHandler(this.nextQuestionsButton_Click);
             // 
             // questionsPage
             // 
@@ -219,7 +219,9 @@ namespace clientForQuestions2._0
             this.Controls.Add(this.stopTestButton);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "questionsPage";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.ResumeLayout(false);
             this.PerformLayout();
 

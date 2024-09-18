@@ -589,5 +589,10 @@ namespace clientForQuestions2._0
                 Clipboard.SetText(clickedLabel.Text.Substring(4));
             }
         }
+
+        private void summrizePage_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

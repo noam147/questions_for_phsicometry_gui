@@ -141,6 +141,7 @@
             this.Controls.Add(this.chapterButton2);
             this.Controls.Add(this.chapterButton1);
             this.Name = "chaptersQuestionsMenu";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "chaptersQuestionsMenu";
             this.ResumeLayout(false);
             this.PerformLayout();
