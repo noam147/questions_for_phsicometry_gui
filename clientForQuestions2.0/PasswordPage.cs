@@ -51,6 +51,8 @@ namespace clientForQuestions2._0
             string text = this.textBox1.Text;
             if (text == password)
             {
+                LogFileHandler.ClearFileContent();//when this is the first time user gets into the program reset the files
+                SettingsFileHandler.ClearFileContent();
                 writeToFilePass();
                 var menuPage = new menuPage();
                 menuPage.Show();

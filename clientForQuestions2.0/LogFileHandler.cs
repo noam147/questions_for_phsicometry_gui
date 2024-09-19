@@ -34,11 +34,15 @@ namespace clientForQuestions2._0
         }
         public static void ClearFileContent()
         {
-            // Open the file with FileMode.Truncate to clear its content
-            using (FileStream fs = new FileStream(filePath, FileMode.Truncate))
+            try
             {
-                // File content is now cleared
+                // Open the file with FileMode.Truncate to clear its content
+                using (FileStream fs = new FileStream(filePath, FileMode.Truncate))
+                {
+                    // File content is now cleared
+                }
             }
+            catch { }
         }
     }
 }

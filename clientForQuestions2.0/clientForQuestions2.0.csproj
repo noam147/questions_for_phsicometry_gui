@@ -83,6 +83,12 @@
     <Compile Include="chaptersQuestionsMenu.Designer.cs">
       <DependentUpon>chaptersQuestionsMenu.cs</DependentUpon>
     </Compile>
+    <Compile Include="check.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="check.Designer.cs">
+      <DependentUpon>check.cs</DependentUpon>
+    </Compile>
     <Compile Include="collectionsQuestionsMenu.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -102,6 +108,12 @@
     </Compile>
     <Compile Include="normalQuestionsMenu.Designer.cs">
       <DependentUpon>normalQuestionsMenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NormalQuestionsPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NormalQuestionsPage.Designer.cs">
+      <DependentUpon>NormalQuestionsPage.cs</DependentUpon>
     </Compile>
     <Compile Include="OperationsAndOtherUseful.cs" />
     <Compile Include="PasswordPage.cs">
@@ -139,6 +151,9 @@
     <EmbeddedResource Include="chaptersQuestionsMenu.resx">
       <DependentUpon>chaptersQuestionsMenu.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="check.resx">
+      <DependentUpon>check.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="collectionsQuestionsMenu.resx">
       <DependentUpon>collectionsQuestionsMenu.cs</DependentUpon>
     </EmbeddedResource>
@@ -147,6 +162,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="normalQuestionsMenu.resx">
       <DependentUpon>normalQuestionsMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NormalQuestionsPage.resx">
+      <DependentUpon>NormalQuestionsPage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PasswordPage.resx">
       <DependentUpon>PasswordPage.cs</DependentUpon>

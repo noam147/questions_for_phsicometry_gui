@@ -51,6 +51,11 @@ namespace clientForQuestions2._0
         {
             InitializeComponent();
             setAnswerButtonsToNormalcolor();
+            this.answer1Button.Enabled = false;
+            this.answer2Button.Enabled = false;
+            this.answer3Button.Enabled = false;
+            this.answer4Button.Enabled = false;
+
             this.WindowState = FormWindowState.Maximized;
             //this.FormBorderStyle = FormBorderStyle.None;
             this.StartPosition = FormStartPosition.CenterScreen;
@@ -73,8 +78,8 @@ namespace clientForQuestions2._0
                 this.previousQuestionsButton.Visible = false;
             }
                 
-
-            updateAtStart(amount, listOfTopics);
+            //when normal exrecize
+            updateAtStartOfNormalExrecize(amount, listOfTopics);
 
             if (this.isUserDoNotGetFeedBack)
                 this.timePerQ = timePerQ * m_questionDetails.Count;
@@ -101,7 +106,7 @@ namespace clientForQuestions2._0
             updateToNextButtonQuestion(0);
         }
 
-        public questionsPage(int collection_id, List<int> questions, int tpq)
+        public questionsPage(int collection_id, List<int> questions, int timeForQuestion)
         {
             //when is text
             atStart();
@@ -116,7 +121,7 @@ namespace clientForQuestions2._0
             createButtons();
             displayButtons();
 
-            this.timePerQ = tpq * m_questionDetails.Count;
+            this.timePerQ = timeForQuestion * m_questionDetails.Count;
             rewriteTimer();
 
 
@@ -129,17 +134,12 @@ namespace clientForQuestions2._0
 
         }
 
-        public questionsPage(List<dbQuestionParmeters> questions, int tpq)
+        public questionsPage(List<dbQuestionParmeters> questions, int timeToQuestion)
         {
             //when is text
             atStart();
             this.isUserDoNotGetFeedBack = true;//in text user does not get immdiate feedback
 
-            //wait until webview is init
-            this.answer1Button.Enabled = false;
-            this.answer2Button.Enabled = false;
-            this.answer3Button.Enabled = false;
-            this.answer4Button.Enabled = false;
 
             this.m_questionDetails = questions;
 
@@ -156,7 +156,7 @@ namespace clientForQuestions2._0
             createButtons();
             displayButtons();
 
-            this.timePerQ = tpq;
+            this.timePerQ = timeToQuestion;
             rewriteTimer();
 
             this.ClientSize = new System.Drawing.Size(width_screen, height_screen);
@@ -249,14 +249,10 @@ namespace clientForQuestions2._0
             LogFileHandler.writeIntoFile("Questions id are: " + s);
         }
 
-        private void updateAtStart(int amount, List<string> listOfTopics)
+        private void updateAtStartOfNormalExrecize(int amount, List<string> listOfTopics)
         {
             //wait until webview is init
-            this.answer1Button.Enabled = false;
-            this.answer2Button.Enabled = false;
-            this.answer3Button.Enabled = false;
-            this.answer4Button.Enabled = false;
-            //questionDetails = sqlDb.get_n_questions_from_arr_of_categorys(amount, listOfTopics);
+ 
             m_questionDetails = sqlDb.get_n_questions_from_arr_of_categorysWithDiffcultyLevel(amount, listOfTopics, m_aDifficultyLevels);
             writeQuestionToLogFile();
             m_maxQuestions = m_questionDetails.Count;//if amount is bigger that questions avelible
@@ -570,6 +566,7 @@ namespace clientForQuestions2._0
         private void stopTestButtonClick(object sender, EventArgs e)
         {
             // check if the user is sure to leave the test
+
             DialogResult result = MessageBox.Show("?האם אתה בטוח שאתה רוצה לצאת מהתרגול",
                                       "Confirmation",
                                       MessageBoxButtons.YesNo,
@@ -716,18 +713,6 @@ namespace clientForQuestions2._0
             //if questions end, check if all q are answered
             if ((m_indexOfCurrQuestion == this.m_questionDetails.Count && !isUserDoNotGetFeedBack) || (m_buttonList.Any() && m_buttonList.All(b => b.BackColor == Color.Yellow && isUserDoNotGetFeedBack)))
             {
-                // if isUserDoNotGetFeedBack, we ask the user if he is sure he wants to end the test, or he wants to continue
-                if (isUserDoNotGetFeedBack)
-                {
-                    // check if the user is sure to leave the test
-                    DialogResult result = MessageBox.Show("?האם אתה בטוח שאתה רוצה לסיים את התרגול",
-                                              "Confirmation",
-                                              MessageBoxButtons.YesNo,
-                                              MessageBoxIcon.Question);
-                    if (result == DialogResult.No) // the user isn't sure
-                        return;
-                }
-
 
                 if (sender == null)
                 {

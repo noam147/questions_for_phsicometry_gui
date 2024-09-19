@@ -191,7 +191,7 @@ namespace clientForQuestions2._0
 
         #endregion
 
-        private System.Windows.Forms.Button normalQuestions;
+        protected System.Windows.Forms.Button normalQuestions;
         private System.Windows.Forms.Button collectionsQuestions;
 
         private System.Windows.Forms.TextBox questionByIDtextBox;
