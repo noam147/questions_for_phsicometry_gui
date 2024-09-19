@@ -42,6 +42,7 @@ namespace clientForQuestions2._0
             this.error_colById_label = new System.Windows.Forms.Label();
             this.collectionbyIdButton = new clientForQuestions2._0.RJButtons2();
             this.questionByIdButton = new clientForQuestions2._0.RJButtons2();
+            this.testHistoryButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // normalQuestions
@@ -165,11 +166,23 @@ namespace clientForQuestions2._0
             this.questionByIdButton.UseVisualStyleBackColor = false;
             this.questionByIdButton.Click += new System.EventHandler(this.questionbyIdButton_Click);
             // 
+            // testHistoryButton
+            // 
+            this.testHistoryButton.Location = new System.Drawing.Point(493, 423);
+            this.testHistoryButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.testHistoryButton.Name = "testHistoryButton";
+            this.testHistoryButton.Size = new System.Drawing.Size(125, 90);
+            this.testHistoryButton.TabIndex = 25;
+            this.testHistoryButton.Text = "היסטורית תרגולים";
+            this.testHistoryButton.UseVisualStyleBackColor = true;
+            this.testHistoryButton.Click += new System.EventHandler(this.testHistoryButton_Click);
+            // 
             // menuPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1105, 840);
+            this.Controls.Add(this.testHistoryButton);
             this.Controls.Add(this.error_colById_label);
             this.Controls.Add(this.error_qById_label);
             this.Controls.Add(this.collectionbyIdButton);
@@ -205,5 +218,6 @@ namespace clientForQuestions2._0
         private RJButtons2 collectionbyIdButton;
         private System.Windows.Forms.Label error_qById_label;
         private System.Windows.Forms.Label error_colById_label;
+        private System.Windows.Forms.Button testHistoryButton;
     }
 }

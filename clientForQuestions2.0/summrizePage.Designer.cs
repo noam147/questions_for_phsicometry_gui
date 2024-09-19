@@ -41,13 +41,14 @@
             this.curr_col_id = new System.Windows.Forms.Label();
             this.nextQuestionsButton = new clientForQuestions2._0.RJButtons2();
             this.previousQuestionsButton = new clientForQuestions2._0.RJButtons2();
+            this.avrage_difficultyLevel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // button1
             // 
-            this.button1.BackColor = System.Drawing.Color.Cyan;
+            this.button1.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.button1.ForeColor = System.Drawing.Color.Black;
-            this.button1.Location = new System.Drawing.Point(5, 22);
+            this.button1.Location = new System.Drawing.Point(5, 24);
             this.button1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(113, 60);
@@ -61,7 +62,7 @@
             this.timeTookForQLabel.AutoSize = true;
             this.timeTookForQLabel.BackColor = System.Drawing.Color.PaleTurquoise;
             this.timeTookForQLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.timeTookForQLabel.Location = new System.Drawing.Point(47, 111);
+            this.timeTookForQLabel.Location = new System.Drawing.Point(47, 109);
             this.timeTookForQLabel.Name = "timeTookForQLabel";
             this.timeTookForQLabel.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.timeTookForQLabel.Size = new System.Drawing.Size(147, 18);
@@ -74,7 +75,7 @@
             this.category_of_q.AutoSize = true;
             this.category_of_q.BackColor = System.Drawing.Color.PaleTurquoise;
             this.category_of_q.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.category_of_q.Location = new System.Drawing.Point(327, 113);
+            this.category_of_q.Location = new System.Drawing.Point(327, 111);
             this.category_of_q.Name = "category_of_q";
             this.category_of_q.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.category_of_q.Size = new System.Drawing.Size(62, 18);
@@ -113,7 +114,7 @@
             this.diffic_level.AutoSize = true;
             this.diffic_level.BackColor = System.Drawing.Color.PaleTurquoise;
             this.diffic_level.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.diffic_level.Location = new System.Drawing.Point(628, 113);
+            this.diffic_level.Location = new System.Drawing.Point(628, 111);
             this.diffic_level.Name = "diffic_level";
             this.diffic_level.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.diffic_level.Size = new System.Drawing.Size(72, 18);
@@ -126,7 +127,7 @@
             this.curr_q.AutoSize = true;
             this.curr_q.BackColor = System.Drawing.SystemColors.HighlightText;
             this.curr_q.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.curr_q.Location = new System.Drawing.Point(118, 2);
+            this.curr_q.Location = new System.Drawing.Point(118, 5);
             this.curr_q.Name = "curr_q";
             this.curr_q.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.curr_q.Size = new System.Drawing.Size(106, 18);
@@ -139,11 +140,11 @@
             this.curr_q_id.AutoSize = true;
             this.curr_q_id.BackColor = System.Drawing.SystemColors.HighlightText;
             this.curr_q_id.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.curr_q_id.Location = new System.Drawing.Point(13, 2);
+            this.curr_q_id.Location = new System.Drawing.Point(13, 5);
             this.curr_q_id.Name = "curr_q_id";
             this.curr_q_id.Size = new System.Drawing.Size(26, 18);
             this.curr_q_id.TabIndex = 8;
-            this.curr_q_id.Text = "id: ";
+            this.curr_q_id.Text = "Id: ";
             this.curr_q_id.Click += new System.EventHandler(this.curr_q_id_Click);
             // 
             // correct_answers
@@ -163,7 +164,7 @@
             this.diffic_level_col.AutoSize = true;
             this.diffic_level_col.BackColor = System.Drawing.Color.PaleTurquoise;
             this.diffic_level_col.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.diffic_level_col.Location = new System.Drawing.Point(956, 113);
+            this.diffic_level_col.Location = new System.Drawing.Point(956, 111);
             this.diffic_level_col.Name = "diffic_level_col";
             this.diffic_level_col.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.diffic_level_col.Size = new System.Drawing.Size(97, 18);
@@ -173,14 +174,15 @@
             // 
             // curr_col_id
             // 
+            this.curr_col_id.AllowDrop = true;
             this.curr_col_id.AutoSize = true;
             this.curr_col_id.BackColor = System.Drawing.SystemColors.HighlightText;
             this.curr_col_id.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.curr_col_id.Location = new System.Drawing.Point(956, 2);
+            this.curr_col_id.Location = new System.Drawing.Point(956, 5);
             this.curr_col_id.Name = "curr_col_id";
-            this.curr_col_id.Size = new System.Drawing.Size(86, 18);
+            this.curr_col_id.Size = new System.Drawing.Size(88, 18);
             this.curr_col_id.TabIndex = 14;
-            this.curr_col_id.Text = "collection id: ";
+            this.curr_col_id.Text = "Collection Id: ";
             // 
             // nextQuestionsButton
             // 
@@ -218,11 +220,25 @@
             this.previousQuestionsButton.UseVisualStyleBackColor = false;
             this.previousQuestionsButton.Click += new System.EventHandler(this.previousQuestionsButton_Click);
             // 
+            // avrage_difficultyLevel
+            // 
+            this.avrage_difficultyLevel.AutoSize = true;
+            this.avrage_difficultyLevel.BackColor = System.Drawing.Color.Gold;
+            this.avrage_difficultyLevel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.avrage_difficultyLevel.Location = new System.Drawing.Point(798, 86);
+            this.avrage_difficultyLevel.Name = "avrage_difficultyLevel";
+            this.avrage_difficultyLevel.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.avrage_difficultyLevel.Size = new System.Drawing.Size(113, 18);
+            this.avrage_difficultyLevel.TabIndex = 15;
+            this.avrage_difficultyLevel.Text = "רמת קושי ממוצעת:";
+            this.avrage_difficultyLevel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // summrizePage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1047, 739);
+            this.Controls.Add(this.avrage_difficultyLevel);
             this.Controls.Add(this.curr_col_id);
             this.Controls.Add(this.diffic_level_col);
             this.Controls.Add(this.nextQuestionsButton);
@@ -261,5 +277,6 @@
         private RJButtons2 nextQuestionsButton;
         private System.Windows.Forms.Label diffic_level_col;
         private System.Windows.Forms.Label curr_col_id;
+        private System.Windows.Forms.Label avrage_difficultyLevel;
     }
 }

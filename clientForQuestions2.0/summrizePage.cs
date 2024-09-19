@@ -35,6 +35,14 @@ namespace clientForQuestions2._0
             orgnizeQuestions();
             InitializeComponent();
 
+            ToolTip copy_q_id_toolTip = new ToolTip();
+            copy_q_id_toolTip.SetToolTip(curr_q_id, "Click to copy id to clipboard");
+            copy_q_id_toolTip.AutoPopDelay = 5000;   // Duration the tooltip will remain visible (5 seconds)
+            copy_q_id_toolTip.InitialDelay = 0;      // Delay before the tooltip appears (0 ms for instant display)
+            copy_q_id_toolTip.ReshowDelay = 0;       // Delay between when the cursor moves from one tooltip to another (0 ms for instant display)
+            copy_q_id_toolTip.ShowAlways = true;
+            curr_q_id.Cursor = Cursors.Hand;
+
             // full screen
             this.WindowState = FormWindowState.Maximized;
             //this.FormBorderStyle = FormBorderStyle.None;
@@ -87,29 +95,31 @@ namespace clientForQuestions2._0
         }
         private void displayTotalAvrageTime()
         {
-            int time = 0;
-            foreach(afterQuestionParametrs qp in m_questions)
-            {
-                time += qp.timeForAnswer;
-            }
-
-
-            this.total_time.Text = $"זמן כולל: {OperationsAndOtherUseful.get_time_mmss_fromseconds(time)}";
-            this.avrage_time.Text = $"זמן ממוצע לשאלה: {OperationsAndOtherUseful.get_time_mmss_fromseconds(time / m_questions.Count)}";
-
+            int sum_time = 0;
+            float sum_difficultLevel = 0;
             int corr_c = 0;
+
             foreach (afterQuestionParametrs qp in m_questions)
             {
+                sum_time += qp.timeForAnswer;
+
+                sum_difficultLevel += (float) qp.question.json_content["difficulty_level"];
+
                 if (qp.userAnswer == -1 || qp.userAnswer == OperationsAndOtherUseful.SKIPPED_Q)
                     continue;
                 if (((JArray)qp.question.json_content["options"]).Count != 0)
-                    if ((int) qp.question.json_content["options"][qp.userAnswer-1]["is_correct"] == 1)
-                            corr_c++;
-                else
+                    if ((int)qp.question.json_content["options"][qp.userAnswer - 1]["is_correct"] == 1)
+                        corr_c++;
+                    else
                     if (((JArray)qp.question.json_content["option_images"]).Count != 0)
-                        if ((int)qp.question.json_content["option_images"][qp.userAnswer-1]["is_correct"] == 1)
+                        if ((int)qp.question.json_content["option_images"][qp.userAnswer - 1]["is_correct"] == 1)
                             corr_c++;
             }
+
+
+            this.total_time.Text = $"זמן כולל: {OperationsAndOtherUseful.get_time_mmss_fromseconds(sum_time)}";
+            this.avrage_time.Text = $"זמן ממוצע לשאלה: {OperationsAndOtherUseful.get_time_mmss_fromseconds(sum_time / m_questions.Count)}";
+            this.avrage_difficultyLevel.Text = $"רמת קושי ממוצעת לשאלה: {Math.Round(sum_difficultLevel / m_questions.Count, 1)}";
             this.correct_answers.Text = $"תשובות נכונות: {corr_c}/{m_questions.Count}";
 
         }
@@ -593,10 +603,13 @@ namespace clientForQuestions2._0
         private void curr_q_id_Click(object sender, EventArgs e)
         {
             Label clickedLabel = sender as Label;
+            ToolTip toolTip = new ToolTip();
             if (clickedLabel != null && clickedLabel.Text.Length > 4)
             {
                 // Copy the label text to the clipboard
                 Clipboard.SetText(clickedLabel.Text.Substring(4));
+
+                toolTip.Show("Id copied!", curr_q_id, curr_q_id.Width / 2, -20, 2000);
             }
         }
 

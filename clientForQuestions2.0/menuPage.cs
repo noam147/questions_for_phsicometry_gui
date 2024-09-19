@@ -154,5 +154,15 @@ namespace clientForQuestions2._0
             if (e.KeyCode == Keys.Enter)
                 this.collectionbyIdButton_Click(null, null);
         }
+
+        private void testHistoryButton_Click(object sender, EventArgs e)
+        {
+            LogFileHandler.writeIntoFile("Opened new test history menu");
+            //get the questions here
+            testHistoryMenu t = new testHistoryMenu();
+
+            t.Show();
+            this.Close();
+        }
     }
 }

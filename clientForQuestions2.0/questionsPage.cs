@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using Microsoft.Web.WebView2.WinForms;
 using Newtonsoft.Json.Linq;
 using System.Timers;
+using Newtonsoft.Json;
 
 
 namespace clientForQuestions2._0
@@ -610,7 +611,9 @@ namespace clientForQuestions2._0
             if (result == DialogResult.No) // the user isn't sure
                 return;
 
-                if (this.m_afterQuestionParametrs.Count == 0)
+            disposedWebViews();
+
+            if (this.m_afterQuestionParametrs.Count == 0)
             {
                 //if user didnt answer questions at all - direct him to the menu
                 var mp = new menuPage();
@@ -618,7 +621,8 @@ namespace clientForQuestions2._0
                 this.Close();
                 return;
             }
-            disposedWebViews();
+            TestHistoryFileHandler.save_afterQuestionParametrs_to_test_history(m_afterQuestionParametrs);
+
             var s = new summrizePage(this.m_afterQuestionParametrs);
             s.Show();
             this.Close();
@@ -746,33 +750,11 @@ namespace clientForQuestions2._0
 
         private void nextQuestionButtonClick(object sender, EventArgs e)
         {
-            //if questions end, check if all q are answered
-            if ((m_indexOfCurrQuestion == this.m_questionDetails.Count && !isUserDoNotGetFeedBack) || (m_buttonList.Any() && m_buttonList.All(b => b.BackColor == Color.Yellow && isUserDoNotGetFeedBack)))
-            {
-
-                if (sender == null)
-                {
-                    //if this is not a real click and just we want to move on but its the end
-                    this.continueToQuestionButton.Text = "סיכום";
-                    this.continueToQuestionButton.Visible = true;
-                    this.continueToQuestionButton.BackColor = Color.Yellow;
-                    return;
-                }
-                disposedWebViews();
-                var s = new summrizePage(this.m_afterQuestionParametrs);
-                s.Show();
-                this.Close();
-                return;
-            }
-
-            m_questionCounter++;
-
-
             if (!isUserDoNotGetFeedBack)
             {
                 rewriteTimer();
             }
-            else
+            else // MIGHT BE A PROBLEM, IN swichQuestionButton_Click() THIS PROCESS IS ALSO DONE, AND THIS FUNCTION CALLS swichQuestionButton_Click() #42 #todo #fix #from_the_bipper_to_the_sea_cna'an_will_be_free
             {
                 for (int i = 0; i < m_afterQuestionParametrs.Count; i++)
                 {
@@ -788,6 +770,29 @@ namespace clientForQuestions2._0
 
                 timeElapsed = secondsTookForCurrq; // save the time when the user left the curr q and enter a new one
             }
+
+            //if questions end, check if all q are answered
+            if ((m_indexOfCurrQuestion == this.m_questionDetails.Count && !isUserDoNotGetFeedBack) || (m_buttonList.Any() && m_buttonList.All(b => b.BackColor == Color.Yellow && isUserDoNotGetFeedBack)))
+            {
+
+                if (sender == null)
+                {
+                    //if this is not a real click and just we want to move on but its the end
+                    this.continueToQuestionButton.Text = "סיכום";
+                    this.continueToQuestionButton.Visible = true;
+                    this.continueToQuestionButton.BackColor = Color.Yellow;
+                    return;
+                }
+                disposedWebViews();
+                TestHistoryFileHandler.save_afterQuestionParametrs_to_test_history(m_afterQuestionParametrs);
+
+                var s = new summrizePage(this.m_afterQuestionParametrs);
+                s.Show();
+                this.Close();
+                return;
+            }
+
+            m_questionCounter++;
 
             this.updateLabelAnswers();
 

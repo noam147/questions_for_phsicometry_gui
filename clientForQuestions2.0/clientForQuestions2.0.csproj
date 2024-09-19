@@ -141,6 +141,13 @@
     <Compile Include="summrizePage.Designer.cs">
       <DependentUpon>summrizePage.cs</DependentUpon>
     </Compile>
+    <Compile Include="TestHistoryFileHandler.cs" />
+    <Compile Include="testHistoryMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="testHistoryMenu.Designer.cs">
+      <DependentUpon>testHistoryMenu.cs</DependentUpon>
+    </Compile>
     <Compile Include="textQuestions.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -183,6 +190,9 @@
     </Compile>
     <EmbeddedResource Include="summrizePage.resx">
       <DependentUpon>summrizePage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="testHistoryMenu.resx">
+      <DependentUpon>testHistoryMenu.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="textQuestions.resx">
       <DependentUpon>textQuestions.cs</DependentUpon>
