@@ -116,6 +116,12 @@ namespace clientForQuestions2._0
             // check if already logged in when the page loaded
             loggedInButton_Click(null, null);
         }
+
+        private void textBox1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+                continueButton_Click(null, null);
+        }
     }
     
 }

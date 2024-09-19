@@ -35,13 +35,13 @@ namespace clientForQuestions2._0
             this.collectionsQuestions = new System.Windows.Forms.Button();
             this.questionByIDtextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.questionByIdButton = new clientForQuestions2._0.RJButtons2();
             this.chaptersQuestions = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.collectionbyIdtextBox = new System.Windows.Forms.TextBox();
-            this.collectionbyIdButton = new clientForQuestions2._0.RJButtons2();
             this.error_qById_label = new System.Windows.Forms.Label();
             this.error_colById_label = new System.Windows.Forms.Label();
+            this.collectionbyIdButton = new clientForQuestions2._0.RJButtons2();
+            this.questionByIdButton = new clientForQuestions2._0.RJButtons2();
             this.SuspendLayout();
             // 
             // normalQuestions
@@ -73,6 +73,7 @@ namespace clientForQuestions2._0
             this.questionByIDtextBox.Name = "questionByIDtextBox";
             this.questionByIDtextBox.Size = new System.Drawing.Size(89, 22);
             this.questionByIDtextBox.TabIndex = 14;
+            this.questionByIDtextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.questionByIDtextBox_KeyDown);
             // 
             // label1
             // 
@@ -82,23 +83,6 @@ namespace clientForQuestions2._0
             this.label1.Size = new System.Drawing.Size(128, 16);
             this.label1.TabIndex = 15;
             this.label1.Text = "שאלה לפי מספר מזהה";
-            // 
-            // questionByIdButton
-            // 
-            this.questionByIdButton.BackColor = System.Drawing.Color.MediumSlateBlue;
-            this.questionByIdButton.BorderRadiuos = 40;
-            this.questionByIdButton.BorderSize = 1;
-            this.questionByIdButton.FlatAppearance.BorderSize = 0;
-            this.questionByIdButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.questionByIdButton.ForeColor = System.Drawing.Color.White;
-            this.questionByIdButton.Location = new System.Drawing.Point(44, 158);
-            this.questionByIdButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.questionByIdButton.Name = "questionByIdButton";
-            this.questionByIdButton.Size = new System.Drawing.Size(156, 48);
-            this.questionByIdButton.TabIndex = 18;
-            this.questionByIdButton.Text = "הצג שאלה";
-            this.questionByIdButton.UseVisualStyleBackColor = false;
-            this.questionByIdButton.Click += new System.EventHandler(this.questionbyIdButton_Click);
             // 
             // chaptersQuestions
             // 
@@ -127,23 +111,7 @@ namespace clientForQuestions2._0
             this.collectionbyIdtextBox.Name = "collectionbyIdtextBox";
             this.collectionbyIdtextBox.Size = new System.Drawing.Size(89, 22);
             this.collectionbyIdtextBox.TabIndex = 21;
-            // 
-            // collectionbyIdButton
-            // 
-            this.collectionbyIdButton.BackColor = System.Drawing.Color.MediumSlateBlue;
-            this.collectionbyIdButton.BorderRadiuos = 40;
-            this.collectionbyIdButton.BorderSize = 1;
-            this.collectionbyIdButton.FlatAppearance.BorderSize = 0;
-            this.collectionbyIdButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.collectionbyIdButton.ForeColor = System.Drawing.Color.White;
-            this.collectionbyIdButton.Location = new System.Drawing.Point(44, 444);
-            this.collectionbyIdButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.collectionbyIdButton.Name = "collectionbyIdButton";
-            this.collectionbyIdButton.Size = new System.Drawing.Size(156, 48);
-            this.collectionbyIdButton.TabIndex = 22;
-            this.collectionbyIdButton.Text = "הצג תרשים או קטע קריאה";
-            this.collectionbyIdButton.UseVisualStyleBackColor = false;
-            this.collectionbyIdButton.Click += new System.EventHandler(this.collectionbyIdButton_Click);
+            this.collectionbyIdtextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.collectionbyIdtextBox_KeyDown);
             // 
             // error_qById_label
             // 
@@ -162,6 +130,40 @@ namespace clientForQuestions2._0
             this.error_colById_label.Name = "error_colById_label";
             this.error_colById_label.Size = new System.Drawing.Size(0, 16);
             this.error_colById_label.TabIndex = 24;
+            // 
+            // collectionbyIdButton
+            // 
+            this.collectionbyIdButton.BackColor = System.Drawing.Color.MediumSlateBlue;
+            this.collectionbyIdButton.BorderRadiuos = 40;
+            this.collectionbyIdButton.BorderSize = 1;
+            this.collectionbyIdButton.FlatAppearance.BorderSize = 0;
+            this.collectionbyIdButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.collectionbyIdButton.ForeColor = System.Drawing.Color.White;
+            this.collectionbyIdButton.Location = new System.Drawing.Point(44, 444);
+            this.collectionbyIdButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.collectionbyIdButton.Name = "collectionbyIdButton";
+            this.collectionbyIdButton.Size = new System.Drawing.Size(156, 48);
+            this.collectionbyIdButton.TabIndex = 22;
+            this.collectionbyIdButton.Text = "הצג תרשים או קטע קריאה";
+            this.collectionbyIdButton.UseVisualStyleBackColor = false;
+            this.collectionbyIdButton.Click += new System.EventHandler(this.collectionbyIdButton_Click);
+            // 
+            // questionByIdButton
+            // 
+            this.questionByIdButton.BackColor = System.Drawing.Color.MediumSlateBlue;
+            this.questionByIdButton.BorderRadiuos = 40;
+            this.questionByIdButton.BorderSize = 1;
+            this.questionByIdButton.FlatAppearance.BorderSize = 0;
+            this.questionByIdButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.questionByIdButton.ForeColor = System.Drawing.Color.White;
+            this.questionByIdButton.Location = new System.Drawing.Point(44, 158);
+            this.questionByIdButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.questionByIdButton.Name = "questionByIdButton";
+            this.questionByIdButton.Size = new System.Drawing.Size(156, 48);
+            this.questionByIdButton.TabIndex = 18;
+            this.questionByIdButton.Text = "הצג שאלה";
+            this.questionByIdButton.UseVisualStyleBackColor = false;
+            this.questionByIdButton.Click += new System.EventHandler(this.questionbyIdButton_Click);
             // 
             // menuPage
             // 

@@ -140,5 +140,19 @@ namespace clientForQuestions2._0
             s.Show();
             this.Close();
         }
+
+        // when enter is pressed go to the question
+        private void questionByIDtextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+                this.questionbyIdButton_Click(null, null);
+        }
+
+        // when enter is pressed go to the collection
+        private void collectionbyIdtextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+                this.collectionbyIdButton_Click(null, null);
+        }
     }
 }
