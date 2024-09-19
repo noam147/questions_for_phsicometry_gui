@@ -119,8 +119,8 @@ namespace clientForQuestions2._0
 
         private void textBox1_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter)
-                continueButton_Click(null, null);
+            //if (e.KeyCode == Keys.Enter)
+            //    continueButton_Click(null, null);
         }
     }
     

@@ -51,6 +51,7 @@ namespace clientForQuestions2._0
         {
             InitializeComponent();
             setAnswerButtonsToNormalcolor();
+
             this.answer1Button.Enabled = false;
             this.answer2Button.Enabled = false;
             this.answer3Button.Enabled = false;
@@ -195,6 +196,7 @@ namespace clientForQuestions2._0
             }
 
         }
+
 
         // to detect arrow keys preesed when isUserDoNotGetFeedBack == true
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
