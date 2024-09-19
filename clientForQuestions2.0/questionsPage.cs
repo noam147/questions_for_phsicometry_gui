@@ -181,9 +181,9 @@ namespace clientForQuestions2._0
                 Button btn = new Button
                 {
                     Text = $"{i + 1}",
-                    Width = 30,
-                    Height = 30,
-                    Location = new System.Drawing.Point(140 +( i % 10 )* 45, 30), // Adjust spacing
+                    Width = this.Q_BUTTON_SIZE,
+                    Height = this.Q_BUTTON_SIZE,
+                    Location = new System.Drawing.Point(140 +( i % 10 )* 45, this.Q_BUTTON_SIZE), // Adjust spacing
                     Enabled = true,
                     Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold) // make the text BOLD
                 };
@@ -195,6 +195,40 @@ namespace clientForQuestions2._0
             }
 
         }
+
+        // to detect arrow keys preesed when isUserDoNotGetFeedBack == true
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            // cant navigate questions in instant feedback test
+            if (!isUserDoNotGetFeedBack)
+                return true;
+            
+            switch (keyData)
+            {
+                case Keys.Left:
+                    LogFileHandler.writeIntoFile($"clicked left in summarize, trying to enter q no. {this.m_indexOfCurrQuestion} from q no. {this.m_indexOfCurrQuestion + 1}");
+                    if (this.m_indexOfCurrQuestion > 0 && this.m_indexOfCurrQuestion < this.m_questionDetails.Count)
+                    {
+                        if ((this.m_indexOfCurrQuestion + 1) % 10 == 1)
+                            displayButtons(this.m_indexOfCurrQuestion - 10, this.m_indexOfCurrQuestion);
+
+                        swichQuestionButton_Click(this.m_indexOfCurrQuestion - 1);
+                    }
+                    return true;
+                case Keys.Right:
+                    LogFileHandler.writeIntoFile($"clicked right in summarize, trying to enter q no. {this.m_indexOfCurrQuestion + 2} from q no. {this.m_indexOfCurrQuestion + 1}");
+                    if (this.m_indexOfCurrQuestion >= 0 && this.m_indexOfCurrQuestion < this.m_questionDetails.Count - 1)
+                    {
+                        if ((this.m_indexOfCurrQuestion + 1) % 10 == 0)
+                            displayButtons(this.m_indexOfCurrQuestion + 1, this.m_indexOfCurrQuestion + 11);
+
+                        swichQuestionButton_Click(this.m_indexOfCurrQuestion + 1);
+                    }
+                    return true;
+            }
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
+
         private void displayButtons(int startIndex,int endIndex)
         {
             m_currentIndexOfFirstButton = startIndex;
@@ -673,7 +707,7 @@ namespace clientForQuestions2._0
                 //return;
 
                 setAnswerButtonsToNormalcolor();
-                markUserAnswerInYellow(this.m_indexOfCurrQuestion); //the curr q
+                markUserAnswerInLightBlue(this.m_indexOfCurrQuestion); //the curr q
 
                 if ((m_buttonList.Any() && m_buttonList.All(b => b.BackColor == Color.Yellow)))
                 {
@@ -902,7 +936,7 @@ namespace clientForQuestions2._0
             //need to also mark the current user answer!
             string htmlContent = OperationsAndOtherUseful.get_string_of_question_and_option_from_json(this.m_questionDetails[indexOfQuestion], OperationsAndOtherUseful.DO_NOT_MARK);
             this.webView21.NavigateToString(htmlContent);
-            markUserAnswerInYellow(indexOfQuestion);
+            markUserAnswerInLightBlue(indexOfQuestion);
 
             if ((m_buttonList.Any() && m_buttonList.All(b => b.BackColor == Color.Yellow)))
             {
@@ -913,7 +947,7 @@ namespace clientForQuestions2._0
             else
                 this.continueToQuestionButton.Visible = false;
         }
-        private void markUserAnswerInYellow(int index)
+        private void markUserAnswerInLightBlue(int index)
         {
             int userAnswer = -1;
             for (int i = 0; i < this.m_afterQuestionParametrs.Count; i++)
@@ -925,13 +959,13 @@ namespace clientForQuestions2._0
                 }
             }
             if (userAnswer == 1)
-                answer1Button.BackColor = Color.Yellow;
+                answer1Button.BackColor = Color.LightBlue;
             if (userAnswer == 2)
-                answer2Button.BackColor = Color.Yellow;
+                answer2Button.BackColor = Color.LightBlue;
             if (userAnswer == 3)
-                answer3Button.BackColor = Color.Yellow;
+                answer3Button.BackColor = Color.LightBlue;
             if (userAnswer == 4)
-                answer4Button.BackColor = Color.Yellow;
+                answer4Button.BackColor = Color.LightBlue;
         }
         private void setAnswerButtonsToNormalcolor()
         {

@@ -126,7 +126,7 @@ namespace clientForQuestions2._0
 
                 if (question.question.questionId == 0)
                 {
-                    LogFileHandler.writeIntoFile($"try to accsess collection id that has invalid questions, id: {col_id}");
+                    LogFileHandler.writeIntoFile($"try to accsess collection id that has invalid questions, id: {col_id}, previous question id: {q_ids[i]}");
                     this.error_colById_label.Text = "חלה שגיאה באתחול התצוגה, שאלה לא תקינה במאגר";
 
                     return;

@@ -21,6 +21,8 @@ namespace clientForQuestions2._0
         private int h_questionsPlace = 70;
         private int width_screen;
         private int height_screen;
+        private int Q_BUTTON_SIZE = 30;
+        private int Q_CHOSEN_BUTTON_ADD_SIZE = 10;
 
         private int col_id = 0;
         private int indexQuestion = -1;
@@ -400,9 +402,9 @@ namespace clientForQuestions2._0
                 Button btn = new Button
                 {
                     Text = $"{i + 1}",
-                    Width = 30,
-                    Height = 30,
-                    Location = new System.Drawing.Point(230+(i%10)*40, 30), // Adjust spacing
+                    Width = this.Q_BUTTON_SIZE,
+                    Height = this.Q_BUTTON_SIZE,
+                    Location = new System.Drawing.Point(230+(i%10)*40, this.Q_BUTTON_SIZE), // Adjust spacing
                     Enabled = true,
                     Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold) // make the text BOLD
             };
@@ -484,22 +486,30 @@ namespace clientForQuestions2._0
             Button_Click((int.Parse(((Button)sender).Text)-1));
         }
 
-        private void Button_Click(int iQ)
+        private void Button_Click(int new_indexQuestion)
 //>>>>>>> 417be51f8b0ed105be95d0ddf17446bb40720811
         {
-            if (iQ < 0 || iQ >= this.m_questions.Count)
+            if (new_indexQuestion < 0 || new_indexQuestion >= this.m_questions.Count)
                 return;
 
             if (this.indexQuestion >= 0 && this.indexQuestion < this.m_questions.Count)
             {
-                m_buttonList[this.indexQuestion].BackColor = m_buttonList[this.indexQuestion].ForeColor; // change the last clicked button back to normal
-                m_buttonList[this.indexQuestion].ForeColor = System.Drawing.Color.Black; // change the last clicked button back to normal
+                // setting the previous question button to normal size again
+                m_buttonList[this.indexQuestion].Width = Q_BUTTON_SIZE;
+                m_buttonList[this.indexQuestion].Height = Q_BUTTON_SIZE;
+                m_buttonList[this.indexQuestion].Location = new System.Drawing.Point(m_buttonList[this.indexQuestion].Location.X + ((int)Q_CHOSEN_BUTTON_ADD_SIZE / 2), m_buttonList[this.indexQuestion].Location.Y + ((int)Q_CHOSEN_BUTTON_ADD_SIZE / 2));
+                //m_buttonList[this.indexQuestion].BackColor = m_buttonList[this.indexQuestion].ForeColor; // change the last clicked button back to normal
+                //m_buttonList[this.indexQuestion].ForeColor = System.Drawing.Color.Black; // change the last clicked button back to normal
             }
 
-            this.indexQuestion = iQ;
+            this.indexQuestion = new_indexQuestion;
 
-            m_buttonList[this.indexQuestion].ForeColor = m_buttonList[this.indexQuestion].BackColor; // change ForeColor to green/red 
-            m_buttonList[this.indexQuestion].BackColor = System.Drawing.Color.Cyan; // change BackColor to cyan to highlight the current question
+            // setting the current question button size to be bigger
+            m_buttonList[this.indexQuestion].Width = Q_BUTTON_SIZE + Q_CHOSEN_BUTTON_ADD_SIZE;
+            m_buttonList[this.indexQuestion].Height = Q_BUTTON_SIZE + Q_CHOSEN_BUTTON_ADD_SIZE;
+            m_buttonList[this.indexQuestion].Location = new System.Drawing.Point(m_buttonList[this.indexQuestion].Location.X - ((int)Q_CHOSEN_BUTTON_ADD_SIZE / 2), m_buttonList[this.indexQuestion].Location.Y - ((int)Q_CHOSEN_BUTTON_ADD_SIZE / 2));
+            //m_buttonList[this.indexQuestion].ForeColor = m_buttonList[this.indexQuestion].BackColor; // change ForeColor to green/red 
+            //m_buttonList[this.indexQuestion].BackColor = System.Drawing.Color.Cyan; // change BackColor to cyan to highlight the current question
 
             //here we display the question and answer based on the index
             string toDisplay = OperationsAndOtherUseful.get_string_of_question_and_explanation(this.m_questions[this.indexQuestion].question, this.m_questions[this.indexQuestion].userAnswer);
