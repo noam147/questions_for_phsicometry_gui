@@ -448,17 +448,17 @@ namespace clientForQuestions2._0
 
                 if (userAnswer != DO_NOT_MARK)
                 {
-                    listOfOptions[optionToMarkGreen - 1] = $"<div style = \"background-color: lightgreen;display: inline-block;\"> ({optionToMarkGreen})\t</div>" + listOfOptions[optionToMarkGreen - 1];
+                    listOfOptions[optionToMarkGreen - 1] = $"<div style = \"background-color: lightgreen;display: inline-block;\"> ({optionToMarkGreen})\t</div> <br>" + listOfOptions[optionToMarkGreen - 1];
                     //green will always be
                     if (userAnswer != optionToMarkGreen && userAnswer != SKIPPED_Q)//if the user got right - do not need to mark in red
                     {
-                        listOfOptions[userAnswer - 1] = $"<div style = \"background-color: red;display: inline-block;\"> ({userAnswer})\t</div>" + listOfOptions[userAnswer - 1];
+                        listOfOptions[userAnswer - 1] = $"<div style = \"background-color: red;display: inline-block;\"> ({userAnswer})\t</div> <br>" + listOfOptions[userAnswer - 1];
                     }
                 }
                 for (int i = 0; i < listOfOptions.Count; i++)
                 {
                     if (listOfOptions[i].StartsWith("<img"))
-                        listOfOptions[i] = $"({i + 1})\t" + listOfOptions[i];
+                        listOfOptions[i] = $"<div <p>({i + 1})\t</p> </div> <br>" + listOfOptions[i];
                 }
             }
 
