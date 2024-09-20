@@ -119,5 +119,10 @@ namespace clientForQuestions2._0
 
             return testHistory;
         }
+
+        public static void delete_test_history()
+        {
+            File.WriteAllText(filePath, "[]"); // reset the array
+        }
     }
 }

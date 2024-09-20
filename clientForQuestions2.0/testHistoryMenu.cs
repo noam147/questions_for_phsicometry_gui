@@ -24,13 +24,14 @@ namespace clientForQuestions2._0
         // create buttons
         private void createButtons()
         {
+            m_button_list = new List<Button>();
             for (int i = 0; i < tests.Count; i++)
             {
                 Button btn = new Button
                 {
                     Text = tests[i].date,
                     AutoSize = true,
-                    Location = new System.Drawing.Point(10, 10 + (i % 10) * 40), // Adjust spacing
+                    Location = new System.Drawing.Point(100, 100 + (i % 10) * 40), // Adjust spacing
                     Enabled = true,
                     Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold) // make the text BOLD
                 };
@@ -40,6 +41,15 @@ namespace clientForQuestions2._0
                 Controls.Add(btn);
             }
         }
+
+        private void deleteButtons()
+        {
+            foreach(Button button in m_button_list)
+            {
+                this.Controls.Remove(button);
+            }
+        }
+
 
         private void Button_Click(object sender, EventArgs e)
         {
@@ -54,6 +64,34 @@ namespace clientForQuestions2._0
                     return;
                 }
             }
+        }
+
+        private void backToMainMenu_button_Click(object sender, EventArgs e)
+        {
+            menuPage m = new menuPage();
+            m.Show();
+            this.Close();
+        }
+
+        private void resetHistory_button_Click(object sender, EventArgs e)
+        {
+            // no history to reset
+            if (tests.Count == 0)
+                return;
+
+            // check if the user is sure to reset history
+            DialogResult result = MessageBox.Show("?האם אתה בטוח שאתה רוצה לאפס את היסטורית התרגולים",
+                                      "Confirmation",
+                                      MessageBoxButtons.YesNo,
+                                      MessageBoxIcon.Question);
+            if (result == DialogResult.No) // the user isn't sure
+                return;
+
+
+            TestHistoryFileHandler.delete_test_history();
+            tests = TestHistoryFileHandler.get_test_history();
+            deleteButtons();
+            createButtons();
         }
     }
 }

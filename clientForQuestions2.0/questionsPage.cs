@@ -603,7 +603,6 @@ namespace clientForQuestions2._0
         private void stopTestButtonClick(object sender, EventArgs e)
         {
             // check if the user is sure to leave the test
-
             DialogResult result = MessageBox.Show("?האם אתה בטוח שאתה רוצה לצאת מהתרגול",
                                       "Confirmation",
                                       MessageBoxButtons.YesNo,
