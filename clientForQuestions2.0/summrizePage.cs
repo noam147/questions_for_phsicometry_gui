@@ -217,7 +217,6 @@ namespace clientForQuestions2._0
 
             webTaker.OnCoreWebView2_colInitializationCompleted(webView2_col, q);
         }
-
         private void InitializeWebView21()
         {
             // Use InvokeRequired check to ensure all UI operations are marshaled back to the main thread
@@ -278,6 +277,7 @@ namespace clientForQuestions2._0
                         try
                         {
                             Controls.Add(webView21);
+                            webView21.NavigationCompleted +=webTaker.webView_NavigationCompleted;
                             webView21.SendToBack(); // Ensure WebView2 is on back of other controls
                             if (this.m_buttonList.Count != 0)
                             {
@@ -366,6 +366,7 @@ namespace clientForQuestions2._0
                         try
                         {
                             Controls.Add(webView2_col);
+                            webView2_col.NavigationCompleted += webTaker.webView_NavigationCompleted;
                             webView2_col.SendToBack(); // Ensure webView2_col is on back of other controls
                         }
                         catch (Exception addEx)

@@ -77,5 +77,26 @@ namespace clientForQuestions2._0
             }
 
         }
+        public static async void webView_NavigationCompleted(object sender, Microsoft.Web.WebView2.Core.CoreWebView2NavigationCompletedEventArgs e)
+        {
+            // Cast sender to WebView2
+            var webView = sender as WebView2;
+
+            // Check if the navigation was successful
+            if (e.IsSuccess)
+            {
+                // JavaScript to modify the content
+                string script = @"
+                var elements = document.querySelectorAll('mjx-mspace');
+                elements.forEach(function(element) {
+                    var newElement = document.createElement('p');
+                    element.parentNode.insertBefore(newElement, element.nextSibling);
+                });
+            ";
+
+                // Execute the JavaScript in the WebView
+                await webView.CoreWebView2.ExecuteScriptAsync(script);
+            }
+        }
     }
 }

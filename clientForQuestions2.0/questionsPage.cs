@@ -482,6 +482,7 @@ namespace clientForQuestions2._0
                 try
                 {
                     whenFinishInitWebView();
+                    webView21.NavigationCompleted += webTaker.webView_NavigationCompleted;
                     Controls.Add(webView21);
                     webView21.SendToBack(); // Send WebView2 to the back
                 }
@@ -575,6 +576,7 @@ namespace clientForQuestions2._0
                 try
                 {
                     Controls.Add(webView2_col);
+                    webView2_col.NavigationCompleted += webTaker.webView_NavigationCompleted;
                     webView2_col.SendToBack(); // Send WebView2 to the back
                 }
                 catch (Exception addEx)

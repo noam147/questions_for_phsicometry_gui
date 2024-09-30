@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
+using System.Xml;
 using Newtonsoft.Json.Linq;
 namespace clientForQuestions2._0
 {
@@ -68,6 +69,9 @@ namespace clientForQuestions2._0
                 dbQuestionParmeters dbParmeters = new dbQuestionParmeters();
                 dbParmeters.json_content = jsonArray[i];
                 dbParmeters.json_content["question"] = includeJsLibs + dbParmeters.json_content["question"];
+                dbParmeters.json_content["question"].ToString().Replace("<mspace linebreak =\"newline\"/>", "<mspace linebreak=\"newline\"/><p></p>");
+
+                
                 dbParmeters.category = categories[i];
                 dbParmeters.questionId = ids[i];
                 dbParmeters.rightAnswer = get_num_of_correct_answer(jsonArray[i]);
