@@ -29,6 +29,7 @@ namespace clientForQuestions2._0
             //func content is not intresting
             //input sql query
             //output list of questions details
+            string includeJsLibs = "<head> <script src=\"https://polyfill.io/v3/polyfill.min.js?features=es6\"></script>\r\n  <script id=\"MathJax-script\" async src=\"https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js\"></script></head>";
             List<dbQuestionParmeters> dbQuestions = new List<dbQuestionParmeters>();
             JArray jsonArray = new JArray();
             List<string> categories = new List<string>(); 
@@ -66,6 +67,7 @@ namespace clientForQuestions2._0
             {
                 dbQuestionParmeters dbParmeters = new dbQuestionParmeters();
                 dbParmeters.json_content = jsonArray[i];
+                dbParmeters.json_content["question"] = includeJsLibs + dbParmeters.json_content["question"];
                 dbParmeters.category = categories[i];
                 dbParmeters.questionId = ids[i];
                 dbParmeters.rightAnswer = get_num_of_correct_answer(jsonArray[i]);

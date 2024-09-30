@@ -111,11 +111,11 @@
     <Compile Include="normalQuestionsMenu.Designer.cs">
       <DependentUpon>normalQuestionsMenu.cs</DependentUpon>
     </Compile>
-    <Compile Include="NormalQuestionsPage.cs">
+    <Compile Include="WithFeedBackQuestionsPage.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="NormalQuestionsPage.Designer.cs">
-      <DependentUpon>NormalQuestionsPage.cs</DependentUpon>
+    <Compile Include="WithFeedBackQuestionsPage.Designer.cs">
+      <DependentUpon>WithFeedBackQuestionsPage.cs</DependentUpon>
     </Compile>
     <Compile Include="OperationsAndOtherUseful.cs" />
     <Compile Include="PasswordPage.cs">
@@ -157,6 +157,12 @@
       <DependentUpon>textQuestions.cs</DependentUpon>
     </Compile>
     <Compile Include="webTaker.cs" />
+    <Compile Include="WithOutFeedBackQuestionsPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WithOutFeedBackQuestionsPage.Designer.cs">
+      <DependentUpon>WithOutFeedBackQuestionsPage.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="chaptersQuestionsMenu.resx">
       <DependentUpon>chaptersQuestionsMenu.cs</DependentUpon>
     </EmbeddedResource>
@@ -172,8 +178,8 @@
     <EmbeddedResource Include="normalQuestionsMenu.resx">
       <DependentUpon>normalQuestionsMenu.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="NormalQuestionsPage.resx">
-      <DependentUpon>NormalQuestionsPage.cs</DependentUpon>
+    <EmbeddedResource Include="WithFeedBackQuestionsPage.resx">
+      <DependentUpon>WithFeedBackQuestionsPage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PasswordPage.resx">
       <DependentUpon>PasswordPage.cs</DependentUpon>
@@ -198,6 +204,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="textQuestions.resx">
       <DependentUpon>textQuestions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WithOutFeedBackQuestionsPage.resx">
+      <DependentUpon>WithOutFeedBackQuestionsPage.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

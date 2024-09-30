@@ -13,7 +13,7 @@ using System.Timers;
 
 namespace clientForQuestions2._0
 {
-    public partial class NormalQuestionsPage : Form
+    public partial class WithFeedBackQuestionsPage : Form
     {
         private WebView2 webView21;
         private List<dbQuestionParmeters> m_questionDetails;
@@ -32,11 +32,29 @@ namespace clientForQuestions2._0
         private int m_timeElapsed = 0;
         private int m_secondsTookForCurrq = 0;
         private System.Timers.Timer m_aTimer;
-        private int timePerQ = 0;
+        private int secondsUntilTimerResets = 0;
         private questionsDifficultyLevel m_aDifficultyLevels;
-        public NormalQuestionsPage(int amount, List<string> listOfTopics, bool isQSkip, int timePerQ, questionsDifficultyLevel difficultyLevel)
+
+        private bool isUserDoNotGetFeedBack;
+        public WithFeedBackQuestionsPage()
+        {
+            //for desgner useage
+            InitializeComponent();
+        }
+
+        public WithFeedBackQuestionsPage(int amount, List<string> listOfTopics, bool isQSkip, int secondsUntilTimerResets, questionsDifficultyLevel difficultyLevel)
         {
             InitializeComponent();
+            this.WindowState = FormWindowState.Maximized;
+            //this.FormBorderStyle = FormBorderStyle.None;
+            this.StartPosition = FormStartPosition.CenterScreen;
+
+            this.width_screen = this.ClientSize.Width;
+            this.height_screen = this.ClientSize.Height;
+
+            this.secondsUntilTimerResets = secondsUntilTimerResets;
+            this.isUserDoNotGetFeedBack = isQSkip;
+            this.m_aDifficultyLevels = difficultyLevel;
             updateAtStartOfNormalExrecize(amount,listOfTopics);
         }
         private void updateAtStartOfNormalExrecize(int amount, List<string> listOfTopics)
@@ -50,6 +68,7 @@ namespace clientForQuestions2._0
             this.isUserRightLabel.Text = "";
             this.continueToQuestionButton.Visible = false;
             updateLabelAnswers();
+            InitializeWebView21();
         }
         private void updateLabelAnswers()
         {
@@ -61,14 +80,6 @@ namespace clientForQuestions2._0
         {
             webTaker.OnCoreWebView21InitializationCompleted(webView21, this.m_questionDetails[this.m_indexOfCurrQuestion]);
             return;
-        }
-        private void disposedWebView()
-        {
-            if (webView21 != null)
-            {
-                this.webView21.Dispose();
-                this.webView21 = null;
-            }
         }
         //func is not intersting - just prepering html displayer
         private async void InitializeWebView21()
@@ -147,7 +158,7 @@ namespace clientForQuestions2._0
                 {
                     whenFinishInitWebView();
                     Controls.Add(webView21);
-                    webView21.SendToBack(); // Send WebView2 to the back
+                    //webView21.SendToBack(); // Send WebView2 to the back
                 }
                 catch (Exception addEx)
                 {
@@ -172,11 +183,15 @@ namespace clientForQuestions2._0
         }
         private void SetTimer()
         {
+           
             //src= https://learn.microsoft.com/en-us/dotnet/api/system.timers.timer?view=net-8.0
             // Create a timer with a one second interval.
             m_aTimer = new System.Timers.Timer(1000);
             // Hook up the Elapsed event for the timer. 
-            m_aTimer.Elapsed += OnTimedEvent;
+           
+                m_aTimer.Elapsed += OnTimedEvent;
+            
+            
             m_aTimer.AutoReset = true;
             m_aTimer.Enabled = true;
         }
@@ -193,21 +208,30 @@ namespace clientForQuestions2._0
                 // Ensure the label is updated on the UI thread
                 this.timer.Invoke((MethodInvoker)delegate
                 {
-                    this.timer.Text = OperationsAndOtherUseful.get_time_mmss_fromseconds(Math.Abs(timePerQ - m_secondsTookForCurrq));
-
-                    if (m_secondsTookForCurrq >= timePerQ && timePerQ != 0) // check if time ran out
+                    this.timer.Text = OperationsAndOtherUseful.get_time_mmss_fromseconds(Math.Abs(secondsUntilTimerResets - m_secondsTookForCurrq));
+                    if (this.secondsUntilTimerResets != OperationsAndOtherUseful.WITHOUT_TIMER)
                     {
-                       
-                        answerInNotAnswered();
-                        afterAnswerQuestion(OperationsAndOtherUseful.SKIPPED_Q); // if time ran out, it counts as he didn't answer.
+                        actionsWithTimer();
                     }
                 });
             }
             catch (Exception ex) { }
         }
-        private void rewriteTimer()
+        protected virtual void actionsWithTimer()
         {
-            this.timer.Text = OperationsAndOtherUseful.get_time_mmss_fromseconds(timePerQ);
+            if(m_secondsTookForCurrq >= secondsUntilTimerResets && secondsUntilTimerResets != 0)
+            {
+                answerInNotAnswered();
+                afterAnswerQuestion(OperationsAndOtherUseful.SKIPPED_Q);
+            }
+        }
+       private void rewriteTimer()
+        {
+           /* if(secondsUntilTimerResets == OperationsAndOtherUseful.WITHOUT_TIMER)
+            {
+                return;
+            }*/
+            this.timer.Text = OperationsAndOtherUseful.get_time_mmss_fromseconds(m_secondsTookForCurrq);
         }
         private void writeQuestionToLogFile()
         {
@@ -221,7 +245,11 @@ namespace clientForQuestions2._0
             {
                 s += m_questionDetails[i].questionId + ", ";
             }
-            s = s.Substring(0, s.Length - 2);
+            if(s != "")
+            {
+                s = s.Substring(0, s.Length - 2);
+            }
+            
             LogFileHandler.writeIntoFile("Questions id are: " + s);
         }
         private void stopTestButtonClick(object sender, EventArgs e)
@@ -243,12 +271,15 @@ namespace clientForQuestions2._0
                 this.Close();
                 return;
             }
-            disposedWebView();
+            disposedWebViews();
+            goToSummrizePage();
+        }
+        protected void goToSummrizePage()
+        {
             var s = new summrizePage(this.m_afterQuestionParametrs);
             s.Show();
             this.Close();
         }
-
 
         private void nextQuestionButtonClick(object sender, EventArgs e)
         {
@@ -264,28 +295,18 @@ namespace clientForQuestions2._0
                     this.continueToQuestionButton.BackColor = Color.Yellow;
                     return;
                 }
-                disposedWebView();
+                disposedWebViews();
                 var s = new summrizePage(this.m_afterQuestionParametrs);
                 s.Show();
                 this.Close();
                 return;
             }
 
-            m_indexOfCurrQuestion++;
+           // m_indexOfCurrQuestion++;
 
             rewriteTimer();
 
-                for (int i = 0; i < m_afterQuestionParametrs.Count; i++)
-                {
-                    if (m_afterQuestionParametrs[i].indexOfQuestion == this.m_indexOfCurrQuestion)
-                    {
-                        // Retrieve the element, modify it, and then assign it back, add time to current
-                        var parameter = m_afterQuestionParametrs[i];                 // Retrieve the element
-                        parameter.timeForAnswer += m_secondsTookForCurrq - m_timeElapsed; // add the time since the user entered the q
-                        m_afterQuestionParametrs[i] = parameter;                     // Assign it back to the list
-                        break;
-                    }
-                }
+                
 
                 m_timeElapsed = m_secondsTookForCurrq; // save the time when the user left the curr q and enter a new one
             
@@ -314,7 +335,7 @@ namespace clientForQuestions2._0
             }
         }
 
-        private bool checkIfUserAlreadyAnswerOnQuestionAndChangeItsAnswer(int answer)
+        protected virtual bool checkIfUserAlreadyAnswerOnQuestionAndChangeItsAnswer(int answer)
         {
             /*
               bool isExsist = false;
@@ -332,7 +353,7 @@ namespace clientForQuestions2._0
             //this is a func to be overrided
             return false;
         }
-        private void afterAnswerQuestion(int answer)
+        protected void afterAnswerQuestion(int answer)
         {
             this.continueToQuestionButton.BackColor = Color.White;
             this.stopTestButton.Text = "סיום התרגול וסיכום";
@@ -392,5 +413,54 @@ namespace clientForQuestions2._0
                 this.answer4Button.Visible = false;
             
         }
-    }
+        private void answerButton_Click(object sender, EventArgs e)
+        {
+            int clicked_answer = int.Parse((((Button)sender).Text.ToString()[((Button)sender).Text.ToString().Length - 1]).ToString());
+
+            if (!isUserDoNotGetFeedBack)
+            {
+                if (this.m_questionDetails[this.m_indexOfCurrQuestion].rightAnswer == clicked_answer)
+                {
+                    answerCorrect();
+                }
+                else
+                {
+                    answerIncorrect();
+                }
+            }
+
+            afterAnswerQuestion(clicked_answer);
+        }
+        private void answerCorrect()
+        {
+            //when answer correct display a msg
+            this.isUserRightLabel.Text = ":) נכון ";
+            this.isUserRightLabel.ForeColor = System.Drawing.Color.Green;
+        }
+        private void answerIncorrect()
+        {
+            this.isUserRightLabel.Text = ":( לא נכון ";
+            this.isUserRightLabel.ForeColor = System.Drawing.Color.Red;
+        }
+        private void answerinnotAnswered()
+        {
+            this.isUserRightLabel.Text = "נגמר הזמן :(";
+            this.isUserRightLabel.ForeColor = System.Drawing.Color.DarkGray;
+        }
+
+
+       
+        protected void disposedWebViews()
+        {
+            if (webView21 != null)
+            {
+                this.webView21.Dispose();
+                this.webView21 = null;
+            }
+        }
+
+
+
+
+        }
     }

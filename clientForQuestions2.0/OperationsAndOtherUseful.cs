@@ -14,6 +14,7 @@ namespace clientForQuestions2._0
         public static decimal MAX_LEVEL = 10;
         public static int QUESTION_THAT_DID_NOT_ANSWERED = -1;
         public static int DO_NOT_MARK = -1;
+        public static int WITHOUT_TIMER = -3;
         public static int SKIPPED_Q = -2; // when the user didnt answer
         public static Dictionary<string, List<string>> topicsdict = new Dictionary<string, List<string>>
         {
@@ -396,16 +397,6 @@ namespace clientForQuestions2._0
                 }
             }
             return list;
-
-            q1 = "<p>(1)\t" + q1.Substring(currIndex, q1.Length - currIndex);
-            currIndex = q2.IndexOf("<p>") + lenOfString;
-            q2 = "<p>(2)\t" + q2.Substring(currIndex, q2.Length - currIndex);
-            currIndex = q3.IndexOf("<p>") + lenOfString;
-            q3 = "<p>(3)\t" + q3.Substring(currIndex, q3.Length - currIndex);
-            currIndex = q4.IndexOf("<p>") + lenOfString;
-            q4 = "<p>(4)\t" + q4.Substring(currIndex, q4.Length - currIndex);
-
-            return list;
         }
 
 
@@ -485,8 +476,10 @@ namespace clientForQuestions2._0
             string answer = qp.json_content["solving_explanation"].ToString();
             string line = "<div style=\"top: 50%; left: 0; width: 100vw; height: 1px; background-color: lightgray;\"></div>\r\n<br>הסבר:";
             var img = qp.json_content["explanation_image"];
+            string final = get_string_of_question_and_option_from_json(qp, clientanswer) + right2left(line + answer + get_string_of_img_html(img));
 
-            return get_string_of_question_and_option_from_json(qp, clientanswer) + right2left(line + answer + get_string_of_img_html(img));
+            //final = final.Replace("<mspace linebreak=\"newline\"/>", ">");
+            return final;
         }
         private static bool isQuestionInHebrew(string category)
         {

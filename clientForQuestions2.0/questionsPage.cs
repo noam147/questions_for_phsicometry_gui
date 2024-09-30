@@ -328,7 +328,7 @@ namespace clientForQuestions2._0
         }
 
 
-        private void OnTimedEvent(Object source, ElapsedEventArgs e)
+        protected virtual void OnTimedEvent(Object source, ElapsedEventArgs e)
         {
             this.secondsTookForCurrq++;
             try

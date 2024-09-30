@@ -309,6 +309,32 @@ namespace clientForQuestions2._0
             {
                 amount = 99;
             }
+            int timeUntilTimeReset = timePerQPicker.Value.Minute * 60 + timePerQPicker.Value.Second;
+            if (!this.timePerQCheckbox.Checked)
+            {
+                timeUntilTimeReset = OperationsAndOtherUseful.WITHOUT_TIMER;
+            }
+
+            /*if (!this.skipFeedBackCheckBox.Checked)
+            {
+                updateSettingsForNextMenu();
+
+                WithFeedBackQuestionsPage n = new WithFeedBackQuestionsPage(amount, this.topicsList, this.skipFeedBackCheckBox.Checked,timeUntilTimeReset, difficultyLevels);
+                n.Show();
+                this.Close();
+                return;
+            }
+            else
+            {
+                updateSettingsForNextMenu();
+                WithOutFeedBackQuestionsPage n = new WithOutFeedBackQuestionsPage(amount, this.topicsList, this.skipFeedBackCheckBox.Checked, timeUntilTimeReset, difficultyLevels);
+                n.Show();
+                this.Close();
+                return;
+            }*/
+
+
+
             LogFileHandler.writeIntoFile("Opened new questions page");
 
             questionsPage c;

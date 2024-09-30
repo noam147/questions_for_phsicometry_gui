@@ -48,11 +48,15 @@ namespace clientForQuestions2._0
             //this.FormBorderStyle = FormBorderStyle.None;
             this.StartPosition = FormStartPosition.CenterScreen;
 
-
-            if (((JArray)questions[0].question.json_content["collections"]).Count != 0)
+            try
             {
-                col_id = (int) questions[0].question.json_content["collections"][0]["id"];
+                if (((JArray)questions[0].question.json_content["collections"]).Count != 0)
+                {
+                    col_id = (int)questions[0].question.json_content["collections"][0]["id"];
+                }
             }
+            catch (Exception ex) { }
+          
 
             width_screen = this.ClientSize.Width;
             height_screen = this.ClientSize.Height;
