@@ -30,6 +30,7 @@ namespace clientForQuestions2._0
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.continueToQuestionButton = new System.Windows.Forms.Button();
             this.answer1Button = new System.Windows.Forms.Button();
             this.answer2Button = new System.Windows.Forms.Button();
@@ -42,6 +43,7 @@ namespace clientForQuestions2._0
             this.timer = new System.Windows.Forms.Label();
             this.previousQuestionsButton = new clientForQuestions2._0.RJButtons2();
             this.nextQuestionsButton = new clientForQuestions2._0.RJButtons2();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // continueToQuestionButton
@@ -242,6 +244,7 @@ namespace clientForQuestions2._0
         private System.Windows.Forms.Label timer;
         private RJButtons2 nextQuestionsButton;
         private RJButtons2 previousQuestionsButton;
+        private System.Windows.Forms.Timer timer1;
     }
 }
 

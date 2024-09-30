@@ -39,7 +39,7 @@ namespace clientForQuestions2._0
 
         private int secondsTookForCurrq = 0;
         private int timeElapsed = 0; // to get the time per question when isUserDoNotGetFeedBack == true
-        private System.Timers.Timer m_aTimer;
+        //private System.Timers.Timer m_aTimer;
         private questionsDifficultyLevel m_aDifficultyLevels;
 
         private List<Button> m_buttonList = new List<Button>();
@@ -345,8 +345,7 @@ namespace clientForQuestions2._0
             updateLabelAnswers();
         }
 
-
-        protected virtual void OnTimedEvent(Object source, ElapsedEventArgs e)
+        private void Timer_Tick(object sender, EventArgs e)
         {
             this.secondsTookForCurrq++;
             try
@@ -361,6 +360,8 @@ namespace clientForQuestions2._0
                         if (isUserDoNotGetFeedBack) // if time ran out && navigate questions, go to summary
                         {
                             disposedWebViews();
+                            timer1.Stop();
+                            MessageBox.Show("נגמר הזמן :(");
                             var s = new summrizePage(this.m_afterQuestionParametrs);
                             s.Show();
                             this.Close();
@@ -372,20 +373,22 @@ namespace clientForQuestions2._0
                 });
             }
             catch (Exception ex) { }
-
-
-
-
         }
+
         private void SetTimer()
         {
-            //src= https://learn.microsoft.com/en-us/dotnet/api/system.timers.timer?view=net-8.0
-            // Create a timer with a one second interval.
-            m_aTimer = new System.Timers.Timer(1000);
-            // Hook up the Elapsed event for the timer. 
-            m_aTimer.Elapsed += OnTimedEvent;
-            m_aTimer.AutoReset = true;
-            m_aTimer.Enabled = true;
+            ////src= https://learn.microsoft.com/en-us/dotnet/api/system.timers.timer?view=net-8.0
+            //// Create a timer with a one second interval.
+            //m_aTimer = new System.Timers.Timer(1000);
+            //// Hook up the Elapsed event for the timer. 
+            //m_aTimer.Elapsed += OnTimedEvent;
+            //m_aTimer.AutoReset = true;
+            //m_aTimer.Enabled = true;
+
+            timer1.Interval = 1000; // 1000 ms = 1 second
+            timer1.Tick += Timer_Tick;
+            timer1.Start();
+
         }
 
         private void whenFinishInitWebView()
@@ -673,7 +676,7 @@ namespace clientForQuestions2._0
             //this func happens after the user clicked on an answer
             // dont stop the timer if you navigate qs
             if (!isUserDoNotGetFeedBack)
-                this.m_aTimer.Stop();
+                this.timer1.Stop();
 
             //func check if answer is true and return explantion 
 
@@ -836,7 +839,7 @@ namespace clientForQuestions2._0
                 if (!isUserDoNotGetFeedBack)
                 {
                     this.secondsTookForCurrq = 0;
-                    this.m_aTimer.Start();
+                    this.timer1.Start();
                 }
             }
             else
