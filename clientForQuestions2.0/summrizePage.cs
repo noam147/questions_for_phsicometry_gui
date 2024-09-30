@@ -19,8 +19,8 @@ namespace clientForQuestions2._0
 
         private int h_statsPlace = 40;
         private int h_questionsPlace = 70;
-        private int width_screen;
-        private int height_screen;
+        private int width_webView;
+        private int height_webView;
         private int Q_BUTTON_SIZE = 30;
         private int Q_CHOSEN_BUTTON_ADD_SIZE = 10;
 
@@ -56,12 +56,10 @@ namespace clientForQuestions2._0
                 }
             }
             catch (Exception ex) { }
-          
 
-            width_screen = this.ClientSize.Width;
-            height_screen = this.ClientSize.Height;
-            if (col_id != 0)
-                this.ClientSize = new Size(width_screen * 2, height_screen);
+
+            width_webView = (int) Screen.PrimaryScreen.Bounds.Width / 2;
+            height_webView = Screen.PrimaryScreen.Bounds.Height - this.h_questionsPlace - h_statsPlace;
 
             this.timeTookForQLabel.Text = "";
             displayTotalAvrageTime();
@@ -209,8 +207,6 @@ namespace clientForQuestions2._0
 
         private void hideCol()
         {
-            this.ClientSize = new System.Drawing.Size(width_screen, height_screen);
-
             //to remove previous html content
             webTaker.OnCoreWebView2_colDeleteContent(webView2_col);
         }
@@ -218,7 +214,7 @@ namespace clientForQuestions2._0
         private void showCol(dbQuestionParmeters q)
         {
             //this.webView21.Size = new Size(width_screen, height_screen - h_questionsPlace - h_statsPlace); // Adjust size to fit below the buttons
-            this.ClientSize = new System.Drawing.Size(2 * width_screen, height_screen);
+
             webTaker.OnCoreWebView2_colInitializationCompleted(webView2_col, q);
         }
 
@@ -235,7 +231,7 @@ namespace clientForQuestions2._0
             webView21 = new WebView2
             {
                 Location = new Point(0, h_questionsPlace + h_statsPlace), // Adjust Y coordinate to leave space for buttons
-                Size = new Size(width_screen, height_screen - h_questionsPlace - h_statsPlace), // Adjust size to fit below the buttons
+                Size = new Size(width_webView, height_webView), // Adjust size to fit below the buttons
             };
 
             webView21.CoreWebView2InitializationCompleted += OnCoreWebView21InitializationCompleted;
@@ -321,8 +317,8 @@ namespace clientForQuestions2._0
             // Initialize the WebView2 control
             webView2_col = new WebView2
             {
-                Location = new Point(width_screen, h_questionsPlace + h_statsPlace), // Adjust Y coordinate to leave space for buttons
-                Size = new Size(width_screen, height_screen - h_questionsPlace - h_statsPlace), // Adjust size to fit below the buttons
+                Location = new Point(width_webView, h_questionsPlace + h_statsPlace), // Adjust Y coordinate to leave space for buttons
+                Size = new Size(width_webView, height_webView), // Adjust size to fit below the buttons
                 //Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right
             };
 

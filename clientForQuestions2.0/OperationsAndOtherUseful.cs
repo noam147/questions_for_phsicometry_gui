@@ -316,7 +316,7 @@ namespace clientForQuestions2._0
 
         public static string right2left(string s)
         {
-            return "<div style=\"direction: rtl\">" + s + "</div>";
+            return "<head> <style> body { text-align: right; /* Right-align all text */ } </style> </head> " + "<div style=\"direction: rtl\">" + s + "</div>";
         }
 
         public static string get_time_mmss_fromseconds(int sec)

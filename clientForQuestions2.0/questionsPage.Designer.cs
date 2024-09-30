@@ -222,6 +222,7 @@ namespace clientForQuestions2._0
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Load += new System.EventHandler(this.questionsPage_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -26,8 +26,8 @@ namespace clientForQuestions2._0
         private int m_questionCounter = 1;
         private int m_indexOfCurrQuestion = 0;
 
-        private int width_screen;
-        private int height_screen;
+        private int width_webView; // w of each webview
+        private int height_webView;// h of each webview
         private int w_buttonsPlace = 170;
         private int h_buttonsQuestionsPlace = 70; // for the buttons of the questions when isUserDoNotGetFeedBack
         private int Q_BUTTON_SIZE = 30;
@@ -35,6 +35,7 @@ namespace clientForQuestions2._0
 
         private bool isUserDoNotGetFeedBack;
         private int col_id = 0;
+        private bool isWithCol = false; // if the excersize has a collection
 
         private int secondsTookForCurrq = 0;
         private int timeElapsed = 0; // to get the time per question when isUserDoNotGetFeedBack == true
@@ -62,23 +63,36 @@ namespace clientForQuestions2._0
             //this.FormBorderStyle = FormBorderStyle.None;
             this.StartPosition = FormStartPosition.CenterScreen;
 
-            width_screen = this.ClientSize.Width;
-            height_screen = this.ClientSize.Height;
+            if (isWithCol)
+                width_webView = (int)(Screen.PrimaryScreen.Bounds.Width - this.w_buttonsPlace) / 2;
+            else
+                width_webView = Screen.PrimaryScreen.Bounds.Width - this.w_buttonsPlace;
+
+            height_webView = Screen.PrimaryScreen.Bounds.Height - this.h_buttonsQuestionsPlace;
+
             this.Resize += MainForm_Resize;
         }
+
+        // normal questions
         public questionsPage(int amount, List<string> listOfTopics, bool isQSkip, int timePerQ, questionsDifficultyLevel difficultyLevel)
         {
-            m_aDifficultyLevels = difficultyLevel;
-            atStart();
+            isWithCol = false;
             this.isUserDoNotGetFeedBack = isQSkip;
 
-            this.timePerQ = timePerQ;
+            if (!isUserDoNotGetFeedBack)
+                h_buttonsQuestionsPlace = 0; // this is here and not later in the function to set height_screen in atStart()
+
+            m_aDifficultyLevels = difficultyLevel;
+            atStart();
+
             if (!isUserDoNotGetFeedBack)
             {
-                h_buttonsQuestionsPlace = 0;
                 this.nextQuestionsButton.Visible = false;
                 this.previousQuestionsButton.Visible = false;
             }
+
+
+            this.timePerQ = timePerQ;
                 
             //when normal exrecize
             updateAtStartOfNormalExrecize(amount, listOfTopics);
@@ -108,8 +122,11 @@ namespace clientForQuestions2._0
             updateToNextButtonQuestion(0);
         }
 
+        // collections
         public questionsPage(int collection_id, List<int> questions, int timeForQuestion)
         {
+            isWithCol = true;
+
             //when is text
             atStart();
             this.isUserDoNotGetFeedBack = true;//in text user does not get immdiate feedback
@@ -128,16 +145,17 @@ namespace clientForQuestions2._0
 
 
 
-            this.ClientSize = new System.Drawing.Size(2 * width_screen - w_buttonsPlace, height_screen);
+            //this.ClientSize = new System.Drawing.Size(2 * width_screen - w_buttonsPlace, height_screen);
 
-                InitializeWebView2_col();
-                InitializeWebView21();
-
-
+            InitializeWebView2_col();
+            InitializeWebView21();
         }
 
+        // chapters
         public questionsPage(List<dbQuestionParmeters> questions, int timeToQuestion)
         {
+            isWithCol = true;
+
             //when is text
             atStart();
             this.isUserDoNotGetFeedBack = true;//in text user does not get immdiate feedback
@@ -161,7 +179,7 @@ namespace clientForQuestions2._0
             this.timePerQ = timeToQuestion;
             rewriteTimer();
 
-            this.ClientSize = new System.Drawing.Size(width_screen, height_screen);
+           // this.ClientSize = new System.Drawing.Size(width_screen, height_screen);
                 InitializeWebView2_col();
                 InitializeWebView21();
         }
@@ -409,7 +427,7 @@ namespace clientForQuestions2._0
                 webView21 = new WebView2
                 {
                     Location = new Point(w_buttonsPlace, h_buttonsQuestionsPlace),
-                    Size = new Size(width_screen - w_buttonsPlace, height_screen - h_buttonsQuestionsPlace)
+                    Size = new Size(width_webView, height_webView)
                 };
 
 
@@ -501,8 +519,8 @@ namespace clientForQuestions2._0
             webView2_col = new WebView2
             {
 
-                Location = new Point(width_screen, h_buttonsQuestionsPlace),
-                Size = new Size(width_screen - w_buttonsPlace, height_screen - h_buttonsQuestionsPlace)
+                Location = new Point(width_webView + w_buttonsPlace, h_buttonsQuestionsPlace),
+                Size = new Size(width_webView, height_webView)
 
             };
 
@@ -888,15 +906,12 @@ namespace clientForQuestions2._0
 
         private void hideCol()
         {
-            this.ClientSize = new System.Drawing.Size(width_screen, height_screen);
-
             //to remove previous html content
             webTaker.OnCoreWebView2_colDeleteContent(webView2_col);
         }
 
         private void showCol(dbQuestionParmeters q)
         {
-            this.ClientSize = new System.Drawing.Size(2 * width_screen - w_buttonsPlace, height_screen);
             webTaker.OnCoreWebView2_colInitializationCompleted(webView2_col, q);
         }
 
@@ -1045,6 +1060,11 @@ namespace clientForQuestions2._0
         }
 
         private void answersTrackLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void questionsPage_Load(object sender, EventArgs e)
         {
 
         }
