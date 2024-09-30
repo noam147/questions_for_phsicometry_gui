@@ -393,7 +393,9 @@ namespace clientForQuestions2._0
                 }
                 else
                 {
+                    string startOfOption = list[i].Substring(0, currIndex + lenOfString);
                     list[i] = $"<p>({i + 1})\t" + list[i].Substring(currIndex + lenOfString, list[i].Length - currIndex - lenOfString);
+                    list[i] = startOfOption+list[i];
                 }
             }
             return list;
