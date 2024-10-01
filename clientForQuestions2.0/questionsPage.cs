@@ -77,7 +77,7 @@ namespace clientForQuestions2._0
             this.isUserDoNotGetFeedBack = isQSkip;
 
             if (!isUserDoNotGetFeedBack)
-                h_buttonsQuestionsPlace = 0; // this is here and not later in the function to set height_screen in atStart()
+                h_buttonsQuestionsPlace = OperationsAndOtherUseful.MARGIN_OF_HEIGHT; // this is here and not later in the function to set height_screen in atStart()
 
             m_aDifficultyLevels = difficultyLevel;
             atStart();
