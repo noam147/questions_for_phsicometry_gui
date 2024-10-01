@@ -7,9 +7,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.Web.WebView2.WinForms;
 using Newtonsoft.Json.Linq;
-using System.Timers;
-using Newtonsoft.Json;
-
 
 namespace clientForQuestions2._0
 {
@@ -105,7 +102,7 @@ namespace clientForQuestions2._0
 
             
 
-                InitializeWebView21();
+            InitializeWebView21();
 
         }
 

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.NetworkInformation;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace clientForQuestions2._0
 {
@@ -316,7 +317,34 @@ namespace clientForQuestions2._0
 
         public static string right2left(string s)
         {
-            return "<head> <style> body { text-align: right; /* Right-align all text */ } </style> </head> " + "<div style=\"direction: rtl\">" + s + "</div>";
+            // aligned to the right
+            string htmlContent = "<head> <style> body { text-align: right; /* Right-align all text */ } </style> </head> " + "<div style=\"direction: rtl\">" + s + "</div>";
+            
+            // for hebrew words in MathML (inside <mi> </mi>)
+            //
+            // Regular expression to match Hebrew characters (Unicode)
+            string hebrewUnicodePattern = @"[\u0590-\u05FF]"; // Unicode range for Hebrew characters
+
+            // Regular expression to match HTML entities for Hebrew letters
+            string hebrewHtmlEntitiesPattern = @"&#(1488|1489|1490|1491|1492|1493|1494|1495|1496|1497|1498|1499|1500|1501|1502|1503|1504|1505|1506|1507|1508|1509|1510|1511|1512|1513|1514);"; // Matches HTML entities for Hebrew letters
+
+            // Match <mi> tags that may contain Hebrew characters (Unicode or HTML entities)
+            string pattern = @"<mi>(.*?)<\/mi>";
+            Regex regex = new Regex(pattern);
+
+            htmlContent = regex.Replace(htmlContent, match =>
+            {
+                string content = match.Groups[1].Value;
+
+                // Check if the content contains Hebrew characters (Unicode or HTML entities)
+                if (Regex.IsMatch(content, hebrewUnicodePattern) || Regex.IsMatch(content, hebrewHtmlEntitiesPattern))
+                {
+                    return $"<mi style=\"direction: rtl; text-align: right;\">{content}</mi>";
+                }
+                return match.Value; // Return original match if no Hebrew characters or entities are found
+            });
+
+            return htmlContent;
         }
 
         public static string get_time_mmss_fromseconds(int sec)
@@ -393,9 +421,7 @@ namespace clientForQuestions2._0
                 }
                 else
                 {
-                    string startOfOption = list[i].Substring(0, currIndex + lenOfString);
                     list[i] = $"<p>({i + 1})\t" + list[i].Substring(currIndex + lenOfString, list[i].Length - currIndex - lenOfString);
-                    list[i] = startOfOption+list[i];
                 }
             }
             return list;
