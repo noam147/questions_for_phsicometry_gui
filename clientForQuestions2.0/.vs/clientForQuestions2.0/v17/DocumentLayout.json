@@ -3,6 +3,14 @@
   "WorkspaceRootPath": "C:\\Users\\Magshimim\\questions_for_phsicometry_gui\\clientForQuestions2.0\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{37A48BAD-BE42-4C9C-B4B6-5D6F762697A9}|clientForQuestions2.0.csproj|C:\\Users\\Magshimim\\questions_for_phsicometry_gui\\clientForQuestions2.0\\summrizepage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{37A48BAD-BE42-4C9C-B4B6-5D6F762697A9}|clientForQuestions2.0.csproj|solutionrelative:summrizepage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{37A48BAD-BE42-4C9C-B4B6-5D6F762697A9}|clientForQuestions2.0.csproj|C:\\Users\\Magshimim\\questions_for_phsicometry_gui\\clientForQuestions2.0\\summrizepage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{37A48BAD-BE42-4C9C-B4B6-5D6F762697A9}|clientForQuestions2.0.csproj|solutionrelative:summrizepage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{37A48BAD-BE42-4C9C-B4B6-5D6F762697A9}|clientForQuestions2.0.csproj|c:\\users\\magshimim\\questions_for_phsicometry_gui\\clientforquestions2.0\\webtaker.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{37A48BAD-BE42-4C9C-B4B6-5D6F762697A9}|clientForQuestions2.0.csproj|solutionrelative:webtaker.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -21,14 +29,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{37A48BAD-BE42-4C9C-B4B6-5D6F762697A9}|clientForQuestions2.0.csproj|C:\\Users\\Magshimim\\questions_for_phsicometry_gui\\clientForQuestions2.0\\questionspage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{37A48BAD-BE42-4C9C-B4B6-5D6F762697A9}|clientForQuestions2.0.csproj|solutionrelative:questionspage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{37A48BAD-BE42-4C9C-B4B6-5D6F762697A9}|clientForQuestions2.0.csproj|C:\\Users\\Magshimim\\questions_for_phsicometry_gui\\clientForQuestions2.0\\summrizepage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{37A48BAD-BE42-4C9C-B4B6-5D6F762697A9}|clientForQuestions2.0.csproj|solutionrelative:summrizepage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{37A48BAD-BE42-4C9C-B4B6-5D6F762697A9}|clientForQuestions2.0.csproj|C:\\Users\\Magshimim\\questions_for_phsicometry_gui\\clientForQuestions2.0\\summrizepage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{37A48BAD-BE42-4C9C-B4B6-5D6F762697A9}|clientForQuestions2.0.csproj|solutionrelative:summrizepage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
       "AbsoluteMoniker": "D:0:0:{37A48BAD-BE42-4C9C-B4B6-5D6F762697A9}|clientForQuestions2.0.csproj|C:\\Users\\Magshimim\\questions_for_phsicometry_gui\\clientForQuestions2.0\\testhistoryfilehandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -154,7 +154,7 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 5,
               "Title": "questionsPage.cs",
               "DocumentMoniker": "C:\\Users\\Magshimim\\questions_for_phsicometry_gui\\clientForQuestions2.0\\questionsPage.cs",
               "RelativeDocumentMoniker": "questionsPage.cs",
@@ -200,19 +200,44 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "summrizePage.cs",
+              "DocumentMoniker": "C:\\Users\\Magshimim\\questions_for_phsicometry_gui\\clientForQuestions2.0\\summrizePage.cs",
+              "RelativeDocumentMoniker": "summrizePage.cs",
+              "ToolTip": "C:\\Users\\Magshimim\\questions_for_phsicometry_gui\\clientForQuestions2.0\\summrizePage.cs",
+              "RelativeToolTip": "summrizePage.cs",
+              "ViewState": "AQIAAC8AAAAAAAAAAAAwwD0AAABvAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-15T21:27:03.465Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "summrizePage.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\Magshimim\\questions_for_phsicometry_gui\\clientForQuestions2.0\\summrizePage.cs",
+              "RelativeDocumentMoniker": "summrizePage.cs",
+              "ToolTip": "C:\\Users\\Magshimim\\questions_for_phsicometry_gui\\clientForQuestions2.0\\summrizePage.cs [Design]",
+              "RelativeToolTip": "summrizePage.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-15T21:27:01.966Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "webTaker.cs",
               "DocumentMoniker": "C:\\Users\\Magshimim\\questions_for_phsicometry_gui\\clientForQuestions2.0\\webTaker.cs",
               "RelativeDocumentMoniker": "webTaker.cs",
               "ToolTip": "C:\\Users\\Magshimim\\questions_for_phsicometry_gui\\clientForQuestions2.0\\webTaker.cs",
               "RelativeToolTip": "webTaker.cs",
-              "ViewState": "AQIAAE0AAAAAAAAAAAAgwGIAAAAAAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAGIAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-09-16T13:12:39.526Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "HtmlTextExtractor.cs",
               "DocumentMoniker": "C:\\Users\\Magshimim\\questions_for_phsicometry_gui\\clientForQuestions2.0\\HtmlTextExtractor.cs",
               "RelativeDocumentMoniker": "HtmlTextExtractor.cs",
@@ -224,7 +249,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 4,
               "Title": "OperationsAndOtherUseful.cs",
               "DocumentMoniker": "C:\\Users\\Magshimim\\questions_for_phsicometry_gui\\clientForQuestions2.0\\OperationsAndOtherUseful.cs",
               "RelativeDocumentMoniker": "OperationsAndOtherUseful.cs",
@@ -236,7 +261,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 6,
               "Title": "questionsPage.cs [Design]",
               "DocumentMoniker": "C:\\Users\\Magshimim\\questions_for_phsicometry_gui\\clientForQuestions2.0\\questionsPage.cs",
               "RelativeDocumentMoniker": "questionsPage.cs",
@@ -245,29 +270,6 @@
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-09-15T18:31:09.709Z",
               "EditorCaption": " [Design]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "summrizePage.cs",
-              "DocumentMoniker": "C:\\Users\\Magshimim\\questions_for_phsicometry_gui\\clientForQuestions2.0\\summrizePage.cs",
-              "RelativeDocumentMoniker": "summrizePage.cs",
-              "ToolTip": "C:\\Users\\Magshimim\\questions_for_phsicometry_gui\\clientForQuestions2.0\\summrizePage.cs",
-              "RelativeToolTip": "summrizePage.cs",
-              "ViewState": "AQIAAE8AAAAAAAAAAAAmwFIAAAAXAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-15T21:27:03.465Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "summrizePage.cs [Design]",
-              "DocumentMoniker": "C:\\Users\\Magshimim\\questions_for_phsicometry_gui\\clientForQuestions2.0\\summrizePage.cs",
-              "RelativeDocumentMoniker": "summrizePage.cs",
-              "ToolTip": "C:\\Users\\Magshimim\\questions_for_phsicometry_gui\\clientForQuestions2.0\\summrizePage.cs [Design]",
-              "RelativeToolTip": "summrizePage.cs [Design]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-15T21:27:01.966Z"
             },
             {
               "$type": "Document",
@@ -513,7 +515,8 @@
               "RelativeToolTip": "summrizePage.Designer.cs",
               "ViewState": "AQIAABMAAAAAAAAAAABRwBYAAAAIAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-16T14:12:58.59Z"
+              "WhenOpened": "2024-09-16T14:12:58.59Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",

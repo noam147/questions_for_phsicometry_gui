@@ -59,7 +59,7 @@ namespace clientForQuestions2._0
 
 
             width_webView = (int) Screen.PrimaryScreen.Bounds.Width / 2;
-            height_webView = Screen.PrimaryScreen.Bounds.Height - this.h_questionsPlace - h_statsPlace;
+            height_webView = Screen.PrimaryScreen.WorkingArea.Height - this.h_questionsPlace - h_statsPlace-20;
 
             this.timeTookForQLabel.Text = "";
             displayTotalAvrageTime();
