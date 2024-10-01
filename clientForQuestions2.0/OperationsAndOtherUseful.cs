@@ -14,6 +14,7 @@ namespace clientForQuestions2._0
         public static decimal MIN_LEVEL = 0;
         public static decimal MAX_LEVEL = 10;
         public static int QUESTION_THAT_DID_NOT_ANSWERED = -1;
+        public static int MARGIN_OF_HEIGHT = 20;//for text to not be cut down
         public static int DO_NOT_MARK = -1;
         public static int WITHOUT_TIMER = -3;
         public static int SKIPPED_Q = -2; // when the user didnt answer

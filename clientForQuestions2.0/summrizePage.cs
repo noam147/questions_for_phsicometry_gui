@@ -58,8 +58,10 @@ namespace clientForQuestions2._0
             catch (Exception ex) { }
 
 
-            width_webView = (int) Screen.PrimaryScreen.Bounds.Width / 2;
-            height_webView = Screen.PrimaryScreen.WorkingArea.Height - this.h_questionsPlace - h_statsPlace-20;
+
+            width_webView = (int) Screen.PrimaryScreen.WorkingArea.Width / 2;
+            height_webView = Screen.PrimaryScreen.WorkingArea.Height - this.h_questionsPlace - h_statsPlace - OperationsAndOtherUseful.MARGIN_OF_HEIGHT;
+
 
             this.timeTookForQLabel.Text = "";
             displayTotalAvrageTime();

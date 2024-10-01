@@ -61,11 +61,11 @@ namespace clientForQuestions2._0
             this.StartPosition = FormStartPosition.CenterScreen;
 
             if (isWithCol)
-                width_webView = (int)(Screen.PrimaryScreen.Bounds.Width - this.w_buttonsPlace) / 2;
+                width_webView = (int)(Screen.PrimaryScreen.WorkingArea.Width - this.w_buttonsPlace) / 2;
             else
-                width_webView = Screen.PrimaryScreen.Bounds.Width - this.w_buttonsPlace;
+                width_webView = Screen.PrimaryScreen.WorkingArea.Width - this.w_buttonsPlace;
 
-            height_webView = Screen.PrimaryScreen.Bounds.Height - this.h_buttonsQuestionsPlace;
+            height_webView = Screen.PrimaryScreen.WorkingArea.Height - this.h_buttonsQuestionsPlace - OperationsAndOtherUseful.MARGIN_OF_HEIGHT;
 
             this.Resize += MainForm_Resize;
         }
@@ -908,13 +908,21 @@ namespace clientForQuestions2._0
 
         private void hideCol()
         {
+            //webView21.Size = new Size(2 * width_webView, height_webView);
+            //webView2_col.Visible = false;
+
             //to remove previous html content
             webTaker.OnCoreWebView2_colDeleteContent(webView2_col);
+
         }
 
         private void showCol(dbQuestionParmeters q)
         {
+            //webView21.Size = new Size(width_webView, height_webView);
+            //webView2_col.Visible = true;
+
             webTaker.OnCoreWebView2_colInitializationCompleted(webView2_col, q);
+
         }
 
 
