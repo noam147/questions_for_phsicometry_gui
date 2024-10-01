@@ -14,6 +14,8 @@ namespace clientForQuestions2._0
     {
         private List<Test> tests;
         private List<Button> m_button_list = new List<Button>();
+        private int m_currentIndexOfFirstButton = 0;
+        private int EXRECISEC_SHOWN_PER_CLICK = 5;
         public testHistoryMenu()
         {
             InitializeComponent();
@@ -31,7 +33,7 @@ namespace clientForQuestions2._0
                 {
                     Text = tests[i].date,
                     AutoSize = true,
-                    Location = new System.Drawing.Point(100, 100 + (i % 10) * 40), // Adjust spacing
+                    Location = new System.Drawing.Point(100, 100 + (i % EXRECISEC_SHOWN_PER_CLICK) * 40), // Adjust spacing
                     Enabled = true,
                     Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold) // make the text BOLD
                 };
@@ -92,6 +94,53 @@ namespace clientForQuestions2._0
             tests = TestHistoryFileHandler.get_test_history();
             deleteButtons();
             createButtons();
+        }
+
+        private void nextExreciseButton_Click(object sender, EventArgs e)
+        {
+
+            displayButtons(m_currentIndexOfFirstButton + EXRECISEC_SHOWN_PER_CLICK, m_currentIndexOfFirstButton + EXRECISEC_SHOWN_PER_CLICK*2);
+        }
+        private void unvisibleButtonsFromButtonList()
+        {
+            for (int i = 0; i < m_button_list.Count; i++)
+            {
+                m_button_list[i].Visible = false;
+            }
+        }
+        private void displayButtons(int startIndex, int endIndex)
+        {
+            if (startIndex < 0)
+                return;
+            m_currentIndexOfFirstButton = startIndex;
+            unvisibleButtonsFromButtonList();
+
+            // hide the nextQuestionsButton if there are no next questions
+            if (endIndex >= m_button_list.Count - 1)
+            {
+                nextExreciseButton.Visible = false;
+                endIndex = m_button_list.Count;
+            }
+            else
+                nextExreciseButton.Visible = true;
+            // hide the previousQuestionsButton if there are no previous questions
+            if (startIndex == 0)
+                previousExreciseButton.Visible = false;
+            else
+                previousExreciseButton.Visible = true;
+
+            for (int i = startIndex; i < endIndex; i++)
+            {
+                Button btn = m_button_list[i];
+                btn.Visible = true;
+                btn.BringToFront();
+                //
+            }
+        }
+
+        private void previousExreciseButton_Click(object sender, EventArgs e)
+        {
+            displayButtons(m_currentIndexOfFirstButton - EXRECISEC_SHOWN_PER_CLICK, m_currentIndexOfFirstButton);
         }
     }
 }

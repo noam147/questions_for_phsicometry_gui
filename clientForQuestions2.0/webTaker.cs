@@ -96,6 +96,29 @@ namespace clientForQuestions2._0
 
                 // Execute the JavaScript in the WebView
                 await webView.CoreWebView2.ExecuteScriptAsync(script);
+
+                string script2 = @"
+    document.addEventListener('DOMContentLoaded', function () {
+        const mjxElements = document.querySelectorAll('mjx-mi');
+        mjxElements.forEach(function (mjxMi) {
+            const letters = mjxMi.querySelectorAll('mjx-utext');
+            const newSpan = document.createElement('span');
+            newSpan.style.direction = 'rtl'; // Set direction to right-to-left
+            newSpan.style.display = 'inline-block'; // Ensure the span respects RTL directionality
+
+            // Convert NodeList to array and reverse the letters
+            const lettersArray = Array.from(letters).reverse();
+
+            lettersArray.forEach(function (letter) {
+                newSpan.appendChild(letter.cloneNode(true)); // Clone and append each letter
+            });
+
+            mjxMi.innerHTML = ''; // Clear existing content
+            mjxMi.appendChild(newSpan); // Append the new span
+        });
+    });
+";
+                await webView.CoreWebView2.ExecuteScriptAsync(script2);
             }
         }
     }
