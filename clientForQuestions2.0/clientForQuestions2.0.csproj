@@ -79,6 +79,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseQuestionsPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BaseQuestionsPage.Designer.cs">
+      <DependentUpon>BaseQuestionsPage.cs</DependentUpon>
+    </Compile>
     <Compile Include="chaptersQuestionsMenu.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -157,12 +163,21 @@
       <DependentUpon>textQuestions.cs</DependentUpon>
     </Compile>
     <Compile Include="webTaker.cs" />
+    <Compile Include="WithoutFeedbackQuestions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WithoutFeedbackQuestions.Designer.cs">
+      <DependentUpon>WithoutFeedbackQuestions.cs</DependentUpon>
+    </Compile>
     <Compile Include="WithOutFeedBackQuestionsPage.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="WithOutFeedBackQuestionsPage.Designer.cs">
       <DependentUpon>WithOutFeedBackQuestionsPage.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="BaseQuestionsPage.resx">
+      <DependentUpon>BaseQuestionsPage.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="chaptersQuestionsMenu.resx">
       <DependentUpon>chaptersQuestionsMenu.cs</DependentUpon>
     </EmbeddedResource>
@@ -204,6 +219,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="textQuestions.resx">
       <DependentUpon>textQuestions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WithoutFeedbackQuestions.resx">
+      <DependentUpon>WithoutFeedbackQuestions.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="WithOutFeedBackQuestionsPage.resx">
       <DependentUpon>WithOutFeedBackQuestionsPage.cs</DependentUpon>

@@ -40,7 +40,7 @@ namespace clientForQuestions2._0
             this.isUserRightLabel = new System.Windows.Forms.Label();
             this.answersTrackLabel = new System.Windows.Forms.Label();
             this.questionTrackLabel = new System.Windows.Forms.Label();
-            this.timer = new System.Windows.Forms.Label();
+            this.timerLabel = new System.Windows.Forms.Label();
             this.previousQuestionsButton = new clientForQuestions2._0.RJButtons2();
             this.nextQuestionsButton = new clientForQuestions2._0.RJButtons2();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
@@ -154,17 +154,17 @@ namespace clientForQuestions2._0
             // 
             // timer
             // 
-            this.timer.AutoSize = true;
-            this.timer.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.timer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.timer.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Bold);
-            this.timer.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.timer.Location = new System.Drawing.Point(43, 147);
-            this.timer.Name = "timer";
-            this.timer.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.timer.Size = new System.Drawing.Size(89, 41);
-            this.timer.TabIndex = 8;
-            this.timer.Text = "0:00";
+            this.timerLabel.AutoSize = true;
+            this.timerLabel.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.timerLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.timerLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Bold);
+            this.timerLabel.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.timerLabel.Location = new System.Drawing.Point(43, 147);
+            this.timerLabel.Name = "timer";
+            this.timerLabel.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.timerLabel.Size = new System.Drawing.Size(89, 41);
+            this.timerLabel.TabIndex = 8;
+            this.timerLabel.Text = "0:00";
             // 
             // previousQuestionsButton
             // 
@@ -209,7 +209,7 @@ namespace clientForQuestions2._0
             this.ClientSize = new System.Drawing.Size(1050, 795);
             this.Controls.Add(this.previousQuestionsButton);
             this.Controls.Add(this.nextQuestionsButton);
-            this.Controls.Add(this.timer);
+            this.Controls.Add(this.timerLabel);
             this.Controls.Add(this.questionTrackLabel);
             this.Controls.Add(this.answersTrackLabel);
             this.Controls.Add(this.isUserRightLabel);
@@ -241,7 +241,7 @@ namespace clientForQuestions2._0
         private System.Windows.Forms.Label isUserRightLabel;
         private System.Windows.Forms.Label answersTrackLabel;
         private System.Windows.Forms.Label questionTrackLabel;
-        private System.Windows.Forms.Label timer;
+        private System.Windows.Forms.Label timerLabel;
         private RJButtons2 nextQuestionsButton;
         private RJButtons2 previousQuestionsButton;
         private System.Windows.Forms.Timer timer1;
