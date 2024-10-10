@@ -16,6 +16,7 @@ namespace clientForQuestions2._0
         public static int QUESTION_THAT_DID_NOT_ANSWERED = -1;
         public static int MARGIN_OF_HEIGHT = 20;//for text to not be cut down
         public static int DO_NOT_MARK = -1;
+        public static int NOT_A_REAL_TEST_ID = -1;
         public static int WITHOUT_TIMER = -3;
         public static int SKIPPED_Q = -2; // when the user didnt answer
         public static Dictionary<string, List<string>> topicsdict = new Dictionary<string, List<string>>

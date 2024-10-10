@@ -42,6 +42,8 @@
             this.nextQuestionsButton = new clientForQuestions2._0.RJButtons2();
             this.previousQuestionsButton = new clientForQuestions2._0.RJButtons2();
             this.avrage_difficultyLevel = new System.Windows.Forms.Label();
+            this.lessons_richTextBox = new System.Windows.Forms.RichTextBox();
+            this.lessons_label = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // backToMainMenu_button
@@ -233,11 +235,35 @@
             this.avrage_difficultyLevel.Text = "רמת קושי ממוצעת:";
             this.avrage_difficultyLevel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
+            // lessons_richTextBox
+            // 
+            this.lessons_richTextBox.BackColor = System.Drawing.SystemColors.InactiveBorder;
+            this.lessons_richTextBox.Location = new System.Drawing.Point(5, 233);
+            this.lessons_richTextBox.Name = "lessons_richTextBox";
+            this.lessons_richTextBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.lessons_richTextBox.Size = new System.Drawing.Size(147, 235);
+            this.lessons_richTextBox.TabIndex = 16;
+            this.lessons_richTextBox.Text = "";
+            this.lessons_richTextBox.TextChanged += new System.EventHandler(this.lessons_richTextBox_TextChanged);
+            // 
+            // lessons_label
+            // 
+            this.lessons_label.AutoSize = true;
+            this.lessons_label.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.lessons_label.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lessons_label.Location = new System.Drawing.Point(57, 212);
+            this.lessons_label.Name = "lessons_label";
+            this.lessons_label.Size = new System.Drawing.Size(45, 18);
+            this.lessons_label.TabIndex = 17;
+            this.lessons_label.Text = "לקחים";
+            // 
             // summrizePage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1047, 739);
+            this.Controls.Add(this.lessons_label);
+            this.Controls.Add(this.lessons_richTextBox);
             this.Controls.Add(this.avrage_difficultyLevel);
             this.Controls.Add(this.curr_col_id);
             this.Controls.Add(this.diffic_level_col);
@@ -278,5 +304,7 @@
         private System.Windows.Forms.Label diffic_level_col;
         private System.Windows.Forms.Label curr_col_id;
         private System.Windows.Forms.Label avrage_difficultyLevel;
+        private System.Windows.Forms.RichTextBox lessons_richTextBox;
+        private System.Windows.Forms.Label lessons_label;
     }
 }

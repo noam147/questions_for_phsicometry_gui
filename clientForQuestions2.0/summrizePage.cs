@@ -19,22 +19,43 @@ namespace clientForQuestions2._0
 
         private int h_statsPlace = 40;
         private int h_questionsPlace = 70;
+        private int w_lessonsPlace = 120; // for Lekachim (לקחים)
         private int width_webView;
         private int height_webView;
         private int Q_BUTTON_SIZE = 30;
         private int Q_CHOSEN_BUTTON_ADD_SIZE = 10;
 
+        private List<String> lessons_list = new List<String>();
+
         private int col_id = 0;
+        private int test_id = OperationsAndOtherUseful.NOT_A_REAL_TEST_ID;
         private int indexQuestion = -1;
 
         private int m_currentIndexOfFirstButton = 0;
 
-        public summrizePage(List<afterQuestionParametrs> questions)
+        public summrizePage(List<afterQuestionParametrs> questions, int test_id)
         {
             this.m_questions = questions;
+            this.test_id = test_id;
             orgnizeQuestions();
             InitializeComponent();
 
+            // not showing lessons if it is not a real test
+            if (this.test_id == OperationsAndOtherUseful.NOT_A_REAL_TEST_ID)
+            {
+                w_lessonsPlace = 0;
+                this.lessons_label.Visible = false;
+                this.lessons_richTextBox.Visible = false;
+            }
+            else
+            {
+                lessons_list = TestHistoryFileHandler.get_lessons_of_test_in_order(this.test_id);
+
+                if (lessons_list.Count == 0)
+                    for (int i = 0; i < questions.Count; i++)
+                        lessons_list.Add("");
+            }
+                
             ToolTip copy_q_id_toolTip = new ToolTip();
             copy_q_id_toolTip.SetToolTip(curr_q_id, "Click to copy id to clipboard");
             copy_q_id_toolTip.AutoPopDelay = 5000;   // Duration the tooltip will remain visible (5 seconds)
@@ -59,7 +80,7 @@ namespace clientForQuestions2._0
 
 
 
-            width_webView = (int) Screen.PrimaryScreen.WorkingArea.Width / 2;
+            width_webView = (int) (Screen.PrimaryScreen.WorkingArea.Width - w_lessonsPlace) / 2;
             height_webView = Screen.PrimaryScreen.WorkingArea.Height - this.h_questionsPlace - h_statsPlace - OperationsAndOtherUseful.MARGIN_OF_HEIGHT;
 
 
@@ -231,7 +252,7 @@ namespace clientForQuestions2._0
             // Initialize the WebView2 control
             webView21 = new WebView2
             {
-                Location = new Point(0, h_questionsPlace + h_statsPlace), // Adjust Y coordinate to leave space for buttons
+                Location = new Point(w_lessonsPlace, h_questionsPlace + h_statsPlace), // Adjust Y coordinate to leave space for buttons
                 Size = new Size(width_webView, height_webView), // Adjust size to fit below the buttons
             };
 
@@ -319,7 +340,7 @@ namespace clientForQuestions2._0
             // Initialize the WebView2 control
             webView2_col = new WebView2
             {
-                Location = new Point(width_webView, h_questionsPlace + h_statsPlace), // Adjust Y coordinate to leave space for buttons
+                Location = new Point(width_webView + w_lessonsPlace, h_questionsPlace + h_statsPlace), // Adjust Y coordinate to leave space for buttons
                 Size = new Size(width_webView, height_webView), // Adjust size to fit below the buttons
                 //Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right
             };
@@ -528,6 +549,9 @@ namespace clientForQuestions2._0
             string toDisplay = OperationsAndOtherUseful.get_string_of_question_and_explanation(this.m_questions[this.indexQuestion].question, this.m_questions[this.indexQuestion].userAnswer);
             displayCol();
 
+            // display the lesson of the new question
+            display_lesson_of_current_question();
+
 
             int secondsTook = this.m_questions[this.indexQuestion].timeForAnswer;
             updateQuestionTimerText(secondsTook);
@@ -619,6 +643,30 @@ namespace clientForQuestions2._0
         private void summrizePage_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void display_lesson_of_current_question()
+        {
+            if (this.test_id != OperationsAndOtherUseful.NOT_A_REAL_TEST_ID)
+                this.lessons_richTextBox.Text = lessons_list[indexQuestion];
+        }
+
+        private void lessons_richTextBox_TextChanged(object sender, EventArgs e)
+        {
+            String lesson = this.lessons_richTextBox.Text;
+
+            if (lesson.Replace("\n", "").Replace(" ", "").Length == 0) // if str only contains "\n" and " ", it is not valid
+            {
+                // edit to an empty lesson, TODO maybe not delete the current lesson but rather leave it as it is
+                TestHistoryFileHandler.edit_lesson_in_test_history("", 0, this.indexQuestion); // TODO add tirgul_id where 0
+            }
+            else
+            {
+                // TODO add tirgul_id
+                TestHistoryFileHandler.edit_lesson_in_test_history(lesson, 0, this.indexQuestion); // TODO add tirgul_id where 0
+            }
+
+            lessons_list[indexQuestion] = lesson;
         }
     }
 }

@@ -70,7 +70,7 @@ namespace clientForQuestions2._0
             q.userAnswer = OperationsAndOtherUseful.SKIPPED_Q;
 
             specificquestion.Add(q);
-            summrizePage s = new summrizePage(specificquestion);
+            summrizePage s = new summrizePage(specificquestion, OperationsAndOtherUseful.NOT_A_REAL_TEST_ID);
             s.Show();
             this.Close();
 
@@ -136,7 +136,7 @@ namespace clientForQuestions2._0
             }
             LogFileHandler.writeIntoFile($"got into specic collection by id. id: {col_id}");
 
-            summrizePage s = new summrizePage(questions);
+            summrizePage s = new summrizePage(questions, OperationsAndOtherUseful.NOT_A_REAL_TEST_ID);
             s.Show();
             this.Close();
         }

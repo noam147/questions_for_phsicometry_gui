@@ -120,6 +120,17 @@ namespace clientForQuestions2._0
             return testHistory;
         }
 
+        public static void edit_lesson_in_test_history(String lesson, int test_id, int q_index)
+        {
+            // TODO edit the "lesson" of the question in a specific test_id
+        }
+
+        public static List<String> get_lessons_of_test_in_order(int test_id)
+        {
+            // TODO get lessons of a test, occording to the order of the questions indexes
+            return new List<String>();
+        }
+
         public static void delete_test_history()
         {
             File.WriteAllText(filePath, "[]"); // reset the array

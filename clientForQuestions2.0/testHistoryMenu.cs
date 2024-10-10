@@ -60,7 +60,7 @@ namespace clientForQuestions2._0
             {
                 if (test.date == name) // if the date on the button is the same of the test
                 {
-                    summrizePage t = new summrizePage(test.m_afterQuestionParametrs);
+                    summrizePage t = new summrizePage(test.m_afterQuestionParametrs, 0); // TODO edit 0 to test_id
                     t.Show();
                     this.Close();
                     return;

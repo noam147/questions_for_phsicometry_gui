@@ -276,7 +276,7 @@ namespace clientForQuestions2._0
         }
         protected void goToSummrizePage()
         {
-            var s = new summrizePage(this.m_afterQuestionParametrs);
+            var s = new summrizePage(this.m_afterQuestionParametrs, 0); // TODO edit 0 to test_id
             s.Show();
             this.Close();
         }
@@ -296,7 +296,7 @@ namespace clientForQuestions2._0
                     return;
                 }
                 disposedWebViews();
-                var s = new summrizePage(this.m_afterQuestionParametrs);
+                var s = new summrizePage(this.m_afterQuestionParametrs, 0); // TODO edit 0 to test_id
                 s.Show();
                 this.Close();
                 return;

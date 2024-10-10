@@ -359,7 +359,9 @@ namespace clientForQuestions2._0
                             disposedWebViews();
                             timer1.Stop();
                             MessageBox.Show("נגמר הזמן :(");
-                            var s = new summrizePage(this.m_afterQuestionParametrs);
+                            TestHistoryFileHandler.save_afterQuestionParametrs_to_test_history(m_afterQuestionParametrs);
+
+                            var s = new summrizePage(this.m_afterQuestionParametrs, 0); // TODO edit 0 to test_id
                             s.Show();
                             this.Close();
                             return;
@@ -642,7 +644,7 @@ namespace clientForQuestions2._0
             }
             TestHistoryFileHandler.save_afterQuestionParametrs_to_test_history(m_afterQuestionParametrs);
 
-            var s = new summrizePage(this.m_afterQuestionParametrs);
+            var s = new summrizePage(this.m_afterQuestionParametrs, 0); // TODO edit 0 to test_id
             s.Show();
             this.Close();
         }
@@ -805,7 +807,7 @@ namespace clientForQuestions2._0
                 disposedWebViews();
                 TestHistoryFileHandler.save_afterQuestionParametrs_to_test_history(m_afterQuestionParametrs);
 
-                var s = new summrizePage(this.m_afterQuestionParametrs);
+                var s = new summrizePage(this.m_afterQuestionParametrs, 0); // TODO edit 0 to test_id
                 s.Show();
                 this.Close();
                 return;
