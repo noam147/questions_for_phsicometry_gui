@@ -315,19 +315,19 @@ namespace clientForQuestions2._0
                 timeUntilTimeReset = OperationsAndOtherUseful.WITHOUT_TIMER;
             }
 
-            /*if (!this.skipFeedBackCheckBox.Checked)
+            if (!this.skipFeedBackCheckBox.Checked)
             {
                 updateSettingsForNextMenu();
 
-                WithFeedBackQuestionsPage n = new WithFeedBackQuestionsPage(amount, this.topicsList, this.skipFeedBackCheckBox.Checked,timeUntilTimeReset, difficultyLevels);
+                BaseQuestionsPage n = new BaseQuestionsPage(amount, this.topicsList, this.skipFeedBackCheckBox.Checked,timeUntilTimeReset, difficultyLevels);
                 n.Show();
                 this.Close();
                 return;
             }
-            else
+            /*else
             {
                 updateSettingsForNextMenu();
-                WithOutFeedBackQuestionsPage n = new WithOutFeedBackQuestionsPage(amount, this.topicsList, this.skipFeedBackCheckBox.Checked, timeUntilTimeReset, difficultyLevels);
+                WithoutFeedbackQuestions n = new WithoutFeedbackQuestions(amount, this.topicsList, timeUntilTimeReset, difficultyLevels);
                 n.Show();
                 this.Close();
                 return;

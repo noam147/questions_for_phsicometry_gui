@@ -108,7 +108,7 @@ namespace clientForQuestions2._0
 
         private void whenDoNotGetFeedBack()
         {
-            this.timer.Visible = true;
+            this.timerLabel.Visible = true;
             //here we will init all the answer after questions without userchoice
             for (int i = 0; i < this.m_questionDetails.Count; i++)
             {
@@ -282,7 +282,7 @@ namespace clientForQuestions2._0
 
         private void rewriteTimer()
         {
-            this.timer.Text = OperationsAndOtherUseful.get_time_mmss_fromseconds(timePerQ);
+            this.timerLabel.Text = OperationsAndOtherUseful.get_time_mmss_fromseconds(timePerQ);
         }
 
         private void writeQuestionToLogFile()
@@ -348,9 +348,9 @@ namespace clientForQuestions2._0
             try
             {
                 // Ensure the label is updated on the UI thread
-                this.timer.Invoke((MethodInvoker)delegate
+                this.timerLabel.Invoke((MethodInvoker)delegate
                 {
-                    this.timer.Text = OperationsAndOtherUseful.get_time_mmss_fromseconds(Math.Abs(timePerQ - secondsTookForCurrq));
+                    this.timerLabel.Text = OperationsAndOtherUseful.get_time_mmss_fromseconds(Math.Abs(timePerQ - secondsTookForCurrq));
 
                     if (secondsTookForCurrq >= timePerQ && timePerQ != 0) // check if time ran out
                     {
