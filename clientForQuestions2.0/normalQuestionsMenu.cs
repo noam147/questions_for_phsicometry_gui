@@ -315,7 +315,7 @@ namespace clientForQuestions2._0
                 timeUntilTimeReset = OperationsAndOtherUseful.WITHOUT_TIMER;
             }
 
-            if (!this.skipFeedBackCheckBox.Checked)
+            /*if (!this.skipFeedBackCheckBox.Checked)
             {
                 updateSettingsForNextMenu();
 
@@ -323,7 +323,7 @@ namespace clientForQuestions2._0
                 n.Show();
                 this.Close();
                 return;
-            }
+            }*/
             /*else
             {
                 updateSettingsForNextMenu();

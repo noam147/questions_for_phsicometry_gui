@@ -51,13 +51,13 @@ namespace clientForQuestions2._0
                     string createTableQuery = @"
                     CREATE TABLE IF NOT EXISTS TestsHistoryData (
                         TestId INT,
-                        TestType NVARCHAR(100),
-                        Date NVARCHAR(50),
+                        TestType TEXT,
+                        Date TEXT,
                         QuestionId INT,
                         IndexOfQuestion INT,
                         UserAnswer INT,
                         TimeForQuestion INT,
-                        QuestionLesson NVARCHAR(300)
+                        QuestionLesson TEXT
                     )";
 
                     using (SQLiteCommand command = new SQLiteCommand(createTableQuery, connection))
@@ -72,6 +72,7 @@ namespace clientForQuestions2._0
                 LogFileHandler.writeIntoFile($"File TestsHistoryData already exists: {ex.Message}");
             }
         }
+
         public static int get_next_test_id()
         {
             int highestTestId = 0; // Variable to store the highest TestId
@@ -148,11 +149,8 @@ namespace clientForQuestions2._0
             }
         }
 
-        public static List<Test> get_test_history()
+        private static List<Test> getResultFromQuery(string selectQuery)
         {
-            LogFileHandler.writeIntoFile("get_test_history");
-
-            // Create a DataTable to hold the results
             DataTable dataTable = new DataTable();
 
             using (SQLiteConnection connection = new SQLiteConnection(connectionString))
@@ -160,11 +158,7 @@ namespace clientForQuestions2._0
                 connection.Open();
                 LogFileHandler.writeIntoFile("Database connection opened.");
 
-                // SQL command to select all data ordered by TestId and IndexOfQuestion
-                string selectQuery = @"
-                SELECT *
-                FROM TestsHistoryData
-                ORDER BY TestId DESC, IndexOfQuestion ASC;";
+
 
                 using (SQLiteCommand command = new SQLiteCommand(selectQuery, connection))
                 {
@@ -238,6 +232,28 @@ namespace clientForQuestions2._0
             return testHistory;
         }
 
+        public static List<Test> get_questions_with_lesson()
+        {
+            LogFileHandler.writeIntoFile("get_questions_with_lesson");
+            // SQL command to select all data ordered by TestId and IndexOfQuestion
+            string selectQuery = @"
+                SELECT *
+                FROM TestsHistoryData
+                where QuestionLesson != ''
+                ORDER BY TestId DESC, IndexOfQuestion ASC ;";
+            return getResultFromQuery(selectQuery);
+        }
+        public static List<Test> get_test_history()
+        {
+            LogFileHandler.writeIntoFile("get_test_history");
+            // SQL command to select all data ordered by TestId and IndexOfQuestion
+            string selectQuery = @"
+                SELECT *
+                FROM TestsHistoryData
+                ORDER BY TestId DESC, IndexOfQuestion ASC;";
+            return getResultFromQuery(selectQuery);
+        }
+
         public static void edit_lesson_in_test_history(string lesson, int test_id, int q_index)
         {
             // TODO edit the "lesson" of the question in a specific test_id
@@ -282,7 +298,25 @@ namespace clientForQuestions2._0
 
         public static List<String> get_lessons_of_test_in_order(int test_id)
         {
-            List<String> lessons = new List<String>();
+
+            string selectQuery = @"
+                SELECT * 
+                FROM TestsHistoryData 
+                WHERE TestId = "+test_id+
+                " ORDER BY IndexOfQuestion ASC;";
+
+            List<Test> result =  getResultFromQuery(selectQuery);
+            List<string> lessons = new List<string>();
+            foreach (Test test in result) 
+            {
+                foreach(afterQuestionParametrs currParameters in test.m_afterQuestionParametrs)
+                {
+                    string currLesson = currParameters.lesson.Replace("clientForQuestions2._0.afterQuestionParametrs", "");
+                    lessons.Add(currLesson);
+                }
+            }
+            return lessons;
+            /*List<String> lessons = new List<String>();
             // TODO get lessons of a test, occording to the order of the questions indexes
             try
             {
@@ -326,7 +360,7 @@ namespace clientForQuestions2._0
                 LogFileHandler.writeIntoFile($"An error occurred: {ex.Message}");
             }
 
-            return lessons;
+            return lessons;*/
         }
 
         public static void delete_test_history()
