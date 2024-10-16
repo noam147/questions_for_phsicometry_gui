@@ -424,7 +424,8 @@ namespace clientForQuestions2._0
                 }
                 else
                 {
-                    list[i] = $"<p>({i + 1})\t" + list[i].Substring(currIndex + lenOfString, list[i].Length - currIndex - lenOfString);
+                    string startOfQuestion = list[i].Substring(0, currIndex);
+                    list[i] = startOfQuestion+$"<p>({i + 1})\t" + list[i].Substring(currIndex + lenOfString, list[i].Length - currIndex - lenOfString);
                 }
             }
             return list;
