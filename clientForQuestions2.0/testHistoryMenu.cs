@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Data.SQLite;
 
 namespace clientForQuestions2._0
 {
@@ -22,6 +23,8 @@ namespace clientForQuestions2._0
             tests = TestHistoryFileHandler.get_test_history();
             createButtons();
             displayButtons(0, EXRECISEC_SHOWN_PER_CLICK);
+
+            //LoadData();
         }
 
         // create buttons
@@ -65,6 +68,29 @@ namespace clientForQuestions2._0
                     t.Show();
                     this.Close();
                     return;
+                }
+            }
+        }
+
+        private void LoadData()
+        {
+            using (SQLiteConnection connection = new SQLiteConnection(TestHistoryFileHandler.connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    string query = "SELECT * FROM TestsHistoryData"; // Replace 'YourTable' with your actual table name
+                    SQLiteDataAdapter dataAdapter = new SQLiteDataAdapter(query, connection);
+
+                    DataTable dataTable = new DataTable();
+                    dataAdapter.Fill(dataTable);
+
+                    // Bind the data to the DataGridView
+                    dataGridView1.DataSource = dataTable;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: " + ex.Message);
                 }
             }
         }

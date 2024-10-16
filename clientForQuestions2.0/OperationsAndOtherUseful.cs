@@ -19,6 +19,7 @@ namespace clientForQuestions2._0
         public static int NOT_A_REAL_TEST_ID = -1;
         public static int WITHOUT_TIMER = -3;
         public static int SKIPPED_Q = -2; // when the user didnt answer
+        public static string img_max_hight = "200px";
         public static Dictionary<string, List<string>> topicsdict = new Dictionary<string, List<string>>
         {
             {
@@ -392,7 +393,7 @@ namespace clientForQuestions2._0
             }
             string img_path = "https://lmsapi.kidum-me.com/storage/";
             string file_path = img_path + json["file_path"].ToString();
-            string fullImg = $"<img src=\"{file_path}\" alt=\"Question Image\" style=\"max-width:100%; height:auto;\">";
+            string fullImg = $"<img src=\"{file_path}\" alt=\"Question Image\" style=\"max-height:{img_max_hight}; width:auto;\">";
             return fullImg;
         }
 
@@ -461,10 +462,10 @@ namespace clientForQuestions2._0
             }
             else
             {
-                option1 = $"<img src=\"https://lmsapi.kidum-me.com/storage/{qp.json_content["option_images"][0]["file_path"].ToString()}\" alt=\"Question Image\" style=\"max-width:100%; height:auto;\">";
-                option2 = $"<img src=\"https://lmsapi.kidum-me.com/storage/{qp.json_content["option_images"][1]["file_path"].ToString()}\" alt=\"Question Image\" style=\"max-width:100%; height:auto;\">";
-                option3 = $"<img src=\"https://lmsapi.kidum-me.com/storage/{qp.json_content["option_images"][2]["file_path"].ToString()}\" alt=\"Question Image\" style=\"max-width:100%; height:auto;\">";
-                option4 = $"<img src=\"https://lmsapi.kidum-me.com/storage/{qp.json_content["option_images"][3]["file_path"].ToString()}\" alt=\"Question Image\" style=\"max-width:100%; height:auto;\">";
+                option1 = $"<img src=\"https://lmsapi.kidum-me.com/storage/{qp.json_content["option_images"][0]["file_path"].ToString()}\" alt=\"Question Image\" style=\"max-height:{img_max_hight}; width:auto;\">";
+                option2 = $"<img src=\"https://lmsapi.kidum-me.com/storage/{qp.json_content["option_images"][1]["file_path"].ToString()}\" alt=\"Question Image\" style=\"max-height:{img_max_hight}; width:auto;\">";
+                option3 = $"<img src=\"https://lmsapi.kidum-me.com/storage/{qp.json_content["option_images"][2]["file_path"].ToString()}\" alt=\"Question Image\" style=\"max-height:{img_max_hight}; width:auto;\">";
+                option4 = $"<img src=\"https://lmsapi.kidum-me.com/storage/{qp.json_content["option_images"][3]["file_path"].ToString()}\" alt=\"Question Image\" style=\"max-height:{img_max_hight}; width:auto;\">";
                 listOfOptions = new List<string> { option1, option2, option3, option4 };
 
                 if (userAnswer != DO_NOT_MARK)

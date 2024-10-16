@@ -29,7 +29,7 @@ namespace clientForQuestions2._0
     internal class TestHistoryFileHandler
     {
         static string file_path = AppDomain.CurrentDomain.BaseDirectory + "test_history_file.db";
-        static string connectionString = $"Data Source={file_path};Version=3;";
+        public static string connectionString = $"Data Source={file_path};Version=3;";
         public static int WITHOUT_SETTING = -1;
         public static int EXSIST = 1;
         public static int NOT_EXSIST = 0;
@@ -130,7 +130,7 @@ namespace clientForQuestions2._0
                     {
                         // Define the parameters for the query
                         insertCommand.Parameters.AddWithValue("@TestId", test_id); // TODO
-                        insertCommand.Parameters.AddWithValue("@TestType", "Math"); // TODO
+                        insertCommand.Parameters.AddWithValue("@TestType", "test_type"); // TODO
                         insertCommand.Parameters.AddWithValue("@Date", DateTime.Now.ToString()); //TODO
                         insertCommand.Parameters.AddWithValue("@QuestionId", paramers.question.questionId);
                         insertCommand.Parameters.AddWithValue("@IndexOfQuestion", paramers.indexOfQuestion);
