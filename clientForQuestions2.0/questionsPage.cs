@@ -359,9 +359,12 @@ namespace clientForQuestions2._0
                             disposedWebViews();
                             timer1.Stop();
                             MessageBox.Show("נגמר הזמן :(");
-                            TestHistoryFileHandler.save_afterQuestionParametrs_to_test_history(m_afterQuestionParametrs);
 
-                            var s = new summrizePage(this.m_afterQuestionParametrs, 0); // TODO edit 0 to test_id
+                            int test_id = TestHistoryFileHandler.get_next_test_id();
+
+                            TestHistoryFileHandler.save_afterQuestionParametrs_to_test_history(m_afterQuestionParametrs, test_id);
+
+                            var s = new summrizePage(this.m_afterQuestionParametrs, test_id); // TODO edit 0 to test_id
                             s.Show();
                             this.Close();
                             return;
@@ -642,9 +645,11 @@ namespace clientForQuestions2._0
                 this.Close();
                 return;
             }
-            TestHistoryFileHandler.save_afterQuestionParametrs_to_test_history(m_afterQuestionParametrs);
+            int test_id = TestHistoryFileHandler.get_next_test_id();
 
-            var s = new summrizePage(this.m_afterQuestionParametrs, 0); // TODO edit 0 to test_id
+            TestHistoryFileHandler.save_afterQuestionParametrs_to_test_history(m_afterQuestionParametrs, test_id);
+
+            var s = new summrizePage(this.m_afterQuestionParametrs, test_id); // TODO edit 0 to test_id
             s.Show();
             this.Close();
         }
@@ -805,9 +810,12 @@ namespace clientForQuestions2._0
                     return;
                 }
                 disposedWebViews();
-                TestHistoryFileHandler.save_afterQuestionParametrs_to_test_history(m_afterQuestionParametrs);
 
-                var s = new summrizePage(this.m_afterQuestionParametrs, 0); // TODO edit 0 to test_id
+                int test_id = TestHistoryFileHandler.get_next_test_id();
+
+                TestHistoryFileHandler.save_afterQuestionParametrs_to_test_history(m_afterQuestionParametrs, test_id);
+
+                var s = new summrizePage(this.m_afterQuestionParametrs, test_id); // TODO edit 0 to test_id
                 s.Show();
                 this.Close();
                 return;

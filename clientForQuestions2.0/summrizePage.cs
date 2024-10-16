@@ -50,12 +50,15 @@ namespace clientForQuestions2._0
             else
             {
                 lessons_list = TestHistoryFileHandler.get_lessons_of_test_in_order(this.test_id);
-
+                
                 if (lessons_list.Count == 0)
                     for (int i = 0; i < questions.Count; i++)
                         lessons_list.Add("");
+                foreach (string l in lessons_list)
+                    LogFileHandler.writeIntoFile($"{this.test_id}. {l}");
+
             }
-                
+
             ToolTip copy_q_id_toolTip = new ToolTip();
             copy_q_id_toolTip.SetToolTip(curr_q_id, "Click to copy id to clipboard");
             copy_q_id_toolTip.AutoPopDelay = 5000;   // Duration the tooltip will remain visible (5 seconds)
@@ -305,6 +308,7 @@ namespace clientForQuestions2._0
                             if (this.m_buttonList.Count != 0)
                             {
                                 Button_Click(0); // First index after init
+                                this.lessons_richTextBox.Enabled = true;
                             }
                             enableButtons();
                         }
@@ -653,17 +657,19 @@ namespace clientForQuestions2._0
 
         private void lessons_richTextBox_TextChanged(object sender, EventArgs e)
         {
+            if (this.test_id == OperationsAndOtherUseful.NOT_A_REAL_TEST_ID || this.indexQuestion < 0)
+                return;
             String lesson = this.lessons_richTextBox.Text;
-
+            LogFileHandler.writeIntoFile($"'{lesson}' {this.test_id} {this.indexQuestion}");
             if (lesson.Replace("\n", "").Replace(" ", "").Length == 0) // if str only contains "\n" and " ", it is not valid
             {
                 // edit to an empty lesson, TODO maybe not delete the current lesson but rather leave it as it is
-                TestHistoryFileHandler.edit_lesson_in_test_history("", 0, this.indexQuestion); // TODO add tirgul_id where 0
+                TestHistoryFileHandler.edit_lesson_in_test_history("", this.test_id, this.indexQuestion); // TODO add tirgul_id where 0
             }
             else
             {
                 // TODO add tirgul_id
-                TestHistoryFileHandler.edit_lesson_in_test_history(lesson, 0, this.indexQuestion); // TODO add tirgul_id where 0
+                TestHistoryFileHandler.edit_lesson_in_test_history(lesson, this.test_id, this.indexQuestion); // TODO add tirgul_id where 0
             }
 
             lessons_list[indexQuestion] = lesson;

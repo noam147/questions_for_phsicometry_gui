@@ -21,6 +21,7 @@ namespace clientForQuestions2._0
             InitializeComponent();
             tests = TestHistoryFileHandler.get_test_history();
             createButtons();
+            displayButtons(0, EXRECISEC_SHOWN_PER_CLICK);
         }
 
         // create buttons
@@ -31,7 +32,7 @@ namespace clientForQuestions2._0
             {
                 Button btn = new Button
                 {
-                    Text = tests[i].date,
+                    Text = $"{tests[i].id}. {tests[i].date}",
                     AutoSize = true,
                     Location = new System.Drawing.Point(100, 100 + (i % EXRECISEC_SHOWN_PER_CLICK) * 40), // Adjust spacing
                     Enabled = true,
@@ -58,9 +59,9 @@ namespace clientForQuestions2._0
             string name = (string)((Button)sender).Text;
             foreach (Test test in tests)
             {
-                if (test.date == name) // if the date on the button is the same of the test
+                if ($"{test.id}. {test.date}" == name) // if the date on the button is the same of the test
                 {
-                    summrizePage t = new summrizePage(test.m_afterQuestionParametrs, 0); // TODO edit 0 to test_id
+                    summrizePage t = new summrizePage(test.m_afterQuestionParametrs, test.id);
                     t.Show();
                     this.Close();
                     return;
@@ -116,7 +117,7 @@ namespace clientForQuestions2._0
             unvisibleButtonsFromButtonList();
 
             // hide the nextQuestionsButton if there are no next questions
-            if (endIndex >= m_button_list.Count - 1)
+            if (endIndex >= m_button_list.Count)
             {
                 nextExreciseButton.Visible = false;
                 endIndex = m_button_list.Count;

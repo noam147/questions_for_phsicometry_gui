@@ -5,6 +5,9 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.SqlClient;
+using System.Data;
+using System.Data.SQLite;
 
 namespace clientForQuestions2._0
 {
@@ -19,121 +22,333 @@ namespace clientForQuestions2._0
     {
         public List<afterQuestionParametrs> m_afterQuestionParametrs;
         public string date;
+        public string type;
+        public int id;
     }
 
     internal class TestHistoryFileHandler
     {
-        private static string fileName = "testHistoryFile.history";
+        static string file_path = AppDomain.CurrentDomain.BaseDirectory + "test_history_file.db";
+        static string connectionString = $"Data Source={file_path};Version=3;";
         public static int WITHOUT_SETTING = -1;
         public static int EXSIST = 1;
         public static int NOT_EXSIST = 0;
-        private static string filePath = Environment.CurrentDirectory + "/" + fileName;
         public static void openFile()
         {
             try
             {
-                Console.WriteLine(filePath);
-                // Create a new file, throw an exception if it exists
-                using (FileStream fs = new FileStream(filePath, FileMode.CreateNew))
+                string file_path = AppDomain.CurrentDomain.BaseDirectory + "test_history_file.db";
+
+                // Specify the database file path
+                string dbPath = file_path;
+
+                // Create a new SQLite database connection
+                using (SQLiteConnection connection = new SQLiteConnection($"Data Source={dbPath};Version=3;"))
                 {
-                    using (StreamWriter writer = new StreamWriter(fs))
+                    connection.Open();
+
+                    // SQL command to create a table
+                    string createTableQuery = @"
+                    CREATE TABLE IF NOT EXISTS TestsHistoryData (
+                        TestId INT,
+                        TestType NVARCHAR(100),
+                        Date NVARCHAR(50),
+                        QuestionId INT,
+                        IndexOfQuestion INT,
+                        UserAnswer INT,
+                        TimeForQuestion INT,
+                        QuestionLesson NVARCHAR(300)
+                    )";
+
+                    using (SQLiteCommand command = new SQLiteCommand(createTableQuery, connection))
                     {
-                        writer.WriteLine("[]"); // start an empty array
+                        command.ExecuteNonQuery();
+                        LogFileHandler.writeIntoFile("Table 'TestsHistoryData' created successfully.");
                     }
                 }
             }
             catch (IOException ex)
             {
-                Console.WriteLine($"File already exists: {ex.Message}");
+                LogFileHandler.writeIntoFile($"File TestsHistoryData already exists: {ex.Message}");
             }
         }
-
-        public static void save_afterQuestionParametrs_to_test_history(List<afterQuestionParametrs> m_afterQuestionParametrs)
+        public static int get_next_test_id()
         {
-            // list of 
-            List<Dictionary<string, int>> all_q = new List<Dictionary<string, int>>();
+            int highestTestId = 0; // Variable to store the highest TestId
 
-            
-            foreach (afterQuestionParametrs paramers in m_afterQuestionParametrs)
+            try
             {
-                Dictionary<string, int> current_q_parameters = new Dictionary<string, int>();
-                current_q_parameters.Add("questionId", paramers.question.questionId); // to save storage, we save only the id of the question
-                current_q_parameters.Add("userAnswer", paramers.userAnswer);
-                current_q_parameters.Add("timeForAnswer", paramers.timeForAnswer);
-                current_q_parameters.Add("indexOfQuestion", paramers.indexOfQuestion);
+                using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+                {
+                    connection.Open();
+                    Console.WriteLine("Database connection opened.");
 
-                all_q.Add(current_q_parameters); // add single 'question' to a list of all the questions in the test
+                    // SQL command to get the highest TestId
+                    string selectQuery = "SELECT MAX(TestId) AS HighestTestId FROM TestsHistoryData;";
+
+                    using (SQLiteCommand command = new SQLiteCommand(selectQuery, connection))
+                    {
+                        object result = command.ExecuteScalar(); // Execute the query and get the result
+
+                        if (result != DBNull.Value)
+                        {
+                            highestTestId = Convert.ToInt32(result); // Convert result to int
+                            Console.WriteLine($"The highest TestId is: {highestTestId}");
+                        }
+                        else
+                        {
+                            Console.WriteLine("No TestId found in the table.");
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An error occurred while trying to get next test_id: {ex.Message}");
             }
 
-            tirgulParameters tirgulParameters = new tirgulParameters();
-            tirgulParameters.all_q = all_q; // set all_q
-            tirgulParameters.date = DateTime.Now.ToString(); // set current date & time
-            //tirgulParameters.id = 0; // TODO, maybe we can do an id?
+            return highestTestId + 1;
+        }
+        public static void save_afterQuestionParametrs_to_test_history(List<afterQuestionParametrs> m_afterQuestionParametrs, int test_id)
+        {
             
-            // appending the tirgulParameters to the file
-            // adding from the start so the last tests would be at the start
+            // SQL query to insert values into the table
+            string insertValuesQuery = @"
+                        INSERT INTO TestsHistoryData (TestId, TestType, Date, QuestionId, IndexOfQuestion, UserAnswer, TimeForQuestion, QuestionLesson) 
+                        VALUES (@TestId, @TestType, @Date, @QuestionId, @IndexOfQuestion, @UserAnswer, @TimeForQuestion, @QuestionLesson)";
 
-            JToken json = JToken.FromObject(tirgulParameters);
 
-            // Read the existing JSON array from the file
-            string file_content = File.ReadAllText(filePath);
-            JArray jArray = JArray.Parse(file_content); ;
-            // Append the new JToken to the JArray to the start
-            jArray.Insert(0, json);
-            // Serialize the updated JArray back to a JSON string
-            string updatedJson = jArray.ToString(Newtonsoft.Json.Formatting.Indented);
-            // Write the updated JSON back to the file
-            File.WriteAllText(filePath, updatedJson);
+            foreach (afterQuestionParametrs paramers in m_afterQuestionParametrs)
+            {
+                using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+                {
+                    connection.Open();
+
+                    // Insert some values into the table
+                    using (SQLiteCommand insertCommand = new SQLiteCommand(insertValuesQuery, connection))
+                    {
+                        // Define the parameters for the query
+                        insertCommand.Parameters.AddWithValue("@TestId", test_id); // TODO
+                        insertCommand.Parameters.AddWithValue("@TestType", "Math"); // TODO
+                        insertCommand.Parameters.AddWithValue("@Date", DateTime.Now.ToString()); //TODO
+                        insertCommand.Parameters.AddWithValue("@QuestionId", paramers.question.questionId);
+                        insertCommand.Parameters.AddWithValue("@IndexOfQuestion", paramers.indexOfQuestion);
+                        insertCommand.Parameters.AddWithValue("@UserAnswer", paramers.userAnswer);
+                        insertCommand.Parameters.AddWithValue("@TimeForQuestion", paramers.timeForAnswer);
+                        if (paramers.lesson == null)
+                            insertCommand.Parameters.AddWithValue("@QuestionLesson", ""); // TODO
+                        else
+                            insertCommand.Parameters.AddWithValue("@QuestionLesson", paramers.lesson); // TODO
+
+                        // Execute the insert command
+                        insertCommand.ExecuteNonQuery();
+                    }
+
+                }
+            }
         }
 
         public static List<Test> get_test_history()
         {
-            // getting the data from the file
-            string file_content = File.ReadAllText(filePath);
-            JArray jArray = JArray.Parse(file_content); ;
+            LogFileHandler.writeIntoFile("get_test_history");
+
+            // Create a DataTable to hold the results
+            DataTable dataTable = new DataTable();
+
+            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+            {
+                connection.Open();
+                LogFileHandler.writeIntoFile("Database connection opened.");
+
+                // SQL command to select all data ordered by TestId and IndexOfQuestion
+                string selectQuery = @"
+                SELECT *
+                FROM TestsHistoryData
+                ORDER BY TestId DESC, IndexOfQuestion ASC;";
+
+                using (SQLiteCommand command = new SQLiteCommand(selectQuery, connection))
+                {
+                    using (SQLiteDataReader reader = command.ExecuteReader())
+                    {
+                        // Check if the reader has rows
+                        if (reader.HasRows)
+                        {
+                            // Load the data into the DataTable
+                            dataTable.Load(reader);
+                            LogFileHandler.writeIntoFile("Data loaded into DataTable.");
+                        }
+                        else
+                        {
+                            LogFileHandler.writeIntoFile("No rows found in the query.");
+                        }
+                    }
+                }
+            }
+
+            LogFileHandler.writeIntoFile($"{dataTable.Rows.Count}");
+            // Grouping and iterating over the DataTable rows
+            var testIdGroups = new Dictionary<int, List<DataRow>>();
+
+            // Grouping by TestId
+            foreach (DataRow row in dataTable.Rows)
+            {
+                int testId = (int)row["TestId"];
+                if (!testIdGroups.ContainsKey(testId))
+                {
+                    testIdGroups[testId] = new List<DataRow>();
+                }
+                testIdGroups[testId].Add(row);
+            }
 
             // taking all of the tests in the file
             List<Test> testHistory = new List<Test>();
-            foreach (JToken jToken in jArray)
+            // Iterating through each group
+            foreach (var group in testIdGroups)
             {
                 Test test = new Test();
 
                 // getting all the after Question Parameters
                 List<afterQuestionParametrs> m_afterQuestionParameters = new List<afterQuestionParametrs>();
-                foreach (JToken jToken2 in (JArray) jToken["all_q"])
+
+                LogFileHandler.writeIntoFile($"Records for TestId: {group.Key}");
+                foreach (var row in group.Value)
                 {
                     afterQuestionParametrs m_afterQuestionParameter = new afterQuestionParametrs();
-                    m_afterQuestionParameter.question = sqlDb.get_question_based_on_id((int)jToken2["questionId"]); // getting the q from its id
-                    m_afterQuestionParameter.userAnswer = (int) jToken2["userAnswer"];
-                    m_afterQuestionParameter.timeForAnswer = (int)jToken2["timeForAnswer"];
-                    m_afterQuestionParameter.indexOfQuestion = (int)jToken2["indexOfQuestion"];
+                    m_afterQuestionParameter.question = sqlDb.get_question_based_on_id((int)row["QuestionId"]); // getting the q from its id
+                    m_afterQuestionParameter.userAnswer = (int)row["UserAnswer"];
+                    m_afterQuestionParameter.timeForAnswer = (int)row["TimeForQuestion"];
+                    m_afterQuestionParameter.indexOfQuestion = (int)row["IndexOfQuestion"];
+                    m_afterQuestionParameter.lesson = (string)row["QuestionLesson"];
 
                     m_afterQuestionParameters.Add(m_afterQuestionParameter);
-                }
 
+                    // Access each column by name
+                    LogFileHandler.writeIntoFile($"  TestId: {group.Key}, TestType: {row["TestType"]}, Date: {row["Date"]}, QuestionId: {row["QuestionId"]}, IndexOfQuestion: {row["IndexOfQuestion"]}, UserAnswer: {row["UserAnswer"]}, TimeForQuestion: {row["TimeForQuestion"]}, QuestionLesson: {row["QuestionLesson"]}");
+                }
                 test.m_afterQuestionParametrs = m_afterQuestionParameters;
-                test.date = (string)jToken["date"];
+                test.date = (string)group.Value[0]["Date"];
+                test.type = (string)group.Value[0]["TestType"];
+                test.id = (int)group.Key;
+
 
                 testHistory.Add(test);
+
             }
 
             return testHistory;
         }
 
-        public static void edit_lesson_in_test_history(String lesson, int test_id, int q_index)
+        public static void edit_lesson_in_test_history(string lesson, int test_id, int q_index)
         {
             // TODO edit the "lesson" of the question in a specific test_id
+            try
+            {
+                using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+                {
+                    connection.Open();
+                    LogFileHandler.writeIntoFile("Database connection opened.");
+
+                    // SQL command to update the TestLesson
+                    string updateQuery = @"
+                UPDATE TestsHistoryData 
+                SET QuestionLesson = @QuestionLesson 
+                WHERE TestId = @TestId AND IndexOfQuestion = @IndexOfQuestion;";
+
+                    using (SQLiteCommand command = new SQLiteCommand(updateQuery, connection))
+                    {
+                        // Adding parameters to prevent SQL injection
+                        command.Parameters.AddWithValue("@QuestionLesson", lesson);
+                        command.Parameters.AddWithValue("@TestId", test_id);
+                        command.Parameters.AddWithValue("@IndexOfQuestion", q_index);
+
+                        int rowsAffected = command.ExecuteNonQuery(); // Execute the update command
+                        if (rowsAffected > 0)
+                        {
+                            LogFileHandler.writeIntoFile($"Updated TestLesson for TestId {test_id} and IndexOfQuestion {q_index}: '{lesson}'");
+                        }
+                        else
+                        {
+                            LogFileHandler.writeIntoFile("No rows updated. Check if TestId and IndexOfQuestion exist.");
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                LogFileHandler.writeIntoFile($"An error occurred: {ex.Message}");
+            }
+
         }
 
         public static List<String> get_lessons_of_test_in_order(int test_id)
         {
+            List<String> lessons = new List<String>();
             // TODO get lessons of a test, occording to the order of the questions indexes
-            return new List<String>();
+            try
+            {
+                using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+                {
+                    connection.Open();
+                    Console.WriteLine("Database connection opened.");
+
+                    // SQL command to select lessons for a specific TestId ordered by IndexOfQuestion
+                    string selectQuery = @"
+                SELECT QuestionLesson 
+                FROM TestsHistoryData 
+                WHERE TestId = @TestId 
+                ORDER BY IndexOfQuestion ASC;";
+
+                    using (SQLiteCommand command = new SQLiteCommand(selectQuery, connection))
+                    {
+                        // Adding parameter to the query
+                        command.Parameters.AddWithValue("@TestId", test_id);
+
+                        using (SQLiteDataReader reader = command.ExecuteReader())
+                        {
+                            // Check if there are any lessons returned
+                            if (reader.HasRows)
+                            {
+                                while (reader.Read())
+                                {
+                                    lessons.Add(reader.GetString(0)); // Add the lesson to the list 
+                                }
+                            }
+                            else
+                            {
+                                LogFileHandler.writeIntoFile($"No lessons found for TestId {test_id}.");
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                LogFileHandler.writeIntoFile($"An error occurred: {ex.Message}");
+            }
+
+            return lessons;
         }
 
         public static void delete_test_history()
         {
-            File.WriteAllText(filePath, "[]"); // reset the array
+            try
+            {
+                using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+                {
+                    connection.Open();
+
+                    // SQL command to delete all data from the table
+                    string deleteQuery = "DELETE FROM TestsHistoryData;";
+
+                    using (SQLiteCommand command = new SQLiteCommand(deleteQuery, connection))
+                    {
+                        command.ExecuteNonQuery(); // Execute the delete command
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }        
         }
     }
 }
