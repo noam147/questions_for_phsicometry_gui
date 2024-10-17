@@ -24,12 +24,20 @@ namespace clientForQuestions2._0
             createButtons();
             displayButtons(0, EXRECISEC_SHOWN_PER_CLICK);
 
+            
+
             //LoadData();
         }
 
         // create buttons
         private void createButtons()
         {
+            // if empty history
+            if (tests == null || tests.Count == 0)
+                emptyHistory_label.Visible = true;
+            else
+                emptyHistory_label.Visible = false;
+
             m_button_list = new List<Button>();
             for (int i = 0; i < tests.Count; i++)
             {
@@ -64,7 +72,7 @@ namespace clientForQuestions2._0
             {
                 if ($"{test.id}. {test.date}" == name) // if the date on the button is the same of the test
                 {
-                    summrizePage t = new summrizePage(test.m_afterQuestionParametrs, test.id);
+                    summrizePage t = new summrizePage(test.m_afterQuestionParametrs, test.id, 0);
                     t.Show();
                     this.Close();
                     return;
@@ -86,7 +94,7 @@ namespace clientForQuestions2._0
                     dataAdapter.Fill(dataTable);
 
                     // Bind the data to the DataGridView
-                    dataGridView1.DataSource = dataTable;
+                    dataGridView1_ZMANI.DataSource = dataTable;
                 }
                 catch (Exception ex)
                 {
@@ -107,7 +115,7 @@ namespace clientForQuestions2._0
             // no history to reset
             if (tests.Count == 0)
                 return;
-
+            
             // check if the user is sure to reset history
             DialogResult result = MessageBox.Show("?האם אתה בטוח שאתה רוצה לאפס את היסטורית התרגולים",
                                       "Confirmation",
@@ -121,6 +129,8 @@ namespace clientForQuestions2._0
             tests = TestHistoryFileHandler.get_test_history();
             deleteButtons();
             createButtons();
+            nextExreciseButton.Visible = false;
+            previousExreciseButton.Visible = false;
         }
 
         private void nextExreciseButton_Click(object sender, EventArgs e)
@@ -168,6 +178,17 @@ namespace clientForQuestions2._0
         private void previousExreciseButton_Click(object sender, EventArgs e)
         {
             displayButtons(m_currentIndexOfFirstButton - EXRECISEC_SHOWN_PER_CLICK, m_currentIndexOfFirstButton);
+        }
+
+        private void emptyHistory_label_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void testHistoryMenu_Load(object sender, EventArgs e)
+        {
+            this.resetHistory_button.Location = new System.Drawing.Point(Screen.PrimaryScreen.WorkingArea.Width - this.resetHistory_button.Size.Width - 10, this.resetHistory_button.Location.Y); 
+            this.emptyHistory_label.Location = new System.Drawing.Point((int) (Screen.PrimaryScreen.WorkingArea.Width - this.emptyHistory_label.Size.Width) / 2, this.emptyHistory_label.Location.Y);
         }
     }
 }

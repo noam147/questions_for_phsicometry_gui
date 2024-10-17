@@ -152,7 +152,7 @@ namespace clientForQuestions2._0
             this.questionTrackLabel.Text = "questionTrack";
             this.questionTrackLabel.Click += new System.EventHandler(this.questionTrackLabel_Click);
             // 
-            // timer
+            // timerLabel
             // 
             this.timerLabel.AutoSize = true;
             this.timerLabel.BackColor = System.Drawing.SystemColors.ActiveCaption;
@@ -160,7 +160,7 @@ namespace clientForQuestions2._0
             this.timerLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Bold);
             this.timerLabel.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.timerLabel.Location = new System.Drawing.Point(43, 147);
-            this.timerLabel.Name = "timer";
+            this.timerLabel.Name = "timerLabel";
             this.timerLabel.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.timerLabel.Size = new System.Drawing.Size(89, 41);
             this.timerLabel.TabIndex = 8;
