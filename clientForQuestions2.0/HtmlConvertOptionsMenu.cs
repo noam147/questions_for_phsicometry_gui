@@ -16,7 +16,9 @@ namespace clientForQuestions2._0
     public partial class HtmlConvertOptionsMenu : Form
     {
         private string file_path;
+        private bool autoDownload = false;
         private List<dbQuestionParmeters> questions;
+        private string finalHtmlContentForFile = "";
         public HtmlConvertOptionsMenu(int test_id)
         {
             questions = new List<dbQuestionParmeters>();
@@ -25,13 +27,30 @@ namespace clientForQuestions2._0
             InitializeComponent();
             explanation_comboBox.SelectedIndex = 0;
         }
-        public HtmlConvertOptionsMenu(List<dbQuestionParmeters> questions)
+        public HtmlConvertOptionsMenu(List<dbQuestionParmeters> questions, bool autoDownload)
         {
             this.questions = questions;
             InitializeComponent();
             explanation_comboBox.SelectedIndex = 0;
+            this.autoDownload = autoDownload;
         }
+        public HtmlConvertOptionsMenu(List<List<dbQuestionParmeters>> multipleQuestionsfiles)
+        {
+            string finalSimulation = "";
+            string currentChapter = "";
+            InitializeComponent();
+            explanation_comboBox.SelectedIndex = 0;
+            string newPage = "<div style='page-break-after: always;'></div>";
+            for (int i =0; i < multipleQuestionsfiles.Count; i++) 
+            {
+                this.questions = multipleQuestionsfiles[i];
+                currentChapter =  get_html();
+                finalSimulation += currentChapter + newPage;
+            }
+            finalHtmlContentForFile = finalSimulation;
+            filePath_button_Click(null, null);
 
+        }
         private void HtmlConvertOptionsMenu_Load(object sender, EventArgs e)
         {
 
@@ -39,6 +58,7 @@ namespace clientForQuestions2._0
 
         private void filePath_button_Click(object sender, EventArgs e)
         {
+
             using (SaveFileDialog saveFileDialog = new SaveFileDialog())
             {
                 saveFileDialog.Title = "Save Output File";
@@ -165,7 +185,11 @@ namespace clientForQuestions2._0
             try
             {
                 // Write the HTML content to the file
-                File.WriteAllText(this.file_path, get_html());
+                if(finalHtmlContentForFile == "")
+                    {
+                    File.WriteAllText(this.file_path, get_html());
+                }
+                else { File.WriteAllText(this.file_path,finalHtmlContentForFile); }
             }
             catch (Exception ex)
             {
