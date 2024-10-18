@@ -8,6 +8,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SQLite;
+using iText.Html2pdf;
+using iText.Kernel.Pdf;
+using System.IO;
+using System.Diagnostics;
 
 namespace clientForQuestions2._0
 {
@@ -15,6 +19,8 @@ namespace clientForQuestions2._0
     {
         private List<Test> tests;
         private List<Button> m_button_list = new List<Button>();
+        private List<Button> m_download_button_list = new List<Button>();
+
         private int m_currentIndexOfFirstButton = 0;
         private int EXRECISEC_SHOWN_PER_CLICK = 5;
         public testHistoryMenu()
@@ -38,6 +44,7 @@ namespace clientForQuestions2._0
             else
                 emptyHistory_label.Visible = false;
 
+            m_download_button_list = new List<Button>();
             m_button_list = new List<Button>();
             for (int i = 0; i < tests.Count; i++)
             {
@@ -49,10 +56,24 @@ namespace clientForQuestions2._0
                     Enabled = true,
                     Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold) // make the text BOLD
                 };
+                Button download_btn = new Button
+                {
+                    Text = "⬇️",
+                    AutoSize = true,
+                    Location = new System.Drawing.Point(50, 100 + (i % EXRECISEC_SHOWN_PER_CLICK) * 40), // Adjust spacing
+                    Enabled = true,
+                    BackColor = Color.Yellow,
+                    Name = $"{tests[i].id}",
+                    Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Underline) // make the text BOLD
+                };
                 btn.Click += Button_Click;
+                download_btn.Click += downloadButton_Click;
 
                 m_button_list.Add(btn);
+                m_download_button_list.Add(download_btn);
+
                 Controls.Add(btn);
+                Controls.Add(download_btn);
             }
         }
 
@@ -64,6 +85,12 @@ namespace clientForQuestions2._0
             }
         }
 
+        private void downloadButton_Click(object sender, EventArgs e)
+        {
+            int test_id = Int32.Parse(((Button)sender).Name);
+            HtmlConvertOptionsMenu n = new HtmlConvertOptionsMenu(test_id);
+            n.Show();
+        }
 
         private void Button_Click(object sender, EventArgs e)
         {

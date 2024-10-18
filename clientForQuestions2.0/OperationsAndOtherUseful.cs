@@ -361,6 +361,13 @@ namespace clientForQuestions2._0
                 return $"{sec / 60}:{sec % 60}";
         }
 
+        public static int get_col_id_of_question(JToken json)
+        {
+            if ( ((JArray)json["collections"]).Count == 0)
+                return 0;
+            return (int) json["collections"][0]["id"];
+        }
+
         public static string get_string_of_img_col_html(JToken json)
         {
             //this should be in a separate file
@@ -503,15 +510,17 @@ namespace clientForQuestions2._0
             return right2left(question + get_string_of_img_html(qp.json_content["image"]) + "<br><br>" + finalOptionsString);
         }
 
-        public static string get_string_of_question_and_explanation(dbQuestionParmeters qp, int clientanswer)
+        public static string get_explanation(dbQuestionParmeters qp)
         {
             string answer = qp.json_content["solving_explanation"].ToString();
-            string line = "<div style=\"top: 50%; left: 0; width: 100vw; height: 1px; background-color: lightgray;\"></div>\r\n<br>הסבר:";
             var img = qp.json_content["explanation_image"];
-            string final = get_string_of_question_and_option_from_json(qp, clientanswer) + right2left(line + answer + get_string_of_img_html(img));
+            return right2left(answer + get_string_of_img_html(img));
+        }
+        public static string get_string_of_question_and_explanation(dbQuestionParmeters qp, int clientanswer)
+        {
+            string line = "<div style=\"top: 50%; left: 0; width: 100vw; height: 1px; background-color: lightgray;\"></div>\r\n<br>הסבר:";
 
-            //final = final.Replace("<mspace linebreak=\"newline\"/>", ">");
-            return final;
+            return get_string_of_question_and_option_from_json(qp, clientanswer) + right2left(line) + get_explanation(qp);
         }
         private static bool isQuestionInHebrew(string category)
         {
