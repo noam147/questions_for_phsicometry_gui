@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
@@ -92,6 +93,7 @@ namespace clientForQuestions2._0
             int prev_col_id = 0;
             for (int i = 0; i < questions.Count; i++)
             {
+                html += $"<div class='question-container'>";
                 dbQuestionParmeters a = questions[i];
                 
                 int curr_col_id = OperationsAndOtherUseful.get_col_id_of_question(a.json_content);
@@ -106,7 +108,7 @@ namespace clientForQuestions2._0
                 {
                     //html += $"<p style=\"font-size: 24px; font-weight: bold; direction: rtl;\">{a.indexOfQuestion + 1}.</p>";
                     if (expl==1)
-                        html_end += $"<p style=\"font-size: 24px; font-weight: bold; direction: rtl;\">{a.indexOfQuestion + 1}.</p>";
+                        html_end += $"<p style=\"font-size: 24px; font-weight: bold; direction: rtl;\">{i + 1}.</p>";
 
                 }
                 if (expl==1)
@@ -121,20 +123,21 @@ namespace clientForQuestions2._0
                 }
                 else if(expl==2)
                 {
-                    html += OperationsAndOtherUseful.get_string_of_question_and_explanation(a.question, OperationsAndOtherUseful.DO_NOT_MARK);
+                    html += OperationsAndOtherUseful.get_string_of_question_and_explanation(a, OperationsAndOtherUseful.DO_NOT_MARK);
                    // html += "<div style=\"top: 50%; left: 0; width: 100vw; height: 3px; background-color: black;\"></div>";
                    // html += "<br> <br> ";
                 }
                 else if (expl == 0)
                 {
-                    string currentQuestion = OperationsAndOtherUseful.get_string_of_question_and_option_from_json(a.question, OperationsAndOtherUseful.DO_NOT_MARK);
-                    html += addNumberToQuestion(currentQuestion,a.indexOfQuestion+1);
-                    html += OperationsAndOtherUseful.get_string_of_question_and_option_from_json(a.question, OperationsAndOtherUseful.DO_NOT_MARK);
+                    string currentQuestion = OperationsAndOtherUseful.get_string_of_question_and_option_from_json(a, OperationsAndOtherUseful.DO_NOT_MARK);
+                    html += addNumberToQuestion(currentQuestion,i+1);
+                    //html += OperationsAndOtherUseful.get_string_of_question_and_option_from_json(a, OperationsAndOtherUseful.DO_NOT_MARK);
 
 
-                   // html += "<div style=\"top: 50%; left: 0; width: 100vw; height: 3px; background-color: black;\"></div>";
+                    // html += "<div style=\"top: 50%; left: 0; width: 100vw; height: 3px; background-color: black;\"></div>";
                     //html += "<br> <br> ";
                 }
+                html += $"</div>";
                 prev_col_id = curr_col_id;
             }
 
@@ -144,6 +147,8 @@ namespace clientForQuestions2._0
                // html += "<br> <div style=\"top: 50%; left: 0; width: 100vw; height: 5px; background-color: lightgray;\"></div><br> <br> " + html_end;
             }
 
+            //for big imgs
+            html = html.Replace("height:auto;", "height:500;");
             return html;            
         }
 
