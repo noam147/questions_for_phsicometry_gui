@@ -117,6 +117,7 @@
     <Compile Include="normalQuestionsMenu.Designer.cs">
       <DependentUpon>normalQuestionsMenu.cs</DependentUpon>
     </Compile>
+    <Compile Include="QuestionsToPdf.cs" />
     <Compile Include="WithFeedBackQuestionsPage.cs">
       <SubType>Form</SubType>
     </Compile>

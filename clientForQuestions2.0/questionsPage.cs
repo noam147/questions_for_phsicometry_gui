@@ -973,10 +973,11 @@ namespace clientForQuestions2._0
             this.m_indexOfCurrQuestion = indexOfQuestion;
 
 
-
+            
             //need to also mark the current user answer!
             string htmlContent = OperationsAndOtherUseful.get_string_of_question_and_option_from_json(this.m_questionDetails[indexOfQuestion], OperationsAndOtherUseful.DO_NOT_MARK);
             this.webView21.NavigateToString(htmlContent);
+            QuestionsToPdf.addQuestion(htmlContent);
             markUserAnswerInLightBlue(indexOfQuestion);
 
             if ((m_buttonList.Any() && m_buttonList.All(b => b.BackColor == Color.Yellow)))

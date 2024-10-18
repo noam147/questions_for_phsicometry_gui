@@ -20,9 +20,11 @@ namespace clientForQuestions2._0
                 {
                     return;
                 }
+               
                 //this.m_currAnswer = this.questionDetails[this.m_indexOfCurrQuestion].rightAnswer;
                 string htmlContent = OperationsAndOtherUseful.get_string_of_question_and_option_from_json(textInJson,OperationsAndOtherUseful.DO_NOT_MARK);
                 // Load the HTML content into WebView2
+                QuestionsToPdf.addQuestion(htmlContent);
                 web.NavigateToString(htmlContent);
             }
             else
@@ -42,6 +44,7 @@ namespace clientForQuestions2._0
 
                 //this.m_currAnswer = this.questionDetails[this.m_indexOfCurrQuestion].rightAnswer;
                 string htmlContent = OperationsAndOtherUseful.get_string_of_img_col_html(textInJson.json_content);
+                QuestionsToPdf.addGraph(htmlContent);
                 // Load the HTML content into WebView2
                 web.NavigateToString(htmlContent);
             }

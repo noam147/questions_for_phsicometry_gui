@@ -162,6 +162,8 @@ namespace clientForQuestions2._0
                 questions = normal_qs;
             }
 
+            QuestionsToPdf.Questions2Pdf(questions);
+
             questionsPage c;
             if (this.timePerQPicker.Enabled)
                 c = new questionsPage(questions, timePerQPicker.Value.Minute * 60 + timePerQPicker.Value.Second);
