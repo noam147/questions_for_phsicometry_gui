@@ -59,7 +59,7 @@ namespace clientForQuestions2._0
                 Button download_btn = new Button
                 {
                     Text = "⬇️",
-                    AutoSize = true,
+                    Size = new Size(50, 40),
                     Location = new System.Drawing.Point(50, 100 + (i % EXRECISEC_SHOWN_PER_CLICK) * 40), // Adjust spacing
                     Enabled = true,
                     BackColor = Color.Yellow,
@@ -80,6 +80,10 @@ namespace clientForQuestions2._0
         private void deleteButtons()
         {
             foreach(Button button in m_button_list)
+            {
+                this.Controls.Remove(button);
+            }
+            foreach (Button button in m_download_button_list)
             {
                 this.Controls.Remove(button);
             }
@@ -170,6 +174,7 @@ namespace clientForQuestions2._0
             for (int i = 0; i < m_button_list.Count; i++)
             {
                 m_button_list[i].Visible = false;
+                m_download_button_list[i].Visible = false;
             }
         }
         private void displayButtons(int startIndex, int endIndex)
@@ -196,6 +201,9 @@ namespace clientForQuestions2._0
             for (int i = startIndex; i < endIndex; i++)
             {
                 Button btn = m_button_list[i];
+                btn.Visible = true;
+                btn.BringToFront();
+                btn = m_download_button_list[i];
                 btn.Visible = true;
                 btn.BringToFront();
                 //
