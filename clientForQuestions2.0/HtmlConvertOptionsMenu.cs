@@ -1,0 +1,126 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace clientForQuestions2._0
+{
+    public partial class HtmlConvertOptionsMenu : Form
+    {
+        private string file_path;
+        private int test_id;
+        public HtmlConvertOptionsMenu(int test_id)
+        {
+            this.test_id = test_id;
+            InitializeComponent();
+            explanation_comboBox.SelectedIndex = 0;
+        }
+
+        private void HtmlConvertOptionsMenu_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void filePath_button_Click(object sender, EventArgs e)
+        {
+            using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+            {
+                saveFileDialog.Title = "Save Output File";
+                saveFileDialog.Filter = "Html Files (*.html)|*.html";
+                saveFileDialog.DefaultExt = "html"; // Default file extension
+                saveFileDialog.InitialDirectory = AppDomain.CurrentDomain.BaseDirectory;
+                saveFileDialog.FileName = $"test{this.test_id}";
+                saveFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments); // Initial directory
+
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    // The user selected a file location
+                    this.file_path = saveFileDialog.FileName;
+
+                    save_button_Click();
+                    MessageBox.Show($"File save to: '{this.file_path}'");
+                    this.Close();
+                }
+            }
+        }
+
+        private string get_html()
+        {
+            string html = "";
+            string html_end = "";
+
+            bool isNum = isNum_checkBox.Checked;
+            int expl = explanation_comboBox.SelectedIndex;
+
+            int prev_col_id = 0;
+            foreach (afterQuestionParametrs a in TestHistoryFileHandler.get_afterQuestionParametrs_of_test(test_id))
+            {
+                int curr_col_id = OperationsAndOtherUseful.get_col_id_of_question(a.question.json_content);
+                
+                if (curr_col_id != 0 && curr_col_id != prev_col_id)
+                {
+                    html += OperationsAndOtherUseful.get_string_of_img_col_html(a.question.json_content);
+                    html += "<div style=\"top: 50%; left: 0; width: 100vw; height: 3px; background-color: lightgray;\"></div>";
+                    html += "<br> <br> ";
+                }
+                if (isNum)
+                {
+                    html += $"<p style=\"font-size: 24px; font-weight: bold; direction: rtl;\">{a.indexOfQuestion + 1}.</p> <br>";
+                    if (expl==1)
+                        html_end += $"<p style=\"font-size: 24px; font-weight: bold; direction: rtl;\">{a.indexOfQuestion + 1}.</p> <br>";
+                }
+                if (expl==1)
+                {
+                    html += OperationsAndOtherUseful.get_string_of_question_and_option_from_json(a.question, OperationsAndOtherUseful.DO_NOT_MARK);
+                    html_end += OperationsAndOtherUseful.get_explanation(a.question);
+
+                    html += "<div style=\"top: 50%; left: 0; width: 100vw; height: 3px; background-color: black;\"></div>";
+                    html += "<br> <br> ";
+                    html_end += "<div style=\"top: 50%; left: 0; width: 100vw; height: 3px; background-color: black;\"></div>";
+                    html_end += "<br> <br> ";
+                }
+                else if(expl==2)
+                {
+                    html += OperationsAndOtherUseful.get_string_of_question_and_explanation(a.question, OperationsAndOtherUseful.DO_NOT_MARK);
+                    html += "<div style=\"top: 50%; left: 0; width: 100vw; height: 3px; background-color: black;\"></div>";
+                    html += "<br> <br> ";
+                }
+                else if (expl == 0)
+                {
+                    html += OperationsAndOtherUseful.get_string_of_question_and_option_from_json(a.question, OperationsAndOtherUseful.DO_NOT_MARK);
+
+                    html += "<div style=\"top: 50%; left: 0; width: 100vw; height: 3px; background-color: black;\"></div>";
+                    html += "<br> <br> ";
+                }
+                prev_col_id = curr_col_id;
+            }
+            if (expl == 1)
+            {
+                html += "<p style=\"font-size: 24px; font-weight: bold; direction: rtl;\">הסברים ותשובות:</p>";
+                html += "<br> <div style=\"top: 50%; left: 0; width: 100vw; height: 5px; background-color: lightgray;\"></div><br> <br> " + html_end;
+            }
+
+            return html;            
+        }
+
+        private void save_button_Click()
+        {
+            try
+            {
+                // Write the HTML content to the file
+                File.WriteAllText(this.file_path, get_html());
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("error");
+            }
+
+        }
+    }
+}

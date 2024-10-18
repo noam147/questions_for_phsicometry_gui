@@ -167,6 +167,7 @@ namespace clientForQuestions2._0
                         // Check if the reader has rows
                         if (reader.HasRows)
                         {
+
                             // Load the data into the DataTable
                             dataTable.Load(reader);
                             LogFileHandler.writeIntoFile("Data loaded into DataTable.");
@@ -179,7 +180,7 @@ namespace clientForQuestions2._0
                 }
             }
 
-            LogFileHandler.writeIntoFile($"{dataTable.Rows.Count}");
+            //LogFileHandler.writeIntoFile($"{dataTable.Rows.Count}");
             // Grouping and iterating over the DataTable rows
             var testIdGroups = new Dictionary<int, List<DataRow>>();
 
@@ -204,7 +205,7 @@ namespace clientForQuestions2._0
                 // getting all the after Question Parameters
                 List<afterQuestionParametrs> m_afterQuestionParameters = new List<afterQuestionParametrs>();
 
-                LogFileHandler.writeIntoFile($"Records for TestId: {group.Key}");
+                //LogFileHandler.writeIntoFile($"Records for TestId: {group.Key}");
                 foreach (var row in group.Value)
                 {
                     afterQuestionParametrs m_afterQuestionParameter = new afterQuestionParametrs();
@@ -217,7 +218,7 @@ namespace clientForQuestions2._0
                     m_afterQuestionParameters.Add(m_afterQuestionParameter);
 
                     // Access each column by name
-                    LogFileHandler.writeIntoFile($"  TestId: {group.Key}, TestType: {row["TestType"]}, Date: {row["Date"]}, QuestionId: {row["QuestionId"]}, IndexOfQuestion: {row["IndexOfQuestion"]}, UserAnswer: {row["UserAnswer"]}, TimeForQuestion: {row["TimeForQuestion"]}, QuestionLesson: {row["QuestionLesson"]}");
+                    //LogFileHandler.writeIntoFile($"  TestId: {group.Key}, TestType: {row["TestType"]}, Date: {row["Date"]}, QuestionId: {row["QuestionId"]}, IndexOfQuestion: {row["IndexOfQuestion"]}, UserAnswer: {row["UserAnswer"]}, TimeForQuestion: {row["TimeForQuestion"]}, QuestionLesson: {row["QuestionLesson"]}");
                 }
                 test.m_afterQuestionParametrs = m_afterQuestionParameters;
                 test.date = (string)group.Value[0]["Date"];
@@ -369,7 +370,7 @@ namespace clientForQuestions2._0
             string selectQuery = @"
                 SELECT * 
                 FROM TestsHistoryData 
-                WHERE TestId = " + test_id +
+                WHERE TestId = " + $"{test_id}" +
                 " ORDER BY IndexOfQuestion ASC;";
 
             List<Test> result = getResultFromQuery(selectQuery);
