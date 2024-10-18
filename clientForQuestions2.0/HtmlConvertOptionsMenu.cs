@@ -79,10 +79,10 @@ namespace clientForQuestions2._0
                 }
             }
         }
-        private string addNumberToQuestion(string htmlContentOfQuestion,int counter)
+        private string addNumberToQuestion(string htmlContentOfQuestion, int counter,int questionId)
         {
             int currIndex = htmlContentOfQuestion.IndexOf("<p>");
-            string numberStr = $"<span style='font-size: 1.5em; font-weight: bold;'>{counter}.</span>\t";
+            string numberStr = $"qId = {questionId}\t<span style='font-size: 1.5em; font-weight: bold;'>{counter}.</span>\t";
             if (currIndex == -1)
             {
                 currIndex = htmlContentOfQuestion.IndexOf("<p ");
@@ -94,6 +94,10 @@ namespace clientForQuestions2._0
                 htmlContentOfQuestion = htmlContentOfQuestion.Substring(0, currIndex + 3) + numberStr + htmlContentOfQuestion.Substring(currIndex + 3);
             }
             return htmlContentOfQuestion;
+        }
+        private string addNumberToQuestion(string htmlContentOfQuestion,int counter)
+        {
+            return addNumberToQuestion(htmlContentOfQuestion, counter, -1);
         }
         private string get_html()
         {
@@ -150,7 +154,7 @@ namespace clientForQuestions2._0
                 else if (expl == 0)
                 {
                     string currentQuestion = OperationsAndOtherUseful.get_string_of_question_and_option_from_json(a, OperationsAndOtherUseful.DO_NOT_MARK);
-                    html += addNumberToQuestion(currentQuestion,i+1);
+                    html += addNumberToQuestion(currentQuestion,i+1,a.questionId);
                     //html += OperationsAndOtherUseful.get_string_of_question_and_option_from_json(a, OperationsAndOtherUseful.DO_NOT_MARK);
 
 
