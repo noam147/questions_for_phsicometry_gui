@@ -62,7 +62,7 @@ namespace clientForQuestions2._0
         private string addNumberToQuestion(string htmlContentOfQuestion,int counter)
         {
             int currIndex = htmlContentOfQuestion.IndexOf("<p>");
-            string numberStr = $"<span style='font-size: 1.5em; font-weight: bold;'>{counter}.</span>\t";
+            string numberStr = $"<span style='font-size: 1.5em; font-weight: bold;'>{counter}. </span>\t";
             if (currIndex == -1)
             {
                 currIndex = htmlContentOfQuestion.IndexOf("<p ");
@@ -84,7 +84,7 @@ namespace clientForQuestions2._0
     h1 { font-size: 14px; } /* Reducing the font size for all h1 elements */
     p { font-size: 12px; }  /* Reducing the font size for all paragraph elements */
 </style>";
-        string html_end = "";
+            string html_end = html;
 
             //expel = 0
             bool isNum = isNum_checkBox.Checked;
@@ -94,6 +94,8 @@ namespace clientForQuestions2._0
             for (int i = 0; i < questions.Count; i++)
             {
                 html += $"<div class='question-container'>";
+                html_end += $"<div class='question-container'>";
+
                 dbQuestionParmeters a = questions[i];
                 
                 int curr_col_id = OperationsAndOtherUseful.get_col_id_of_question(a.json_content);
@@ -104,17 +106,13 @@ namespace clientForQuestions2._0
                     html += "<div style=\"top: 50%; left: 0; width: 100vw; height: 3px; background-color: lightgray;\"></div>";
                     html += "<br> <br> ";
                 }
-                if (isNum)
-                {
-                    //html += $"<p style=\"font-size: 24px; font-weight: bold; direction: rtl;\">{a.indexOfQuestion + 1}.</p>";
-                    if (expl==1)
-                        html_end += $"<p style=\"font-size: 24px; font-weight: bold; direction: rtl;\">{i + 1}.</p>";
+                string currentQuestion = "";
+                string currentQuestion_end = "";
 
-                }
                 if (expl==1)
                 {
-                    html += OperationsAndOtherUseful.get_string_of_question_and_option_from_json(a, OperationsAndOtherUseful.DO_NOT_MARK);
-                    html_end += OperationsAndOtherUseful.get_explanation(a);
+                    currentQuestion += OperationsAndOtherUseful.get_string_of_question_and_option_from_json(a, OperationsAndOtherUseful.DO_NOT_MARK);
+                    currentQuestion_end += OperationsAndOtherUseful.get_explanation(a);
 
                     /*html += "<div style=\"top: 50%; left: 0; width: 100vw; height: 3px; background-color: black;\"></div>";
                     html += "<br> <br> ";
@@ -123,28 +121,38 @@ namespace clientForQuestions2._0
                 }
                 else if(expl==2)
                 {
-                    html += OperationsAndOtherUseful.get_string_of_question_and_explanation(a, OperationsAndOtherUseful.DO_NOT_MARK);
+                    currentQuestion += OperationsAndOtherUseful.get_string_of_question_and_explanation(a, OperationsAndOtherUseful.DO_NOT_MARK);
                    // html += "<div style=\"top: 50%; left: 0; width: 100vw; height: 3px; background-color: black;\"></div>";
                    // html += "<br> <br> ";
                 }
                 else if (expl == 0)
                 {
-                    string currentQuestion = OperationsAndOtherUseful.get_string_of_question_and_option_from_json(a, OperationsAndOtherUseful.DO_NOT_MARK);
-                    html += addNumberToQuestion(currentQuestion,i+1);
+                    currentQuestion = OperationsAndOtherUseful.get_string_of_question_and_option_from_json(a, OperationsAndOtherUseful.DO_NOT_MARK);
                     //html += OperationsAndOtherUseful.get_string_of_question_and_option_from_json(a, OperationsAndOtherUseful.DO_NOT_MARK);
 
 
                     // html += "<div style=\"top: 50%; left: 0; width: 100vw; height: 3px; background-color: black;\"></div>";
                     //html += "<br> <br> ";
                 }
+
+                if (isNum)
+                {
+                    html += addNumberToQuestion(currentQuestion, i + 1); ;
+                    if (expl == 1)
+                        html_end += addNumberToQuestion(currentQuestion_end, i + 1); ;
+
+                }
+
                 html += $"</div>";
+                html_end += $"</div>";
+
                 prev_col_id = curr_col_id;
             }
 
             if (expl == 1)
             {
-                html += "<p style=\"font-size: 24px; font-weight: bold; direction: rtl;\">הסברים ותשובות:</p>";
-               // html += "<br> <div style=\"top: 50%; left: 0; width: 100vw; height: 5px; background-color: lightgray;\"></div><br> <br> " + html_end;
+                html += "<div style='page-break-after: always;'></div><p style=\"font-size: 24px; font-weight: bold; direction: rtl;\">הסברים ותשובות:</p>";
+                html += "<br> <div style=\"top: 50%; left: 0; width: 100vw; height: 5px; background-color: lightgray;\"></div><br> <br> " + html_end;
             }
 
             //for big imgs
