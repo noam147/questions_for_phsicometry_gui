@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -49,12 +50,34 @@ namespace clientForQuestions2._0
                 }
             }
         }
-
+        private string addNumberToQuestion(string htmlContentOfQuestion,int counter)
+        {
+            int currIndex = htmlContentOfQuestion.IndexOf("<p>");
+            string numberStr = $"<span style='font-size: 1.5em; font-weight: bold;'>{counter}.</span>\t";
+            if (currIndex == -1)
+            {
+                currIndex = htmlContentOfQuestion.IndexOf("<p ");
+                int secondsIndex = htmlContentOfQuestion.IndexOf(">");//find the closing tag of p
+                htmlContentOfQuestion = $"<p>(" + numberStr + ")\t" + htmlContentOfQuestion.Substring(secondsIndex + 1, htmlContentOfQuestion.Length - (secondsIndex + 1));
+            }
+            else
+            {
+                htmlContentOfQuestion = htmlContentOfQuestion.Substring(0, currIndex + 3) + numberStr + htmlContentOfQuestion.Substring(currIndex + 3);
+            }
+            return htmlContentOfQuestion;
+        }
         private string get_html()
         {
             string html = "";
-            string html_end = "";
+             html = @"
+<style>
+    .question-container { page-break-inside: avoid; }
+    h1 { font-size: 14px; } /* Reducing the font size for all h1 elements */
+    p { font-size: 12px; }  /* Reducing the font size for all paragraph elements */
+</style>";
+        string html_end = "";
 
+            //expel = 0
             bool isNum = isNum_checkBox.Checked;
             int expl = explanation_comboBox.SelectedIndex;
 
@@ -71,39 +94,42 @@ namespace clientForQuestions2._0
                 }
                 if (isNum)
                 {
-                    html += $"<p style=\"font-size: 24px; font-weight: bold; direction: rtl;\">{a.indexOfQuestion + 1}.</p> <br>";
+                    //html += $"<p style=\"font-size: 24px; font-weight: bold; direction: rtl;\">{a.indexOfQuestion + 1}.</p>";
                     if (expl==1)
-                        html_end += $"<p style=\"font-size: 24px; font-weight: bold; direction: rtl;\">{a.indexOfQuestion + 1}.</p> <br>";
+                        html_end += $"<p style=\"font-size: 24px; font-weight: bold; direction: rtl;\">{a.indexOfQuestion + 1}.</p>";
                 }
                 if (expl==1)
                 {
                     html += OperationsAndOtherUseful.get_string_of_question_and_option_from_json(a.question, OperationsAndOtherUseful.DO_NOT_MARK);
                     html_end += OperationsAndOtherUseful.get_explanation(a.question);
 
-                    html += "<div style=\"top: 50%; left: 0; width: 100vw; height: 3px; background-color: black;\"></div>";
+                    /*html += "<div style=\"top: 50%; left: 0; width: 100vw; height: 3px; background-color: black;\"></div>";
                     html += "<br> <br> ";
                     html_end += "<div style=\"top: 50%; left: 0; width: 100vw; height: 3px; background-color: black;\"></div>";
-                    html_end += "<br> <br> ";
+                    html_end += "<br> <br> ";*/
                 }
                 else if(expl==2)
                 {
                     html += OperationsAndOtherUseful.get_string_of_question_and_explanation(a.question, OperationsAndOtherUseful.DO_NOT_MARK);
-                    html += "<div style=\"top: 50%; left: 0; width: 100vw; height: 3px; background-color: black;\"></div>";
-                    html += "<br> <br> ";
+                   // html += "<div style=\"top: 50%; left: 0; width: 100vw; height: 3px; background-color: black;\"></div>";
+                   // html += "<br> <br> ";
                 }
                 else if (expl == 0)
                 {
+                    string currentQuestion = OperationsAndOtherUseful.get_string_of_question_and_option_from_json(a.question, OperationsAndOtherUseful.DO_NOT_MARK);
+                    html += addNumberToQuestion(currentQuestion,a.indexOfQuestion+1);
                     html += OperationsAndOtherUseful.get_string_of_question_and_option_from_json(a.question, OperationsAndOtherUseful.DO_NOT_MARK);
 
-                    html += "<div style=\"top: 50%; left: 0; width: 100vw; height: 3px; background-color: black;\"></div>";
-                    html += "<br> <br> ";
+                   // html += "<div style=\"top: 50%; left: 0; width: 100vw; height: 3px; background-color: black;\"></div>";
+                    //html += "<br> <br> ";
                 }
                 prev_col_id = curr_col_id;
             }
+
             if (expl == 1)
             {
                 html += "<p style=\"font-size: 24px; font-weight: bold; direction: rtl;\">הסברים ותשובות:</p>";
-                html += "<br> <div style=\"top: 50%; left: 0; width: 100vw; height: 5px; background-color: lightgray;\"></div><br> <br> " + html_end;
+               // html += "<br> <div style=\"top: 50%; left: 0; width: 100vw; height: 5px; background-color: lightgray;\"></div><br> <br> " + html_end;
             }
 
             return html;            
