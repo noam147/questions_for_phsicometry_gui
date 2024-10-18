@@ -43,11 +43,12 @@ namespace clientForQuestions2._0
             this.collectionbyIdButton = new clientForQuestions2._0.RJButtons2();
             this.questionByIdButton = new clientForQuestions2._0.RJButtons2();
             this.testHistoryButton = new System.Windows.Forms.Button();
+            this.lessons_button = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // normalQuestions
             // 
-            this.normalQuestions.Location = new System.Drawing.Point(493, 140);
+            this.normalQuestions.Location = new System.Drawing.Point(493, 98);
             this.normalQuestions.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.normalQuestions.Name = "normalQuestions";
             this.normalQuestions.Size = new System.Drawing.Size(125, 90);
@@ -58,7 +59,7 @@ namespace clientForQuestions2._0
             // 
             // collectionsQuestions
             // 
-            this.collectionsQuestions.Location = new System.Drawing.Point(493, 234);
+            this.collectionsQuestions.Location = new System.Drawing.Point(493, 192);
             this.collectionsQuestions.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.collectionsQuestions.Name = "collectionsQuestions";
             this.collectionsQuestions.Size = new System.Drawing.Size(125, 90);
@@ -87,7 +88,7 @@ namespace clientForQuestions2._0
             // 
             // chaptersQuestions
             // 
-            this.chaptersQuestions.Location = new System.Drawing.Point(493, 328);
+            this.chaptersQuestions.Location = new System.Drawing.Point(493, 286);
             this.chaptersQuestions.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.chaptersQuestions.Name = "chaptersQuestions";
             this.chaptersQuestions.Size = new System.Drawing.Size(125, 90);
@@ -168,7 +169,7 @@ namespace clientForQuestions2._0
             // 
             // testHistoryButton
             // 
-            this.testHistoryButton.Location = new System.Drawing.Point(493, 423);
+            this.testHistoryButton.Location = new System.Drawing.Point(493, 381);
             this.testHistoryButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.testHistoryButton.Name = "testHistoryButton";
             this.testHistoryButton.Size = new System.Drawing.Size(125, 90);
@@ -177,11 +178,23 @@ namespace clientForQuestions2._0
             this.testHistoryButton.UseVisualStyleBackColor = true;
             this.testHistoryButton.Click += new System.EventHandler(this.testHistoryButton_Click);
             // 
+            // lessons_button
+            // 
+            this.lessons_button.Location = new System.Drawing.Point(493, 475);
+            this.lessons_button.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.lessons_button.Name = "lessons_button";
+            this.lessons_button.Size = new System.Drawing.Size(125, 90);
+            this.lessons_button.TabIndex = 26;
+            this.lessons_button.Text = "לקחים";
+            this.lessons_button.UseVisualStyleBackColor = true;
+            this.lessons_button.Click += new System.EventHandler(this.lessons_button_Click);
+            // 
             // menuPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1105, 840);
+            this.Controls.Add(this.lessons_button);
             this.Controls.Add(this.testHistoryButton);
             this.Controls.Add(this.error_colById_label);
             this.Controls.Add(this.error_qById_label);
@@ -219,5 +232,6 @@ namespace clientForQuestions2._0
         private System.Windows.Forms.Label error_qById_label;
         private System.Windows.Forms.Label error_colById_label;
         private System.Windows.Forms.Button testHistoryButton;
+        private System.Windows.Forms.Button lessons_button;
     }
 }

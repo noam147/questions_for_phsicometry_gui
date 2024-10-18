@@ -280,7 +280,7 @@ namespace clientForQuestions2._0
 
             TestHistoryFileHandler.save_afterQuestionParametrs_to_test_history(m_afterQuestionParametrs, test_id);
 
-            var s = new summrizePage(this.m_afterQuestionParametrs, test_id); // TODO edit 0 to test_id
+            var s = new summrizePage(this.m_afterQuestionParametrs, test_id, 0); // TODO edit 0 to test_id
             s.Show();
             this.Close();
         }
@@ -304,7 +304,7 @@ namespace clientForQuestions2._0
 
                 TestHistoryFileHandler.save_afterQuestionParametrs_to_test_history(m_afterQuestionParametrs, test_id);
 
-                var s = new summrizePage(this.m_afterQuestionParametrs, test_id); // TODO edit 0 to test_id
+                var s = new summrizePage(this.m_afterQuestionParametrs, test_id, 0); // TODO edit 0 to test_id
                 s.Show();
                 this.Close();
                 return;

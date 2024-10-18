@@ -363,7 +363,21 @@ namespace clientForQuestions2._0
             return lessons;*/
         }
 
-        public static void delete_test_history()
+        public static List<afterQuestionParametrs> get_afterQuestionParametrs_of_test(int test_id)
+        {
+
+            string selectQuery = @"
+                SELECT * 
+                FROM TestsHistoryData 
+                WHERE TestId = " + test_id +
+                " ORDER BY IndexOfQuestion ASC;";
+
+            List<Test> result = getResultFromQuery(selectQuery);
+
+            return result[0].m_afterQuestionParametrs;
+        }
+
+            public static void delete_test_history()
         {
             try
             {
@@ -383,6 +397,29 @@ namespace clientForQuestions2._0
             catch (Exception ex)
             {
             }        
+        }
+
+        public static DataTable get_lessons_from_history()
+        {
+            DataTable table = new DataTable();
+
+            using (SQLiteConnection connection = new SQLiteConnection(TestHistoryFileHandler.connectionString))
+            {
+                connection.Open();
+                string query = @"SELECT QuestionLesson,TestId,Date,QuestionId,IndexOfQuestion
+                    FROM TestsHistoryData
+                    WHERE QuestionLesson <> ''
+                    ORDER BY TestId DESC, IndexOfQuestion DESC;"; // Replace 'YourTable' with your actual table name
+                SQLiteDataAdapter dataAdapter = new SQLiteDataAdapter(query, connection);
+                
+                dataAdapter.Fill(table);
+            }
+            table.Columns["TestId"].ColumnName = "מס' תרגול";
+            table.Columns["Date"].ColumnName = "תאריך";
+            table.Columns["QuestionId"].ColumnName = "מס' מזהה שאלה";
+            table.Columns["QuestionLesson"].ColumnName = "לקח";
+            
+            return table;
         }
     }
 }

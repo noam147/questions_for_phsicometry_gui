@@ -28,26 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.Button resetHistory_button;
             this.backToMainMenu_button = new System.Windows.Forms.Button();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dataGridView1_ZMANI = new System.Windows.Forms.DataGridView();
+            this.emptyHistory_label = new System.Windows.Forms.Label();
             this.nextExreciseButton = new clientForQuestions2._0.RJButtons2();
             this.previousExreciseButton = new clientForQuestions2._0.RJButtons2();
-            resetHistory_button = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.resetHistory_button = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1_ZMANI)).BeginInit();
             this.SuspendLayout();
-            // 
-            // resetHistory_button
-            // 
-            resetHistory_button.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            resetHistory_button.Location = new System.Drawing.Point(709, 1);
-            resetHistory_button.Name = "resetHistory_button";
-            resetHistory_button.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            resetHistory_button.Size = new System.Drawing.Size(88, 44);
-            resetHistory_button.TabIndex = 3;
-            resetHistory_button.Text = "איפוס היסטוריה";
-            resetHistory_button.UseVisualStyleBackColor = false;
-            resetHistory_button.Click += new System.EventHandler(this.resetHistory_button_Click);
             // 
             // backToMainMenu_button
             // 
@@ -62,16 +50,29 @@
             this.backToMainMenu_button.UseVisualStyleBackColor = false;
             this.backToMainMenu_button.Click += new System.EventHandler(this.backToMainMenu_button_Click);
             // 
-            // dataGridView1
+            // dataGridView1_ZMANI
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(339, 186);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowHeadersWidth = 51;
-            this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(240, 150);
-            this.dataGridView1.TabIndex = 14;
-            this.dataGridView1.Visible = false;
+            this.dataGridView1_ZMANI.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1_ZMANI.Location = new System.Drawing.Point(339, 186);
+            this.dataGridView1_ZMANI.Name = "dataGridView1_ZMANI";
+            this.dataGridView1_ZMANI.RowHeadersWidth = 51;
+            this.dataGridView1_ZMANI.RowTemplate.Height = 24;
+            this.dataGridView1_ZMANI.Size = new System.Drawing.Size(240, 150);
+            this.dataGridView1_ZMANI.TabIndex = 14;
+            this.dataGridView1_ZMANI.Visible = false;
+            // 
+            // emptyHistory_label
+            // 
+            this.emptyHistory_label.AutoSize = true;
+            this.emptyHistory_label.Font = new System.Drawing.Font("Microsoft Sans Serif", 28.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.emptyHistory_label.Location = new System.Drawing.Point(127, 165);
+            this.emptyHistory_label.Name = "emptyHistory_label";
+            this.emptyHistory_label.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.emptyHistory_label.Size = new System.Drawing.Size(503, 54);
+            this.emptyHistory_label.TabIndex = 15;
+            this.emptyHistory_label.Text = "היסטורית התרגולים ריקה";
+            this.emptyHistory_label.Visible = false;
+            this.emptyHistory_label.Click += new System.EventHandler(this.emptyHistory_label_Click);
             // 
             // nextExreciseButton
             // 
@@ -109,28 +110,45 @@
             this.previousExreciseButton.UseVisualStyleBackColor = false;
             this.previousExreciseButton.Click += new System.EventHandler(this.previousExreciseButton_Click);
             // 
+            // resetHistory_button
+            // 
+            this.resetHistory_button.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.resetHistory_button.Location = new System.Drawing.Point(709, 1);
+            this.resetHistory_button.Name = "resetHistory_button";
+            this.resetHistory_button.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.resetHistory_button.Size = new System.Drawing.Size(88, 44);
+            this.resetHistory_button.TabIndex = 3;
+            this.resetHistory_button.Text = "איפוס היסטוריה";
+            this.resetHistory_button.UseVisualStyleBackColor = false;
+            this.resetHistory_button.Click += new System.EventHandler(this.resetHistory_button_Click);
+            // 
             // testHistoryMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.dataGridView1);
+            this.ClientSize = new System.Drawing.Size(804, 450);
+            this.Controls.Add(this.emptyHistory_label);
+            this.Controls.Add(this.dataGridView1_ZMANI);
             this.Controls.Add(this.nextExreciseButton);
             this.Controls.Add(this.previousExreciseButton);
-            this.Controls.Add(resetHistory_button);
+            this.Controls.Add(this.resetHistory_button);
             this.Controls.Add(this.backToMainMenu_button);
             this.Name = "testHistoryMenu";
             this.Text = "testHistoryMenu";
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Load += new System.EventHandler(this.testHistoryMenu_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1_ZMANI)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
-
         private System.Windows.Forms.Button backToMainMenu_button;
         private RJButtons2 previousExreciseButton;
         private RJButtons2 nextExreciseButton;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dataGridView1_ZMANI;
+        private System.Windows.Forms.Label emptyHistory_label;
+        private System.Windows.Forms.Button resetHistory_button;
     }
 }

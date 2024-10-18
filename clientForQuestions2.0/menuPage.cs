@@ -70,7 +70,7 @@ namespace clientForQuestions2._0
             q.userAnswer = OperationsAndOtherUseful.SKIPPED_Q;
 
             specificquestion.Add(q);
-            summrizePage s = new summrizePage(specificquestion, OperationsAndOtherUseful.NOT_A_REAL_TEST_ID);
+            summrizePage s = new summrizePage(specificquestion, OperationsAndOtherUseful.NOT_A_REAL_TEST_ID, 0);
             s.Show();
             this.Close();
 
@@ -136,7 +136,7 @@ namespace clientForQuestions2._0
             }
             LogFileHandler.writeIntoFile($"got into specic collection by id. id: {col_id}");
 
-            summrizePage s = new summrizePage(questions, OperationsAndOtherUseful.NOT_A_REAL_TEST_ID);
+            summrizePage s = new summrizePage(questions, OperationsAndOtherUseful.NOT_A_REAL_TEST_ID, 0);
             s.Show();
             this.Close();
         }
@@ -160,6 +160,16 @@ namespace clientForQuestions2._0
             LogFileHandler.writeIntoFile("Opened new test history menu");
             //get the questions here
             testHistoryMenu t = new testHistoryMenu();
+
+            t.Show();
+            this.Close();
+        }
+
+        private void lessons_button_Click(object sender, EventArgs e)
+        {
+            LogFileHandler.writeIntoFile("Opened new lessons menu");
+            //get the questions here
+            lessonsMenu t = new lessonsMenu();
 
             t.Show();
             this.Close();

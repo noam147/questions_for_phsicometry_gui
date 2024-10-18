@@ -33,8 +33,9 @@ namespace clientForQuestions2._0
 
         private int m_currentIndexOfFirstButton = 0;
 
-        public summrizePage(List<afterQuestionParametrs> questions, int test_id)
+        public summrizePage(List<afterQuestionParametrs> questions, int test_id, int indexQuestion2display)
         {
+            this.indexQuestion = indexQuestion2display;
             this.m_questions = questions;
             this.test_id = test_id;
             orgnizeQuestions();
@@ -307,7 +308,7 @@ namespace clientForQuestions2._0
                             webView21.SendToBack(); // Ensure WebView2 is on back of other controls
                             if (this.m_buttonList.Count != 0)
                             {
-                                Button_Click(0); // First index after init
+                                Button_Click(this.indexQuestion); // First index after init
                                 this.lessons_richTextBox.Enabled = true;
                             }
                             enableButtons();
@@ -504,7 +505,7 @@ namespace clientForQuestions2._0
         }
         private void displayButtons()
         {
-            displayButtons(0, 10);
+            displayButtons(((int)this.indexQuestion / 10) * 10, ((int)this.indexQuestion / 10) * 10 + 10);
         }
   
         private void Button_Click(object sender, EventArgs e)
@@ -530,7 +531,7 @@ namespace clientForQuestions2._0
             if (new_indexQuestion < 0 || new_indexQuestion >= this.m_questions.Count)
                 return;
 
-            if (this.indexQuestion >= 0 && this.indexQuestion < this.m_questions.Count)
+            if (this.indexQuestion >= 0 && this.indexQuestion < this.m_questions.Count && m_buttonList[this.indexQuestion].Width != Q_BUTTON_SIZE)
             {
                 // setting the previous question button to normal size again
                 m_buttonList[this.indexQuestion].Width = Q_BUTTON_SIZE;
