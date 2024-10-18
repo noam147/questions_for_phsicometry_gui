@@ -66,7 +66,6 @@ namespace clientForQuestions2._0
 
             c.Show();
             this.Close();
-
         }
     }
 }
