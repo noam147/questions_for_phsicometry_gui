@@ -15,10 +15,18 @@ namespace clientForQuestions2._0
     public partial class HtmlConvertOptionsMenu : Form
     {
         private string file_path;
-        private int test_id;
+        private List<dbQuestionParmeters> questions;
         public HtmlConvertOptionsMenu(int test_id)
         {
-            this.test_id = test_id;
+            questions = new List<dbQuestionParmeters>();
+            foreach (afterQuestionParametrs a in TestHistoryFileHandler.get_afterQuestionParametrs_of_test(test_id))
+                questions.Add(a.question);
+            InitializeComponent();
+            explanation_comboBox.SelectedIndex = 0;
+        }
+        public HtmlConvertOptionsMenu(List<dbQuestionParmeters> questions)
+        {
+            this.questions = questions;
             InitializeComponent();
             explanation_comboBox.SelectedIndex = 0;
         }
@@ -36,7 +44,7 @@ namespace clientForQuestions2._0
                 saveFileDialog.Filter = "Html Files (*.html)|*.html";
                 saveFileDialog.DefaultExt = "html"; // Default file extension
                 saveFileDialog.InitialDirectory = AppDomain.CurrentDomain.BaseDirectory;
-                saveFileDialog.FileName = $"test{this.test_id}";
+                saveFileDialog.FileName = $"test";
                 saveFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments); // Initial directory
 
                 if (saveFileDialog.ShowDialog() == DialogResult.OK)
@@ -82,13 +90,15 @@ namespace clientForQuestions2._0
             int expl = explanation_comboBox.SelectedIndex;
 
             int prev_col_id = 0;
-            foreach (afterQuestionParametrs a in TestHistoryFileHandler.get_afterQuestionParametrs_of_test(test_id))
+            for (int i = 0; i < questions.Count; i++)
             {
-                int curr_col_id = OperationsAndOtherUseful.get_col_id_of_question(a.question.json_content);
+                dbQuestionParmeters a = questions[i];
+                
+                int curr_col_id = OperationsAndOtherUseful.get_col_id_of_question(a.json_content);
                 
                 if (curr_col_id != 0 && curr_col_id != prev_col_id)
                 {
-                    html += OperationsAndOtherUseful.get_string_of_img_col_html(a.question.json_content);
+                    html += OperationsAndOtherUseful.get_string_of_img_col_html(a.json_content);
                     html += "<div style=\"top: 50%; left: 0; width: 100vw; height: 3px; background-color: lightgray;\"></div>";
                     html += "<br> <br> ";
                 }
@@ -97,11 +107,12 @@ namespace clientForQuestions2._0
                     //html += $"<p style=\"font-size: 24px; font-weight: bold; direction: rtl;\">{a.indexOfQuestion + 1}.</p>";
                     if (expl==1)
                         html_end += $"<p style=\"font-size: 24px; font-weight: bold; direction: rtl;\">{a.indexOfQuestion + 1}.</p>";
+
                 }
                 if (expl==1)
                 {
-                    html += OperationsAndOtherUseful.get_string_of_question_and_option_from_json(a.question, OperationsAndOtherUseful.DO_NOT_MARK);
-                    html_end += OperationsAndOtherUseful.get_explanation(a.question);
+                    html += OperationsAndOtherUseful.get_string_of_question_and_option_from_json(a, OperationsAndOtherUseful.DO_NOT_MARK);
+                    html_end += OperationsAndOtherUseful.get_explanation(a);
 
                     /*html += "<div style=\"top: 50%; left: 0; width: 100vw; height: 3px; background-color: black;\"></div>";
                     html += "<br> <br> ";
@@ -119,6 +130,7 @@ namespace clientForQuestions2._0
                     string currentQuestion = OperationsAndOtherUseful.get_string_of_question_and_option_from_json(a.question, OperationsAndOtherUseful.DO_NOT_MARK);
                     html += addNumberToQuestion(currentQuestion,a.indexOfQuestion+1);
                     html += OperationsAndOtherUseful.get_string_of_question_and_option_from_json(a.question, OperationsAndOtherUseful.DO_NOT_MARK);
+
 
                    // html += "<div style=\"top: 50%; left: 0; width: 100vw; height: 3px; background-color: black;\"></div>";
                     //html += "<br> <br> ";

@@ -321,7 +321,7 @@ namespace clientForQuestions2._0
         public static string right2left(string s)
         {
             // aligned to the right
-            string htmlContent = "<head> <style> body { text-align: right; /* Right-align all text */ } </style> </head> " + "<div style=\"direction: rtl\">" + s + "</div>";
+            string htmlContent = "<head> <style> body { text-align: right; /* Right-align all text */ } </style> </head> " + "<div style=\"direction: rtl; text-align: right;\">" + s + "</div>";
             
             // for hebrew words in MathML (inside <mi> </mi>)
             //
@@ -347,6 +347,13 @@ namespace clientForQuestions2._0
                 return match.Value; // Return original match if no Hebrew characters or entities are found
             });
 
+            return htmlContent;
+        }
+
+        public static string left2right(string s)
+        {
+            // aligned to the left
+            string htmlContent = "<head> <style> body { text-align: left; /* Left-align all text */ } </style> </head> " + "<div style=\"direction: ltr; text-align: left;\">" + s + "</div>";
             return htmlContent;
         }
 
@@ -503,9 +510,7 @@ namespace clientForQuestions2._0
                 finalOptionsString = listOfOptions[0] + "<br>" + listOfOptions[1] + "<br>" + listOfOptions[2] + "<br>" + listOfOptions[3];
             //if question is in english
             if (!isQuestionInHebrew(qp.category))
-            {
-                return question + get_string_of_img_html(qp.json_content["image"]) + "<br><br>" + finalOptionsString;
-            }
+                return left2right(question + get_string_of_img_html(qp.json_content["image"]) + "<br><br>" + finalOptionsString);
 
             return right2left(question + get_string_of_img_html(qp.json_content["image"]) + "<br><br>" + finalOptionsString);
         }
