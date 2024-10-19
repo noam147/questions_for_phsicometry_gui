@@ -44,7 +44,7 @@ namespace clientForQuestions2._0
             for (int i =0; i < multipleQuestionsfiles.Count; i++) 
             {
                 this.questions = multipleQuestionsfiles[i];
-                currentChapter =  get_html();
+                currentChapter =  get_html(false);
                 finalSimulation += currentChapter + newPage;
             }
             finalHtmlContentForFile = finalSimulation;
@@ -100,8 +100,10 @@ namespace clientForQuestions2._0
         {
             return addNumberToQuestion(htmlContentOfQuestion, counter, -1);
         }
-        private string get_html()
+        private string get_html(bool isNum)
         {
+            //isnum: i have no idea
+            //expel: i have no idea
             string html = "";
              html = @"
 <style>
@@ -112,7 +114,7 @@ namespace clientForQuestions2._0
             string html_end = html;
 
             //expel = 0
-            bool isNum = isNum_checkBox.Checked;
+            //bool isNum = isNum_checkBox.Checked;
             int expl = explanation_comboBox.SelectedIndex;
 
             int prev_col_id = 0;
@@ -194,7 +196,7 @@ namespace clientForQuestions2._0
                 // Write the HTML content to the file
                 if(finalHtmlContentForFile == "")
                     {
-                    File.WriteAllText(this.file_path, get_html());
+                    File.WriteAllText(this.file_path, get_html(this.isNum_checkBox.Checked));
                 }
                 else { File.WriteAllText(this.file_path,finalHtmlContentForFile); }
             }
