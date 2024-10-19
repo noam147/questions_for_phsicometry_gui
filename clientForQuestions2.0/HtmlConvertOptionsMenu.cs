@@ -127,9 +127,8 @@ namespace clientForQuestions2._0
                 
                 if (curr_col_id != 0 && curr_col_id != prev_col_id)
                 {
-                    html += OperationsAndOtherUseful.get_string_of_img_col_html(a.json_content);
-                    html += "<div style=\"top: 50%; left: 0; width: 100vw; height: 3px; background-color: lightgray;\"></div>";
-                    html += "<br> <br> ";
+                    html += $"<div {OperationsAndOtherUseful.get_string_of_img_col_html(a.json_content)} <br> <br> </div>";
+                    //html += "<div style=\"top: 50%; left: 0; width: 100vw; height: 3px; background-color: lightgray;\"></div>";
                 }
                 string currentQuestion = "";
                 string currentQuestion_end = "";
@@ -153,8 +152,6 @@ namespace clientForQuestions2._0
                 else if (expl == 0)
                 {
                     currentQuestion = OperationsAndOtherUseful.get_string_of_question_and_option_from_json(a, OperationsAndOtherUseful.DO_NOT_MARK);
-                    html += addNumberToQuestion(currentQuestion,i+1,a.questionId);
-
                     //html += OperationsAndOtherUseful.get_string_of_question_and_option_from_json(a, OperationsAndOtherUseful.DO_NOT_MARK);
 
 
@@ -164,14 +161,18 @@ namespace clientForQuestions2._0
 
                 if (isNum)
                 {
-                    html += addNumberToQuestion(currentQuestion, i + 1); ;
+                    html += addNumberToQuestion(currentQuestion, i + 1, a.questionId); ;
                     if (expl == 1)
                         html_end += addNumberToQuestion(currentQuestion_end, i + 1); ;
-
+                }
+                else
+                {
+                    html += currentQuestion;
+                    html_end += currentQuestion_end;
                 }
 
-                html += $"</div>";
-                html_end += $"</div>";
+                html += $"<br><br></div>";
+                html_end += $"<br><br></div>";
 
                 prev_col_id = curr_col_id;
             }

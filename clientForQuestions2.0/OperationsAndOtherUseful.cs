@@ -389,9 +389,21 @@ namespace clientForQuestions2._0
             }
             string cover = json["collections"][0]["cover"].ToString();
 
+            string rightORleft = "";
+            if (OperationsAndOtherUseful.title2colIds["Reading Comprehension"].Contains((int)json["collections"][0]["id"]))
+            {
+                rightORleft = "left;";
+                cover = left2right(cover);
+            }
+            else
+            {
+                rightORleft = "right";
+                cover = right2left(cover);
+            }
+
             string img_path = "https://lmsapi.kidum-me.com/storage/";
             string file_path = img_path + json["collections"][0]["file"]["file_path"].ToString();
-            string fullImg = $"<img src=\"{file_path}\" alt=\"Question Image\" style=\"max-width:100%; height:auto;\">";
+            string fullImg = $"<img src=\"{file_path}\" alt=\"Question Image\" style=\" float:{rightORleft}; max-width:100%; height:auto;\">";
             return cover + fullImg;
         }
 
@@ -729,10 +741,10 @@ namespace clientForQuestions2._0
             else
             {
                 for (int i = 0; i < col2_qs.Count; i++)
-                    col2_qs[i].json_content["collections"][0]["cover"] += "<p style=\"font-size: 18px; font-style: italic;\">Text I</p>";
+                    col2_qs[i].json_content["collections"][0]["cover"] += left2right("<p style=\"font-size: 18px; font-style: italic;\">Text I</p>");
 
                 for (int i = 0; i < col1_qs.Count; i++)
-                    col1_qs[i].json_content["collections"][0]["cover"] += "<p style=\"font-size: 18px; font-style: italic;\">Text II</p>";
+                    col1_qs[i].json_content["collections"][0]["cover"] += left2right("<p style=\"font-size: 18px; font-style: italic;\">Text II</p>");
 
                 Sentence_Completions_qs.AddRange(col2_qs);
                 Sentence_Completions_qs.AddRange(col1_qs);
