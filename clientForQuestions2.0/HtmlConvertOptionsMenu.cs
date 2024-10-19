@@ -80,7 +80,6 @@ namespace clientForQuestions2._0
                 saveFileDialog.Title = "Save Output File";
                 saveFileDialog.Filter = "Html Files (*.html)|*.html";
                 saveFileDialog.DefaultExt = "html"; // Default file extension
-                saveFileDialog.InitialDirectory = AppDomain.CurrentDomain.BaseDirectory;
                 saveFileDialog.FileName = $"test";
                 saveFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments); // Initial directory
 
@@ -149,7 +148,7 @@ namespace clientForQuestions2._0
                 
                 if (curr_col_id != 0 && curr_col_id != prev_col_id)
                 {
-                    html += $"<div {OperationsAndOtherUseful.get_string_of_img_col_html(a.json_content)} <br> <br> </div>";
+                    html += OperationsAndOtherUseful.get_string_of_img_col_html(a.json_content);
                     //html += "<div style=\"top: 50%; left: 0; width: 100vw; height: 3px; background-color: lightgray;\"></div>";
                 }
                 string currentQuestion = "";
@@ -185,7 +184,7 @@ namespace clientForQuestions2._0
                 {
                     html += addNumberToQuestion(currentQuestion, i + 1, a.questionId); ;
                     if (expl == 1)
-                        html_end += addNumberToQuestion(currentQuestion_end, i + 1); ;
+                        html_end += addNumberToQuestion(currentQuestion_end, i + 1, a.questionId); ;
                 }
                 else
                 {
@@ -220,8 +219,8 @@ namespace clientForQuestions2._0
                     File.WriteAllText(this.file_path, get_html(this.isNum_checkBox.Checked));
                 }
                 else { File.WriteAllText(this.file_path,finalHtmlContentForFile); }
-              string answers_filePath = Environment.CurrentDirectory + "/answers.html";
-              File.WriteAllText(answers_filePath,this.htmlContentOfAnswers);
+                string answers_filePath = this.file_path.Insert(this.file_path.LastIndexOf(".html"), "_answers");
+                File.WriteAllText(answers_filePath,this.htmlContentOfAnswers);
             }
             catch (Exception ex)
             {

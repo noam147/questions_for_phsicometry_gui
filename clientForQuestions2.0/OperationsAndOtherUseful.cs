@@ -388,23 +388,13 @@ namespace clientForQuestions2._0
                 return "";
             }
             string cover = json["collections"][0]["cover"].ToString();
-
-            string rightORleft = "";
-            if (OperationsAndOtherUseful.title2colIds["Reading Comprehension"].Contains((int)json["collections"][0]["id"]))
-            {
-                rightORleft = "left;";
-                cover = left2right(cover);
-            }
-            else
-            {
-                rightORleft = "right";
-                cover = right2left(cover);
-            }
-
             string img_path = "https://lmsapi.kidum-me.com/storage/";
             string file_path = img_path + json["collections"][0]["file"]["file_path"].ToString();
-            string fullImg = $"<img src=\"{file_path}\" alt=\"Question Image\" style=\" float:{rightORleft}; max-width:100%; height:auto;\">";
-            return cover + fullImg;
+            string fullImg = $"<img src=\"{file_path}\" alt=\"Question Image\" style=\" max-width:100%; height:auto;\">";
+
+            if (OperationsAndOtherUseful.title2colIds["Reading Comprehension"].Contains((int)json["collections"][0]["id"]))
+                return left2right(cover + fullImg);
+            return right2left(cover + fullImg);
         }
 
         private static string get_string_of_img_html(JToken json)
