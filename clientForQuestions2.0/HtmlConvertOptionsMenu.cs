@@ -19,6 +19,7 @@ namespace clientForQuestions2._0
         private bool autoDownload = false;
         private List<dbQuestionParmeters> questions;
         private string finalHtmlContentForFile = "";
+        private string htmlContentOfAnswers = "<body dir=\"rtl\">";
         public HtmlConvertOptionsMenu(int test_id)
         {
             questions = new List<dbQuestionParmeters>();
@@ -34,6 +35,18 @@ namespace clientForQuestions2._0
             explanation_comboBox.SelectedIndex = 0;
             this.autoDownload = autoDownload;
         }
+        private string getGeneralCategory(string category)
+        {
+            if(category == "אנלוגיות")
+            {
+                return "מילולי";
+            }
+            if(category == "Sentence Completions")
+            {
+                return "אנגלית";
+            }
+            return "כמותי";
+        }
         public HtmlConvertOptionsMenu(List<List<dbQuestionParmeters>> multipleQuestionsfiles)
         {
             string finalSimulation = "";
@@ -44,6 +57,9 @@ namespace clientForQuestions2._0
             for (int i =0; i < multipleQuestionsfiles.Count; i++) 
             {
                 this.questions = multipleQuestionsfiles[i];
+                string currentCategory = questions[0].category;
+                string generalCategory = getGeneralCategory(currentCategory);
+                this.htmlContentOfAnswers += "<br><br>" + generalCategory + ":\n";//add lines to separate diffrentchapters
                 currentChapter =  get_html(false);
                 finalSimulation += currentChapter + newPage;
             }
@@ -100,6 +116,10 @@ namespace clientForQuestions2._0
         {
             return addNumberToQuestion(htmlContentOfQuestion, counter, -1);
         }
+        private void add_html_content_to_answers(int index,int answer)
+        {
+            this.htmlContentOfAnswers += "("+(index+1)+ ")." + " " + answer + "\n";
+        }
         private string get_html(bool isNum)
         {
             //isnum: i have no idea
@@ -124,7 +144,7 @@ namespace clientForQuestions2._0
                 html_end += $"<div class='question-container'>";
 
                 dbQuestionParmeters a = questions[i];
-                
+                add_html_content_to_answers(i, a.rightAnswer);
                 int curr_col_id = OperationsAndOtherUseful.get_col_id_of_question(a.json_content);
                 
                 if (curr_col_id != 0 && curr_col_id != prev_col_id)
@@ -199,6 +219,8 @@ namespace clientForQuestions2._0
                     File.WriteAllText(this.file_path, get_html(this.isNum_checkBox.Checked));
                 }
                 else { File.WriteAllText(this.file_path,finalHtmlContentForFile); }
+              string answers_filePath = Environment.CurrentDirectory + "/answers.html";
+              File.WriteAllText(answers_filePath,this.htmlContentOfAnswers);
             }
             catch (Exception ex)
             {
