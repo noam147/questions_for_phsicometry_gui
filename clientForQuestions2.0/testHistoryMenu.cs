@@ -25,6 +25,8 @@ namespace clientForQuestions2._0
         //private int m_currentIndexOfFirstButton = 0;
         private int EXRECISEC_SHOWN_PER_CLICK = 5;
         private int TOP_EMPTY_SPACE = 50;
+        private bool sortByNumerator = true;
+        private bool sortAscending = true;
 
         public testHistoryMenu()
         {
@@ -155,6 +157,8 @@ namespace clientForQuestions2._0
 
 
             history_dataGridView.DataSource = dataTable;
+            history_dataGridView.Columns["מספר התשובות הנכונות מתוך מספר השאלות"].SortMode = DataGridViewColumnSortMode.NotSortable; // TODO sort by n/m
+            history_dataGridView.Columns["הורדה"].SortMode = DataGridViewColumnSortMode.NotSortable; // TODO sort by n/m
 
             if (history_dataGridView.Rows.Count == 0)
             {
@@ -340,5 +344,6 @@ namespace clientForQuestions2._0
                 }
             }
         }
+
     }
 }

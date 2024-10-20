@@ -607,7 +607,7 @@ namespace clientForQuestions2._0
         /// </summary>
         /// <param name="amount">The amount of chapters (each chapter 20 questions).</param>
         /// <returns>list of -> lists of questions details - all the sub lists are chapters.</returns>
-        public static List<List<dbQuestionParmeters>> getMultipleExrecisesOfMath_wothout_graph(int amount)
+        public static List<List<dbQuestionParmeters>> getMultipleExrecisesOfMath_without_graph(int amount)
         {
             List<List<dbQuestionParmeters >> all_questions = new List<List<dbQuestionParmeters>> ();
             for (int i = 0; i < amount; i++)

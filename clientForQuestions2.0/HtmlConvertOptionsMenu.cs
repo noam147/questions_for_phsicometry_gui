@@ -32,7 +32,7 @@ namespace clientForQuestions2._0
 
         public HtmlConvertOptionsMenu()
         {
-            var questions = OperationsAndOtherUseful.getMultipleExrecisesOfMath_wothout_graph(5);
+            var questions = OperationsAndOtherUseful.getMultipleExrecisesOfMath_without_graph(5);
             action_when_get_list_of_chapters(questions);
         }
 
