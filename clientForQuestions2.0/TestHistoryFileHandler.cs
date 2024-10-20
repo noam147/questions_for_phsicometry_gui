@@ -582,7 +582,7 @@ namespace clientForQuestions2._0
 
 
             //STATS//
-            table.Columns.Add("שאלות/תשובות נכונות", typeof(string));
+            table.Columns.Add("מספר התשובות הנכונות מתוך מספר השאלות", typeof(string));
             table.Columns.Add("זמן התרגול", typeof(string));
             table.Columns.Add("הורדה", typeof(string));
             foreach (DataRow row in table.Rows)
@@ -607,7 +607,7 @@ namespace clientForQuestions2._0
                             if ((int)qp.question.json_content["option_images"][qp.userAnswer - 1]["is_correct"] == 1)
                                 count_right_answers++;
                 }
-                row["שאלות/תשובות נכונות"] = $"{count_right_answers}/{count_questions}";
+                row["מספר התשובות הנכונות מתוך מספר השאלות"] = $"{count_right_answers}/{count_questions}";
                 row["זמן התרגול"] = OperationsAndOtherUseful.get_time_mmss_fromseconds(sum_time);
                 row["הורדה"] = "🡇";
             }

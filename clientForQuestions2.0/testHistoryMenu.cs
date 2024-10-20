@@ -155,6 +155,8 @@ namespace clientForQuestions2._0
             }
 
             history_dataGridView.Columns["הורדה"].DefaultCellStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", history_dataGridView.DefaultCellStyle.Font.Size, System.Drawing.FontStyle.Underline);
+            history_dataGridView.Columns["הורדה"].DefaultCellStyle.ForeColor = System.Drawing.Color.Blue;
+            history_dataGridView.Columns["הורדה"].DefaultCellStyle.SelectionForeColor = System.Drawing.Color.Blue;
         }
 
         private void backToMainMenu_button_Click(object sender, EventArgs e)
