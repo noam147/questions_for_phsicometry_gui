@@ -125,6 +125,7 @@ namespace clientForQuestions2._0
             catch (Exception ex)
             {
                 MessageBox.Show("Error: " + ex.Message);
+                return;
             }
 
             if (history_dataGridView.Rows.Count == 0)
