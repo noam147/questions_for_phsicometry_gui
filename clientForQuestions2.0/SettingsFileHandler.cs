@@ -17,6 +17,7 @@ namespace clientForQuestions2._0
         public int amount;
         public int minuets;
         public int seconds;
+        public int withAlreadyAnsweredQs;
     }
 
     internal class SettingsFileHandler
@@ -56,6 +57,8 @@ namespace clientForQuestions2._0
             settingsDict.Add("hours", settingsForQuestions.seconds);
             settingsDict.Add("isExsist", settingsForQuestions.isExsist);
             settingsDict.Add("withoutFeedback", settingsForQuestions.withoutFeedback);
+            settingsDict.Add("withAlreadyAnsweredQs", settingsForQuestions.withAlreadyAnsweredQs);
+
             JToken json = JToken.FromObject(settingsDict);
             final = json.ToString();
             using (StreamWriter sw = new StreamWriter(filePath, append: true))
@@ -86,6 +89,7 @@ namespace clientForQuestions2._0
                 settings.seconds = (int)json["hours"];
                 settings.minuets = (int)json["minuets"];
                 settings.withoutFeedback = (int)json["withoutFeedback"];
+                settings.withAlreadyAnsweredQs = (int)json["withAlreadyAnsweredQs"];
             }
             catch
             {

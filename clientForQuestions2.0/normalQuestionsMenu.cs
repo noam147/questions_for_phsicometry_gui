@@ -117,6 +117,9 @@ namespace clientForQuestions2._0
             this.difficulyLevelMinVal.Value = OperationsAndOtherUseful.MIN_LEVEL;
             this.difficulyLevelMaxVal.Value = OperationsAndOtherUseful.MAX_LEVEL;
 
+            // with_already_answered_qs_checkBox
+            with_already_answered_qs_checkBox.Checked = true;
+
             // amountOfQuestionNumericUpDown
             this.amountOfQuestionNumericUpDown.Value = 5;
 
@@ -167,6 +170,15 @@ namespace clientForQuestions2._0
             {
 
                 this.skipFeedBackCheckBox.Checked = true;
+            }
+            if (settings.withAlreadyAnsweredQs == 0)
+            {
+                this.with_already_answered_qs_checkBox.Checked = false;
+            }
+            if (settings.withAlreadyAnsweredQs == 1)
+            {
+
+                this.with_already_answered_qs_checkBox.Checked = true;
             }
             //iterate on settings as a dict:
             foreach (FieldInfo field in typeof(Settings).GetFields())
@@ -291,7 +303,14 @@ namespace clientForQuestions2._0
             }
             else
             { withoutFeedBack = 0; }
-            Settings settings = new Settings{amount = amount1,seconds=seconds,minuets=minutes,withoutFeedback=withoutFeedBack,maxLevel=maxLevel,minLevel=minLevel,isExsist=1};
+            int withAlreadyAnsweredQs;
+            if (this.with_already_answered_qs_checkBox.Checked)
+            {
+                withAlreadyAnsweredQs = 1;
+            }
+            else
+            { withAlreadyAnsweredQs = 0; }
+            Settings settings = new Settings{amount = amount1,seconds=seconds,minuets=minutes,withoutFeedback=withoutFeedBack,maxLevel=maxLevel,minLevel=minLevel,isExsist=1,withAlreadyAnsweredQs=withAlreadyAnsweredQs };
             SettingsFileHandler.writeSettingsIntoFile(settings);
         }
         private void continueButton_Click(object sender, EventArgs e)
@@ -342,7 +361,7 @@ namespace clientForQuestions2._0
             questionsPage c;
             //get the questions here
 
-            c = new questionsPage(amount, this.topicsList, this.skipFeedBackCheckBox.Checked, timeUntilTimeReset, difficultyLevels, test_type); // CHANGE!!!!!42
+            c = new questionsPage(amount, this.topicsList, this.skipFeedBackCheckBox.Checked, timeUntilTimeReset, difficultyLevels, with_already_answered_qs_checkBox.Checked, test_type); // CHANGE!!!!!42
             updateSettingsForNextMenu();
             c.Show();
             this.Close();

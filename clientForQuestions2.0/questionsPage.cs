@@ -71,7 +71,7 @@ namespace clientForQuestions2._0
         }
 
         // normal questions
-        public questionsPage(int amount, List<string> listOfTopics, bool isQSkip, int timePerQ, questionsDifficultyLevel difficultyLevel, string test_type)
+        public questionsPage(int amount, List<string> listOfTopics, bool isQSkip, int timePerQ, questionsDifficultyLevel difficultyLevel, bool withAnsweredQs, string test_type)
         {
             this.test_type = test_type;
             isWithCol = false;
@@ -93,7 +93,7 @@ namespace clientForQuestions2._0
             this.timePerQ = timePerQ;
                 
             //when normal exrecize
-            updateAtStartOfNormalExrecize(amount, listOfTopics);
+            updateAtStartOfNormalExrecize(amount, listOfTopics, withAnsweredQs);
 
             if (this.isUserDoNotGetFeedBack)
                 this.timePerQ = timePerQ * m_questionDetails.Count;
@@ -303,11 +303,13 @@ namespace clientForQuestions2._0
             LogFileHandler.writeIntoFile("Questions id are: " + s);
         }
 
-        private void updateAtStartOfNormalExrecize(int amount, List<string> listOfTopics)
+        private void updateAtStartOfNormalExrecize(int amount, List<string> listOfTopics, bool withAnsweredQs)
         {
             //wait until webview is init
- 
-            m_questionDetails = sqlDb.get_n_questions_from_arr_of_categorysWithDiffcultyLevel(amount, listOfTopics, m_aDifficultyLevels);
+            if (withAnsweredQs)
+                m_questionDetails = sqlDb.get_n_questions_from_arr_of_categorysWithDiffcultyLevel(amount, listOfTopics, m_aDifficultyLevels);
+            else
+                m_questionDetails = sqlDb.get_n_questions_from_arr_of_categorysWithDiffcultyLevel_Without_arr_of_q_ids(amount, listOfTopics, m_aDifficultyLevels, TestHistoryFileHandler.get_list_of_all_q_ids_in_history());
             writeQuestionToLogFile();
             m_maxQuestions = m_questionDetails.Count;//if amount is bigger that questions avelible
             writeQuestionToLogFile();

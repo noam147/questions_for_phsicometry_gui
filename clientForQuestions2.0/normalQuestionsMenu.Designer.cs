@@ -95,6 +95,7 @@ namespace clientForQuestions2._0
             this.timePerQCheckbox = new System.Windows.Forms.CheckBox();
             this.titleOfPage = new System.Windows.Forms.Label();
             this.resetButton = new System.Windows.Forms.Button();
+            this.with_already_answered_qs_checkBox = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.amountOfQuestionNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.difficulyLevelMaxVal)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.difficulyLevelMinVal)).BeginInit();
@@ -771,8 +772,9 @@ namespace clientForQuestions2._0
             // skipFeedBackCheckBox
             // 
             this.skipFeedBackCheckBox.AutoSize = true;
-            this.skipFeedBackCheckBox.Location = new System.Drawing.Point(10, 483);
+            this.skipFeedBackCheckBox.Location = new System.Drawing.Point(3, 481);
             this.skipFeedBackCheckBox.Name = "skipFeedBackCheckBox";
+            this.skipFeedBackCheckBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.skipFeedBackCheckBox.Size = new System.Drawing.Size(187, 20);
             this.skipFeedBackCheckBox.TabIndex = 14;
             this.skipFeedBackCheckBox.Text = "ללא משוב מיידי על תשובות";
@@ -799,9 +801,10 @@ namespace clientForQuestions2._0
             // dificultLevelcheckBox
             // 
             this.dificultLevelcheckBox.AutoSize = true;
-            this.dificultLevelcheckBox.Location = new System.Drawing.Point(38, 310);
+            this.dificultLevelcheckBox.Location = new System.Drawing.Point(57, 309);
             this.dificultLevelcheckBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dificultLevelcheckBox.Name = "dificultLevelcheckBox";
+            this.dificultLevelcheckBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.dificultLevelcheckBox.Size = new System.Drawing.Size(133, 20);
             this.dificultLevelcheckBox.TabIndex = 17;
             this.dificultLevelcheckBox.Text = "רמת קושי ספציפית";
@@ -845,7 +848,7 @@ namespace clientForQuestions2._0
             // 
             this.timePerQPicker.CustomFormat = "mm:ss";
             this.timePerQPicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.timePerQPicker.Location = new System.Drawing.Point(90, 232);
+            this.timePerQPicker.Location = new System.Drawing.Point(99, 233);
             this.timePerQPicker.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.timePerQPicker.MaxDate = new System.DateTime(2000, 1, 1, 0, 59, 59, 0);
             this.timePerQPicker.MinDate = new System.DateTime(2000, 1, 1, 0, 0, 0, 0);
@@ -860,9 +863,10 @@ namespace clientForQuestions2._0
             this.timePerQCheckbox.AutoSize = true;
             this.timePerQCheckbox.Checked = true;
             this.timePerQCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.timePerQCheckbox.Location = new System.Drawing.Point(31, 214);
+            this.timePerQCheckbox.Location = new System.Drawing.Point(57, 213);
             this.timePerQCheckbox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.timePerQCheckbox.Name = "timePerQCheckbox";
+            this.timePerQCheckbox.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.timePerQCheckbox.Size = new System.Drawing.Size(133, 20);
             this.timePerQCheckbox.TabIndex = 20;
             this.timePerQCheckbox.Text = "הגבלת זמן לשאלה";
@@ -893,11 +897,25 @@ namespace clientForQuestions2._0
             this.resetButton.UseVisualStyleBackColor = false;
             this.resetButton.Click += new System.EventHandler(this.resetButton_Click);
             // 
+            // with_already_answered_qs_checkBox
+            // 
+            this.with_already_answered_qs_checkBox.AutoSize = true;
+            this.with_already_answered_qs_checkBox.Checked = true;
+            this.with_already_answered_qs_checkBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.with_already_answered_qs_checkBox.Location = new System.Drawing.Point(30, 276);
+            this.with_already_answered_qs_checkBox.Name = "with_already_answered_qs_checkBox";
+            this.with_already_answered_qs_checkBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.with_already_answered_qs_checkBox.Size = new System.Drawing.Size(160, 20);
+            this.with_already_answered_qs_checkBox.TabIndex = 26;
+            this.with_already_answered_qs_checkBox.Text = "עם שאלות שכבר עשיתי";
+            this.with_already_answered_qs_checkBox.UseVisualStyleBackColor = true;
+            // 
             // normalQuestionsMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1105, 840);
+            this.Controls.Add(this.with_already_answered_qs_checkBox);
             this.Controls.Add(this.resetButton);
             this.Controls.Add(this.titleOfPage);
             this.Controls.Add(this.difficulyLevelMaxValLabel);
@@ -1043,5 +1061,6 @@ namespace clientForQuestions2._0
         private CheckBox timePerQCheckbox;
         private Label titleOfPage;
         private Button resetButton;
+        private CheckBox with_already_answered_qs_checkBox;
     }
 }

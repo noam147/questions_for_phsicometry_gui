@@ -88,7 +88,6 @@ namespace clientForQuestions2._0
                 using (SQLiteConnection connection = new SQLiteConnection(connectionString))
                 {
                     connection.Open();
-                    Console.WriteLine("Database connection opened.");
 
                     // SQL command to get the highest TestId
                     string selectQuery = "SELECT MAX(TestId) AS HighestTestId FROM TestsHistoryData;";
@@ -582,6 +581,34 @@ namespace clientForQuestions2._0
             table.Columns["מועדפים2"].ColumnName = "מועדפים";
 
             return table;
+        }
+
+        public static List<int> get_list_of_all_q_ids_in_history()
+        {
+            List<int> q_ids = new List<int>();
+            string selectQuery = @"
+                SELECT QuestionId 
+                FROM TestsHistoryData;";
+
+            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+            {
+                connection.Open();
+
+                using (SQLiteCommand command = new SQLiteCommand(selectQuery, connection))
+                using (SQLiteDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read()) // Loop through each row in the result set
+                    {
+                        int id = reader.GetInt32(0); // Get the integer value from the first column (index 0)
+
+                        if (!q_ids.Contains(id))
+                            q_ids.Add(id); // Add the ID to the list if it's not already present
+                    }
+
+                }
+            }
+
+            return q_ids;
         }
     }
 }

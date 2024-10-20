@@ -81,6 +81,7 @@ namespace clientForQuestions2._0
             }
             return dbQuestions;
         }
+
         public static List<dbQuestionParmeters> get_all_data()
         {  
             string query = "SELECT * FROM questions"; 
@@ -101,7 +102,7 @@ namespace clientForQuestions2._0
         }
         public static List<dbQuestionParmeters> get_n_questions_from_specofic_category(int n,string category)
         {
-            string query = $"SELECT * FROM questions where question_type = \'{category}\' ORDER BY RANDOM() limit {n}";
+            string query = $"SELECT * FROM questions WHERE question_type = \'{category}\' ORDER BY RANDOM() limit {n}";
             return doQuery(query);
         }
         public static List<dbQuestionParmeters> get_n_questions_from_arr_of_categorys(int n, List<string> categories)
@@ -128,6 +129,42 @@ namespace clientForQuestions2._0
     SELECT * 
     FROM questions 
     WHERE question_type IN ({add}) 
+      AND JSON_EXTRACT(json_question, '$.data[0].difficulty_level') >= {difficulty.minlevel} 
+      AND JSON_EXTRACT(json_question, '$.data[0].difficulty_level') <= {difficulty.maxLevel} 
+    ORDER BY RANDOM() 
+    LIMIT {n}";
+
+            return doQuery(query);
+        }
+        public static List<dbQuestionParmeters> get_n_questions_from_specofic_category_Without_arr_of_q_ids(int n, string category, List<int> without_q_ids)
+        {
+            string query = $"SELECT * FROM questions WHERE question_type = \'{category}\' AND question_id NOT IN ({string.Join(", ", without_q_ids)}) ORDER BY RANDOM() limit {n}";
+            return doQuery(query);
+        }
+        public static List<dbQuestionParmeters> get_n_questions_from_arr_of_categorys_Without_arr_of_q_ids(int n, List<string> categories, List<int> without_q_ids)
+        {
+            string add = "";
+            for (int i = 0; i < categories.Count; i++)
+            {
+                add += "\'" + categories[i] + "\',";
+            }
+            add = add.Substring(0, add.Length - 1);
+            string query = $"SELECT * FROM questions WHERE question_type IN ({add}) AND question_id NOT IN ({string.Join(", ", without_q_ids)}) ORDER BY RANDOM() LIMIT {n}";
+
+            return doQuery(query);
+        }
+        public static List<dbQuestionParmeters> get_n_questions_from_arr_of_categorysWithDiffcultyLevel_Without_arr_of_q_ids(int n, List<string> categories, questionsDifficultyLevel difficulty, List<int> without_q_ids)
+        {
+            string add = "";
+            for (int i = 0; i < categories.Count; i++)
+            {
+                add += "\'" + categories[i] + "\',";
+            }
+            add = add.Substring(0, add.Length - 1);
+            string query = $@"
+    SELECT * 
+    FROM questions 
+    WHERE question_type IN ({add}) AND question_id NOT IN ({string.Join(", ", without_q_ids)}) 
       AND JSON_EXTRACT(json_question, '$.data[0].difficulty_level') >= {difficulty.minlevel} 
       AND JSON_EXTRACT(json_question, '$.data[0].difficulty_level') <= {difficulty.maxLevel} 
     ORDER BY RANDOM() 
