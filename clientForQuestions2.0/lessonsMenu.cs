@@ -29,18 +29,24 @@ namespace clientForQuestions2._0
 
         private void LoadData()
         {
-            try
+            // Bind the data to the DataGridView
+            DataTable dataTable = TestHistoryFileHandler.get_lessons_from_history_for_DataGridView();
+
+            dataTable.Columns.Add("נושא", typeof(string));
+            dataTable.Columns.Add("רמת קושי", typeof(float));
+
+            foreach (DataRow row in dataTable.Rows)
             {
-                // Bind the data to the DataGridView
-                DataTable dataTable = TestHistoryFileHandler.get_lessons_from_history_for_DataGridView();
-                lessons_dataGridView.DataSource = dataTable;
-                lessons_dataGridView.Columns["IndexOfQuestion"].Visible = false;
-                //InsertLineBreaksBasedOnWidth();
+                dbQuestionParmeters question = sqlDb.get_question_based_on_id(Int32.Parse(row["מס' מזהה שאלה"].ToString()));
+                row["נושא"] = question.category;
+                row["רמת קושי"] = question.json_content["difficulty_level"];
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error: " + ex.Message);
-            }
+
+
+            lessons_dataGridView.DataSource = dataTable;
+            lessons_dataGridView.Columns["IndexOfQuestion"].Visible = false;
+            //InsertLineBreaksBasedOnWidth();
+
 
             if (lessons_dataGridView.Rows.Count == 0)
             {
@@ -52,7 +58,7 @@ namespace clientForQuestions2._0
                 lessons_dataGridView.Visible = true;
                 emptyLessons_label.Visible = false;
             }
-            lessons_dataGridView.Columns["מועדפים"].DefaultCellStyle.Font = new Font("Arial", 25, FontStyle.Regular);  // Font settings
+            lessons_dataGridView.Columns["מועדפים"].DefaultCellStyle.Font = new Font("Arial", 35, FontStyle.Regular);  // Font settings
             lessons_dataGridView.Columns["מועדפים"].DefaultCellStyle.ForeColor = Color.Yellow;                        // Text color (foreground)
             lessons_dataGridView.Columns["מועדפים"].DefaultCellStyle.SelectionForeColor = Color.Yellow;
             foreach (DataGridViewRow row in lessons_dataGridView.Rows)
@@ -68,7 +74,6 @@ namespace clientForQuestions2._0
                         cell.Value = TestHistoryFileHandler.MARKED_FALSE;
                 }
             }
-
         }
 
         // enter the test when clicked the lesson
@@ -129,7 +134,7 @@ namespace clientForQuestions2._0
             //lessons_dataGridView.Columns["מס' תרגול"].Width = 100;  // Adjust width as needed
             //lessons_dataGridView.Columns["תאריך"].Width = 100;  // Adjust width as needed
             //lessons_dataGridView.Columns["מס' מזהה שאלה"].Width = 100;  // Adjust width as needed
-            lessons_dataGridView.Columns["לקח"].Width = Screen.PrimaryScreen.WorkingArea.Width - 700;  // Adjust width as needed
+            lessons_dataGridView.Columns["לקח"].Width = Screen.PrimaryScreen.WorkingArea.Width - 1000;  // Adjust width as needed
 
             lessons_dataGridView.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
             lessons_dataGridView.AutoResizeRows(DataGridViewAutoSizeRowsMode.AllCells);

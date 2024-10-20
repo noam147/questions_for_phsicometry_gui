@@ -311,9 +311,7 @@ namespace clientForQuestions2._0
             }
             int timeUntilTimeReset = timePerQPicker.Value.Minute * 60 + timePerQPicker.Value.Second;
             if (!this.timePerQCheckbox.Checked)
-            {
                 timeUntilTimeReset = OperationsAndOtherUseful.WITHOUT_TIMER;
-            }
 
             /*if (!this.skipFeedBackCheckBox.Checked)
             {
@@ -338,15 +336,13 @@ namespace clientForQuestions2._0
                 test_type = "תרגול רגיל ללא משוב";
             else
                 test_type = "תרגול רגיל";
+
             LogFileHandler.writeIntoFile("Opened new questions page");
 
             questionsPage c;
             //get the questions here
 
-            if (this.timePerQPicker.Enabled)
-                c = new questionsPage(amount, this.topicsList, this.skipFeedBackCheckBox.Checked, timePerQPicker.Value.Minute*60 + timePerQPicker.Value.Second,difficultyLevels, test_type); // CHANGE!!!!!42
-            else
-                c = new questionsPage(amount, this.topicsList, this.skipFeedBackCheckBox.Checked, 0,difficultyLevels, test_type); // CHANGE!!!!!42
+            c = new questionsPage(amount, this.topicsList, this.skipFeedBackCheckBox.Checked, timeUntilTimeReset, difficultyLevels, test_type); // CHANGE!!!!!42
             updateSettingsForNextMenu();
             c.Show();
             this.Close();

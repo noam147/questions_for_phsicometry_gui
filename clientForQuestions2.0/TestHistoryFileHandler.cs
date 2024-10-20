@@ -69,7 +69,7 @@ namespace clientForQuestions2._0
                     using (SQLiteCommand command = new SQLiteCommand(createTableQuery, connection))
                     {
                         command.ExecuteNonQuery();
-                        LogFileHandler.writeIntoFile("Table 'TestsHistoryData' created successfully.");
+                        //LogFileHandler.writeIntoFile("Table 'TestsHistoryData' created successfully.");
                     }
                 }
             }
@@ -124,6 +124,7 @@ namespace clientForQuestions2._0
                         INSERT INTO TestsHistoryData (TestId, TestType, TestIsMarked, Date, QuestionId, IndexOfQuestion, UserAnswer, TimeForQuestion,QuestionIsMarked, QuestionLesson) 
                         VALUES (@TestId, @TestType, @TestIsMarked, @Date, @QuestionId,  @IndexOfQuestion, @UserAnswer, @TimeForQuestion, @QuestionIsMarked, @QuestionLesson)";
 
+            string date = DateTime.Now.ToString();
 
             foreach (afterQuestionParametrs paramers in m_afterQuestionParametrs)
             {
@@ -138,7 +139,7 @@ namespace clientForQuestions2._0
                         insertCommand.Parameters.AddWithValue("@TestId", test_id);
                         insertCommand.Parameters.AddWithValue("@TestType", test_type); // TODO
                         insertCommand.Parameters.AddWithValue("@TestIsMarked", false);
-                        insertCommand.Parameters.AddWithValue("@Date", DateTime.Now.ToString());
+                        insertCommand.Parameters.AddWithValue("@Date", date);
                         insertCommand.Parameters.AddWithValue("@QuestionId", paramers.question.questionId);
                         insertCommand.Parameters.AddWithValue("@IndexOfQuestion", paramers.indexOfQuestion);
                         insertCommand.Parameters.AddWithValue("@UserAnswer", paramers.userAnswer);
@@ -164,7 +165,7 @@ namespace clientForQuestions2._0
             using (SQLiteConnection connection = new SQLiteConnection(connectionString))
             {
                 connection.Open();
-                LogFileHandler.writeIntoFile("Database connection opened.");
+                //LogFileHandler.writeIntoFile("Database connection opened.");
 
 
 
@@ -178,7 +179,7 @@ namespace clientForQuestions2._0
 
                             // Load the data into the DataTable
                             dataTable.Load(reader);
-                            LogFileHandler.writeIntoFile("Data loaded into DataTable.");
+                            //LogFileHandler.writeIntoFile("Data loaded into DataTable.");
                         }
                         else
                         {
@@ -244,7 +245,7 @@ namespace clientForQuestions2._0
 
         public static List<Test> get_questions_with_lesson()
         {
-            LogFileHandler.writeIntoFile("get_questions_with_lesson");
+            //LogFileHandler.writeIntoFile("get_questions_with_lesson");
             // SQL command to select all data ordered by TestId and IndexOfQuestion
             string selectQuery = @"
                 SELECT *
@@ -255,7 +256,7 @@ namespace clientForQuestions2._0
         }
         public static List<Test> get_test_history()
         {
-            LogFileHandler.writeIntoFile("get_test_history");
+            //LogFileHandler.writeIntoFile("get_test_history");
             // SQL command to select all data ordered by TestId and IndexOfQuestion
             string selectQuery = @"
                 SELECT *
@@ -272,7 +273,7 @@ namespace clientForQuestions2._0
                 using (SQLiteConnection connection = new SQLiteConnection(connectionString))
                 {
                     connection.Open();
-                    LogFileHandler.writeIntoFile("Database connection opened.");
+                    //LogFileHandler.writeIntoFile("Database connection opened.");
 
                     // SQL command to update the TestLesson
                     string updateQuery = @"
@@ -290,7 +291,7 @@ namespace clientForQuestions2._0
                         int rowsAffected = command.ExecuteNonQuery(); // Execute the update command
                         if (rowsAffected > 0)
                         {
-                            LogFileHandler.writeIntoFile($"Updated TestLesson for TestId {test_id} and IndexOfQuestion {q_index}: '{lesson}'");
+                            //LogFileHandler.writeIntoFile($"Updated TestLesson for TestId {test_id} and IndexOfQuestion {q_index}: '{lesson}'");
                         }
                         else
                         {
@@ -414,7 +415,7 @@ namespace clientForQuestions2._0
             using (SQLiteConnection connection = new SQLiteConnection(connectionString))
             {
                 connection.Open();
-                LogFileHandler.writeIntoFile("Database connection opened.");
+                //LogFileHandler.writeIntoFile("Database connection opened.");
 
                 // SQL command to update the TestLesson
                 string selectQuery = @"
@@ -441,7 +442,7 @@ namespace clientForQuestions2._0
             using (SQLiteConnection connection = new SQLiteConnection(connectionString))
             {
                 connection.Open();
-                LogFileHandler.writeIntoFile("Database connection opened.");
+                //LogFileHandler.writeIntoFile("Database connection opened.");
 
                 // SQL command to update the TestLesson
                 string selectQuery = @"
@@ -468,7 +469,7 @@ namespace clientForQuestions2._0
             using (SQLiteConnection connection = new SQLiteConnection(connectionString))
             {
                 connection.Open();
-                LogFileHandler.writeIntoFile("Database connection opened.");
+                //LogFileHandler.writeIntoFile("Database connection opened.");
 
                 // SQL command to update the TestLesson
                 string updateQuery = $"UPDATE TestsHistoryData " +
@@ -487,7 +488,7 @@ namespace clientForQuestions2._0
             using (SQLiteConnection connection = new SQLiteConnection(connectionString))
             {
                 connection.Open();
-                LogFileHandler.writeIntoFile("Database connection opened.");
+                //LogFileHandler.writeIntoFile("Database connection opened.");
 
                 // SQL command to update the TestLesson
                 string updateQuery = $"UPDATE TestsHistoryData " +
@@ -579,38 +580,6 @@ namespace clientForQuestions2._0
             // Remove the old column
             table.Columns.Remove(oldColumn);
             table.Columns["מועדפים2"].ColumnName = "מועדפים";
-
-
-            //STATS//
-            table.Columns.Add("מספר התשובות הנכונות מתוך מספר השאלות", typeof(string));
-            table.Columns.Add("זמן התרגול", typeof(string));
-            table.Columns.Add("הורדה", typeof(string));
-            foreach (DataRow row in table.Rows)
-            {
-                int test_id = Int32.Parse(row["מס' תרגול"].ToString());
-
-                List<afterQuestionParametrs> questions = TestHistoryFileHandler.get_afterQuestionParametrs_of_test(test_id);
-                int count_questions = questions.Count;
-                int count_right_answers = 0;
-                int sum_time = 0;
-
-                foreach (afterQuestionParametrs qp in questions)
-                {
-                    sum_time += qp.timeForAnswer;
-                    if (qp.userAnswer == -1 || qp.userAnswer == OperationsAndOtherUseful.SKIPPED_Q)
-                        continue;
-                    if (((JArray)qp.question.json_content["options"]).Count != 0)
-                        if ((int)qp.question.json_content["options"][qp.userAnswer - 1]["is_correct"] == 1)
-                            count_right_answers++;
-                        else
-                        if (((JArray)qp.question.json_content["option_images"]).Count != 0)
-                            if ((int)qp.question.json_content["option_images"][qp.userAnswer - 1]["is_correct"] == 1)
-                                count_right_answers++;
-                }
-                row["מספר התשובות הנכונות מתוך מספר השאלות"] = $"{count_right_answers}/{count_questions}";
-                row["זמן התרגול"] = OperationsAndOtherUseful.get_time_mmss_fromseconds(sum_time);
-                row["הורדה"] = "🡇";
-            }
 
             return table;
         }

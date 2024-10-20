@@ -12,6 +12,7 @@ using iText.Html2pdf;
 using iText.Kernel.Pdf;
 using System.IO;
 using System.Diagnostics;
+using Newtonsoft.Json.Linq;
 
 namespace clientForQuestions2._0
 {
@@ -24,6 +25,7 @@ namespace clientForQuestions2._0
         //private int m_currentIndexOfFirstButton = 0;
         private int EXRECISEC_SHOWN_PER_CLICK = 5;
         private int TOP_EMPTY_SPACE = 50;
+
         public testHistoryMenu()
         {
             InitializeComponent();
@@ -116,16 +118,43 @@ namespace clientForQuestions2._0
 
         private void LoadData()
         {
-            try
+            // Bind the data to the DataGridView
+            DataTable dataTable = TestHistoryFileHandler.get_history_for_DataGridView();
+
+
+            //STATS//
+            dataTable.Columns.Add("מספר התשובות הנכונות מתוך מספר השאלות", typeof(string));
+            dataTable.Columns.Add("זמן התרגול", typeof(string));
+            dataTable.Columns.Add("הורדה", typeof(string));
+            foreach (DataRow row in dataTable.Rows)
             {
-                // Bind the data to the DataGridView
-                DataTable dataTable = TestHistoryFileHandler.get_history_for_DataGridView();
-                history_dataGridView.DataSource = dataTable;
+                int test_id = Int32.Parse(row["מס' תרגול"].ToString());
+
+                List<afterQuestionParametrs> questions = TestHistoryFileHandler.get_afterQuestionParametrs_of_test(test_id);
+                int count_questions = questions.Count;
+                int count_right_answers = 0;
+                int sum_time = 0;
+
+                foreach (afterQuestionParametrs qp in questions)
+                {
+                    sum_time += qp.timeForAnswer;
+                    if (qp.userAnswer == -1 || qp.userAnswer == OperationsAndOtherUseful.SKIPPED_Q)
+                        continue;
+                    if (((JArray)qp.question.json_content["options"]).Count != 0)
+                        if ((int)qp.question.json_content["options"][qp.userAnswer - 1]["is_correct"] == 1)
+                            count_right_answers++;
+                        else
+                        if (((JArray)qp.question.json_content["option_images"]).Count != 0)
+                            if ((int)qp.question.json_content["option_images"][qp.userAnswer - 1]["is_correct"] == 1)
+                                count_right_answers++;
+                }
+                row["מספר התשובות הנכונות מתוך מספר השאלות"] = $"{count_right_answers}/{count_questions}";
+                row["זמן התרגול"] = OperationsAndOtherUseful.get_time_mmss_fromseconds(sum_time);
+                row["הורדה"] = "🡇";
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error: " + ex.Message);
-            }
+
+
+            history_dataGridView.DataSource = dataTable;
 
             if (history_dataGridView.Rows.Count == 0)
             {
@@ -137,7 +166,8 @@ namespace clientForQuestions2._0
                 history_dataGridView.Visible = true;
                 emptyHistory_label.Visible = false;
             }
-            history_dataGridView.Columns["מועדפים"].DefaultCellStyle.Font = new Font("Arial", 25, FontStyle.Regular);  // Font settings
+
+            history_dataGridView.Columns["מועדפים"].DefaultCellStyle.Font = new Font("Arial", 35, FontStyle.Regular);  // Font settings
             history_dataGridView.Columns["מועדפים"].DefaultCellStyle.ForeColor = Color.Yellow;                        // Text color (foreground)
             history_dataGridView.Columns["מועדפים"].DefaultCellStyle.SelectionForeColor = Color.Yellow;
             foreach (DataGridViewRow row in history_dataGridView.Rows)
@@ -153,10 +183,12 @@ namespace clientForQuestions2._0
                         cell.Value = TestHistoryFileHandler.MARKED_FALSE;
                 }
             }
-
-            history_dataGridView.Columns["הורדה"].DefaultCellStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", history_dataGridView.DefaultCellStyle.Font.Size, System.Drawing.FontStyle.Underline);
+            
+            history_dataGridView.Columns["הורדה"].DefaultCellStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 25, System.Drawing.FontStyle.Underline);
             history_dataGridView.Columns["הורדה"].DefaultCellStyle.ForeColor = System.Drawing.Color.Blue;
             history_dataGridView.Columns["הורדה"].DefaultCellStyle.SelectionForeColor = System.Drawing.Color.Blue;
+
+            //progressBar.Visible = false;
         }
 
         private void backToMainMenu_button_Click(object sender, EventArgs e)
@@ -265,6 +297,8 @@ namespace clientForQuestions2._0
 
             history_dataGridView.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
             history_dataGridView.AutoResizeRows(DataGridViewAutoSizeRowsMode.AllCells);
+
+            history_dataGridView.Visible = true;
         }
 
         private void history_dataGridView_CellClick(object sender, DataGridViewCellEventArgs e)

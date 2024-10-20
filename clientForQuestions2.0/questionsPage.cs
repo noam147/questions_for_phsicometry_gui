@@ -362,8 +362,20 @@ namespace clientForQuestions2._0
                             timer1.Stop();
                             MessageBox.Show("נגמר הזמן :(");
 
-                            int test_id = TestHistoryFileHandler.get_next_test_id();
+                            // update afterQuestionParametrs
+                            for (int i = 0; i < m_afterQuestionParametrs.Count; i++)
+                            {
+                                if (m_afterQuestionParametrs[i].indexOfQuestion == this.m_indexOfCurrQuestion)
+                                {
+                                    // Retrieve the element, modify it, and then assign it back, add time to current
+                                    var parameter = m_afterQuestionParametrs[i];                 // Retrieve the element
+                                    parameter.timeForAnswer += secondsTookForCurrq - timeElapsed; // add the time since the user entered the q
+                                    m_afterQuestionParametrs[i] = parameter;                     // Assign it back to the list
+                                    break;
+                                }
+                            }
 
+                            int test_id = TestHistoryFileHandler.get_next_test_id();
                             TestHistoryFileHandler.save_afterQuestionParametrs_to_test_history(m_afterQuestionParametrs, test_id, this.test_type);
 
                             var s = new summrizePage(this.m_afterQuestionParametrs, test_id, 0); // TODO edit 0 to test_id
@@ -647,6 +659,24 @@ namespace clientForQuestions2._0
                 this.Close();
                 return;
             }
+            if (this.isUserDoNotGetFeedBack)
+            {
+                for (int i = 0; i < m_afterQuestionParametrs.Count; i++)
+                {
+                    if (m_afterQuestionParametrs[i].indexOfQuestion == this.m_indexOfCurrQuestion)
+                    {
+                        // Retrieve the element, modify it, and then assign it back, add time to current
+                        var parameter = m_afterQuestionParametrs[i];                 // Retrieve the element
+                        parameter.timeForAnswer += secondsTookForCurrq - timeElapsed; // add the time since the user entered the q
+                        m_afterQuestionParametrs[i] = parameter;                     // Assign it back to the list
+                        break;
+                    }
+                }
+            }
+
+            timeElapsed = secondsTookForCurrq; // save the time when the user left the curr q and enter a new one
+
+
             int test_id = TestHistoryFileHandler.get_next_test_id();
             TestHistoryFileHandler.save_afterQuestionParametrs_to_test_history(m_afterQuestionParametrs, test_id, this.test_type);
 
