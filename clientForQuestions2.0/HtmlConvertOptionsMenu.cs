@@ -28,6 +28,14 @@ namespace clientForQuestions2._0
             InitializeComponent();
             explanation_comboBox.SelectedIndex = 0;
         }
+        
+
+        public HtmlConvertOptionsMenu()
+        {
+            var questions = OperationsAndOtherUseful.getMultipleExrecisesOfMath_wothout_graph(5);
+            action_when_get_list_of_chapters(questions);
+        }
+
         public HtmlConvertOptionsMenu(List<dbQuestionParmeters> questions, bool autoDownload)
         {
             this.questions = questions;
@@ -47,24 +55,29 @@ namespace clientForQuestions2._0
             }
             return "כמותי";
         }
-        public HtmlConvertOptionsMenu(List<List<dbQuestionParmeters>> multipleQuestionsfiles)
+        private void action_when_get_list_of_chapters(List<List<dbQuestionParmeters>> multipleQuestionsfiles)
         {
             string finalSimulation = "";
             string currentChapter = "";
             InitializeComponent();
             explanation_comboBox.SelectedIndex = 0;
             string newPage = "<div style='page-break-after: always;'></div>";
-            for (int i =0; i < multipleQuestionsfiles.Count; i++) 
+            for (int i = 0; i < multipleQuestionsfiles.Count; i++)
             {
                 this.questions = multipleQuestionsfiles[i];
                 string currentCategory = questions[0].category;
                 string generalCategory = getGeneralCategory(currentCategory);
                 this.htmlContentOfAnswers += "<br><br>" + generalCategory + ":\n";//add lines to separate diffrentchapters
-                currentChapter =  get_html(false);
+                currentChapter = get_html(true);
                 finalSimulation += currentChapter + newPage;
             }
             finalHtmlContentForFile = finalSimulation;
             filePath_button_Click(null, null);
+
+        }
+        public HtmlConvertOptionsMenu(List<List<dbQuestionParmeters>> multipleQuestionsfiles)
+        {
+            action_when_get_list_of_chapters(multipleQuestionsfiles);
 
         }
         private void HtmlConvertOptionsMenu_Load(object sender, EventArgs e)
@@ -97,7 +110,7 @@ namespace clientForQuestions2._0
         private string addNumberToQuestion(string htmlContentOfQuestion, int counter,int questionId)
         {
             int currIndex = htmlContentOfQuestion.IndexOf("<p>");
-            string numberStr = $"qId = {questionId}\t<span style='font-size: 1.5em; font-weight: bold;'>{counter}.</span>\t";
+            string numberStr = $"qId = {questionId}<br><span style='font-size: 1.5em; font-weight: bold;'>{counter}.</span>\t";
 
             if (currIndex == -1)
             {

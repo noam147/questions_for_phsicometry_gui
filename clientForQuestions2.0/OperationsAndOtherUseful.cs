@@ -602,6 +602,65 @@ namespace clientForQuestions2._0
 
         }
 
+        /// <summary>
+        /// This function gets multiple chapters of math without graph.
+        /// </summary>
+        /// <param name="amount">The amount of chapters (each chapter 20 questions).</param>
+        /// <returns>list of -> lists of questions details - all the sub lists are chapters.</returns>
+        public static List<List<dbQuestionParmeters>> getMultipleExrecisesOfMath_wothout_graph(int amount)
+        {
+            List<List<dbQuestionParmeters >> all_questions = new List<List<dbQuestionParmeters>> ();
+            for (int i = 0; i < amount; i++)
+            {
+                all_questions.Add(sendChapter_math_Questions_without_graph());
+            }
+            return all_questions;
+        }
+        /// <summary>
+        /// This function gets one chapter of math without graph.
+        /// </summary>
+        /// <returns>list of questions details</returns>
+        public static List<dbQuestionParmeters> sendChapter_math_Questions_without_graph()
+        {
+
+            List<String> topics = OperationsAndOtherUseful.topicsdict["חשיבה כמותית"];
+                questionsDifficultyLevel currentDifficultyLevel = new questionsDifficultyLevel();
+                currentDifficultyLevel.minlevel = 0m;
+                currentDifficultyLevel.maxLevel = 4.5m;
+            //first phaze of question 1- 6
+                List<dbQuestionParmeters> firstPhase = sqlDb.get_n_questions_from_arr_of_categorysWithDiffcultyLevel(6, topics, currentDifficultyLevel);
+                firstPhase.Sort((x, y) => ((float)x.json_content["difficulty_level"]).CompareTo((float)y.json_content["difficulty_level"]));
+
+                currentDifficultyLevel.minlevel = 4.5m;
+                currentDifficultyLevel.maxLevel = 6.5m;
+            //second phaze of question 7 - 13
+            List<dbQuestionParmeters> secondPhaze = sqlDb.get_n_questions_from_arr_of_categorysWithDiffcultyLevel(7, topics, currentDifficultyLevel);
+                secondPhaze.Sort((x, y) => ((float)x.json_content["difficulty_level"]).CompareTo((float)y.json_content["difficulty_level"]));
+
+                currentDifficultyLevel.minlevel = 6.5m;
+                currentDifficultyLevel.maxLevel = 10m;
+            //third phaze of question 13 - 20
+            List<dbQuestionParmeters> thirdPhaze = sqlDb.get_n_questions_from_arr_of_categorysWithDiffcultyLevel(7, topics, currentDifficultyLevel);
+                thirdPhaze.Sort((x, y) => ((float)x.json_content["difficulty_level"]).CompareTo((float)y.json_content["difficulty_level"]));
+
+                List<dbQuestionParmeters> allQuestions = new List<dbQuestionParmeters>();
+            //get the values in lists to the final list of all questions together
+                foreach (var item in firstPhase)
+                {
+                    allQuestions.Add(item);
+                }
+                foreach (var item in secondPhaze)
+                {
+                    allQuestions.Add(item);
+                }
+                foreach (var item in thirdPhaze)
+                {
+                    allQuestions.Add(item);
+                }
+            
+            return allQuestions;
+        }
+
         // חשיבה כמותית
         public static List<dbQuestionParmeters> sendChapter_math_Questions()
         {
