@@ -32,7 +32,7 @@ namespace clientForQuestions2._0
             try
             {
                 // Bind the data to the DataGridView
-                DataTable dataTable = TestHistoryFileHandler.get_lessons_from_history();
+                DataTable dataTable = TestHistoryFileHandler.get_lessons_from_history_for_DataGridView();
                 lessons_dataGridView.DataSource = dataTable;
                 lessons_dataGridView.Columns["IndexOfQuestion"].Visible = false;
                 //InsertLineBreaksBasedOnWidth();
@@ -52,6 +52,22 @@ namespace clientForQuestions2._0
                 lessons_dataGridView.Visible = true;
                 emptyLessons_label.Visible = false;
             }
+            lessons_dataGridView.Columns["מועדפים"].DefaultCellStyle.Font = new Font("Arial", 25, FontStyle.Regular);  // Font settings
+            lessons_dataGridView.Columns["מועדפים"].DefaultCellStyle.ForeColor = Color.Yellow;                        // Text color (foreground)
+            lessons_dataGridView.Columns["מועדפים"].DefaultCellStyle.SelectionForeColor = Color.Yellow;
+            foreach (DataGridViewRow row in lessons_dataGridView.Rows)
+            {
+                // Check if the column exists in the DataTable
+                if (lessons_dataGridView.Columns.Contains("מועדפים"))
+                {
+                    // Access the value in the column 'isMarked' for each row
+                    DataGridViewCell cell = row.Cells["מועדפים"];
+                    if (cell.Value.ToString() == "True")
+                        cell.Value = TestHistoryFileHandler.MARKED_TRUE;
+                    else
+                        cell.Value = TestHistoryFileHandler.MARKED_FALSE;
+                }
+            }
 
         }
 
@@ -63,19 +79,27 @@ namespace clientForQuestions2._0
             {
                 // Get the clicked row
                 DataGridViewRow clickedRow = lessons_dataGridView.Rows[e.RowIndex];
+                int index_of_question = Int32.Parse(clickedRow.Cells["IndexOfQuestion"].Value.ToString());
+                int test_id = Int32.Parse(clickedRow.Cells["מס' תרגול"].Value.ToString());
+                if (e.ColumnIndex == lessons_dataGridView.Columns["מועדפים"].Index)
+                {
+                    bool isMarked = TestHistoryFileHandler.get_question_isMarked(test_id, index_of_question);
+                    
+                    TestHistoryFileHandler.set_question_isMarked(!isMarked, test_id, index_of_question);
+                    if (isMarked)
+                        lessons_dataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = TestHistoryFileHandler.MARKED_FALSE;
+                    else
+                        lessons_dataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = TestHistoryFileHandler.MARKED_TRUE;
+                    return;
+                }
 
                 // check if the user is sure to leave the test
-                DialogResult result = MessageBox.Show("?האם אתה ברצונך להציג שאלה זו",
+                DialogResult result = MessageBox.Show("?האם ברצונך להציג שאלה זו",
                                           "Confirmation",
                                           MessageBoxButtons.YesNo,
                                           MessageBoxIcon.Question);
                 if (result == DialogResult.No) // the user isn't sure
                     return;
-
-
-                // Example: Retrieve the values from the clicked row
-                int index_of_question = Int32.Parse(clickedRow.Cells["IndexOfQuestion"].Value.ToString());
-                int test_id = Int32.Parse(clickedRow.Cells["מס' תרגול"].Value.ToString());
 
                 summrizePage s = new summrizePage(TestHistoryFileHandler.get_afterQuestionParametrs_of_test(test_id), test_id, index_of_question);
                 s.Show();

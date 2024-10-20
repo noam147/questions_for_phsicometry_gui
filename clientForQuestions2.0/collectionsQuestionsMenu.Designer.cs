@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.colButton1 = new System.Windows.Forms.Button();
-            this.colButton2 = new System.Windows.Forms.Button();
-            this.colButton3 = new System.Windows.Forms.Button();
+            this.colButton_math = new System.Windows.Forms.Button();
+            this.colButton_hebrew = new System.Windows.Forms.Button();
+            this.colButton_english = new System.Windows.Forms.Button();
             this.backToMainMenu = new System.Windows.Forms.Button();
             this.continueButton = new System.Windows.Forms.Button();
             this.timePerQCheckbox = new System.Windows.Forms.CheckBox();
@@ -38,35 +38,35 @@
             this.titleOfPage = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // colButton1
+            // colButton_math
             // 
-            this.colButton1.Location = new System.Drawing.Point(350, 107);
-            this.colButton1.Name = "colButton1";
-            this.colButton1.Size = new System.Drawing.Size(131, 71);
-            this.colButton1.TabIndex = 0;
-            this.colButton1.Text = "הסקה מתרשים";
-            this.colButton1.UseVisualStyleBackColor = true;
-            this.colButton1.Click += new System.EventHandler(this.colButton_Click);
+            this.colButton_math.Location = new System.Drawing.Point(350, 107);
+            this.colButton_math.Name = "colButton1";
+            this.colButton_math.Size = new System.Drawing.Size(131, 71);
+            this.colButton_math.TabIndex = 0;
+            this.colButton_math.Text = "הסקה מתרשים";
+            this.colButton_math.UseVisualStyleBackColor = true;
+            this.colButton_math.Click += new System.EventHandler(this.colButton_Click);
             // 
-            // colButton2
+            // colButton_hebrew
             // 
-            this.colButton2.Location = new System.Drawing.Point(350, 184);
-            this.colButton2.Name = "colButton2";
-            this.colButton2.Size = new System.Drawing.Size(131, 96);
-            this.colButton2.TabIndex = 1;
-            this.colButton2.Text = "קטע קריאה";
-            this.colButton2.UseVisualStyleBackColor = true;
-            this.colButton2.Click += new System.EventHandler(this.colButton_Click);
+            this.colButton_hebrew.Location = new System.Drawing.Point(350, 184);
+            this.colButton_hebrew.Name = "colButton2";
+            this.colButton_hebrew.Size = new System.Drawing.Size(131, 96);
+            this.colButton_hebrew.TabIndex = 1;
+            this.colButton_hebrew.Text = "קטע קריאה";
+            this.colButton_hebrew.UseVisualStyleBackColor = true;
+            this.colButton_hebrew.Click += new System.EventHandler(this.colButton_Click);
             // 
-            // colButton3
+            // colButton_english
             // 
-            this.colButton3.Location = new System.Drawing.Point(350, 286);
-            this.colButton3.Name = "colButton3";
-            this.colButton3.Size = new System.Drawing.Size(131, 83);
-            this.colButton3.TabIndex = 2;
-            this.colButton3.Text = "Reading Comprehension";
-            this.colButton3.UseVisualStyleBackColor = true;
-            this.colButton3.Click += new System.EventHandler(this.colButton_Click);
+            this.colButton_english.Location = new System.Drawing.Point(350, 286);
+            this.colButton_english.Name = "colButton3";
+            this.colButton_english.Size = new System.Drawing.Size(131, 83);
+            this.colButton_english.TabIndex = 2;
+            this.colButton_english.Text = "Reading Comprehension";
+            this.colButton_english.UseVisualStyleBackColor = true;
+            this.colButton_english.Click += new System.EventHandler(this.colButton_Click);
             // 
             // backToMainMenu
             // 
@@ -138,9 +138,9 @@
             this.Controls.Add(this.timePerQPicker);
             this.Controls.Add(this.continueButton);
             this.Controls.Add(this.backToMainMenu);
-            this.Controls.Add(this.colButton3);
-            this.Controls.Add(this.colButton2);
-            this.Controls.Add(this.colButton1);
+            this.Controls.Add(this.colButton_english);
+            this.Controls.Add(this.colButton_hebrew);
+            this.Controls.Add(this.colButton_math);
             this.Name = "collectionsQuestionsMenu";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "collectionsQuestionsMenu";
@@ -151,9 +151,9 @@
 
         #endregion
 
-        private System.Windows.Forms.Button colButton1;
-        private System.Windows.Forms.Button colButton2;
-        private System.Windows.Forms.Button colButton3;
+        private System.Windows.Forms.Button colButton_math;
+        private System.Windows.Forms.Button colButton_hebrew;
+        private System.Windows.Forms.Button colButton_english;
         private System.Windows.Forms.Button backToMainMenu;
         private System.Windows.Forms.Button continueButton;
         private System.Windows.Forms.CheckBox timePerQCheckbox;

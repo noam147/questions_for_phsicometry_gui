@@ -28,6 +28,7 @@ namespace clientForQuestions2._0
         private int h_buttonsQuestionsPlace = 70; // for the buttons of the questions when isUserDoNotGetFeedBack
         private int Q_BUTTON_SIZE = 30;
         private int Q_CHOSEN_BUTTON_ADD_SIZE = 10;
+        private string test_type = "";
 
         private int m_timeElapsed = 0;
         private int m_secondsTookForCurrq = 0;
@@ -42,8 +43,9 @@ namespace clientForQuestions2._0
             InitializeComponent();
         }
 
-        public WithFeedBackQuestionsPage(int amount, List<string> listOfTopics, bool isQSkip, int secondsUntilTimerResets, questionsDifficultyLevel difficultyLevel)
+        public WithFeedBackQuestionsPage(int amount, List<string> listOfTopics, bool isQSkip, int secondsUntilTimerResets, questionsDifficultyLevel difficultyLevel, string test_type)
         {
+            this.test_type = test_type;
             InitializeComponent();
             this.WindowState = FormWindowState.Maximized;
             //this.FormBorderStyle = FormBorderStyle.None;
@@ -278,7 +280,7 @@ namespace clientForQuestions2._0
         {
             int test_id = TestHistoryFileHandler.get_next_test_id();
 
-            TestHistoryFileHandler.save_afterQuestionParametrs_to_test_history(m_afterQuestionParametrs, test_id);
+            TestHistoryFileHandler.save_afterQuestionParametrs_to_test_history(m_afterQuestionParametrs, test_id, test_type);
 
             var s = new summrizePage(this.m_afterQuestionParametrs, test_id, 0); // TODO edit 0 to test_id
             s.Show();
@@ -302,7 +304,7 @@ namespace clientForQuestions2._0
                 disposedWebViews();
                 int test_id = TestHistoryFileHandler.get_next_test_id();
 
-                TestHistoryFileHandler.save_afterQuestionParametrs_to_test_history(m_afterQuestionParametrs, test_id);
+                TestHistoryFileHandler.save_afterQuestionParametrs_to_test_history(m_afterQuestionParametrs, test_id, test_type);
 
                 var s = new summrizePage(this.m_afterQuestionParametrs, test_id, 0); // TODO edit 0 to test_id
                 s.Show();

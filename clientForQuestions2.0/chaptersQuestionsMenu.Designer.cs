@@ -32,9 +32,9 @@
             this.timePerQPicker = new System.Windows.Forms.DateTimePicker();
             this.continueButton = new System.Windows.Forms.Button();
             this.backToMainMenu = new System.Windows.Forms.Button();
-            this.chapterButton3 = new System.Windows.Forms.Button();
-            this.chapterButton2 = new System.Windows.Forms.Button();
-            this.chapterButton1 = new System.Windows.Forms.Button();
+            this.chapterButton_english = new System.Windows.Forms.Button();
+            this.chapterButton_math = new System.Windows.Forms.Button();
+            this.chapterButton_hebrew = new System.Windows.Forms.Button();
             this.titleOfPage = new System.Windows.Forms.Label();
             this.downloadExreciseButton = new System.Windows.Forms.Button();
             this.simulationDownloadButton = new System.Windows.Forms.Button();
@@ -90,38 +90,38 @@
             this.backToMainMenu.UseVisualStyleBackColor = true;
             this.backToMainMenu.Click += new System.EventHandler(this.backToMainMenu_Click);
             // 
-            // chapterButton3
+            // chapterButton_english
             // 
-            this.chapterButton3.Location = new System.Drawing.Point(393, 331);
-            this.chapterButton3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.chapterButton3.Name = "chapterButton3";
-            this.chapterButton3.Size = new System.Drawing.Size(130, 81);
-            this.chapterButton3.TabIndex = 25;
-            this.chapterButton3.Text = "אנגלית";
-            this.chapterButton3.UseVisualStyleBackColor = true;
-            this.chapterButton3.Click += new System.EventHandler(this.chapterButton_Click);
+            this.chapterButton_english.Location = new System.Drawing.Point(393, 331);
+            this.chapterButton_english.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.chapterButton_english.Name = "chapterButton3";
+            this.chapterButton_english.Size = new System.Drawing.Size(130, 81);
+            this.chapterButton_english.TabIndex = 25;
+            this.chapterButton_english.Text = "אנגלית";
+            this.chapterButton_english.UseVisualStyleBackColor = true;
+            this.chapterButton_english.Click += new System.EventHandler(this.chapterButton_Click);
             // 
-            // chapterButton2
+            // chapterButton_math
             // 
-            this.chapterButton2.Location = new System.Drawing.Point(393, 229);
-            this.chapterButton2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.chapterButton2.Name = "chapterButton2";
-            this.chapterButton2.Size = new System.Drawing.Size(130, 95);
-            this.chapterButton2.TabIndex = 24;
-            this.chapterButton2.Text = "חשיבה כמותית";
-            this.chapterButton2.UseVisualStyleBackColor = true;
-            this.chapterButton2.Click += new System.EventHandler(this.chapterButton_Click);
+            this.chapterButton_math.Location = new System.Drawing.Point(393, 229);
+            this.chapterButton_math.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.chapterButton_math.Name = "chapterButton2";
+            this.chapterButton_math.Size = new System.Drawing.Size(130, 95);
+            this.chapterButton_math.TabIndex = 24;
+            this.chapterButton_math.Text = "חשיבה כמותית";
+            this.chapterButton_math.UseVisualStyleBackColor = true;
+            this.chapterButton_math.Click += new System.EventHandler(this.chapterButton_Click);
             // 
-            // chapterButton1
+            // chapterButton_hebrew
             // 
-            this.chapterButton1.Location = new System.Drawing.Point(393, 132);
-            this.chapterButton1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.chapterButton1.Name = "chapterButton1";
-            this.chapterButton1.Size = new System.Drawing.Size(130, 89);
-            this.chapterButton1.TabIndex = 23;
-            this.chapterButton1.Text = "חשיבה מילולית";
-            this.chapterButton1.UseVisualStyleBackColor = true;
-            this.chapterButton1.Click += new System.EventHandler(this.chapterButton_Click);
+            this.chapterButton_hebrew.Location = new System.Drawing.Point(393, 132);
+            this.chapterButton_hebrew.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.chapterButton_hebrew.Name = "chapterButton1";
+            this.chapterButton_hebrew.Size = new System.Drawing.Size(130, 89);
+            this.chapterButton_hebrew.TabIndex = 23;
+            this.chapterButton_hebrew.Text = "חשיבה מילולית";
+            this.chapterButton_hebrew.UseVisualStyleBackColor = true;
+            this.chapterButton_hebrew.Click += new System.EventHandler(this.chapterButton_Click);
             // 
             // titleOfPage
             // 
@@ -169,9 +169,9 @@
             this.Controls.Add(this.timePerQPicker);
             this.Controls.Add(this.continueButton);
             this.Controls.Add(this.backToMainMenu);
-            this.Controls.Add(this.chapterButton3);
-            this.Controls.Add(this.chapterButton2);
-            this.Controls.Add(this.chapterButton1);
+            this.Controls.Add(this.chapterButton_english);
+            this.Controls.Add(this.chapterButton_math);
+            this.Controls.Add(this.chapterButton_hebrew);
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "chaptersQuestionsMenu";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -187,9 +187,9 @@
         private System.Windows.Forms.DateTimePicker timePerQPicker;
         private System.Windows.Forms.Button continueButton;
         private System.Windows.Forms.Button backToMainMenu;
-        private System.Windows.Forms.Button chapterButton3;
-        private System.Windows.Forms.Button chapterButton2;
-        private System.Windows.Forms.Button chapterButton1;
+        private System.Windows.Forms.Button chapterButton_english;
+        private System.Windows.Forms.Button chapterButton_math;
+        private System.Windows.Forms.Button chapterButton_hebrew;
         private System.Windows.Forms.Label titleOfPage;
         private System.Windows.Forms.Button downloadExreciseButton;
         private System.Windows.Forms.Button simulationDownloadButton;

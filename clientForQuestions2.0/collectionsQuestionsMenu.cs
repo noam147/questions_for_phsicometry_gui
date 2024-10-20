@@ -20,9 +20,9 @@ namespace clientForQuestions2._0
             this.continueButton.Enabled = true;
             this.chosen_text = ((Button)sender).Text.ToString();
 
-            this.colButton1.BackColor = Color.White;
-            this.colButton2.BackColor = Color.White;
-            this.colButton3.BackColor = Color.White;
+            this.colButton_math.BackColor = Color.White;
+            this.colButton_hebrew.BackColor = Color.White;
+            this.colButton_english.BackColor = Color.White;
 
             ((Button)sender).BackColor = Color.LightBlue; // show which category is chosen
         }
@@ -34,13 +34,22 @@ namespace clientForQuestions2._0
             int col_id = colIds[random.Next(colIds.Count)]; // choose rand collection of the category
             List<int> questions = OperationsAndOtherUseful.colId2qIds[col_id]; // get the questions of the collection
 
+            string test_type = "";
+            if (this.colButton_math.BackColor == Color.LightBlue)
+                test_type = "הסקה מתרשים";
+            if (this.colButton_hebrew.BackColor == Color.LightBlue)
+                test_type = "קטע קריאה";
+            if (this.colButton_english.BackColor == Color.LightBlue)
+                test_type = "Reading Comprehension";
+
+
             questionsPage c;
             //get the questions here
 
             if (this.timePerQPicker.Enabled)
-                c = new questionsPage(col_id, questions, timePerQPicker.Value.Minute * 60 + timePerQPicker.Value.Second); // CHANGE!!!!!42
+                c = new questionsPage(col_id, questions, timePerQPicker.Value.Minute * 60 + timePerQPicker.Value.Second, test_type); // CHANGE!!!!!42
             else
-                c = new questionsPage(col_id, questions, 0); // CHANGE!!!!!42
+                c = new questionsPage(col_id, questions, 0, test_type); // CHANGE!!!!!42
 
             c.Show();
             this.Close();

@@ -33,9 +33,9 @@ namespace clientForQuestions2._0
             this.downloadExreciseButton.Enabled = true;
             this.chosen_chapter = ((Button)sender).Text.ToString();
 
-            this.chapterButton1.BackColor = Color.White;
-            this.chapterButton2.BackColor = Color.White;
-            this.chapterButton3.BackColor = Color.White;
+            this.chapterButton_hebrew.BackColor = Color.White;
+            this.chapterButton_math.BackColor = Color.White;
+            this.chapterButton_english.BackColor = Color.White;
 
             ((Button)sender).BackColor = Color.LightBlue; // show which category is chosen
         }
@@ -68,11 +68,20 @@ namespace clientForQuestions2._0
 
             QuestionsToPdf.Questions2Pdf(questions);
 
+            string test_type = "";
+            if (this.chapterButton_hebrew.BackColor == Color.LightBlue)
+                test_type = "פרק חשיבה מילולית";
+            if (this.chapterButton_math.BackColor == Color.LightBlue)
+                test_type = "פרק חשיבה כמותית";
+            if (this.chapterButton_english.BackColor == Color.LightBlue)
+                test_type = "פרק אנגלית";
+
+
             questionsPage c;
             if (this.timePerQPicker.Enabled)
-                c = new questionsPage(questions, timePerQPicker.Value.Minute * 60 + timePerQPicker.Value.Second);
+                c = new questionsPage(questions, timePerQPicker.Value.Minute * 60 + timePerQPicker.Value.Second, test_type);
             else
-                c = new questionsPage(questions, 20 * 60);
+                c = new questionsPage(questions, 20 * 60, test_type);
 
             c.Show();
             this.Close();

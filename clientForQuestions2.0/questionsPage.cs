@@ -42,9 +42,9 @@ namespace clientForQuestions2._0
         private List<Button> m_buttonList = new List<Button>();
         private int m_currentIndexOfFirstButton = 0;
 
-
         private int timePerQ = 0; // 0 means "stoper" (no time limit), positive value means "timer" (count backwards to 0)
-        
+
+        private string test_type;
         
         private void atStart()
         {
@@ -71,8 +71,9 @@ namespace clientForQuestions2._0
         }
 
         // normal questions
-        public questionsPage(int amount, List<string> listOfTopics, bool isQSkip, int timePerQ, questionsDifficultyLevel difficultyLevel)
+        public questionsPage(int amount, List<string> listOfTopics, bool isQSkip, int timePerQ, questionsDifficultyLevel difficultyLevel, string test_type)
         {
+            this.test_type = test_type;
             isWithCol = false;
             this.isUserDoNotGetFeedBack = isQSkip;
 
@@ -120,8 +121,9 @@ namespace clientForQuestions2._0
         }
 
         // collections
-        public questionsPage(int collection_id, List<int> questions, int timeForQuestion)
+        public questionsPage(int collection_id, List<int> questions, int timeForQuestion, string test_type)
         {
+            this.test_type = test_type;
             isWithCol = true;
 
             //when is text
@@ -149,10 +151,10 @@ namespace clientForQuestions2._0
         }
 
         // chapters
-        public questionsPage(List<dbQuestionParmeters> questions, int timeToQuestion)
+        public questionsPage(List<dbQuestionParmeters> questions, int timeToQuestion, string test_type)
         {
             isWithCol = true;
-
+            this.test_type = test_type;
             //when is text
             atStart();
             this.isUserDoNotGetFeedBack = true;//in text user does not get immdiate feedback
@@ -362,7 +364,7 @@ namespace clientForQuestions2._0
 
                             int test_id = TestHistoryFileHandler.get_next_test_id();
 
-                            TestHistoryFileHandler.save_afterQuestionParametrs_to_test_history(m_afterQuestionParametrs, test_id);
+                            TestHistoryFileHandler.save_afterQuestionParametrs_to_test_history(m_afterQuestionParametrs, test_id, this.test_type);
 
                             var s = new summrizePage(this.m_afterQuestionParametrs, test_id, 0); // TODO edit 0 to test_id
                             s.Show();
@@ -646,10 +648,9 @@ namespace clientForQuestions2._0
                 return;
             }
             int test_id = TestHistoryFileHandler.get_next_test_id();
+            TestHistoryFileHandler.save_afterQuestionParametrs_to_test_history(m_afterQuestionParametrs, test_id, this.test_type);
 
-            TestHistoryFileHandler.save_afterQuestionParametrs_to_test_history(m_afterQuestionParametrs, test_id);
-
-            var s = new summrizePage(this.m_afterQuestionParametrs, test_id, 0); // TODO edit 0 to test_id
+            var s = new summrizePage(this.m_afterQuestionParametrs, test_id, 0);
             s.Show();
             this.Close();
         }
@@ -813,7 +814,7 @@ namespace clientForQuestions2._0
 
                 int test_id = TestHistoryFileHandler.get_next_test_id();
 
-                TestHistoryFileHandler.save_afterQuestionParametrs_to_test_history(m_afterQuestionParametrs, test_id);
+                TestHistoryFileHandler.save_afterQuestionParametrs_to_test_history(m_afterQuestionParametrs, test_id, this.test_type);
 
                 var s = new summrizePage(this.m_afterQuestionParametrs, test_id, 0); // TODO edit 0 to test_id
                 s.Show();

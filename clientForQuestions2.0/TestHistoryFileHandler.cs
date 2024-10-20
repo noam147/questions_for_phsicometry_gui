@@ -24,10 +24,14 @@ namespace clientForQuestions2._0
         public string date;
         public string type;
         public int id;
+        public bool isMarked;
     }
 
     internal class TestHistoryFileHandler
     {
+        public static string MARKED_TRUE = "★";
+        public static string MARKED_FALSE = "☆"; //✰
+
         static string file_path = AppDomain.CurrentDomain.BaseDirectory + "test_history_file.db";
         public static string connectionString = $"Data Source={file_path};Version=3;";
         public static int WITHOUT_SETTING = -1;
@@ -52,11 +56,13 @@ namespace clientForQuestions2._0
                     CREATE TABLE IF NOT EXISTS TestsHistoryData (
                         TestId INT,
                         TestType TEXT,
+                        TestIsMarked BOOLEAN,
                         Date TEXT,
                         QuestionId INT,
                         IndexOfQuestion INT,
                         UserAnswer INT,
                         TimeForQuestion INT,
+                        QuestionIsMarked BOOLEAN,
                         QuestionLesson TEXT
                     )";
 
@@ -110,13 +116,13 @@ namespace clientForQuestions2._0
 
             return highestTestId + 1;
         }
-        public static void save_afterQuestionParametrs_to_test_history(List<afterQuestionParametrs> m_afterQuestionParametrs, int test_id)
+        public static void save_afterQuestionParametrs_to_test_history(List<afterQuestionParametrs> m_afterQuestionParametrs, int test_id, string test_type)
         {
             
             // SQL query to insert values into the table
             string insertValuesQuery = @"
-                        INSERT INTO TestsHistoryData (TestId, TestType, Date, QuestionId, IndexOfQuestion, UserAnswer, TimeForQuestion, QuestionLesson) 
-                        VALUES (@TestId, @TestType, @Date, @QuestionId, @IndexOfQuestion, @UserAnswer, @TimeForQuestion, @QuestionLesson)";
+                        INSERT INTO TestsHistoryData (TestId, TestType, TestIsMarked, Date, QuestionId, IndexOfQuestion, UserAnswer, TimeForQuestion,QuestionIsMarked, QuestionLesson) 
+                        VALUES (@TestId, @TestType, @TestIsMarked, @Date, @QuestionId,  @IndexOfQuestion, @UserAnswer, @TimeForQuestion, @QuestionIsMarked, @QuestionLesson)";
 
 
             foreach (afterQuestionParametrs paramers in m_afterQuestionParametrs)
@@ -129,17 +135,19 @@ namespace clientForQuestions2._0
                     using (SQLiteCommand insertCommand = new SQLiteCommand(insertValuesQuery, connection))
                     {
                         // Define the parameters for the query
-                        insertCommand.Parameters.AddWithValue("@TestId", test_id); // TODO
-                        insertCommand.Parameters.AddWithValue("@TestType", "test_type"); // TODO
-                        insertCommand.Parameters.AddWithValue("@Date", DateTime.Now.ToString()); //TODO
+                        insertCommand.Parameters.AddWithValue("@TestId", test_id);
+                        insertCommand.Parameters.AddWithValue("@TestType", test_type); // TODO
+                        insertCommand.Parameters.AddWithValue("@TestIsMarked", false);
+                        insertCommand.Parameters.AddWithValue("@Date", DateTime.Now.ToString());
                         insertCommand.Parameters.AddWithValue("@QuestionId", paramers.question.questionId);
                         insertCommand.Parameters.AddWithValue("@IndexOfQuestion", paramers.indexOfQuestion);
                         insertCommand.Parameters.AddWithValue("@UserAnswer", paramers.userAnswer);
                         insertCommand.Parameters.AddWithValue("@TimeForQuestion", paramers.timeForAnswer);
+                        insertCommand.Parameters.AddWithValue("@QuestionIsMarked", false);
                         if (paramers.lesson == null)
-                            insertCommand.Parameters.AddWithValue("@QuestionLesson", ""); // TODO
+                            insertCommand.Parameters.AddWithValue("@QuestionLesson", "");
                         else
-                            insertCommand.Parameters.AddWithValue("@QuestionLesson", paramers.lesson); // TODO
+                            insertCommand.Parameters.AddWithValue("@QuestionLesson", paramers.lesson);
 
                         // Execute the insert command
                         insertCommand.ExecuteNonQuery();
@@ -214,6 +222,7 @@ namespace clientForQuestions2._0
                     m_afterQuestionParameter.timeForAnswer = (int)row["TimeForQuestion"];
                     m_afterQuestionParameter.indexOfQuestion = (int)row["IndexOfQuestion"];
                     m_afterQuestionParameter.lesson = (string)row["QuestionLesson"];
+                    m_afterQuestionParameter.isMarked = (bool)row["QuestionIsMarked"];
 
                     m_afterQuestionParameters.Add(m_afterQuestionParameter);
 
@@ -223,8 +232,8 @@ namespace clientForQuestions2._0
                 test.m_afterQuestionParametrs = m_afterQuestionParameters;
                 test.date = (string)group.Value[0]["Date"];
                 test.type = (string)group.Value[0]["TestType"];
-                test.id = (int)group.Key;
-
+                test.id = (int)group.Value[0]["TestId"];
+                test.isMarked = (bool)group.Value[0]["TestIsMarked"];
 
                 testHistory.Add(test);
 
@@ -400,14 +409,106 @@ namespace clientForQuestions2._0
             }        
         }
 
-        public static DataTable get_lessons_from_history()
+        public static bool get_test_isMarked(int test_id)
+        {
+            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+            {
+                connection.Open();
+                LogFileHandler.writeIntoFile("Database connection opened.");
+
+                // SQL command to update the TestLesson
+                string selectQuery = @"
+                SELECT TestIsMarked
+                FROM TestsHistoryData 
+                WHERE TestId = " + $"{test_id}";
+
+                using (SQLiteCommand command = new SQLiteCommand(selectQuery, connection))
+                {
+                    using (SQLiteDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            return (bool)reader["TestIsMarked"];
+                        }
+                    }
+                }
+            }
+            return false;
+        }
+
+        public static bool get_question_isMarked(int test_id, int q_index)
+        {
+            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+            {
+                connection.Open();
+                LogFileHandler.writeIntoFile("Database connection opened.");
+
+                // SQL command to update the TestLesson
+                string selectQuery = @"
+                SELECT QuestionIsMarked
+                FROM TestsHistoryData 
+                WHERE TestId = " + $"{test_id} AND IndexOfQuestion = {q_index};";
+
+                using (SQLiteCommand command = new SQLiteCommand(selectQuery, connection))
+                {
+                    using (SQLiteDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            return (bool)reader["QuestionIsMarked"];
+                        }
+                    }
+                }
+            }
+            return false;
+        }
+
+        public static void set_test_isMarked(bool isMarked, int test_id)
+        {
+            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+            {
+                connection.Open();
+                LogFileHandler.writeIntoFile("Database connection opened.");
+
+                // SQL command to update the TestLesson
+                string updateQuery = $"UPDATE TestsHistoryData " +
+                $"SET TestIsMarked = {isMarked} " +
+                $"WHERE TestId = {test_id};";
+
+                using (SQLiteCommand command = new SQLiteCommand(updateQuery, connection))
+                {
+                    command.ExecuteScalar();
+                }
+            }
+        }
+
+        public static void set_question_isMarked(bool isMarked, int test_id, int q_index)
+        {
+            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+            {
+                connection.Open();
+                LogFileHandler.writeIntoFile("Database connection opened.");
+
+                // SQL command to update the TestLesson
+                string updateQuery = $"UPDATE TestsHistoryData " +
+                $"SET QuestionIsMarked = {isMarked} " +
+                $"WHERE TestId = {test_id} AND IndexOfQuestion = {q_index};";
+
+                using (SQLiteCommand command = new SQLiteCommand(updateQuery, connection))
+                {
+                    command.ExecuteScalar();
+                }
+            }
+        }
+
+        public static DataTable get_lessons_from_history_for_DataGridView()
         {
             DataTable table = new DataTable();
 
             using (SQLiteConnection connection = new SQLiteConnection(TestHistoryFileHandler.connectionString))
             {
                 connection.Open();
-                string query = @"SELECT QuestionLesson,TestId,Date,QuestionId,IndexOfQuestion
+                string query = @"SELECT QuestionIsMarked,QuestionLesson,TestId,Date,QuestionId,IndexOfQuestion
                     FROM TestsHistoryData
                     WHERE QuestionLesson <> ''
                     ORDER BY TestId DESC, IndexOfQuestion DESC;"; // Replace 'YourTable' with your actual table name
@@ -419,7 +520,98 @@ namespace clientForQuestions2._0
             table.Columns["Date"].ColumnName = "תאריך";
             table.Columns["QuestionId"].ColumnName = "מס' מזהה שאלה";
             table.Columns["QuestionLesson"].ColumnName = "לקח";
-            
+            table.Columns["QuestionIsMarked"].ColumnName = "מועדפים";
+
+            //// convert data_type of 'מועדפים' from bool to string
+            // Get the old column
+            DataColumn oldColumn = table.Columns["מועדפים"];
+            // Create a new column with the same name but with a DataType of string
+            DataColumn newColumn = new DataColumn("מועדפים2", typeof(string));
+            // Add the new column to the DataTable (placing it right after the old column for clarity)
+            int oldColumnIndex = oldColumn.Ordinal;
+            table.Columns.Add(newColumn);
+            newColumn.SetOrdinal(oldColumnIndex);
+            // Copy the data from the old column to the new column (as strings)
+            foreach (DataRow row in table.Rows)
+                if (row[oldColumn] != DBNull.Value)
+                    row[newColumn] = row[oldColumn].ToString();
+            // Remove the old column
+            table.Columns.Remove(oldColumn);
+            table.Columns["מועדפים2"].ColumnName = "מועדפים";
+
+            return table;
+        }
+
+        public static DataTable get_history_for_DataGridView()
+        {
+            DataTable table = new DataTable();
+
+            using (SQLiteConnection connection = new SQLiteConnection(TestHistoryFileHandler.connectionString))
+            {
+                connection.Open();
+                string query = @"SELECT TestIsMarked,TestId,TestType,Date
+                    FROM TestsHistoryData
+                    WHERE IndexOfQuestion = 0
+                    ORDER BY TestId DESC;"; // Replace 'YourTable' with your actual table name
+                SQLiteDataAdapter dataAdapter = new SQLiteDataAdapter(query, connection);
+
+                dataAdapter.Fill(table);
+            }
+
+            table.Columns["TestId"].ColumnName = "מס' תרגול";
+            table.Columns["Date"].ColumnName = "תאריך";
+            table.Columns["TestType"].ColumnName = "סוג תרגול";
+            table.Columns["TestIsMarked"].ColumnName = "מועדפים";
+
+            //// convert data_type of 'שאלות מועדפות' from bool to string
+            // Get the old column
+            DataColumn oldColumn = table.Columns["מועדפים"];
+            // Create a new column with the same name but with a DataType of string
+            DataColumn newColumn = new DataColumn("מועדפים2", typeof(string));
+            // Add the new column to the DataTable (placing it right after the old column for clarity)
+            int oldColumnIndex = oldColumn.Ordinal;
+            table.Columns.Add(newColumn);
+            newColumn.SetOrdinal(oldColumnIndex);
+            // Copy the data from the old column to the new column (as strings)
+            foreach (DataRow row in table.Rows)
+                if (row[oldColumn] != DBNull.Value)
+                    row[newColumn] = row[oldColumn].ToString();
+            // Remove the old column
+            table.Columns.Remove(oldColumn);
+            table.Columns["מועדפים2"].ColumnName = "מועדפים";
+
+
+            //STATS//
+            table.Columns.Add("שאלות/תשובות נכונות", typeof(string));
+            table.Columns.Add("זמן התרגול", typeof(string));
+            table.Columns.Add("הורדה", typeof(string));
+            foreach (DataRow row in table.Rows)
+            {
+                int test_id = Int32.Parse(row["מס' תרגול"].ToString());
+
+                List<afterQuestionParametrs> questions = TestHistoryFileHandler.get_afterQuestionParametrs_of_test(test_id);
+                int count_questions = questions.Count;
+                int count_right_answers = 0;
+                int sum_time = 0;
+
+                foreach (afterQuestionParametrs qp in questions)
+                {
+                    sum_time += qp.timeForAnswer;
+                    if (qp.userAnswer == -1 || qp.userAnswer == OperationsAndOtherUseful.SKIPPED_Q)
+                        continue;
+                    if (((JArray)qp.question.json_content["options"]).Count != 0)
+                        if ((int)qp.question.json_content["options"][qp.userAnswer - 1]["is_correct"] == 1)
+                            count_right_answers++;
+                        else
+                        if (((JArray)qp.question.json_content["option_images"]).Count != 0)
+                            if ((int)qp.question.json_content["option_images"][qp.userAnswer - 1]["is_correct"] == 1)
+                                count_right_answers++;
+                }
+                row["שאלות/תשובות נכונות"] = $"{count_right_answers}/{count_questions}";
+                row["זמן התרגול"] = OperationsAndOtherUseful.get_time_mmss_fromseconds(sum_time);
+                row["הורדה"] = "🡇";
+            }
+
             return table;
         }
     }

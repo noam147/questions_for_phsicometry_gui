@@ -20,8 +20,8 @@ namespace clientForQuestions2._0
         {
             InitializeComponent();
         }
-        public WithoutFeedbackQuestions(int amount, List<string> listOfTopics, int timePerQ, questionsDifficultyLevel difficultyLevel)
-           : base(amount, listOfTopics, true, timePerQ != OperationsAndOtherUseful.WITHOUT_TIMER ? timePerQ * amount : OperationsAndOtherUseful.WITHOUT_TIMER, difficultyLevel)
+        public WithoutFeedbackQuestions(int amount, List<string> listOfTopics, int timePerQ, questionsDifficultyLevel difficultyLevel, string test_type)
+           : base(amount, listOfTopics, true, timePerQ != OperationsAndOtherUseful.WITHOUT_TIMER ? timePerQ * amount : OperationsAndOtherUseful.WITHOUT_TIMER, difficultyLevel, test_type)
         {
 
         }

@@ -192,8 +192,8 @@ namespace clientForQuestions2._0
                     html_end += currentQuestion_end;
                 }
 
-                html += $"<br><br></div>";
-                html_end += $"<br><br></div>";
+                html += "<br><br></div>";
+                html_end += "<br><br></div>";
 
                 prev_col_id = curr_col_id;
             }

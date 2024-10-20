@@ -12,6 +12,7 @@ namespace clientForQuestions2._0
         public int timeForAnswer;
         public int indexOfQuestion;
         public string lesson;
+        public bool isMarked;
     }
     public struct dbQuestionParmeters
     {
