@@ -54,6 +54,11 @@ namespace clientForQuestions2._0
             this.answer3Button.Enabled = false;
             this.answer4Button.Enabled = false;
 
+            this.stopTestButton.Enabled = false;
+
+            this.nextQuestionsButton.Visible = false;
+            this.previousQuestionsButton.Visible = false;
+
             this.WindowState = FormWindowState.Maximized;
             //this.FormBorderStyle = FormBorderStyle.None;
             this.StartPosition = FormStartPosition.CenterScreen;
@@ -201,7 +206,8 @@ namespace clientForQuestions2._0
                     Width = this.Q_BUTTON_SIZE,
                     Height = this.Q_BUTTON_SIZE,
                     Location = new System.Drawing.Point(140 +( i % 10 )* 45, this.Q_BUTTON_SIZE), // Adjust spacing
-                    Enabled = true,
+                    Enabled = false,
+                    Visible = false,
                     Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold) // make the text BOLD
                 };
                 //at start user didnt answer anything
@@ -253,7 +259,7 @@ namespace clientForQuestions2._0
             unvisibleButtonsFromButtonList();
 
             // hide the nextQuestionsButton if there are no next questions
-            if (endIndex >= m_buttonList.Count - 1)
+            if (endIndex >= m_buttonList.Count)
             {
                 nextQuestionsButton.Visible = false;
                 endIndex = m_buttonList.Count;
@@ -321,10 +327,16 @@ namespace clientForQuestions2._0
         private void updateAtStartCol(List<int> q_ids)
         {
             //wait until webview is init
-            this.answer1Button.Enabled = false;
-            this.answer2Button.Enabled = false;
-            this.answer3Button.Enabled = false;
-            this.answer4Button.Enabled = false;
+            this.answer1Button.Enabled = true;
+            this.answer2Button.Enabled = true;
+            this.answer3Button.Enabled = true;
+            this.answer4Button.Enabled = true;
+
+            this.stopTestButton.Enabled = true;
+
+            this.nextQuestionsButton.Visible = true;
+            this.previousQuestionsButton.Visible = true;
+
             m_questionDetails = new List<dbQuestionParmeters>();
             foreach (int id in q_ids)
             {
@@ -409,6 +421,7 @@ namespace clientForQuestions2._0
             this.answer2Button.Enabled = true;
             this.answer3Button.Enabled = true;
             this.answer4Button.Enabled = true;
+            this.stopTestButton.Enabled = true;
 
             for (int i = 0; i < m_buttonList.Count; i++)
                 m_buttonList[i].Enabled = true;
