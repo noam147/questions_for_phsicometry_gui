@@ -356,12 +356,32 @@ namespace clientForQuestions2._0
             else
                 test_type = "תרגול רגיל";
 
+            bool with_already_answered_qs = with_already_answered_qs_checkBox.Checked;
+
+            List<dbQuestionParmeters> questions = new List<dbQuestionParmeters>();
+            if (with_already_answered_qs)
+                questions = sqlDb.get_n_questions_from_arr_of_categorysWithDiffcultyLevel(amount, this.topicsList, difficultyLevels);
+
+            else
+                questions = sqlDb.get_n_questions_from_arr_of_categorysWithDiffcultyLevel_Without_arr_of_q_ids(amount, this.topicsList, difficultyLevels, TestHistoryFileHandler.get_list_of_all_q_ids_in_history());
+            
+            // no questions
+            if (questions.Count == 0)
+            {
+                if (with_already_answered_qs)
+                    MessageBox.Show("לא ניתן לפתוח תרגול, אין שאלות");
+                else
+                    MessageBox.Show("לא ניתן לפתוח תרגול, אין שאלות בנושאים אלה שעוד לא עשית");
+
+                return;
+            }
+
             LogFileHandler.writeIntoFile("Opened new questions page");
 
             questionsPage c;
             //get the questions here
 
-            c = new questionsPage(amount, this.topicsList, this.skipFeedBackCheckBox.Checked, timeUntilTimeReset, difficultyLevels, with_already_answered_qs_checkBox.Checked, test_type); // CHANGE!!!!!42
+            c = new questionsPage(questions, this.skipFeedBackCheckBox.Checked, timeUntilTimeReset, test_type); // CHANGE!!!!!42
             updateSettingsForNextMenu();
             c.Show();
             this.Close();

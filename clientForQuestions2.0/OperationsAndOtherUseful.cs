@@ -526,7 +526,7 @@ namespace clientForQuestions2._0
         }
         public static string get_string_of_question_and_explanation(dbQuestionParmeters qp, int clientanswer)
         {
-            string line = "<div style=\"top: 50%; left: 0; width: 100vw; height: 1px; background-color: lightgray;\"></div>\r\n<br>הסבר:";
+            string line = "<div style=\"top: 50%; left: 0; width: 100vw; height: 1px; background-color: lightgray;\"></div>\r\n<br><p style=\"font-size: 18px; font-weight: bold; direction: rtl; text-decoration: underline;\">הסבר:<p>";
 
             return get_string_of_question_and_option_from_json(qp, clientanswer) + right2left(line) + get_explanation(qp);
         }

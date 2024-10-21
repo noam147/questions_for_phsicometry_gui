@@ -36,8 +36,6 @@ namespace clientForQuestions2._0
 
         private int secondsTookForCurrq = 0;
         private int timeElapsed = 0; // to get the time per question when isUserDoNotGetFeedBack == true
-        //private System.Timers.Timer m_aTimer;
-        private questionsDifficultyLevel m_aDifficultyLevels;
 
         private List<Button> m_buttonList = new List<Button>();
         private int m_currentIndexOfFirstButton = 0;
@@ -71,8 +69,9 @@ namespace clientForQuestions2._0
         }
 
         // normal questions
-        public questionsPage(int amount, List<string> listOfTopics, bool isQSkip, int timePerQ, questionsDifficultyLevel difficultyLevel, bool withAnsweredQs, string test_type)
+        public questionsPage(List<dbQuestionParmeters> questions, bool isQSkip, int timePerQ, string test_type)
         {
+            this.m_questionDetails = questions;
             this.test_type = test_type;
             isWithCol = false;
             this.isUserDoNotGetFeedBack = isQSkip;
@@ -80,7 +79,6 @@ namespace clientForQuestions2._0
             if (!isUserDoNotGetFeedBack)
                 h_buttonsQuestionsPlace = OperationsAndOtherUseful.MARGIN_OF_HEIGHT; // this is here and not later in the function to set height_screen in atStart()
 
-            m_aDifficultyLevels = difficultyLevel;
             atStart();
 
             if (!isUserDoNotGetFeedBack)
@@ -93,7 +91,7 @@ namespace clientForQuestions2._0
             this.timePerQ = timePerQ;
                 
             //when normal exrecize
-            updateAtStartOfNormalExrecize(amount, listOfTopics, withAnsweredQs);
+            updateAtStartOfNormalExrecize();
 
             if (this.isUserDoNotGetFeedBack)
                 this.timePerQ = timePerQ * m_questionDetails.Count;
@@ -303,13 +301,9 @@ namespace clientForQuestions2._0
             LogFileHandler.writeIntoFile("Questions id are: " + s);
         }
 
-        private void updateAtStartOfNormalExrecize(int amount, List<string> listOfTopics, bool withAnsweredQs)
+        private void updateAtStartOfNormalExrecize()
         {
             //wait until webview is init
-            if (withAnsweredQs)
-                m_questionDetails = sqlDb.get_n_questions_from_arr_of_categorysWithDiffcultyLevel(amount, listOfTopics, m_aDifficultyLevels);
-            else
-                m_questionDetails = sqlDb.get_n_questions_from_arr_of_categorysWithDiffcultyLevel_Without_arr_of_q_ids(amount, listOfTopics, m_aDifficultyLevels, TestHistoryFileHandler.get_list_of_all_q_ids_in_history());
             writeQuestionToLogFile();
             m_maxQuestions = m_questionDetails.Count;//if amount is bigger that questions avelible
             writeQuestionToLogFile();

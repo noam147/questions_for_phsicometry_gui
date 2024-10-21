@@ -138,8 +138,7 @@ namespace clientForQuestions2._0
         {
             //isnum: i have no idea
             //expel: i have no idea
-            string html = "";
-             html = @"
+            string html = @"
 <style>
     .question-container { page-break-inside: avoid; }
     h1 { font-size: 14px; } /* Reducing the font size for all h1 elements */
@@ -163,7 +162,7 @@ namespace clientForQuestions2._0
                 
                 if (curr_col_id != 0 && curr_col_id != prev_col_id)
                 {
-                    html += OperationsAndOtherUseful.get_string_of_img_col_html(a.json_content);
+                    html += OperationsAndOtherUseful.get_string_of_img_col_html(a.json_content) + $"<div class='question-container'>"; 
                     //html += "<div style=\"top: 50%; left: 0; width: 100vw; height: 3px; background-color: lightgray;\"></div>";
                 }
                 string currentQuestion = "";
