@@ -59,8 +59,10 @@ namespace clientForQuestions2._0
                 emptyLessons_label.Visible = false;
             }
             lessons_dataGridView.Columns["מועדפים"].DefaultCellStyle.Font = new Font("Arial", 35, FontStyle.Regular);  // Font settings
-            lessons_dataGridView.Columns["מועדפים"].DefaultCellStyle.ForeColor = Color.Yellow;                        // Text color (foreground)
+            lessons_dataGridView.Columns["מועדפים"].DefaultCellStyle.ForeColor = Color.Yellow;                         // Text color (foreground)
+            lessons_dataGridView.Columns["מועדפים"].DefaultCellStyle.BackColor = Color.Black;                          // Text color (background)
             lessons_dataGridView.Columns["מועדפים"].DefaultCellStyle.SelectionForeColor = Color.Yellow;
+            lessons_dataGridView.Columns["מועדפים"].DefaultCellStyle.SelectionBackColor = Color.Black;
             foreach (DataGridViewRow row in lessons_dataGridView.Rows)
             {
                 // Check if the column exists in the DataTable

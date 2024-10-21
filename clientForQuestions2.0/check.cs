@@ -13,13 +13,106 @@ namespace clientForQuestions2._0
 {
     public partial class check : menuPage
     {
+        private List<CustomData> customDataList;
+        private ContextMenuStrip sortContextMenu; // Context menu for sorting
+        private bool isSortAscending = true;
+
+        public class CustomData
+        {
+            public int Numerator { get; set; }
+            public int Denominator { get; set; }
+
+            public int Percentage => (Denominator == 0) ? 0 : (Numerator * 100) / Denominator;
+
+            public string DisplayValue => $"{Percentage}% {Numerator}/{Denominator}";
+        }
+
         WebView2 webView21;
+        
+
         public check()
         {
-
             InitializeComponent();
-            InitializeWebView21();
+            LoadData();
+            SetupDataGridView();
+            SetupContextMenu();
+        }
 
+        private void LoadData()
+        {
+            customDataList = new List<CustomData>
+        {
+            new CustomData { Numerator = 20, Denominator = 100 },
+            new CustomData { Numerator = 15, Denominator = 50 },
+            new CustomData { Numerator = 5, Denominator = 0 },
+            new CustomData { Numerator = 30, Denominator = 75 }
+        };
+        }
+
+        private void SetupDataGridView()
+        {
+            dataGridView1.AutoGenerateColumns = false;
+            dataGridView1.AutoSize = true;
+            dataGridView1.Location = new Point(0, 0);
+
+            // Create a single column for displaying the custom value
+            var displayColumn = new DataGridViewTextBoxColumn
+            {
+                HeaderText = "Value",
+                DataPropertyName = "DisplayValue", // Bind to the DisplayValue property
+                Width = 150
+            };
+            dataGridView1.Columns.Add(displayColumn);
+
+            // Bind data
+            dataGridView1.DataSource = customDataList;
+
+            // Handle column header click for sorting
+            dataGridView1.ColumnHeaderMouseClick += dataGridView1_ColumnHeaderMouseClick;
+        }
+
+        private void SetupContextMenu()
+        {
+            sortContextMenu = new ContextMenuStrip();
+
+            // Add sorting options to the context menu
+            sortContextMenu.Items.Add("Sort by Numerator", null, SortByNumerator);
+            sortContextMenu.Items.Add("Sort by Denominator", null, SortByDenominator);
+            sortContextMenu.Items.Add("Sort by Percentage", null, SortByPercentage);
+        }
+
+        private void dataGridView1_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (e.ColumnIndex == 0) // Assuming the custom display column is at index 0
+            {
+                // Show context menu at the cursor's position
+                sortContextMenu.Show(Cursor.Position);
+            }
+        }
+
+        private void SortByNumerator(object sender, EventArgs e)
+        {
+            customDataList = customDataList.OrderBy(data => data.Numerator).ToList();
+            RefreshDataGridView();
+        }
+
+        private void SortByDenominator(object sender, EventArgs e)
+        {
+            customDataList = customDataList.OrderBy(data => data.Denominator).ToList();
+            RefreshDataGridView();
+        }
+
+        private void SortByPercentage(object sender, EventArgs e)
+        {
+            customDataList = customDataList.OrderBy(data => data.Percentage).ToList();
+            RefreshDataGridView();
+        }
+
+        private void RefreshDataGridView()
+        {
+            // Refresh the DataGridView to reflect the sorted list
+            dataGridView1.DataSource = null;
+            dataGridView1.DataSource = customDataList;
         }
 
 

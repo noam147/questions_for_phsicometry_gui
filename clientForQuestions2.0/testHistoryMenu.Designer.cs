@@ -63,7 +63,6 @@
             this.emptyHistory_label.TabIndex = 15;
             this.emptyHistory_label.Text = "היסטורית התרגולים ריקה";
             this.emptyHistory_label.Visible = false;
-            this.emptyHistory_label.Click += new System.EventHandler(this.emptyHistory_label_Click);
             // 
             // resetHistory_button
             // 
