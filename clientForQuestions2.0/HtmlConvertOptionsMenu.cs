@@ -19,7 +19,9 @@ namespace clientForQuestions2._0
         private bool autoDownload = false;
         private List<dbQuestionParmeters> questions;
         private string finalHtmlContentForFile = "";
-        private string htmlContentOfAnswers = "<body dir=\"rtl\">";
+        private string htmlContentOfAnswers = "<head> <style>body { font-weight: normal !important; }</style></head><body dir=\"rtl\">";
+
+        private List<int> listOfPreviousQuestionsId = new List<int>();
         public HtmlConvertOptionsMenu(int test_id)
         {
             questions = new List<dbQuestionParmeters>();
@@ -32,8 +34,29 @@ namespace clientForQuestions2._0
 
         public HtmlConvertOptionsMenu()
         {
-            var questions = OperationsAndOtherUseful.getMultipleExrecisesOfMath_without_graph(5);
-            action_when_get_list_of_chapters(questions);
+            string finalSimulation = "";
+            string currentChapter = "";
+            InitializeComponent();
+            this.questions = new List<dbQuestionParmeters>();
+            explanation_comboBox.SelectedIndex = 0;
+            string newPage = "<div style='page-break-after: always;'></div>";
+            for (int i =0; i < 5;i++)
+            {
+                var multipleChaptersQuestions = OperationsAndOtherUseful.sendChapter_math_Questions_without_graph(this.listOfPreviousQuestionsId);
+                foreach(var question in multipleChaptersQuestions)
+                {
+                    this.questions.Add(question);
+                    this.listOfPreviousQuestionsId.Add(question.questionId);
+                }
+                this.htmlContentOfAnswers += "<br><br>" + "כמותי " + (i+1)+":\n";//add lines to separate diffrentchapters
+                currentChapter = get_html(true);
+                questions.Clear();
+                finalSimulation += $"<h4>test number {i + 1}</h4>";
+                finalSimulation += currentChapter + newPage;
+            }
+            finalHtmlContentForFile = finalSimulation;
+            filePath_button_Click(null, null);
+
         }
 
         public HtmlConvertOptionsMenu(List<dbQuestionParmeters> questions, bool autoDownload)
@@ -69,6 +92,7 @@ namespace clientForQuestions2._0
                 string generalCategory = getGeneralCategory(currentCategory);
                 this.htmlContentOfAnswers += "<br><br>" + generalCategory + ":\n";//add lines to separate diffrentchapters
                 currentChapter = get_html(true);
+                
                 finalSimulation += currentChapter + newPage;
             }
             finalHtmlContentForFile = finalSimulation;
@@ -142,6 +166,7 @@ namespace clientForQuestions2._0
     .question-container { page-break-inside: avoid; }
     h1 { font-size: 14px; } /* Reducing the font size for all h1 elements */
     p { font-size: 12px; }  /* Reducing the font size for all paragraph elements */
+    mjx-mspace[linebreak=""newline""] { display: block; height: 0; }
 </style>";
             string html_end = html;
 

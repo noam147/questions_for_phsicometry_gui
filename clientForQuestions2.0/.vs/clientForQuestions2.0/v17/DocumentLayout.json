@@ -3,32 +3,36 @@
   "WorkspaceRootPath": "C:\\Users\\Magshimim\\questions_for_phsicometry_gui\\clientForQuestions2.0\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{37A48BAD-BE42-4C9C-B4B6-5D6F762697A9}|clientForQuestions2.0.csproj|C:\\Users\\Magshimim\\questions_for_phsicometry_gui\\clientForQuestions2.0\\operationsandotheruseful.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{37A48BAD-BE42-4C9C-B4B6-5D6F762697A9}|clientForQuestions2.0.csproj|solutionrelative:operationsandotheruseful.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{37A48BAD-BE42-4C9C-B4B6-5D6F762697A9}|clientForQuestions2.0.csproj|c:\\users\\magshimim\\questions_for_phsicometry_gui\\clientforquestions2.0\\htmlconvertoptionsmenu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{37A48BAD-BE42-4C9C-B4B6-5D6F762697A9}|clientForQuestions2.0.csproj|C:\\Users\\Magshimim\\questions_for_phsicometry_gui\\clientForQuestions2.0\\htmlconvertoptionsmenu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{37A48BAD-BE42-4C9C-B4B6-5D6F762697A9}|clientForQuestions2.0.csproj|solutionrelative:htmlconvertoptionsmenu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{37A48BAD-BE42-4C9C-B4B6-5D6F762697A9}|clientForQuestions2.0.csproj|C:\\Users\\Magshimim\\questions_for_phsicometry_gui\\clientForQuestions2.0\\htmltextextractor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{37A48BAD-BE42-4C9C-B4B6-5D6F762697A9}|clientForQuestions2.0.csproj|solutionrelative:htmltextextractor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{37A48BAD-BE42-4C9C-B4B6-5D6F762697A9}|clientForQuestions2.0.csproj|C:\\Users\\Magshimim\\questions_for_phsicometry_gui\\clientForQuestions2.0\\htmlconvertoptionsmenu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{37A48BAD-BE42-4C9C-B4B6-5D6F762697A9}|clientForQuestions2.0.csproj|solutionrelative:htmlconvertoptionsmenu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{37A48BAD-BE42-4C9C-B4B6-5D6F762697A9}|clientForQuestions2.0.csproj|C:\\Users\\Magshimim\\questions_for_phsicometry_gui\\clientForQuestions2.0\\chaptersquestionsmenu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{37A48BAD-BE42-4C9C-B4B6-5D6F762697A9}|clientForQuestions2.0.csproj|solutionrelative:chaptersquestionsmenu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{37A48BAD-BE42-4C9C-B4B6-5D6F762697A9}|clientForQuestions2.0.csproj|C:\\Users\\Magshimim\\questions_for_phsicometry_gui\\clientForQuestions2.0\\htmltextextractor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{37A48BAD-BE42-4C9C-B4B6-5D6F762697A9}|clientForQuestions2.0.csproj|solutionrelative:htmltextextractor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{37A48BAD-BE42-4C9C-B4B6-5D6F762697A9}|clientForQuestions2.0.csproj|c:\\users\\magshimim\\questions_for_phsicometry_gui\\clientforquestions2.0\\webtaker.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{37A48BAD-BE42-4C9C-B4B6-5D6F762697A9}|clientForQuestions2.0.csproj|solutionrelative:webtaker.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{37A48BAD-BE42-4C9C-B4B6-5D6F762697A9}|clientForQuestions2.0.csproj|C:\\Users\\Magshimim\\questions_for_phsicometry_gui\\clientForQuestions2.0\\chaptersquestionsmenu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{37A48BAD-BE42-4C9C-B4B6-5D6F762697A9}|clientForQuestions2.0.csproj|solutionrelative:chaptersquestionsmenu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{37A48BAD-BE42-4C9C-B4B6-5D6F762697A9}|clientForQuestions2.0.csproj|C:\\Users\\Magshimim\\questions_for_phsicometry_gui\\clientForQuestions2.0\\testhistorymenu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{37A48BAD-BE42-4C9C-B4B6-5D6F762697A9}|clientForQuestions2.0.csproj|solutionrelative:testhistorymenu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{37A48BAD-BE42-4C9C-B4B6-5D6F762697A9}|clientForQuestions2.0.csproj|c:\\users\\magshimim\\questions_for_phsicometry_gui\\clientforquestions2.0\\questionspage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{37A48BAD-BE42-4C9C-B4B6-5D6F762697A9}|clientForQuestions2.0.csproj|solutionrelative:questionspage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{37A48BAD-BE42-4C9C-B4B6-5D6F762697A9}|clientForQuestions2.0.csproj|c:\\users\\magshimim\\questions_for_phsicometry_gui\\clientforquestions2.0\\operationsandotheruseful.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{37A48BAD-BE42-4C9C-B4B6-5D6F762697A9}|clientForQuestions2.0.csproj|solutionrelative:operationsandotheruseful.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{37A48BAD-BE42-4C9C-B4B6-5D6F762697A9}|clientForQuestions2.0.csproj|c:\\users\\magshimim\\questions_for_phsicometry_gui\\clientforquestions2.0\\questionspage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{37A48BAD-BE42-4C9C-B4B6-5D6F762697A9}|clientForQuestions2.0.csproj|solutionrelative:questionspage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
       "AbsoluteMoniker": "D:0:0:{37A48BAD-BE42-4C9C-B4B6-5D6F762697A9}|clientForQuestions2.0.csproj|C:\\Users\\Magshimim\\questions_for_phsicometry_gui\\clientForQuestions2.0\\questionstopdf.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -37,6 +41,18 @@
     {
       "AbsoluteMoniker": "D:0:0:{37A48BAD-BE42-4C9C-B4B6-5D6F762697A9}|clientForQuestions2.0.csproj|C:\\Users\\Magshimim\\questions_for_phsicometry_gui\\clientForQuestions2.0\\settingsfilehandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{37A48BAD-BE42-4C9C-B4B6-5D6F762697A9}|clientForQuestions2.0.csproj|solutionrelative:settingsfilehandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{37A48BAD-BE42-4C9C-B4B6-5D6F762697A9}|clientForQuestions2.0.csproj|C:\\Users\\Magshimim\\questions_for_phsicometry_gui\\clientForQuestions2.0\\chaptersquestionsmenu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{37A48BAD-BE42-4C9C-B4B6-5D6F762697A9}|clientForQuestions2.0.csproj|solutionrelative:chaptersquestionsmenu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{37A48BAD-BE42-4C9C-B4B6-5D6F762697A9}|clientForQuestions2.0.csproj|C:\\Users\\Magshimim\\questions_for_phsicometry_gui\\clientForQuestions2.0\\sqldb.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{37A48BAD-BE42-4C9C-B4B6-5D6F762697A9}|clientForQuestions2.0.csproj|solutionrelative:sqldb.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{37A48BAD-BE42-4C9C-B4B6-5D6F762697A9}|clientForQuestions2.0.csproj|C:\\Users\\Magshimim\\questions_for_phsicometry_gui\\clientForQuestions2.0\\testhistorymenu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{37A48BAD-BE42-4C9C-B4B6-5D6F762697A9}|clientForQuestions2.0.csproj|solutionrelative:testhistorymenu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{37A48BAD-BE42-4C9C-B4B6-5D6F762697A9}|clientForQuestions2.0.csproj|C:\\Users\\Magshimim\\questions_for_phsicometry_gui\\clientForQuestions2.0\\testhistorymenu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
@@ -54,7 +70,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 10,
           "Children": [
             {
               "$type": "Bookmark",
@@ -62,13 +78,64 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 5,
+              "Title": "questionsPage.cs",
+              "DocumentMoniker": "C:\\Users\\Magshimim\\questions_for_phsicometry_gui\\clientForQuestions2.0\\questionsPage.cs",
+              "RelativeDocumentMoniker": "questionsPage.cs",
+              "ToolTip": "C:\\Users\\Magshimim\\questions_for_phsicometry_gui\\clientForQuestions2.0\\questionsPage.cs",
+              "RelativeToolTip": "questionsPage.cs",
+              "ViewState": "AQIAAD0DAAAAAAAAAAAqwK8DAABrAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-20T18:24:46.588Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "questionsPage.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\Magshimim\\questions_for_phsicometry_gui\\clientForQuestions2.0\\questionsPage.cs",
+              "RelativeDocumentMoniker": "questionsPage.cs",
+              "ToolTip": "C:\\Users\\Magshimim\\questions_for_phsicometry_gui\\clientForQuestions2.0\\questionsPage.cs [Design]",
+              "RelativeToolTip": "questionsPage.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-20T18:24:45.558Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "webTaker.cs",
+              "DocumentMoniker": "C:\\Users\\Magshimim\\questions_for_phsicometry_gui\\clientForQuestions2.0\\webTaker.cs",
+              "RelativeDocumentMoniker": "webTaker.cs",
+              "ToolTip": "C:\\Users\\Magshimim\\questions_for_phsicometry_gui\\clientForQuestions2.0\\webTaker.cs",
+              "RelativeToolTip": "webTaker.cs",
+              "ViewState": "AQIAAFAAAAAAAAAAAAAgwGUAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-20T17:57:22.855Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "sqlDb.cs",
+              "DocumentMoniker": "C:\\Users\\Magshimim\\questions_for_phsicometry_gui\\clientForQuestions2.0\\sqlDb.cs",
+              "RelativeDocumentMoniker": "sqlDb.cs",
+              "ToolTip": "C:\\Users\\Magshimim\\questions_for_phsicometry_gui\\clientForQuestions2.0\\sqlDb.cs",
+              "RelativeToolTip": "sqlDb.cs",
+              "ViewState": "AQIAAI0AAAAAAAAAAAAhwJsAAAB8AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-20T17:15:51.994Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
               "Title": "OperationsAndOtherUseful.cs",
               "DocumentMoniker": "C:\\Users\\Magshimim\\questions_for_phsicometry_gui\\clientForQuestions2.0\\OperationsAndOtherUseful.cs",
               "RelativeDocumentMoniker": "OperationsAndOtherUseful.cs",
               "ToolTip": "C:\\Users\\Magshimim\\questions_for_phsicometry_gui\\clientForQuestions2.0\\OperationsAndOtherUseful.cs",
               "RelativeToolTip": "OperationsAndOtherUseful.cs",
-              "ViewState": "AQIAAG0CAAAAAAAAAAAgwIYCAABRAAAA",
+              "ViewState": "AQIAACwDAAAAAAAAAAAAAFYCAAANAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-20T10:24:50.403Z",
               "EditorCaption": ""
@@ -81,14 +148,14 @@
               "RelativeDocumentMoniker": "HtmlTextExtractor.cs",
               "ToolTip": "C:\\Users\\Magshimim\\questions_for_phsicometry_gui\\clientForQuestions2.0\\HtmlTextExtractor.cs",
               "RelativeToolTip": "HtmlTextExtractor.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-19T17:17:47.962Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 8,
               "Title": "QuestionsToPdf.cs",
               "DocumentMoniker": "C:\\Users\\Magshimim\\questions_for_phsicometry_gui\\clientForQuestions2.0\\QuestionsToPdf.cs",
               "RelativeDocumentMoniker": "QuestionsToPdf.cs",
@@ -96,92 +163,99 @@
               "RelativeToolTip": "QuestionsToPdf.cs",
               "ViewState": "AQIAAAMAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-19T17:17:44.047Z"
+              "WhenOpened": "2024-10-19T17:17:44.047Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 9,
               "Title": "SettingsFileHandler.cs",
               "DocumentMoniker": "C:\\Users\\Magshimim\\questions_for_phsicometry_gui\\clientForQuestions2.0\\SettingsFileHandler.cs",
               "RelativeDocumentMoniker": "SettingsFileHandler.cs",
               "ToolTip": "C:\\Users\\Magshimim\\questions_for_phsicometry_gui\\clientForQuestions2.0\\SettingsFileHandler.cs",
               "RelativeToolTip": "SettingsFileHandler.cs",
-              "ViewState": "AQIAABEAAAAAAAAAAAAAwBsAAABXAAAA",
+              "ViewState": "AQIAABEAAAAAAAAAAAAAwBsAAAApAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-19T17:17:28.835Z"
+              "WhenOpened": "2024-10-19T17:17:28.835Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 10,
               "Title": "chaptersQuestionsMenu.cs",
               "DocumentMoniker": "C:\\Users\\Magshimim\\questions_for_phsicometry_gui\\clientForQuestions2.0\\chaptersQuestionsMenu.cs",
               "RelativeDocumentMoniker": "chaptersQuestionsMenu.cs",
               "ToolTip": "C:\\Users\\Magshimim\\questions_for_phsicometry_gui\\clientForQuestions2.0\\chaptersQuestionsMenu.cs",
               "RelativeToolTip": "chaptersQuestionsMenu.cs",
-              "ViewState": "AQIAAGcAAAAAAAAAAAAgwHMAAAAvAAAA",
+              "ViewState": "AQIAAGcAAAAAAAAAAAAtwHcAAAALAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-18T13:36:23.126Z"
+              "WhenOpened": "2024-10-18T13:36:23.126Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "HtmlConvertOptionsMenu.cs",
               "DocumentMoniker": "C:\\Users\\Magshimim\\questions_for_phsicometry_gui\\clientForQuestions2.0\\HtmlConvertOptionsMenu.cs",
               "RelativeDocumentMoniker": "HtmlConvertOptionsMenu.cs",
               "ToolTip": "C:\\Users\\Magshimim\\questions_for_phsicometry_gui\\clientForQuestions2.0\\HtmlConvertOptionsMenu.cs",
               "RelativeToolTip": "HtmlConvertOptionsMenu.cs",
-              "ViewState": "AQIAABcAAAAAAAAAAAAAACIAAABGAAAA",
+              "ViewState": "AQIAABQAAAAAAAAAAAAAwPoAAAAJAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-18T12:10:17.053Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 4,
               "Title": "chaptersQuestionsMenu.cs [Design]",
               "DocumentMoniker": "C:\\Users\\Magshimim\\questions_for_phsicometry_gui\\clientForQuestions2.0\\chaptersQuestionsMenu.cs",
               "RelativeDocumentMoniker": "chaptersQuestionsMenu.cs",
               "ToolTip": "C:\\Users\\Magshimim\\questions_for_phsicometry_gui\\clientForQuestions2.0\\chaptersQuestionsMenu.cs [Design]",
               "RelativeToolTip": "chaptersQuestionsMenu.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-18T13:36:17.155Z"
+              "WhenOpened": "2024-10-18T13:36:17.155Z",
+              "EditorCaption": " [Design]"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 1,
               "Title": "HtmlConvertOptionsMenu.cs [Design]",
               "DocumentMoniker": "C:\\Users\\Magshimim\\questions_for_phsicometry_gui\\clientForQuestions2.0\\HtmlConvertOptionsMenu.cs",
               "RelativeDocumentMoniker": "HtmlConvertOptionsMenu.cs",
               "ToolTip": "C:\\Users\\Magshimim\\questions_for_phsicometry_gui\\clientForQuestions2.0\\HtmlConvertOptionsMenu.cs [Design]",
               "RelativeToolTip": "HtmlConvertOptionsMenu.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-18T12:10:15.273Z"
+              "WhenOpened": "2024-10-18T12:10:15.273Z",
+              "EditorCaption": " [Design]"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 14,
               "Title": "collectionsQuestionsMenu.cs [Design]",
               "DocumentMoniker": "C:\\Users\\Magshimim\\questions_for_phsicometry_gui\\clientForQuestions2.0\\collectionsQuestionsMenu.cs",
               "RelativeDocumentMoniker": "collectionsQuestionsMenu.cs",
               "ToolTip": "C:\\Users\\Magshimim\\questions_for_phsicometry_gui\\clientForQuestions2.0\\collectionsQuestionsMenu.cs [Design]",
               "RelativeToolTip": "collectionsQuestionsMenu.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-18T13:38:31.553Z"
+              "WhenOpened": "2024-10-18T13:38:31.553Z",
+              "EditorCaption": " [Design]"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 13,
               "Title": "testHistoryMenu.cs [Design]",
               "DocumentMoniker": "C:\\Users\\Magshimim\\questions_for_phsicometry_gui\\clientForQuestions2.0\\testHistoryMenu.cs",
               "RelativeDocumentMoniker": "testHistoryMenu.cs",
               "ToolTip": "C:\\Users\\Magshimim\\questions_for_phsicometry_gui\\clientForQuestions2.0\\testHistoryMenu.cs [Design]",
               "RelativeToolTip": "testHistoryMenu.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-18T13:37:34.81Z"
+              "WhenOpened": "2024-10-18T13:37:34.81Z",
+              "EditorCaption": " [Design]"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 12,
               "Title": "testHistoryMenu.cs",
               "DocumentMoniker": "C:\\Users\\Magshimim\\questions_for_phsicometry_gui\\clientForQuestions2.0\\testHistoryMenu.cs",
               "RelativeDocumentMoniker": "testHistoryMenu.cs",
@@ -189,7 +263,8 @@
               "RelativeToolTip": "testHistoryMenu.cs",
               "ViewState": "AQIAAHMAAAAAAAAAAAAIwH8AAAAXAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-18T13:37:37.136Z"
+              "WhenOpened": "2024-10-18T13:37:37.136Z",
+              "EditorCaption": ""
             }
           ]
         }

@@ -607,12 +607,13 @@ namespace clientForQuestions2._0
         /// </summary>
         /// <param name="amount">The amount of chapters (each chapter 20 questions).</param>
         /// <returns>list of -> lists of questions details - all the sub lists are chapters.</returns>
-        public static List<List<dbQuestionParmeters>> getMultipleExrecisesOfMath_without_graph(int amount)
+        public static List<List<dbQuestionParmeters>> getMultipleExrecisesOfMath_without_graph(int amount,List<int> idsOfPreviousQuestions)
         {
+            return null;
             List<List<dbQuestionParmeters >> all_questions = new List<List<dbQuestionParmeters>> ();
             for (int i = 0; i < amount; i++)
             {
-                all_questions.Add(sendChapter_math_Questions_without_graph());
+                all_questions.Add(sendChapter_math_Questions_without_graph(idsOfPreviousQuestions));
             }
             return all_questions;
         }
@@ -620,27 +621,27 @@ namespace clientForQuestions2._0
         /// This function gets one chapter of math without graph.
         /// </summary>
         /// <returns>list of questions details</returns>
-        public static List<dbQuestionParmeters> sendChapter_math_Questions_without_graph()
+        public static List<dbQuestionParmeters> sendChapter_math_Questions_without_graph(List<int> idsOfPreviousQuestions)
         {
 
             List<String> topics = OperationsAndOtherUseful.topicsdict["חשיבה כמותית"];
                 questionsDifficultyLevel currentDifficultyLevel = new questionsDifficultyLevel();
                 currentDifficultyLevel.minlevel = 0m;
-                currentDifficultyLevel.maxLevel = 4.5m;
+                currentDifficultyLevel.maxLevel = 4m;
             //first phaze of question 1- 6
-                List<dbQuestionParmeters> firstPhase = sqlDb.get_n_questions_from_arr_of_categorysWithDiffcultyLevel(6, topics, currentDifficultyLevel);
+                List<dbQuestionParmeters> firstPhase = sqlDb.get_n_questions_from_arr_of_categorysWithDiffcultyLevel_Without_arr_of_q_ids(6, topics, currentDifficultyLevel,idsOfPreviousQuestions);
                 firstPhase.Sort((x, y) => ((float)x.json_content["difficulty_level"]).CompareTo((float)y.json_content["difficulty_level"]));
 
                 currentDifficultyLevel.minlevel = 4.5m;
                 currentDifficultyLevel.maxLevel = 6.5m;
             //second phaze of question 7 - 13
-            List<dbQuestionParmeters> secondPhaze = sqlDb.get_n_questions_from_arr_of_categorysWithDiffcultyLevel(7, topics, currentDifficultyLevel);
+            List<dbQuestionParmeters> secondPhaze = sqlDb.get_n_questions_from_arr_of_categorysWithDiffcultyLevel_Without_arr_of_q_ids(7, topics, currentDifficultyLevel, idsOfPreviousQuestions);
                 secondPhaze.Sort((x, y) => ((float)x.json_content["difficulty_level"]).CompareTo((float)y.json_content["difficulty_level"]));
 
-                currentDifficultyLevel.minlevel = 6.5m;
-                currentDifficultyLevel.maxLevel = 10m;
+                currentDifficultyLevel.minlevel = 7;
+                currentDifficultyLevel.maxLevel = 10;
             //third phaze of question 13 - 20
-            List<dbQuestionParmeters> thirdPhaze = sqlDb.get_n_questions_from_arr_of_categorysWithDiffcultyLevel(7, topics, currentDifficultyLevel);
+            List<dbQuestionParmeters> thirdPhaze = sqlDb.get_n_questions_from_arr_of_categorysWithDiffcultyLevel_Without_arr_of_q_ids(7, topics, currentDifficultyLevel, idsOfPreviousQuestions);
                 thirdPhaze.Sort((x, y) => ((float)x.json_content["difficulty_level"]).CompareTo((float)y.json_content["difficulty_level"]));
 
                 List<dbQuestionParmeters> allQuestions = new List<dbQuestionParmeters>();
@@ -800,6 +801,13 @@ namespace clientForQuestions2._0
             }
 
             return Sentence_Completions_qs;
+        }
+        public List<int> getListsOfIdBasedOnQuestions(List<dbQuestionParmeters> questions)
+        {
+            List<int> idOfQuestions = new List<int>();
+            foreach(var question in questions) 
+            { idOfQuestions.Add(question.questionId); }
+            return idOfQuestions;
         }
     }
 }
