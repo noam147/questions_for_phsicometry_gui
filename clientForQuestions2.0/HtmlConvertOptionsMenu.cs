@@ -10,6 +10,8 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Linq;
+
 
 namespace clientForQuestions2._0
 {
@@ -147,7 +149,7 @@ namespace clientForQuestions2._0
 
             //expel = 0
             //bool isNum = isNum_checkBox.Checked;
-            int expl = explanation_comboBox.SelectedIndex;
+            int selected_explanationsOption_index = explanation_comboBox.SelectedIndex; // index of the selected option
 
             int prev_col_id = 0;
             for (int i = 0; i < questions.Count; i++)
@@ -167,7 +169,7 @@ namespace clientForQuestions2._0
                 string currentQuestion = "";
                 string currentQuestion_end = "";
 
-                if (expl==1)
+                if (selected_explanationsOption_index==1)
                 {
                     currentQuestion += OperationsAndOtherUseful.get_string_of_question_and_option_from_json(a, OperationsAndOtherUseful.DO_NOT_MARK);
                     currentQuestion_end += OperationsAndOtherUseful.get_explanation(a);
@@ -177,13 +179,13 @@ namespace clientForQuestions2._0
                     html_end += "<div style=\"top: 50%; left: 0; width: 100vw; height: 3px; background-color: black;\"></div>";
                     html_end += "<br> <br> ";*/
                 }
-                else if(expl==2)
+                else if(selected_explanationsOption_index==2)
                 {
                     currentQuestion += OperationsAndOtherUseful.get_string_of_question_and_explanation(a, OperationsAndOtherUseful.DO_NOT_MARK);
                    // html += "<div style=\"top: 50%; left: 0; width: 100vw; height: 3px; background-color: black;\"></div>";
                    // html += "<br> <br> ";
                 }
-                else if (expl == 0)
+                else if (selected_explanationsOption_index == 0)
                 {
                     currentQuestion = OperationsAndOtherUseful.get_string_of_question_and_option_from_json(a, OperationsAndOtherUseful.DO_NOT_MARK);
                     //html += OperationsAndOtherUseful.get_string_of_question_and_option_from_json(a, OperationsAndOtherUseful.DO_NOT_MARK);
@@ -196,7 +198,7 @@ namespace clientForQuestions2._0
                 if (isNum)
                 {
                     html += addNumberToQuestion(currentQuestion, i + 1, a.questionId); ;
-                    if (expl == 1)
+                    if (selected_explanationsOption_index == 1)
                         html_end += addNumberToQuestion(currentQuestion_end, i + 1, a.questionId); ;
                 }
                 else
@@ -211,7 +213,7 @@ namespace clientForQuestions2._0
                 prev_col_id = curr_col_id;
             }
 
-            if (expl == 1)
+            if (selected_explanationsOption_index == 1)
             {
                 html += "<div style='page-break-after: always;'></div><p style=\"font-size: 24px; font-weight: bold; direction: rtl;\">הסברים ותשובות:</p>";
                 html += "<br> <div style=\"top: 50%; left: 0; width: 100vw; height: 5px; background-color: lightgray;\"></div><br> <br> " + html_end;
@@ -219,7 +221,120 @@ namespace clientForQuestions2._0
 
             //for big imgs
             html = html.Replace("height:auto;", "height:500;");
+
+            // fix the problem with newlines in math ml
+            html = fix_newline_mathml(html);
+
             return html;            
+        }
+
+        public static string fix_newline_mathml(string html)
+        {
+            // the mathml newline
+            string new_line_mathml = "linebreak=\"newline\"";
+            string new_html = html;
+
+            if (new_html.Contains(new_line_mathml))
+            {
+                // get the whole mathml newline element (e.g.: '<mspace linebreak="newline"></mspace>')
+                int i = new_html.IndexOf(new_line_mathml) - 1;
+                string start_element = "";
+                while (i >= 0 && new_html[i + 1] != '<')
+                {
+                    start_element = new_html[i] + start_element;
+                    i--;
+                }
+
+                int count = 0;
+                i = new_html.IndexOf(new_line_mathml) + new_line_mathml.Length;
+                string close_element = "";
+                while (i >= 0 && count != 2)
+                {
+                    close_element = close_element + new_html[i];
+                    if (new_html[i] == '>')
+                        count++;
+                    i++;
+                }
+
+                if (close_element.Contains(start_element.Replace("<", "").Replace(">", "").Replace(" ", "").Replace("\n", "")))
+                    new_line_mathml = start_element + new_line_mathml + close_element;
+                else // if the element is <mspace linebreak="newline"> and not <mspace linebreak="newline"></mspace>
+                    new_line_mathml = start_element + new_line_mathml + close_element.Substring(0, close_element.IndexOf(">")+1);
+
+                LogFileHandler.writeIntoFile(new_line_mathml);
+                List<string> openTags = new List<string>();
+                List<string> closeTags = new List<string>();
+                i = new_html.IndexOf(new_line_mathml) - 1;
+
+                List<string> already_closedTags = new List<string>();
+
+                // Loop to find all opening tags up to the <mjx-container> or the <math>
+                while (true)
+                {
+                    if (new_html[i] == '>')
+                    {
+                        // Extract the opening tag
+                        string openString = "";
+
+                        // Read backwards to get the entire opening tag
+                        while (i >= 0 && new_html[i] != '<')
+                        {
+                            openString = new_html[i] + openString;
+                            i--;
+                        }
+                        openString = "<" + openString;
+
+                        // if it is another element in the tree that is closed closed, ignore it
+                        if (openString.StartsWith("</"))
+                        {
+                            already_closedTags.Add(openString);
+                            continue;
+                        }
+
+                        // if there are options (aka src="...", style="..." ...) ignore them for the close element string
+                        string without_options = openString.Substring(0, openString.IndexOf(" ") + 1) + ">";
+                        if (without_options.Length < 2)
+                            without_options = openString;
+
+                        // Generate the corresponding closing tag for the close string
+                        string closeString = without_options.Replace("<", "</");
+
+                        // if it is another element in the tree that is closed closed, ignore it
+                        if (already_closedTags.Contains(closeString))
+                        {
+                            already_closedTags.Remove(closeString);
+                            continue;
+                        }
+
+                        // add to the lists
+                        openTags.Add(openString);
+                        closeTags.Add(closeString);
+
+                        // Break if we find the closing tag for <mjx-container> or <math>
+                        if (openString.Contains("mjx-container") || openString.Contains("math"))
+                            break;
+                    }
+                    i--;
+                    // Check to prevent index out of bounds
+                    if (i < 0) break;
+                }
+
+                closeTags.Reverse();
+                openTags.Reverse();
+
+                // Replace the <mspace> with the closing tags, <br>, and reopening tags
+                new_html = new_html.Substring(0, new_html.IndexOf(new_line_mathml))
+                    + string.Join("", closeTags) // Close tags in reverse order
+                    + "<br>"
+                    + string.Join("", openTags) // Open tags in normal order
+                    + new_html.Substring(new_html.IndexOf(new_line_mathml) + new_line_mathml.Length);
+            }
+
+
+            // to edit all new_lines
+            if (new_html == html)
+                return new_html;
+            return fix_newline_mathml(new_html);
         }
 
         private void save_button_Click()
@@ -237,7 +352,7 @@ namespace clientForQuestions2._0
             }
             catch (Exception ex)
             {
-                MessageBox.Show("error");
+                MessageBox.Show($"error {ex}");
             }
 
         }
