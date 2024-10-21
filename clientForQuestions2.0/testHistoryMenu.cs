@@ -238,6 +238,8 @@ namespace clientForQuestions2._0
                 {
                     if (lastSelectedSortOption == option)
                         sortAscending = !sortAscending;
+                    else
+                        sortAscending = true;
                     if (sortAscending)
                     {
                         history_dataGridView.Sort(new CustomSortComparer(SortOrder.Ascending, option));
