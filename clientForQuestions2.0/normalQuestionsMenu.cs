@@ -75,10 +75,25 @@ namespace clientForQuestions2._0
             InitializeComponent();
             updatebuttons();
             unVisibleDifficulyLevelItems();
-            
+
+            Dictionary<Control, (float, float, float, float)> controlLayout = new Dictionary<Control, (float, float, float, float)>();
+
+            // Store each control's original position and size
+            foreach (Control ctrl in this.Controls)
+            {
+                controlLayout[ctrl] = (ctrl.Location.X * Screen.PrimaryScreen.WorkingArea.Width / this.ClientSize.Width, ctrl.Location.Y * Screen.PrimaryScreen.WorkingArea.Height / this.ClientSize.Height, ctrl.Size.Width * Screen.PrimaryScreen.WorkingArea.Width / this.ClientSize.Width, ctrl.Size.Height * Screen.PrimaryScreen.WorkingArea.Height / this.ClientSize.Height);
+            }
+
             this.WindowState = FormWindowState.Maximized;
             //this.FormBorderStyle = FormBorderStyle.None;
             this.StartPosition = FormStartPosition.CenterScreen;
+
+            foreach (Control ctrl in this.Controls)
+            {
+                var (x,y,w,h) = controlLayout[ctrl];
+                ctrl.Location = new Point((int) (x), (int) (y));
+                ctrl.Size = new Size(ctrl.Size.Width, (int) (h));
+            }
 
             this.amountOfQuestionNumericUpDown.Value = 5;
             this.continueButton.Enabled = false;
@@ -434,6 +449,11 @@ namespace clientForQuestions2._0
         private void resetButton_Click(object sender, EventArgs e)
         {
             resetSettings();
+        }
+
+        private void amountOfQuestionText_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

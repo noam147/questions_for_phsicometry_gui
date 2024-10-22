@@ -81,6 +81,12 @@ namespace clientForQuestions2._0
         public testHistoryMenu()
         {
             InitializeComponent();
+
+            // for info labels:
+            this.i_toolTip.SetToolTip(this.i_form, @"- לחיצה על שורה תציג את התרגול
+- לחיצה על הכוכב בטור ""מועדפים"" תוסיף את התרגול למועדפים, או תסיר אותו אם הוא כבר במועדפים
+- לחיצה על סמל ההורדה תציג תפריט אפשרויות להורדת התרגול");
+            
         }
 
         private void downloadButton_Click(int test_id)
@@ -272,6 +278,7 @@ namespace clientForQuestions2._0
         {
             this.resetHistory_button.Location = new System.Drawing.Point(Screen.PrimaryScreen.WorkingArea.Width - this.resetHistory_button.Size.Width - 10, this.resetHistory_button.Location.Y); 
             this.emptyHistory_label.Location = new System.Drawing.Point((int) (Screen.PrimaryScreen.WorkingArea.Width - this.emptyHistory_label.Size.Width) / 2, this.emptyHistory_label.Location.Y);
+            this.titleOfPage.Location = new System.Drawing.Point((int)(Screen.PrimaryScreen.WorkingArea.Width - this.titleOfPage.Size.Width) / 2, this.titleOfPage.Location.Y);
 
             // Handle ColumnHeaderMouseClick for opening sorting options
             history_dataGridView.ColumnHeaderMouseClick += history_dataGridView_ColumnHeaderMouseClick;
@@ -334,6 +341,5 @@ namespace clientForQuestions2._0
                 }
             }
         }
-
     }
 }
