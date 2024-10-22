@@ -94,22 +94,13 @@ public class OperationAndOtherUseful {
         if (!isTextOptions) {
             finalOptionsString = String.join("<br>", listOfOptions);
         }
-        JSONObject image_JSONO = null;
-        try {
-            image_JSONO = qp.json_content.getJSONObject("image");
-        } catch (JSONException e) {
-
-        }
-        String image_str = "";
-        if (image_JSONO != null)
-            image_str = getStringOfImgHtml(image_JSONO);
 
         // If the question is in English
         if (!isQuestionInHebrew(qp.category)) {
-            return left2right(question + image_str + "<br><br>" + finalOptionsString);
+            return left2right(question + getStringOfImgHtml(qp.json_content.optJSONObject("image")) + "<br><br>" + finalOptionsString);
         }
         String strForEight2Left = question;
-        strForEight2Left+= image_str;
+        strForEight2Left+= qp.json_content.optJSONObject("image");
         strForEight2Left += "<br><br>"+ finalOptionsString;
         String finalString = right2left(strForEight2Left);
         return finalString;
