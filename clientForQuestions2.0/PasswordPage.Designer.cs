@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PasswordPage));
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.hintPassLabel = new System.Windows.Forms.Label();
             this.macLabel = new System.Windows.Forms.Label();
@@ -106,6 +107,7 @@
             this.Controls.Add(this.continueButton);
             this.Controls.Add(this.hintPassLabel);
             this.Controls.Add(this.textBox1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "PasswordPage";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

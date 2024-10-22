@@ -32,6 +32,7 @@ namespace clientForQuestions2._0
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(normalQuestionsMenu));
             this.back2MainMenuButton = new System.Windows.Forms.Button();
             this.amountOfQuestionText = new System.Windows.Forms.Label();
             this.continueButton = new System.Windows.Forms.Button();
@@ -1078,6 +1079,7 @@ namespace clientForQuestions2._0
             this.Controls.Add(this.theme9);
             this.Controls.Add(this.theme10);
             this.Controls.Add(this.all_t);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "normalQuestionsMenu";
             this.Text = "normalQuestionsMenu";

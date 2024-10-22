@@ -375,7 +375,6 @@ namespace clientForQuestions2._0
                             }
 
                             int test_id = TestHistoryFileHandler.get_next_test_id();
-                            LogFileHandler.writeIntoFile("timer");
 
                             TestHistoryFileHandler.save_afterQuestionParametrs_to_test_history(m_afterQuestionParametrs, test_id, this.test_type);
 
@@ -686,7 +685,7 @@ namespace clientForQuestions2._0
 
 
             int test_id = TestHistoryFileHandler.get_next_test_id();
-            LogFileHandler.writeIntoFile($"stopbutton {test_id}");
+
             TestHistoryFileHandler.save_afterQuestionParametrs_to_test_history(m_afterQuestionParametrs, test_id, this.test_type);
 
             var s = new summrizePage(this.m_afterQuestionParametrs, test_id, 0);
@@ -852,7 +851,6 @@ namespace clientForQuestions2._0
                 disposedWebViews();
 
                 int test_id = TestHistoryFileHandler.get_next_test_id();
-                LogFileHandler.writeIntoFile("continuebutton");
 
                 TestHistoryFileHandler.save_afterQuestionParametrs_to_test_history(m_afterQuestionParametrs, test_id, this.test_type);
 

@@ -54,9 +54,6 @@ namespace clientForQuestions2._0
                 if (lessons_list.Count == 0)
                     for (int i = 0; i < questions.Count; i++)
                         lessons_list.Add("");
-                foreach (string l in lessons_list)
-                    LogFileHandler.writeIntoFile($"{this.test_id}. {l}");
-
             }
 
             ToolTip copy_q_id_toolTip = new ToolTip();
@@ -660,7 +657,7 @@ namespace clientForQuestions2._0
             if (this.test_id == OperationsAndOtherUseful.NOT_A_REAL_TEST_ID || this.indexQuestion < 0)
                 return;
             String lesson = this.lessons_richTextBox.Text;
-            LogFileHandler.writeIntoFile($"'{lesson}' {this.test_id} {this.indexQuestion}");
+
             if (lesson.Replace("\n", "").Replace(" ", "").Length == 0) // if str only contains "\n" and " ", it is not valid
             {
                 // edit to an empty lesson, TODO maybe not delete the current lesson but rather leave it as it is

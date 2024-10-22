@@ -31,6 +31,7 @@ namespace clientForQuestions2._0
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(questionsPage));
             this.continueToQuestionButton = new System.Windows.Forms.Button();
             this.answer1Button = new System.Windows.Forms.Button();
             this.answer2Button = new System.Windows.Forms.Button();
@@ -220,6 +221,7 @@ namespace clientForQuestions2._0
             this.Controls.Add(this.answer1Button);
             this.Controls.Add(this.continueToQuestionButton);
             this.Controls.Add(this.stopTestButton);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "questionsPage";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

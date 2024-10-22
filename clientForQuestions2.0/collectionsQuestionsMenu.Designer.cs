@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(collectionsQuestionsMenu));
             this.colButton_math = new System.Windows.Forms.Button();
             this.colButton_hebrew = new System.Windows.Forms.Button();
             this.colButton_english = new System.Windows.Forms.Button();
@@ -41,7 +42,7 @@
             // colButton_math
             // 
             this.colButton_math.Location = new System.Drawing.Point(350, 107);
-            this.colButton_math.Name = "colButton1";
+            this.colButton_math.Name = "colButton_math";
             this.colButton_math.Size = new System.Drawing.Size(131, 71);
             this.colButton_math.TabIndex = 0;
             this.colButton_math.Text = "הסקה מתרשים";
@@ -51,7 +52,7 @@
             // colButton_hebrew
             // 
             this.colButton_hebrew.Location = new System.Drawing.Point(350, 184);
-            this.colButton_hebrew.Name = "colButton2";
+            this.colButton_hebrew.Name = "colButton_hebrew";
             this.colButton_hebrew.Size = new System.Drawing.Size(131, 96);
             this.colButton_hebrew.TabIndex = 1;
             this.colButton_hebrew.Text = "קטע קריאה";
@@ -61,7 +62,7 @@
             // colButton_english
             // 
             this.colButton_english.Location = new System.Drawing.Point(350, 286);
-            this.colButton_english.Name = "colButton3";
+            this.colButton_english.Name = "colButton_english";
             this.colButton_english.Size = new System.Drawing.Size(131, 83);
             this.colButton_english.TabIndex = 2;
             this.colButton_english.Text = "Reading Comprehension";
@@ -141,6 +142,7 @@
             this.Controls.Add(this.colButton_english);
             this.Controls.Add(this.colButton_hebrew);
             this.Controls.Add(this.colButton_math);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "collectionsQuestionsMenu";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "collectionsQuestionsMenu";

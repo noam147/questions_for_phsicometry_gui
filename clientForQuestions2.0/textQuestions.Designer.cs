@@ -28,24 +28,27 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(textQuestions));
             this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(125, 178);
+            this.label1.Location = new System.Drawing.Point(111, 142);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(442, 20);
+            this.label1.Size = new System.Drawing.Size(365, 16);
             this.label1.TabIndex = 0;
             this.label1.Text = "move to here the content in questionPage that belong to here";
             // 
             // textQuestions
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(711, 360);
             this.Controls.Add(this.label1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "textQuestions";
             this.Text = "textQuestions";
             this.ResumeLayout(false);

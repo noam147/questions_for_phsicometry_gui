@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(HtmlConvertOptionsMenu));
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.filePath_button = new System.Windows.Forms.Button();
             this.isNum_checkBox = new System.Windows.Forms.CheckBox();
@@ -80,6 +81,7 @@
             this.Controls.Add(this.explanation_comboBox);
             this.Controls.Add(this.isNum_checkBox);
             this.Controls.Add(this.filePath_button);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "HtmlConvertOptionsMenu";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "HtmlConvertOptionsMenu";

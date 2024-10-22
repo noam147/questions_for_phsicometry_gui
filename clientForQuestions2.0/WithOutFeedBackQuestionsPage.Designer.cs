@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WithOutFeedBackQuestionsPage));
             this.previousQuestionsButton = new clientForQuestions2._0.RJButtons2();
             this.nextQuestionsButton = new clientForQuestions2._0.RJButtons2();
             this.SuspendLayout();
@@ -41,10 +42,10 @@
             this.previousQuestionsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.previousQuestionsButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.previousQuestionsButton.ForeColor = System.Drawing.Color.White;
-            this.previousQuestionsButton.Location = new System.Drawing.Point(144, 51);
+            this.previousQuestionsButton.Location = new System.Drawing.Point(128, 41);
             this.previousQuestionsButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.previousQuestionsButton.Name = "previousQuestionsButton";
-            this.previousQuestionsButton.Size = new System.Drawing.Size(36, 40);
+            this.previousQuestionsButton.Size = new System.Drawing.Size(32, 32);
             this.previousQuestionsButton.TabIndex = 21;
             this.previousQuestionsButton.Text = "🢀";
             this.previousQuestionsButton.UseVisualStyleBackColor = false;
@@ -58,23 +59,25 @@
             this.nextQuestionsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.nextQuestionsButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.nextQuestionsButton.ForeColor = System.Drawing.Color.White;
-            this.nextQuestionsButton.Location = new System.Drawing.Point(901, 51);
+            this.nextQuestionsButton.Location = new System.Drawing.Point(801, 41);
             this.nextQuestionsButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.nextQuestionsButton.Name = "nextQuestionsButton";
-            this.nextQuestionsButton.Size = new System.Drawing.Size(36, 40);
+            this.nextQuestionsButton.Size = new System.Drawing.Size(32, 32);
             this.nextQuestionsButton.TabIndex = 22;
             this.nextQuestionsButton.Text = "🢂";
             this.nextQuestionsButton.UseVisualStyleBackColor = false;
             // 
             // WithOutFeedBackQuestionsPage
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1025, 450);
+            this.ClientSize = new System.Drawing.Size(911, 360);
             this.Controls.Add(this.nextQuestionsButton);
             this.Controls.Add(this.previousQuestionsButton);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "WithOutFeedBackQuestionsPage";
             this.Text = "WithOutFeedBackQuestionsPage";
+            this.Controls.SetChildIndex(this.timer, 0);
             this.Controls.SetChildIndex(this.previousQuestionsButton, 0);
             this.Controls.SetChildIndex(this.nextQuestionsButton, 0);
             this.ResumeLayout(false);

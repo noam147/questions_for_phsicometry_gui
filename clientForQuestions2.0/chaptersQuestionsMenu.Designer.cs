@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(chaptersQuestionsMenu));
             this.timePerQCheckbox = new System.Windows.Forms.CheckBox();
             this.timePerQPicker = new System.Windows.Forms.DateTimePicker();
             this.continueButton = new System.Windows.Forms.Button();
@@ -228,6 +229,7 @@
             this.Controls.Add(this.chapterButton_english);
             this.Controls.Add(this.chapterButton_math);
             this.Controls.Add(this.chapterButton_hebrew);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "chaptersQuestionsMenu";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "chaptersQuestionsMenu";

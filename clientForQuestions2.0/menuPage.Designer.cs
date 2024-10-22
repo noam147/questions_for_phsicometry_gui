@@ -31,6 +31,7 @@ namespace clientForQuestions2._0
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(menuPage));
             this.normalQuestions = new System.Windows.Forms.Button();
             this.collectionsQuestions = new System.Windows.Forms.Button();
             this.questionByIDtextBox = new System.Windows.Forms.TextBox();
@@ -40,10 +41,10 @@ namespace clientForQuestions2._0
             this.collectionbyIdtextBox = new System.Windows.Forms.TextBox();
             this.error_qById_label = new System.Windows.Forms.Label();
             this.error_colById_label = new System.Windows.Forms.Label();
-            this.collectionbyIdButton = new clientForQuestions2._0.RJButtons2();
-            this.questionByIdButton = new clientForQuestions2._0.RJButtons2();
             this.testHistoryButton = new System.Windows.Forms.Button();
             this.lessons_button = new System.Windows.Forms.Button();
+            this.collectionbyIdButton = new clientForQuestions2._0.RJButtons2();
+            this.questionByIdButton = new clientForQuestions2._0.RJButtons2();
             this.SuspendLayout();
             // 
             // normalQuestions
@@ -133,6 +134,28 @@ namespace clientForQuestions2._0
             this.error_colById_label.Size = new System.Drawing.Size(0, 16);
             this.error_colById_label.TabIndex = 24;
             // 
+            // testHistoryButton
+            // 
+            this.testHistoryButton.Location = new System.Drawing.Point(493, 381);
+            this.testHistoryButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.testHistoryButton.Name = "testHistoryButton";
+            this.testHistoryButton.Size = new System.Drawing.Size(125, 90);
+            this.testHistoryButton.TabIndex = 25;
+            this.testHistoryButton.Text = "היסטורית תרגולים";
+            this.testHistoryButton.UseVisualStyleBackColor = true;
+            this.testHistoryButton.Click += new System.EventHandler(this.testHistoryButton_Click);
+            // 
+            // lessons_button
+            // 
+            this.lessons_button.Location = new System.Drawing.Point(493, 475);
+            this.lessons_button.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.lessons_button.Name = "lessons_button";
+            this.lessons_button.Size = new System.Drawing.Size(125, 90);
+            this.lessons_button.TabIndex = 26;
+            this.lessons_button.Text = "לקחים";
+            this.lessons_button.UseVisualStyleBackColor = true;
+            this.lessons_button.Click += new System.EventHandler(this.lessons_button_Click);
+            // 
             // collectionbyIdButton
             // 
             this.collectionbyIdButton.BackColor = System.Drawing.Color.MediumSlateBlue;
@@ -167,28 +190,6 @@ namespace clientForQuestions2._0
             this.questionByIdButton.UseVisualStyleBackColor = false;
             this.questionByIdButton.Click += new System.EventHandler(this.questionbyIdButton_Click);
             // 
-            // testHistoryButton
-            // 
-            this.testHistoryButton.Location = new System.Drawing.Point(493, 381);
-            this.testHistoryButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.testHistoryButton.Name = "testHistoryButton";
-            this.testHistoryButton.Size = new System.Drawing.Size(125, 90);
-            this.testHistoryButton.TabIndex = 25;
-            this.testHistoryButton.Text = "היסטורית תרגולים";
-            this.testHistoryButton.UseVisualStyleBackColor = true;
-            this.testHistoryButton.Click += new System.EventHandler(this.testHistoryButton_Click);
-            // 
-            // lessons_button
-            // 
-            this.lessons_button.Location = new System.Drawing.Point(493, 475);
-            this.lessons_button.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.lessons_button.Name = "lessons_button";
-            this.lessons_button.Size = new System.Drawing.Size(125, 90);
-            this.lessons_button.TabIndex = 26;
-            this.lessons_button.Text = "לקחים";
-            this.lessons_button.UseVisualStyleBackColor = true;
-            this.lessons_button.Click += new System.EventHandler(this.lessons_button_Click);
-            // 
             // menuPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -207,6 +208,7 @@ namespace clientForQuestions2._0
             this.Controls.Add(this.collectionsQuestions);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.questionByIDtextBox);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "menuPage";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

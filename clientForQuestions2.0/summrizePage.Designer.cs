@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(summrizePage));
             this.backToMainMenu_button = new System.Windows.Forms.Button();
             this.timeTookForQLabel = new System.Windows.Forms.Label();
             this.category_of_q = new System.Windows.Forms.Label();
@@ -280,6 +281,7 @@
             this.Controls.Add(this.category_of_q);
             this.Controls.Add(this.timeTookForQLabel);
             this.Controls.Add(this.backToMainMenu_button);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "summrizePage";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
