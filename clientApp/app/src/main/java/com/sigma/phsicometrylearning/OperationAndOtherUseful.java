@@ -94,13 +94,22 @@ public class OperationAndOtherUseful {
         if (!isTextOptions) {
             finalOptionsString = String.join("<br>", listOfOptions);
         }
+        JSONObject image_JSONO = null;
+        try {
+            image_JSONO = qp.json_content.getJSONObject("image");
+        } catch (JSONException e) {
+
+        }
+        String image_str = "";
+        if (image_JSONO != null)
+            image_str = getStringOfImgHtml(image_JSONO);
 
         // If the question is in English
         if (!isQuestionInHebrew(qp.category)) {
-            return left2right(question + getStringOfImgHtml((JSONObject) qp.json_content.get("image")) + "<br><br>" + finalOptionsString);
+            return left2right(question + image_str + "<br><br>" + finalOptionsString);
         }
         String strForEight2Left = question;
-        strForEight2Left+= getStringOfImgHtml((JSONObject) qp.json_content.get("image"));
+        strForEight2Left+= image_str;
         strForEight2Left += "<br><br>"+ finalOptionsString;
         String finalString = right2left(strForEight2Left);
         return finalString;
@@ -111,14 +120,20 @@ public class OperationAndOtherUseful {
         if (json == null) {
             return "";
         }
-        if (!json.has("file_path")) {
+
+        try {
+            if (!json.has("file_path")) {
+                return "";
+            }
+            String imgPath = "https://lmsapi.kidum-me.com/storage/";
+            String filePath = imgPath + json.getString("file_path");
+            String fullImg = String.format("<img src=\"%s\" alt=\"Question Image\" style=\"max-height:%s; width:auto;\">", filePath, img_max_height);
+            return fullImg;
+
+        } catch (JSONException e) {
             return "";
         }
 
-        String imgPath = "https://lmsapi.kidum-me.com/storage/";
-        String filePath = imgPath + json.getString("file_path");
-        String fullImg = String.format("<img src=\"%s\" alt=\"Question Image\" style=\"max-height:%s; width:auto;\">", filePath, img_max_height);
-        return fullImg;
     }
     public static String right2left(String s) {
         // Aligned to the right
