@@ -36,8 +36,6 @@ namespace clientForQuestions2._0
 
         private int secondsTookForCurrq = 0;
         private int timeElapsed = 0; // to get the time per question when isUserDoNotGetFeedBack == true
-        //private System.Timers.Timer m_aTimer;
-        private questionsDifficultyLevel m_aDifficultyLevels;
 
         private List<Button> m_buttonList = new List<Button>();
         private int m_currentIndexOfFirstButton = 0;
@@ -56,6 +54,11 @@ namespace clientForQuestions2._0
             this.answer3Button.Enabled = false;
             this.answer4Button.Enabled = false;
 
+            this.stopTestButton.Enabled = false;
+
+            this.nextQuestionsButton.Visible = false;
+            this.previousQuestionsButton.Visible = false;
+
             this.WindowState = FormWindowState.Maximized;
             //this.FormBorderStyle = FormBorderStyle.None;
             this.StartPosition = FormStartPosition.CenterScreen;
@@ -71,8 +74,9 @@ namespace clientForQuestions2._0
         }
 
         // normal questions
-        public questionsPage(int amount, List<string> listOfTopics, bool isQSkip, int timePerQ, questionsDifficultyLevel difficultyLevel, bool withAnsweredQs, string test_type)
+        public questionsPage(List<dbQuestionParmeters> questions, bool isQSkip, int timePerQ, string test_type)
         {
+            this.m_questionDetails = questions;
             this.test_type = test_type;
             isWithCol = false;
             this.isUserDoNotGetFeedBack = isQSkip;
@@ -80,7 +84,6 @@ namespace clientForQuestions2._0
             if (!isUserDoNotGetFeedBack)
                 h_buttonsQuestionsPlace = OperationsAndOtherUseful.MARGIN_OF_HEIGHT; // this is here and not later in the function to set height_screen in atStart()
 
-            m_aDifficultyLevels = difficultyLevel;
             atStart();
 
             if (!isUserDoNotGetFeedBack)
@@ -93,7 +96,7 @@ namespace clientForQuestions2._0
             this.timePerQ = timePerQ;
                 
             //when normal exrecize
-            updateAtStartOfNormalExrecize(amount, listOfTopics, withAnsweredQs);
+            updateAtStartOfNormalExrecize();
 
             if (this.isUserDoNotGetFeedBack)
                 this.timePerQ = timePerQ * m_questionDetails.Count;
@@ -203,7 +206,8 @@ namespace clientForQuestions2._0
                     Width = this.Q_BUTTON_SIZE,
                     Height = this.Q_BUTTON_SIZE,
                     Location = new System.Drawing.Point(140 +( i % 10 )* 45, this.Q_BUTTON_SIZE), // Adjust spacing
-                    Enabled = true,
+                    Enabled = false,
+                    Visible = false,
                     Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold) // make the text BOLD
                 };
                 //at start user didnt answer anything
@@ -255,7 +259,7 @@ namespace clientForQuestions2._0
             unvisibleButtonsFromButtonList();
 
             // hide the nextQuestionsButton if there are no next questions
-            if (endIndex >= m_buttonList.Count - 1)
+            if (endIndex >= m_buttonList.Count)
             {
                 nextQuestionsButton.Visible = false;
                 endIndex = m_buttonList.Count;
@@ -303,13 +307,9 @@ namespace clientForQuestions2._0
             LogFileHandler.writeIntoFile("Questions id are: " + s);
         }
 
-        private void updateAtStartOfNormalExrecize(int amount, List<string> listOfTopics, bool withAnsweredQs)
+        private void updateAtStartOfNormalExrecize()
         {
             //wait until webview is init
-            if (withAnsweredQs)
-                m_questionDetails = sqlDb.get_n_questions_from_arr_of_categorysWithDiffcultyLevel(amount, listOfTopics, m_aDifficultyLevels);
-            else
-                m_questionDetails = sqlDb.get_n_questions_from_arr_of_categorysWithDiffcultyLevel_Without_arr_of_q_ids(amount, listOfTopics, m_aDifficultyLevels, TestHistoryFileHandler.get_list_of_all_q_ids_in_history());
             writeQuestionToLogFile();
             m_maxQuestions = m_questionDetails.Count;//if amount is bigger that questions avelible
             writeQuestionToLogFile();
@@ -327,10 +327,16 @@ namespace clientForQuestions2._0
         private void updateAtStartCol(List<int> q_ids)
         {
             //wait until webview is init
-            this.answer1Button.Enabled = false;
-            this.answer2Button.Enabled = false;
-            this.answer3Button.Enabled = false;
-            this.answer4Button.Enabled = false;
+            this.answer1Button.Enabled = true;
+            this.answer2Button.Enabled = true;
+            this.answer3Button.Enabled = true;
+            this.answer4Button.Enabled = true;
+
+            this.stopTestButton.Enabled = true;
+
+            this.nextQuestionsButton.Visible = true;
+            this.previousQuestionsButton.Visible = true;
+
             m_questionDetails = new List<dbQuestionParmeters>();
             foreach (int id in q_ids)
             {
@@ -415,6 +421,7 @@ namespace clientForQuestions2._0
             this.answer2Button.Enabled = true;
             this.answer3Button.Enabled = true;
             this.answer4Button.Enabled = true;
+            this.stopTestButton.Enabled = true;
 
             for (int i = 0; i < m_buttonList.Count; i++)
                 m_buttonList[i].Enabled = true;

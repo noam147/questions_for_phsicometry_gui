@@ -110,6 +110,7 @@ namespace clientForQuestions2._0
             // 
             this.stopTestButton.AutoSize = true;
             this.stopTestButton.BackColor = System.Drawing.Color.Tomato;
+            this.stopTestButton.Enabled = false;
             this.stopTestButton.Location = new System.Drawing.Point(22, 742);
             this.stopTestButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.stopTestButton.Name = "stopTestButton";

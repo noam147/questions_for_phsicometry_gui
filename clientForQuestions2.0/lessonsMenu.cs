@@ -17,7 +17,9 @@ namespace clientForQuestions2._0
         {
             InitializeComponent();
 
-
+            // for info labels:
+            this.i_toolTip.SetToolTip(this.i_form, @"- לחיצה על שורה תציג את השאלה
+- לחיצה על הכוכב בטור ""מועדפים"" תוסיף את התרגול למועדפים, או תסיר אותו אם הוא כבר במועדפים");
         }
 
         private void backToMainMenu_button_Click(object sender, EventArgs e)
@@ -59,8 +61,10 @@ namespace clientForQuestions2._0
                 emptyLessons_label.Visible = false;
             }
             lessons_dataGridView.Columns["מועדפים"].DefaultCellStyle.Font = new Font("Arial", 35, FontStyle.Regular);  // Font settings
-            lessons_dataGridView.Columns["מועדפים"].DefaultCellStyle.ForeColor = Color.Yellow;                        // Text color (foreground)
+            lessons_dataGridView.Columns["מועדפים"].DefaultCellStyle.ForeColor = Color.Yellow;                         // Text color (foreground)
+            lessons_dataGridView.Columns["מועדפים"].DefaultCellStyle.BackColor = Color.Black;                          // Text color (background)
             lessons_dataGridView.Columns["מועדפים"].DefaultCellStyle.SelectionForeColor = Color.Yellow;
+            lessons_dataGridView.Columns["מועדפים"].DefaultCellStyle.SelectionBackColor = Color.Black;
             foreach (DataGridViewRow row in lessons_dataGridView.Rows)
             {
                 // Check if the column exists in the DataTable
@@ -116,6 +120,7 @@ namespace clientForQuestions2._0
         private void lessonsMenu_Load(object sender, EventArgs e)
         {
             this.emptyLessons_label.Location = new System.Drawing.Point((int)(Screen.PrimaryScreen.WorkingArea.Width - this.emptyLessons_label.Size.Width) / 2, this.emptyLessons_label.Location.Y);
+            this.titleOfPage.Location = new System.Drawing.Point((int)(Screen.PrimaryScreen.WorkingArea.Width - this.titleOfPage.Size.Width) / 2, this.titleOfPage.Location.Y);
 
 
             lessons_dataGridView.Location = new System.Drawing.Point(0, TOP_EMPTY_SPACE);

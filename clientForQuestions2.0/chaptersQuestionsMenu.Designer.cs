@@ -43,10 +43,10 @@
             // timePerQCheckbox
             // 
             this.timePerQCheckbox.AutoSize = true;
-            this.timePerQCheckbox.Location = new System.Drawing.Point(100, 245);
+            this.timePerQCheckbox.Location = new System.Drawing.Point(89, 196);
             this.timePerQCheckbox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.timePerQCheckbox.Name = "timePerQCheckbox";
-            this.timePerQCheckbox.Size = new System.Drawing.Size(190, 24);
+            this.timePerQCheckbox.Size = new System.Drawing.Size(159, 20);
             this.timePerQCheckbox.TabIndex = 29;
             this.timePerQCheckbox.Text = "זמן לפרק מותאם אישית";
             this.timePerQCheckbox.UseVisualStyleBackColor = true;
@@ -57,23 +57,22 @@
             this.timePerQPicker.CustomFormat = "mm:ss";
             this.timePerQPicker.Enabled = false;
             this.timePerQPicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.timePerQPicker.Location = new System.Drawing.Point(166, 266);
+            this.timePerQPicker.Location = new System.Drawing.Point(148, 213);
             this.timePerQPicker.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.timePerQPicker.MaxDate = new System.DateTime(2000, 1, 1, 0, 59, 59, 0);
             this.timePerQPicker.MinDate = new System.DateTime(2000, 1, 1, 0, 0, 0, 0);
             this.timePerQPicker.Name = "timePerQPicker";
             this.timePerQPicker.ShowUpDown = true;
-            this.timePerQPicker.Size = new System.Drawing.Size(70, 26);
+            this.timePerQPicker.Size = new System.Drawing.Size(63, 22);
             this.timePerQPicker.TabIndex = 28;
             this.timePerQPicker.Value = new System.DateTime(2000, 1, 1, 0, 20, 0, 0);
             // 
             // continueButton
             // 
             this.continueButton.Enabled = false;
-            this.continueButton.Location = new System.Drawing.Point(138, 406);
-            this.continueButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.continueButton.Location = new System.Drawing.Point(123, 325);
             this.continueButton.Name = "continueButton";
-            this.continueButton.Size = new System.Drawing.Size(111, 76);
+            this.continueButton.Size = new System.Drawing.Size(99, 61);
             this.continueButton.TabIndex = 27;
             this.continueButton.Text = "התחלת תרגול";
             this.continueButton.UseVisualStyleBackColor = true;
@@ -81,10 +80,9 @@
             // 
             // backToMainMenu
             // 
-            this.backToMainMenu.Location = new System.Drawing.Point(14, 15);
-            this.backToMainMenu.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.backToMainMenu.Location = new System.Drawing.Point(12, 12);
             this.backToMainMenu.Name = "backToMainMenu";
-            this.backToMainMenu.Size = new System.Drawing.Size(141, 91);
+            this.backToMainMenu.Size = new System.Drawing.Size(125, 73);
             this.backToMainMenu.TabIndex = 26;
             this.backToMainMenu.Text = "חזרה לתפריט הראשי";
             this.backToMainMenu.UseVisualStyleBackColor = true;
@@ -92,10 +90,9 @@
             // 
             // chapterButton_english
             // 
-            this.chapterButton_english.Location = new System.Drawing.Point(393, 331);
-            this.chapterButton_english.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.chapterButton_english.Name = "chapterButton3";
-            this.chapterButton_english.Size = new System.Drawing.Size(130, 81);
+            this.chapterButton_english.Location = new System.Drawing.Point(349, 265);
+            this.chapterButton_english.Name = "chapterButton_english";
+            this.chapterButton_english.Size = new System.Drawing.Size(116, 65);
             this.chapterButton_english.TabIndex = 25;
             this.chapterButton_english.Text = "אנגלית";
             this.chapterButton_english.UseVisualStyleBackColor = true;
@@ -103,10 +100,9 @@
             // 
             // chapterButton_math
             // 
-            this.chapterButton_math.Location = new System.Drawing.Point(393, 229);
-            this.chapterButton_math.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.chapterButton_math.Name = "chapterButton2";
-            this.chapterButton_math.Size = new System.Drawing.Size(130, 95);
+            this.chapterButton_math.Location = new System.Drawing.Point(349, 183);
+            this.chapterButton_math.Name = "chapterButton_math";
+            this.chapterButton_math.Size = new System.Drawing.Size(116, 76);
             this.chapterButton_math.TabIndex = 24;
             this.chapterButton_math.Text = "חשיבה כמותית";
             this.chapterButton_math.UseVisualStyleBackColor = true;
@@ -114,10 +110,9 @@
             // 
             // chapterButton_hebrew
             // 
-            this.chapterButton_hebrew.Location = new System.Drawing.Point(393, 132);
-            this.chapterButton_hebrew.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.chapterButton_hebrew.Name = "chapterButton1";
-            this.chapterButton_hebrew.Size = new System.Drawing.Size(130, 89);
+            this.chapterButton_hebrew.Location = new System.Drawing.Point(349, 106);
+            this.chapterButton_hebrew.Name = "chapterButton_hebrew";
+            this.chapterButton_hebrew.Size = new System.Drawing.Size(116, 71);
             this.chapterButton_hebrew.TabIndex = 23;
             this.chapterButton_hebrew.Text = "חשיבה מילולית";
             this.chapterButton_hebrew.UseVisualStyleBackColor = true;
@@ -128,19 +123,18 @@
             this.titleOfPage.AutoSize = true;
             this.titleOfPage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.titleOfPage.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.titleOfPage.Location = new System.Drawing.Point(354, 11);
+            this.titleOfPage.Location = new System.Drawing.Point(315, 9);
             this.titleOfPage.Name = "titleOfPage";
-            this.titleOfPage.Size = new System.Drawing.Size(218, 31);
+            this.titleOfPage.Size = new System.Drawing.Size(182, 27);
             this.titleOfPage.TabIndex = 30;
             this.titleOfPage.Text = "תרגול פרקים מלאים";
             // 
             // downloadExreciseButton
             // 
             this.downloadExreciseButton.Enabled = false;
-            this.downloadExreciseButton.Location = new System.Drawing.Point(659, 419);
-            this.downloadExreciseButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.downloadExreciseButton.Location = new System.Drawing.Point(586, 319);
             this.downloadExreciseButton.Name = "downloadExreciseButton";
-            this.downloadExreciseButton.Size = new System.Drawing.Size(111, 76);
+            this.downloadExreciseButton.Size = new System.Drawing.Size(99, 61);
             this.downloadExreciseButton.TabIndex = 31;
             this.downloadExreciseButton.Text = "הורדת תרגול";
             this.downloadExreciseButton.UseVisualStyleBackColor = true;
@@ -148,10 +142,9 @@
             // 
             // simulationDownloadButton
             // 
-            this.simulationDownloadButton.Location = new System.Drawing.Point(659, 296);
-            this.simulationDownloadButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.simulationDownloadButton.Location = new System.Drawing.Point(586, 238);
             this.simulationDownloadButton.Name = "simulationDownloadButton";
-            this.simulationDownloadButton.Size = new System.Drawing.Size(111, 76);
+            this.simulationDownloadButton.Size = new System.Drawing.Size(99, 61);
             this.simulationDownloadButton.TabIndex = 32;
             this.simulationDownloadButton.Text = "סימולציה 6 פרקים להורדה";
             this.simulationDownloadButton.UseVisualStyleBackColor = true;
@@ -159,9 +152,9 @@
             // 
             // chaptersQuestionsMenu
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(900, 562);
+            this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.simulationDownloadButton);
             this.Controls.Add(this.downloadExreciseButton);
             this.Controls.Add(this.titleOfPage);
@@ -172,7 +165,6 @@
             this.Controls.Add(this.chapterButton_english);
             this.Controls.Add(this.chapterButton_math);
             this.Controls.Add(this.chapterButton_hebrew);
-            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "chaptersQuestionsMenu";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "chaptersQuestionsMenu";

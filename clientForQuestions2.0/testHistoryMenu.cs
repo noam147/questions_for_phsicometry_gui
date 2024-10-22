@@ -18,105 +18,82 @@ namespace clientForQuestions2._0
 {
     public partial class testHistoryMenu : Form
     {
-        //private List<Test> tests;
-        //private List<Button> m_button_list = new List<Button>();
-        //private List<Button> m_download_button_list = new List<Button>();
+        private class CustomSortComparer : System.Collections.IComparer
+        {
+            private string selectedSortOption;
+            private static int sortAscending = 1;
+            public CustomSortComparer(SortOrder sortOrder, string selectedSortOption)
+            {
+                this.selectedSortOption = selectedSortOption;
+                if (sortOrder == SortOrder.Descending)
+                {
+                    sortAscending = -1;
+                }
+                else if (sortOrder == SortOrder.Ascending)
+                {
+                    sortAscending = 1;
+                }
+            }
+            private int get_numerator(string details)
+            {
+                return int.Parse(details.Split(' ')[0].Split('/')[1].ToString());
+            }
+            private int get_denominator(string details)
+            {
+                return int.Parse(details.Split(' ')[0].Split('/')[0].ToString());
+            }
 
-        //private int m_currentIndexOfFirstButton = 0;
-        private int EXRECISEC_SHOWN_PER_CLICK = 5;
-        private int TOP_EMPTY_SPACE = 50;
-        private bool sortByNumerator = true;
-        private bool sortAscending = true;
+            private int get_percentage(string details)
+            {
+                return int.Parse(details.Split(' ')[1].Replace("%","").ToString());
+            }
+            public int Compare(object x, object y)
+            {
+                string data1 = ((DataGridViewRow)x).Cells["מספר התשובות הנכונות מתוך מספר השאלות ואחוז התשובות הנכונות"].Value.ToString();
+                string data2 = ((DataGridViewRow)y).Cells["מספר התשובות הנכונות מתוך מספר השאלות ואחוז התשובות הנכונות"].Value.ToString();
+                int result = 0;
+                switch (selectedSortOption)
+                {
+                    case "שאלות":
+                        result = get_numerator(data1) - get_numerator(data2);
+                        break;
+                    case "נכונות":
+                        result = get_denominator(data1) - get_denominator(data2);
+                        break;
+                    case "אחוז":
+                        result = get_percentage(data1) - get_percentage(data2);
+                        break;
+                    default:
+                        break;
+                }
+
+                return result * sortAscending;
+            }
+        }
+
+        private int TOP_EMPTY_SPACE = 65;
+
+        private string lastSelectedSortOption = ""; // by what option to sort
+        private bool sortAscending = true; // for sorting
+        private ContextMenuStrip sortContextMenu; // Context menu for sorting
+
 
         public testHistoryMenu()
         {
             InitializeComponent();
-            //tests = TestHistoryFileHandler.get_test_history();
 
-            //createButtons();
-            //displayButtons(0, EXRECISEC_SHOWN_PER_CLICK);
+            // for info labels:
+            this.i_toolTip.SetToolTip(this.i_form, @"- לחיצה על שורה תציג את התרגול
+- לחיצה על הכוכב בטור ""מועדפים"" תוסיף את התרגול למועדפים, או תסיר אותו אם הוא כבר במועדפים
+- לחיצה על סמל ההורדה תציג תפריט אפשרויות להורדת התרגול");
+            
         }
 
-        // create buttons
-        //private void createButtons()
-        //{
-        //    // if empty history
-        //    if (tests == null || tests.Count == 0)
-        //        emptyHistory_label.Visible = true;
-        //    else
-        //        emptyHistory_label.Visible = false;
-
-        //    m_download_button_list = new List<Button>();
-        //    m_button_list = new List<Button>();
-        //    for (int i = 0; i < tests.Count; i++)
-        //    {
-        //        Button btn = new Button
-        //        {
-        //            Text = $"{tests[i].id}. {tests[i].date}",
-        //            AutoSize = true,
-        //            Location = new System.Drawing.Point(100, 100 + (i % EXRECISEC_SHOWN_PER_CLICK) * 40), // Adjust spacing
-        //            Enabled = true,
-        //            Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold) // make the text BOLD
-        //        };
-        //        Button download_btn = new Button
-        //        {
-        //            Text = "🡇",
-        //            Size = new Size(50, 40),
-        //            Location = new System.Drawing.Point(50, 100 + (i % EXRECISEC_SHOWN_PER_CLICK) * 40), // Adjust spacing
-        //            Enabled = true,
-        //            BackColor = Color.Yellow,
-        //            Name = $"{tests[i].id}",
-        //            Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Underline) // make the text BOLD
-        //        };
-        //        btn.Click += Button_Click;
-        //        download_btn.Click += downloadButton_Click;
-
-        //        m_button_list.Add(btn);
-        //        m_download_button_list.Add(download_btn);
-
-        //        Controls.Add(btn);
-        //        Controls.Add(download_btn);
-        //    }
-        //}
-
-        //private void deleteButtons()
-        //{
-        //    foreach(Button button in m_button_list)
-        //    {
-        //        this.Controls.Remove(button);
-        //    }
-        //    foreach (Button button in m_download_button_list)
-        //    {
-        //        this.Controls.Remove(button);
-        //    }
-        //}
-
-        //private void downloadButton_Click(object sender, EventArgs e)
-        //{
-        //    int test_id = Int32.Parse(((Button)sender).Name);
-        //    HtmlConvertOptionsMenu n = new HtmlConvertOptionsMenu(test_id);
-        //    n.Show();
-        //}
         private void downloadButton_Click(int test_id)
         {
             HtmlConvertOptionsMenu n = new HtmlConvertOptionsMenu(test_id);
             n.Show();
         }
-
-        //private void Button_Click(object sender, EventArgs e)
-        //{
-        //    string name = (string)((Button)sender).Text;
-        //    foreach (Test test in tests)
-        //    {
-        //        if ($"{test.id}. {test.date}" == name) // if the date on the button is the same of the test
-        //        {
-        //            summrizePage t = new summrizePage(test.m_afterQuestionParametrs, test.id, 0);
-        //            t.Show();
-        //            this.Close();
-        //            return;
-        //        }
-        //    }
-        //}
 
         private void LoadData()
         {
@@ -125,7 +102,7 @@ namespace clientForQuestions2._0
 
 
             //STATS//
-            dataTable.Columns.Add("מספר התשובות הנכונות מתוך מספר השאלות", typeof(string));
+            dataTable.Columns.Add("מספר התשובות הנכונות מתוך מספר השאלות ואחוז התשובות הנכונות", typeof(string));
             dataTable.Columns.Add("זמן התרגול", typeof(string));
             dataTable.Columns.Add("הורדה", typeof(string));
             foreach (DataRow row in dataTable.Rows)
@@ -150,15 +127,41 @@ namespace clientForQuestions2._0
                             if ((int)qp.question.json_content["option_images"][qp.userAnswer - 1]["is_correct"] == 1)
                                 count_right_answers++;
                 }
-                row["מספר התשובות הנכונות מתוך מספר השאלות"] = $"{count_right_answers}/{count_questions}";
+                row["מספר התשובות הנכונות מתוך מספר השאלות ואחוז התשובות הנכונות"] = $"{count_right_answers}/{count_questions} {(int)count_right_answers * 100 / count_questions}%";
                 row["זמן התרגול"] = OperationsAndOtherUseful.get_time_mmss_fromseconds(sum_time);
                 row["הורדה"] = "🡇";
             }
 
+            // Add columns from DataTable
+            foreach (DataColumn column in dataTable.Columns)
+            {
+                // Create a new DataGridViewColumn
+                DataGridViewColumn dataGridViewColumn = new DataGridViewTextBoxColumn
+                {
+                    HeaderText = column.ColumnName, // Set header text
+                    Name = column.ColumnName, // Optional: set a name for the column
+                    DataPropertyName = column.ColumnName // Optional: if using data binding in the future
+                };
 
-            history_dataGridView.DataSource = dataTable;
-            history_dataGridView.Columns["מספר התשובות הנכונות מתוך מספר השאלות"].SortMode = DataGridViewColumnSortMode.NotSortable; // TODO sort by n/m
-            history_dataGridView.Columns["הורדה"].SortMode = DataGridViewColumnSortMode.NotSortable; // TODO sort by n/m
+                // Add the column to the DataGridView
+                history_dataGridView.Columns.Add(dataGridViewColumn);
+            }
+
+            // Add rows from DataTable
+            foreach (DataRow row in dataTable.Rows)
+            {
+                // Create a new DataGridViewRow
+                int rowIndex = history_dataGridView.Rows.Add();
+
+                // Fill the row with data
+                for (int i = 0; i < dataTable.Columns.Count; i++)
+                {
+                    history_dataGridView.Rows[rowIndex].Cells[i].Value = row[i];
+                }
+            }
+
+            history_dataGridView.Columns["מספר התשובות הנכונות מתוך מספר השאלות ואחוז התשובות הנכונות"].SortMode = DataGridViewColumnSortMode.Programmatic;
+            history_dataGridView.Columns["הורדה"].SortMode = DataGridViewColumnSortMode.NotSortable;
 
             if (history_dataGridView.Rows.Count == 0)
             {
@@ -172,8 +175,11 @@ namespace clientForQuestions2._0
             }
 
             history_dataGridView.Columns["מועדפים"].DefaultCellStyle.Font = new Font("Arial", 35, FontStyle.Regular);  // Font settings
-            history_dataGridView.Columns["מועדפים"].DefaultCellStyle.ForeColor = Color.Yellow;                        // Text color (foreground)
+            history_dataGridView.Columns["מועדפים"].DefaultCellStyle.ForeColor = Color.Yellow;                         // Text color (foreground)
+            history_dataGridView.Columns["מועדפים"].DefaultCellStyle.BackColor = Color.Black;                          // Text color (background)
             history_dataGridView.Columns["מועדפים"].DefaultCellStyle.SelectionForeColor = Color.Yellow;
+            history_dataGridView.Columns["מועדפים"].DefaultCellStyle.SelectionBackColor = Color.Black;
+
             foreach (DataGridViewRow row in history_dataGridView.Rows)
             {
                 // Check if the column exists in the DataTable
@@ -191,8 +197,6 @@ namespace clientForQuestions2._0
             history_dataGridView.Columns["הורדה"].DefaultCellStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 25, System.Drawing.FontStyle.Underline);
             history_dataGridView.Columns["הורדה"].DefaultCellStyle.ForeColor = System.Drawing.Color.Blue;
             history_dataGridView.Columns["הורדה"].DefaultCellStyle.SelectionForeColor = System.Drawing.Color.Blue;
-
-            //progressBar.Visible = false;
         }
 
         private void backToMainMenu_button_Click(object sender, EventArgs e)
@@ -218,80 +222,73 @@ namespace clientForQuestions2._0
 
 
             TestHistoryFileHandler.delete_test_history();
-            //tests = TestHistoryFileHandler.get_test_history();
-            //deleteButtons();
-            //createButtons();
-            //nextExreciseButton.Visible = false;
-            //previousExreciseButton.Visible = false;
             LoadData();
         }
 
-        //private void nextExreciseButton_Click(object sender, EventArgs e)
-        //{
-
-        //    displayButtons(m_currentIndexOfFirstButton + EXRECISEC_SHOWN_PER_CLICK, m_currentIndexOfFirstButton + EXRECISEC_SHOWN_PER_CLICK*2);
-        //}
-        //private void unvisibleButtonsFromButtonList()
-        //{
-        //    for (int i = 0; i < m_button_list.Count; i++)
-        //    {
-        //        m_button_list[i].Visible = false;
-        //        m_download_button_list[i].Visible = false;
-        //    }
-        //}
-        //private void displayButtons(int startIndex, int endIndex)
-        //{
-        //    if (startIndex < 0)
-        //        return;
-        //    m_currentIndexOfFirstButton = startIndex;
-        //    unvisibleButtonsFromButtonList();
-
-        //    // hide the nextQuestionsButton if there are no next questions
-        //    if (endIndex >= m_button_list.Count)
-        //    {
-        //        nextExreciseButton.Visible = false;
-        //        endIndex = m_button_list.Count;
-        //    }
-        //    else
-        //        nextExreciseButton.Visible = true;
-        //    // hide the previousQuestionsButton if there are no previous questions
-        //    if (startIndex == 0)
-        //        previousExreciseButton.Visible = false;
-        //    else
-        //        previousExreciseButton.Visible = true;
-
-        //    for (int i = startIndex; i < endIndex; i++)
-        //    {
-        //        Button btn = m_button_list[i];
-        //        btn.Visible = true;
-        //        btn.BringToFront();
-        //        btn = m_download_button_list[i];
-        //        btn.Visible = true;
-        //        btn.BringToFront();
-        //        //
-        //    }
-        //}
-
-        //private void previousExreciseButton_Click(object sender, EventArgs e)
-        //{
-        //    displayButtons(m_currentIndexOfFirstButton - EXRECISEC_SHOWN_PER_CLICK, m_currentIndexOfFirstButton);
-        //}
-
-        private void emptyHistory_label_Click(object sender, EventArgs e)
+        private void history_dataGridView_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-
+            // If the clicked column is the custom column, show the context menu
+            if (history_dataGridView.Columns[e.ColumnIndex].Name == "מספר התשובות הנכונות מתוך מספר השאלות ואחוז התשובות הנכונות")
+            {
+                // Show the context menu at the mouse position
+                sortContextMenu.Show(Cursor.Position);
+            }
         }
+
+        private void SetupContextMenu()
+        {
+            void SetSortOption(string option)
+            {
+                // Find the index of the custom column to sort
+                if (!string.IsNullOrEmpty(option))
+                {
+                    if (lastSelectedSortOption == option)
+                        sortAscending = !sortAscending;
+                    else
+                        sortAscending = true;
+                    if (sortAscending)
+                    {
+                        history_dataGridView.Sort(new CustomSortComparer(SortOrder.Ascending, option));
+                        history_dataGridView.Columns["מספר התשובות הנכונות מתוך מספר השאלות ואחוז התשובות הנכונות"].HeaderCell.SortGlyphDirection = SortOrder.Ascending;
+                    }
+                    else if (!sortAscending)
+                    {
+                        history_dataGridView.Sort(new CustomSortComparer(SortOrder.Descending, option));
+                        history_dataGridView.Columns["מספר התשובות הנכונות מתוך מספר השאלות ואחוז התשובות הנכונות"].HeaderCell.SortGlyphDirection = SortOrder.Descending;
+                    }
+
+                    lastSelectedSortOption = option;
+                }
+
+            }
+
+            sortContextMenu = new ContextMenuStrip();
+
+            // Add sorting options to the context menu for the custom column
+            sortContextMenu.Items.Add("מיון לפי מספר השאלות בתרגול", null, (s, e) => SetSortOption("שאלות"));
+            sortContextMenu.Items.Add("מיון לפי מספר התשובות הנכונות", null, (s, e) => SetSortOption("נכונות"));
+            sortContextMenu.Items.Add("מיון לפי אחוז התשובות הנכונות", null, (s, e) => SetSortOption("אחוז"));
+        }
+
+
+
+
 
         private void testHistoryMenu_Load(object sender, EventArgs e)
         {
             this.resetHistory_button.Location = new System.Drawing.Point(Screen.PrimaryScreen.WorkingArea.Width - this.resetHistory_button.Size.Width - 10, this.resetHistory_button.Location.Y); 
             this.emptyHistory_label.Location = new System.Drawing.Point((int) (Screen.PrimaryScreen.WorkingArea.Width - this.emptyHistory_label.Size.Width) / 2, this.emptyHistory_label.Location.Y);
+            this.titleOfPage.Location = new System.Drawing.Point((int)(Screen.PrimaryScreen.WorkingArea.Width - this.titleOfPage.Size.Width) / 2, this.titleOfPage.Location.Y);
+
+            // Handle ColumnHeaderMouseClick for opening sorting options
+            history_dataGridView.ColumnHeaderMouseClick += history_dataGridView_ColumnHeaderMouseClick;
 
             history_dataGridView.Location = new System.Drawing.Point(0, TOP_EMPTY_SPACE);
             history_dataGridView.MaximumSize = new System.Drawing.Size(Screen.PrimaryScreen.WorkingArea.Width, Screen.PrimaryScreen.WorkingArea.Height - TOP_EMPTY_SPACE);
-            //lessons_dataGridView.Size = new System.Drawing.Size(Screen.PrimaryScreen.WorkingArea.Width, Screen.PrimaryScreen.WorkingArea.Height - 0);
             history_dataGridView.Visible = true;
             history_dataGridView.AutoSize = true;
+
+            SetupContextMenu();
 
             LoadData();
 
@@ -344,6 +341,5 @@ namespace clientForQuestions2._0
                 }
             }
         }
-
     }
 }
