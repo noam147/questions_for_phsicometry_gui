@@ -12,6 +12,11 @@ namespace clientForQuestions2._0
         public chaptersQuestionsMenu()
         {
             InitializeComponent();
+
+            // for info labels:
+            this.i_toolTip.SetToolTip(this.i_simulationDownload, @"הורדת סימולציה בעלת 6 פרקים: שני פרקים מכל סוג פרק");
+            this.i_toolTip.SetToolTip(this.i_downloadChapter, @"הורדת הפרק הנבחר");
+
         }
 
         private void timePerQCheckbox_CheckedChanged(object sender, EventArgs e)
@@ -30,7 +35,7 @@ namespace clientForQuestions2._0
         private void chapterButton_Click(object sender, EventArgs e)
         {
             this.continueButton.Enabled = true;
-            this.downloadExreciseButton.Enabled = true;
+            this.downloadChapterButton.Enabled = true;
             this.chosen_chapter = ((Button)sender).Text.ToString();
 
             this.chapterButton_hebrew.BackColor = Color.White;

@@ -3,7 +3,7 @@ package com.sigma.phsicometrylearning;
 import android.os.Bundle;
 import android.text.Html;
 import android.webkit.WebView;
-
+import android.util.Log;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -39,6 +39,7 @@ public class ShowQuestionByIdActivity extends AppCompatActivity {
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }
+        Log.i("html", htmlToDisplay);
 // Pass the HTML content to the WebView
         htmlToDisplay = Html.escapeHtml(htmlToDisplay);
         questionsWebView.getSettings().setJavaScriptEnabled(true); // Enable JavaScript if needed

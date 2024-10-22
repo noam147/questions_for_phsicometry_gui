@@ -18,8 +18,9 @@ namespace clientForQuestions2._0
             InitializeComponent();
 
             // for info labels:
-            this.i_toolTip.SetToolTip(this.i_form, @"- לחיצה על שורה תציג את השאלה
-- לחיצה על הכוכב בטור ""מועדפים"" תוסיף את התרגול למועדפים, או תסיר אותו אם הוא כבר במועדפים");
+            this.i_toolTip.SetToolTip(this.i_form, @"לחיצה על שורה תציג את השאלה -
+
+לחיצה על הכוכב בטור ""מועדפים"" תוסיף את התרגול למועדפים, או תסיר אותו אם הוא כבר במועדפים -");
         }
 
         private void backToMainMenu_button_Click(object sender, EventArgs e)
@@ -132,17 +133,22 @@ namespace clientForQuestions2._0
             LoadData();
 
             //lessons_dataGridView.Columns["לקח"].DefaultCellStyle.WrapMode = DataGridViewTriState.True;
-            lessons_dataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             lessons_dataGridView.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
 
             // Set a fixed width for the column you want to allow line breaks
-            //lessons_dataGridView.Columns["מס' תרגול"].Width = 100;  // Adjust width as needed
-            //lessons_dataGridView.Columns["תאריך"].Width = 100;  // Adjust width as needed
-            //lessons_dataGridView.Columns["מס' מזהה שאלה"].Width = 100;  // Adjust width as needed
-            lessons_dataGridView.Columns["לקח"].Width = Screen.PrimaryScreen.WorkingArea.Width - 1000;  // Adjust width as needed
+            lessons_dataGridView.Columns["מס' תרגול"].Width = 100;  // Adjust width as needed
+            lessons_dataGridView.Columns["תאריך"].Width = 200;  // Adjust width as needed
+            lessons_dataGridView.Columns["מס' מזהה שאלה"].Width = 100;  // Adjust width as needed
+            lessons_dataGridView.Columns["מועדפים"].Width = 100;  // Adjust width as needed
+            lessons_dataGridView.Columns["נושא"].Width = 300;  // Adjust width as needed
+            lessons_dataGridView.Columns["רמת קושי"].Width = 100;  // Adjust width as needed
+
+            lessons_dataGridView.Columns["לקח"].Width = 400;  // Adjust width as needed
 
             lessons_dataGridView.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
             lessons_dataGridView.AutoResizeRows(DataGridViewAutoSizeRowsMode.AllCells);
+            lessons_dataGridView.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            lessons_dataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
     }
 }
