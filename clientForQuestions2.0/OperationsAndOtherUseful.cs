@@ -552,8 +552,8 @@ namespace clientForQuestions2._0
         }
         public static string getEncodedMacAdd(string mac)
         {
-            string hashedMac = ComputeSha256Hash(mac + "chochai");
-            string secondHashed = ComputeSha256Hash(hashedMac + "sigma");
+            string hashedMac = ComputeSha256Hash(mac + "42chochai");
+            string secondHashed = ComputeSha256Hash(hashedMac + "sig69ma");
             return "42"+hashedMac+ secondHashed + "1a";
         }
 

@@ -122,6 +122,11 @@ namespace clientForQuestions2._0
             //if (e.KeyCode == Keys.Enter)
             //    continueButton_Click(null, null);
         }
+
+        private void macLabel_Click(object sender, EventArgs e)
+        {
+
+        }
     }
     
 }

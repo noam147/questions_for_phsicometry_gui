@@ -60,6 +60,7 @@
             this.macLabel.Size = new System.Drawing.Size(67, 16);
             this.macLabel.TabIndex = 3;
             this.macLabel.Text = "macLabel";
+            this.macLabel.Click += new System.EventHandler(this.macLabel_Click);
             // 
             // continueButton
             // 
