@@ -31,6 +31,7 @@ namespace clientForQuestions2._0
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.back2MainMenuButton = new System.Windows.Forms.Button();
             this.amountOfQuestionText = new System.Windows.Forms.Label();
             this.continueButton = new System.Windows.Forms.Button();
@@ -96,6 +97,12 @@ namespace clientForQuestions2._0
             this.titleOfPage = new System.Windows.Forms.Label();
             this.resetButton = new System.Windows.Forms.Button();
             this.with_already_answered_qs_checkBox = new System.Windows.Forms.CheckBox();
+            this.i_toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.i_theme = new System.Windows.Forms.Label();
+            this.i_timePerQ = new System.Windows.Forms.Label();
+            this.i_withAlreadyAnsweredQs = new System.Windows.Forms.Label();
+            this.i_dificultLevel = new System.Windows.Forms.Label();
+            this.i_skipFeedBack = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.amountOfQuestionNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.difficulyLevelMaxVal)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.difficulyLevelMinVal)).BeginInit();
@@ -812,7 +819,7 @@ namespace clientForQuestions2._0
             // 
             // difficulyLevelMinVal
             // 
-            this.difficulyLevelMinVal.Location = new System.Drawing.Point(12, 358);
+            this.difficulyLevelMinVal.Location = new System.Drawing.Point(26, 358);
             this.difficulyLevelMinVal.Maximum = new decimal(new int[] {
             10,
             0,
@@ -907,11 +914,105 @@ namespace clientForQuestions2._0
             this.with_already_answered_qs_checkBox.Text = "עם שאלות שכבר עשיתי";
             this.with_already_answered_qs_checkBox.UseVisualStyleBackColor = true;
             // 
+            // i_toolTip
+            // 
+            this.i_toolTip.AutomaticDelay = 100;
+            this.i_toolTip.AutoPopDelay = 10000000;
+            this.i_toolTip.InitialDelay = 100;
+            this.i_toolTip.IsBalloon = true;
+            this.i_toolTip.OwnerDraw = true;
+            this.i_toolTip.ReshowDelay = 0;
+            this.i_toolTip.ShowAlways = true;
+            this.i_toolTip.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
+            this.i_toolTip.UseAnimation = false;
+            this.i_toolTip.UseFading = false;
+            // 
+            // i_theme
+            // 
+            this.i_theme.AutoSize = true;
+            this.i_theme.BackColor = System.Drawing.SystemColors.Highlight;
+            this.i_theme.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.i_theme.Cursor = System.Windows.Forms.Cursors.Help;
+            this.i_theme.Font = new System.Drawing.Font("Elephant", 16.2F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.i_theme.ForeColor = System.Drawing.Color.GhostWhite;
+            this.i_theme.Location = new System.Drawing.Point(30, 128);
+            this.i_theme.Name = "i_theme";
+            this.i_theme.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.i_theme.Size = new System.Drawing.Size(29, 39);
+            this.i_theme.TabIndex = 30;
+            this.i_theme.Text = "i";
+            // 
+            // i_timePerQ
+            // 
+            this.i_timePerQ.AutoSize = true;
+            this.i_timePerQ.BackColor = System.Drawing.SystemColors.Highlight;
+            this.i_timePerQ.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.i_timePerQ.Cursor = System.Windows.Forms.Cursors.Help;
+            this.i_timePerQ.Font = new System.Drawing.Font("Elephant", 10.8F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.i_timePerQ.ForeColor = System.Drawing.Color.GhostWhite;
+            this.i_timePerQ.Location = new System.Drawing.Point(15, 209);
+            this.i_timePerQ.Name = "i_timePerQ";
+            this.i_timePerQ.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.i_timePerQ.Size = new System.Drawing.Size(19, 26);
+            this.i_timePerQ.TabIndex = 31;
+            this.i_timePerQ.Text = "i";
+            this.i_timePerQ.Click += new System.EventHandler(this.i_timePerQ_Click);
+            // 
+            // i_withAlreadyAnsweredQs
+            // 
+            this.i_withAlreadyAnsweredQs.AutoSize = true;
+            this.i_withAlreadyAnsweredQs.BackColor = System.Drawing.SystemColors.Highlight;
+            this.i_withAlreadyAnsweredQs.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.i_withAlreadyAnsweredQs.Cursor = System.Windows.Forms.Cursors.Help;
+            this.i_withAlreadyAnsweredQs.Font = new System.Drawing.Font("Elephant", 10.8F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.i_withAlreadyAnsweredQs.ForeColor = System.Drawing.Color.GhostWhite;
+            this.i_withAlreadyAnsweredQs.Location = new System.Drawing.Point(15, 272);
+            this.i_withAlreadyAnsweredQs.Name = "i_withAlreadyAnsweredQs";
+            this.i_withAlreadyAnsweredQs.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.i_withAlreadyAnsweredQs.Size = new System.Drawing.Size(19, 26);
+            this.i_withAlreadyAnsweredQs.TabIndex = 32;
+            this.i_withAlreadyAnsweredQs.Text = "i";
+            // 
+            // i_dificultLevel
+            // 
+            this.i_dificultLevel.AutoSize = true;
+            this.i_dificultLevel.BackColor = System.Drawing.SystemColors.Highlight;
+            this.i_dificultLevel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.i_dificultLevel.Cursor = System.Windows.Forms.Cursors.Help;
+            this.i_dificultLevel.Font = new System.Drawing.Font("Elephant", 10.8F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.i_dificultLevel.ForeColor = System.Drawing.Color.GhostWhite;
+            this.i_dificultLevel.Location = new System.Drawing.Point(15, 305);
+            this.i_dificultLevel.Name = "i_dificultLevel";
+            this.i_dificultLevel.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.i_dificultLevel.Size = new System.Drawing.Size(19, 26);
+            this.i_dificultLevel.TabIndex = 33;
+            this.i_dificultLevel.Text = "i";
+            // 
+            // i_skipFeedBack
+            // 
+            this.i_skipFeedBack.AutoSize = true;
+            this.i_skipFeedBack.BackColor = System.Drawing.SystemColors.Highlight;
+            this.i_skipFeedBack.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.i_skipFeedBack.Cursor = System.Windows.Forms.Cursors.Help;
+            this.i_skipFeedBack.Font = new System.Drawing.Font("Elephant", 10.8F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.i_skipFeedBack.ForeColor = System.Drawing.Color.GhostWhite;
+            this.i_skipFeedBack.Location = new System.Drawing.Point(15, 475);
+            this.i_skipFeedBack.Name = "i_skipFeedBack";
+            this.i_skipFeedBack.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.i_skipFeedBack.Size = new System.Drawing.Size(19, 26);
+            this.i_skipFeedBack.TabIndex = 34;
+            this.i_skipFeedBack.Text = "i";
+            // 
             // normalQuestionsMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1105, 840);
+            this.Controls.Add(this.i_skipFeedBack);
+            this.Controls.Add(this.i_dificultLevel);
+            this.Controls.Add(this.i_withAlreadyAnsweredQs);
+            this.Controls.Add(this.i_timePerQ);
+            this.Controls.Add(this.i_theme);
             this.Controls.Add(this.with_already_answered_qs_checkBox);
             this.Controls.Add(this.resetButton);
             this.Controls.Add(this.titleOfPage);
@@ -1059,5 +1160,11 @@ namespace clientForQuestions2._0
         private Label titleOfPage;
         private Button resetButton;
         private CheckBox with_already_answered_qs_checkBox;
+        public ToolTip i_toolTip;
+        private Label i_theme;
+        private Label i_timePerQ;
+        private Label i_withAlreadyAnsweredQs;
+        private Label i_dificultLevel;
+        private Label i_skipFeedBack;
     }
 }

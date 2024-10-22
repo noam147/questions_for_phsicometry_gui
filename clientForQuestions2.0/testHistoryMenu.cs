@@ -83,9 +83,11 @@ namespace clientForQuestions2._0
             InitializeComponent();
 
             // for info labels:
-            this.i_toolTip.SetToolTip(this.i_form, @"- לחיצה על שורה תציג את התרגול
-- לחיצה על הכוכב בטור ""מועדפים"" תוסיף את התרגול למועדפים, או תסיר אותו אם הוא כבר במועדפים
-- לחיצה על סמל ההורדה תציג תפריט אפשרויות להורדת התרגול");
+            this.i_toolTip.SetToolTip(this.i_form, @"לחיצה על שורה תציג את התרגול -
+
+לחיצה על הכוכב בטור ""מועדפים"" תוסיף את התרגול למועדפים, או תסיר אותו אם הוא כבר במועדפים -
+
+לחיצה על סמל ההורדה תציג תפריט אפשרויות להורדת התרגול -");
             
         }
 
@@ -197,6 +199,8 @@ namespace clientForQuestions2._0
             history_dataGridView.Columns["הורדה"].DefaultCellStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 25, System.Drawing.FontStyle.Underline);
             history_dataGridView.Columns["הורדה"].DefaultCellStyle.ForeColor = System.Drawing.Color.Blue;
             history_dataGridView.Columns["הורדה"].DefaultCellStyle.SelectionForeColor = System.Drawing.Color.Blue;
+            history_dataGridView.Columns["הורדה"].DefaultCellStyle.BackColor = System.Drawing.Color.Honeydew;
+            history_dataGridView.Columns["הורדה"].DefaultCellStyle.SelectionBackColor = System.Drawing.Color.Honeydew;
         }
 
         private void backToMainMenu_button_Click(object sender, EventArgs e)
@@ -291,6 +295,9 @@ namespace clientForQuestions2._0
             SetupContextMenu();
 
             LoadData();
+
+            history_dataGridView.Columns["מועדפים"].Width = 100;  // Adjust width as needed
+            history_dataGridView.Columns["הורדה"].Width = 100;  // Adjust width as needed
 
             //lessons_dataGridView.Columns["לקח"].DefaultCellStyle.WrapMode = DataGridViewTriState.True;
             history_dataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;

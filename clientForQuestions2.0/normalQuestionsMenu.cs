@@ -76,6 +76,25 @@ namespace clientForQuestions2._0
             updatebuttons();
             unVisibleDifficulyLevelItems();
 
+            // for info labels:
+            this.i_toolTip.SetToolTip(this.i_theme, @"לחצו על שם הנושא כדי לכלול אותו בתרגול -
+
+לחצו על ""בחירת כל הנושאים"" כדי ששאלות התרגול ייבחרו מכל הנושאים -
+
+לחצו על כותרות של נושאים כדי לבחור את כל התת-נושאים שלהן -
+(לדוג': 'חשיבה כמותית', הבנה והסקה')");
+            this.i_toolTip.SetToolTip(this.i_skipFeedBack, @",כאשר מסומן, אחרי שעונים על שאלה לא מתקבל משוב לגבי התשובה שלך (האם צדקת, מהי התשובה הנכונה וכו')
+ובנוסף, ניתן לעבור בין שאלות במהלך התרגול עד להגשתו, וזמן התרגול יהיה כולל לכל השאלות");
+            this.i_toolTip.SetToolTip(this.i_timePerQ, @"כאשר מסומן, תיבת הטקטס מתחת לתיבת הסימון מגדירה את כמות הזמן הקצובה לכל שאלה
+
+כאשר התרגול הוא ללא משוב מיידי על תשובות, הזמן הכולל של התרגול *
+יהיה כמות הזמן הקצובה לכל שאלה כפול מספר השאלות");
+            this.i_toolTip.SetToolTip(this.i_withAlreadyAnsweredQs, @"כאשר מסומן, התרגול יכלול שאלות מתרגולים קודמים, אחרת לא יהיו בתרגול שאלות שכבר עשית");
+            this.i_toolTip.SetToolTip(this.i_dificultLevel, @":כאשר מסומן, ניתן לבחור טווח רמות הקושי של השאלות בתרגול, לפי
+מינימום - רמת הקושי המינימלית של השאלות בתרגול
+מקסימום - רמת הקושי המקסימלית של השאלות בתרגול");
+
+
             Dictionary<Control, (float, float, float, float)> controlLayout = new Dictionary<Control, (float, float, float, float)>();
 
             // Store each control's original position and size
@@ -452,6 +471,11 @@ namespace clientForQuestions2._0
         }
 
         private void amountOfQuestionText_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void i_timePerQ_Click(object sender, EventArgs e)
         {
 
         }

@@ -64,7 +64,7 @@
             this.explanation_comboBox.Items.AddRange(new object[] {
             "בלי הסברים ותשובות",
             "הסברים ותשובות בסוף הקובץ",
-            "הסבר ותשובה בסוף השאלה"});
+            "הסבר ותשובה בסוף כל שאלה"});
             this.explanation_comboBox.Location = new System.Drawing.Point(30, 86);
             this.explanation_comboBox.Name = "explanation_comboBox";
             this.explanation_comboBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes;

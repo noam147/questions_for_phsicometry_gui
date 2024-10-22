@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.timePerQCheckbox = new System.Windows.Forms.CheckBox();
             this.timePerQPicker = new System.Windows.Forms.DateTimePicker();
             this.continueButton = new System.Windows.Forms.Button();
@@ -36,8 +37,12 @@
             this.chapterButton_math = new System.Windows.Forms.Button();
             this.chapterButton_hebrew = new System.Windows.Forms.Button();
             this.titleOfPage = new System.Windows.Forms.Label();
-            this.downloadExreciseButton = new System.Windows.Forms.Button();
+            this.downloadChapterButton = new System.Windows.Forms.Button();
             this.simulationDownloadButton = new System.Windows.Forms.Button();
+            this.i_toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.i_simulationDownload = new System.Windows.Forms.Label();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.i_downloadChapter = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // timePerQCheckbox
@@ -129,16 +134,16 @@
             this.titleOfPage.TabIndex = 30;
             this.titleOfPage.Text = "תרגול פרקים מלאים";
             // 
-            // downloadExreciseButton
+            // downloadChapterButton
             // 
-            this.downloadExreciseButton.Enabled = false;
-            this.downloadExreciseButton.Location = new System.Drawing.Point(586, 319);
-            this.downloadExreciseButton.Name = "downloadExreciseButton";
-            this.downloadExreciseButton.Size = new System.Drawing.Size(99, 61);
-            this.downloadExreciseButton.TabIndex = 31;
-            this.downloadExreciseButton.Text = "הורדת תרגול";
-            this.downloadExreciseButton.UseVisualStyleBackColor = true;
-            this.downloadExreciseButton.Click += new System.EventHandler(this.downloadExreciseButton_Click);
+            this.downloadChapterButton.Enabled = false;
+            this.downloadChapterButton.Location = new System.Drawing.Point(586, 319);
+            this.downloadChapterButton.Name = "downloadChapterButton";
+            this.downloadChapterButton.Size = new System.Drawing.Size(99, 61);
+            this.downloadChapterButton.TabIndex = 31;
+            this.downloadChapterButton.Text = "הורדת פרק";
+            this.downloadChapterButton.UseVisualStyleBackColor = true;
+            this.downloadChapterButton.Click += new System.EventHandler(this.downloadExreciseButton_Click);
             // 
             // simulationDownloadButton
             // 
@@ -150,13 +155,71 @@
             this.simulationDownloadButton.UseVisualStyleBackColor = true;
             this.simulationDownloadButton.Click += new System.EventHandler(this.simulationDownloadButton_Click);
             // 
+            // i_toolTip
+            // 
+            this.i_toolTip.AutomaticDelay = 100;
+            this.i_toolTip.AutoPopDelay = 10000000;
+            this.i_toolTip.InitialDelay = 100;
+            this.i_toolTip.IsBalloon = true;
+            this.i_toolTip.OwnerDraw = true;
+            this.i_toolTip.ReshowDelay = 0;
+            this.i_toolTip.ShowAlways = true;
+            this.i_toolTip.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
+            this.i_toolTip.UseAnimation = false;
+            this.i_toolTip.UseFading = false;
+            // 
+            // i_simulationDownload
+            // 
+            this.i_simulationDownload.AutoSize = true;
+            this.i_simulationDownload.BackColor = System.Drawing.SystemColors.Highlight;
+            this.i_simulationDownload.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.i_simulationDownload.Cursor = System.Windows.Forms.Cursors.Help;
+            this.i_simulationDownload.Font = new System.Drawing.Font("Elephant", 16.2F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.i_simulationDownload.ForeColor = System.Drawing.Color.GhostWhite;
+            this.i_simulationDownload.Location = new System.Drawing.Point(701, 246);
+            this.i_simulationDownload.Name = "i_simulationDownload";
+            this.i_simulationDownload.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.i_simulationDownload.Size = new System.Drawing.Size(29, 39);
+            this.i_simulationDownload.TabIndex = 33;
+            this.i_simulationDownload.Text = "i";
+            // 
+            // toolTip1
+            // 
+            this.toolTip1.AutomaticDelay = 100;
+            this.toolTip1.AutoPopDelay = 10000000;
+            this.toolTip1.InitialDelay = 100;
+            this.toolTip1.IsBalloon = true;
+            this.toolTip1.OwnerDraw = true;
+            this.toolTip1.ReshowDelay = 0;
+            this.toolTip1.ShowAlways = true;
+            this.toolTip1.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
+            this.toolTip1.UseAnimation = false;
+            this.toolTip1.UseFading = false;
+            // 
+            // i_downloadChapter
+            // 
+            this.i_downloadChapter.AutoSize = true;
+            this.i_downloadChapter.BackColor = System.Drawing.SystemColors.Highlight;
+            this.i_downloadChapter.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.i_downloadChapter.Cursor = System.Windows.Forms.Cursors.Help;
+            this.i_downloadChapter.Font = new System.Drawing.Font("Elephant", 16.2F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.i_downloadChapter.ForeColor = System.Drawing.Color.GhostWhite;
+            this.i_downloadChapter.Location = new System.Drawing.Point(701, 327);
+            this.i_downloadChapter.Name = "i_downloadChapter";
+            this.i_downloadChapter.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.i_downloadChapter.Size = new System.Drawing.Size(29, 39);
+            this.i_downloadChapter.TabIndex = 34;
+            this.i_downloadChapter.Text = "i";
+            // 
             // chaptersQuestionsMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.i_downloadChapter);
+            this.Controls.Add(this.i_simulationDownload);
             this.Controls.Add(this.simulationDownloadButton);
-            this.Controls.Add(this.downloadExreciseButton);
+            this.Controls.Add(this.downloadChapterButton);
             this.Controls.Add(this.titleOfPage);
             this.Controls.Add(this.timePerQCheckbox);
             this.Controls.Add(this.timePerQPicker);
@@ -183,7 +246,11 @@
         private System.Windows.Forms.Button chapterButton_math;
         private System.Windows.Forms.Button chapterButton_hebrew;
         private System.Windows.Forms.Label titleOfPage;
-        private System.Windows.Forms.Button downloadExreciseButton;
+        private System.Windows.Forms.Button downloadChapterButton;
         private System.Windows.Forms.Button simulationDownloadButton;
+        public System.Windows.Forms.ToolTip i_toolTip;
+        private System.Windows.Forms.Label i_simulationDownload;
+        public System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.Label i_downloadChapter;
     }
 }
