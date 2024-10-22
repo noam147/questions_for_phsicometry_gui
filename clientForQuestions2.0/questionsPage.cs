@@ -417,10 +417,6 @@ namespace clientForQuestions2._0
 
             this.stopTestButton.Enabled = true;
 
-            this.nextQuestionsButton.Visible = true;
-            this.previousQuestionsButton.Visible = true;
-            this.continueToQuestionButton.Visible = true;
-
             for (int i = 0; i < m_buttonList.Count; i++)
                 m_buttonList[i].Enabled = true;
             
