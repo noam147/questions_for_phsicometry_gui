@@ -552,9 +552,9 @@ namespace clientForQuestions2._0
         }
         public static string getEncodedMacAdd(string mac)
         {
-            string hashedMac = ComputeSha256Hash(mac + "b");
-            return hashedMac + "1";
-
+            string hashedMac = ComputeSha256Hash(mac + "chochai");
+            string secondHashed = ComputeSha256Hash(hashedMac + "sigma");
+            return "42"+hashedMac+ secondHashed + "1a";
         }
 
         //func to encode from gpt
