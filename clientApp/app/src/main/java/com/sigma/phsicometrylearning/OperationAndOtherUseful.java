@@ -158,10 +158,36 @@ public class OperationAndOtherUseful {
         String htmlContent = "<head> <style> body { text-align: left; /* Left-align all text */ } </style> </head> " + "<div style=\"direction: ltr; text-align: left;\">" + s + "</div>";
         return htmlContent;
     }
+
+    public static String get_string_of_img_col_html(JSONObject json)
+    {
+        //this should be in a separate file
+        if (json == null)
+        {
+            return "";
+        }
+        try {
+
+            JSONArray collections = json.getJSONArray("collections");
+            if (collections.length() == 0)
+                return "";
+            String cover = collections.getJSONObject(0).getString("cover");
+            String img_path = "https://lmsapi.kidum-me.com/storage/";
+            String file_path = img_path + collections.getJSONObject(0).getJSONObject("file").getString("file_path");
+            String fullImg = "<img src=\"" + file_path + "\" alt=\"Question Image\" style=\" max-width:100%; height:auto;\">";
+            return right2left(cover + fullImg);
+
+        }
+        catch (org.json.JSONException e)
+        {
+            return "";
+        }
+    }
+
     public static String get_string_of_question_and_explanation(DbQuestionParmeters qp, int clientanswer) throws JSONException {
         String line = "<div style=\"top: 50%; left: 0; width: 100vw; height: 1px; background-color: lightgray;\"></div>\r\n<br>הסבר:";
 
-        return get_string_of_question_and_option_from_json(qp, clientanswer) + right2left(line) + get_explanation(qp);
+        return get_string_of_img_col_html(qp.json_content) + get_string_of_question_and_option_from_json(qp, clientanswer) + right2left(line) + get_explanation(qp);
     }
     public static String get_explanation(DbQuestionParmeters qp) throws JSONException {
         String answer = qp.json_content.getString("solving_explanation");
