@@ -2,8 +2,11 @@ package com.sigma.phsicometrylearning;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,6 +28,30 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        setEnterListenr();
+    }
+    private void setEnterListenr()
+    {
+        EditText editText = findViewById(R.id.editTextNumberDecimal);
+
+        editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE ||
+                        (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_DOWN)) {
+                    // "Enter" key was pressed or IME_ACTION_DONE was triggered
+
+                    // Handle the event here, e.g., get the input value
+                    String input = editText.getText().toString();
+                    // Return true to consume the event
+                    sendButtonClicked(null);
+                    return true;
+                }
+                return false;
+            }
+        });
+
     }
     public void sendButtonClicked(View view)
     {
