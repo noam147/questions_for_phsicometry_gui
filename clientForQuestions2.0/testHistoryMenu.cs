@@ -99,9 +99,13 @@ namespace clientForQuestions2._0
 
         private void LoadData()
         {
+            history_dataGridView.Rows.Clear();
+            history_dataGridView.Columns.Clear();
+            history_dataGridView.Refresh();
+
             // Bind the data to the DataGridView
             DataTable dataTable = TestHistoryFileHandler.get_history_for_DataGridView();
-
+            
 
             //STATS//
             dataTable.Columns.Add("מספר התשובות הנכונות מתוך מספר השאלות ואחוז התשובות הנכונות", typeof(string));
@@ -165,17 +169,6 @@ namespace clientForQuestions2._0
             history_dataGridView.Columns["מספר התשובות הנכונות מתוך מספר השאלות ואחוז התשובות הנכונות"].SortMode = DataGridViewColumnSortMode.Programmatic;
             history_dataGridView.Columns["הורדה"].SortMode = DataGridViewColumnSortMode.NotSortable;
 
-            if (history_dataGridView.Rows.Count == 0)
-            {
-                history_dataGridView.Visible = false;
-                emptyHistory_label.Visible = true;
-            }
-            else
-            {
-                history_dataGridView.Visible = true;
-                emptyHistory_label.Visible = false;
-            }
-
             history_dataGridView.Columns["מועדפים"].DefaultCellStyle.Font = new Font("Arial", 35, FontStyle.Regular);  // Font settings
             history_dataGridView.Columns["מועדפים"].DefaultCellStyle.ForeColor = Color.Yellow;                         // Text color (foreground)
             history_dataGridView.Columns["מועדפים"].DefaultCellStyle.BackColor = Color.Black;                          // Text color (background)
@@ -201,6 +194,17 @@ namespace clientForQuestions2._0
             history_dataGridView.Columns["הורדה"].DefaultCellStyle.SelectionForeColor = System.Drawing.Color.Blue;
             history_dataGridView.Columns["הורדה"].DefaultCellStyle.BackColor = System.Drawing.Color.Honeydew;
             history_dataGridView.Columns["הורדה"].DefaultCellStyle.SelectionBackColor = System.Drawing.Color.Honeydew;
+
+            if (history_dataGridView.RowCount == 0)
+            {
+                history_dataGridView.Visible = false;
+                emptyHistory_label.Visible = true;
+            }
+            else
+            {
+                history_dataGridView.Visible = true;
+                emptyHistory_label.Visible = false;
+            }
         }
 
         private void backToMainMenu_button_Click(object sender, EventArgs e)
@@ -305,8 +309,6 @@ namespace clientForQuestions2._0
 
             history_dataGridView.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
             history_dataGridView.AutoResizeRows(DataGridViewAutoSizeRowsMode.AllCells);
-
-            history_dataGridView.Visible = true;
         }
 
         private void history_dataGridView_CellClick(object sender, DataGridViewCellEventArgs e)

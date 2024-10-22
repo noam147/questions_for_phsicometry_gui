@@ -51,7 +51,6 @@ namespace clientForQuestions2._0
             else
             {
                 lessons_list = TestHistoryFileHandler.get_lessons_of_test_in_order(this.test_id);
-                var check = TestHistoryFileHandler.get_questions_with_lesson();
                 if (lessons_list.Count == 0)
                     for (int i = 0; i < questions.Count; i++)
                         lessons_list.Add("");

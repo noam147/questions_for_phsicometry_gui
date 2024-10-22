@@ -58,6 +58,7 @@ namespace clientForQuestions2._0
 
             this.nextQuestionsButton.Visible = false;
             this.previousQuestionsButton.Visible = false;
+            this.continueToQuestionButton.Visible = false;  
 
             this.WindowState = FormWindowState.Maximized;
             //this.FormBorderStyle = FormBorderStyle.None;
@@ -326,16 +327,6 @@ namespace clientForQuestions2._0
 
         private void updateAtStartCol(List<int> q_ids)
         {
-            //wait until webview is init
-            this.answer1Button.Enabled = true;
-            this.answer2Button.Enabled = true;
-            this.answer3Button.Enabled = true;
-            this.answer4Button.Enabled = true;
-
-            this.stopTestButton.Enabled = true;
-
-            this.nextQuestionsButton.Visible = true;
-            this.previousQuestionsButton.Visible = true;
 
             m_questionDetails = new List<dbQuestionParmeters>();
             foreach (int id in q_ids)
@@ -384,6 +375,8 @@ namespace clientForQuestions2._0
                             }
 
                             int test_id = TestHistoryFileHandler.get_next_test_id();
+                            LogFileHandler.writeIntoFile("timer");
+
                             TestHistoryFileHandler.save_afterQuestionParametrs_to_test_history(m_afterQuestionParametrs, test_id, this.test_type);
 
                             var s = new summrizePage(this.m_afterQuestionParametrs, test_id, 0); // TODO edit 0 to test_id
@@ -417,11 +410,17 @@ namespace clientForQuestions2._0
 
         private void whenFinishInitWebView()
         {
+            //wait until webview is init
             this.answer1Button.Enabled = true;
             this.answer2Button.Enabled = true;
             this.answer3Button.Enabled = true;
             this.answer4Button.Enabled = true;
+
             this.stopTestButton.Enabled = true;
+
+            this.nextQuestionsButton.Visible = true;
+            this.previousQuestionsButton.Visible = true;
+            this.continueToQuestionButton.Visible = true;
 
             for (int i = 0; i < m_buttonList.Count; i++)
                 m_buttonList[i].Enabled = true;
@@ -687,6 +686,7 @@ namespace clientForQuestions2._0
 
 
             int test_id = TestHistoryFileHandler.get_next_test_id();
+            LogFileHandler.writeIntoFile($"stopbutton {test_id}");
             TestHistoryFileHandler.save_afterQuestionParametrs_to_test_history(m_afterQuestionParametrs, test_id, this.test_type);
 
             var s = new summrizePage(this.m_afterQuestionParametrs, test_id, 0);
@@ -852,6 +852,7 @@ namespace clientForQuestions2._0
                 disposedWebViews();
 
                 int test_id = TestHistoryFileHandler.get_next_test_id();
+                LogFileHandler.writeIntoFile("continuebutton");
 
                 TestHistoryFileHandler.save_afterQuestionParametrs_to_test_history(m_afterQuestionParametrs, test_id, this.test_type);
 
