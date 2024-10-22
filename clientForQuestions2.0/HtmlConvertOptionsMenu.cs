@@ -20,9 +20,8 @@ namespace clientForQuestions2._0
         private string file_path;
         private bool autoDownload = false;
         private List<dbQuestionParmeters> questions;
-        private string finalHtmlContentForFile = "";
-        private string htmlContentOfAnswers = "<head> <style>body { font-weight: normal !important; }</style></head><body dir=\"rtl\">";
-
+        private string finalHtmlContentForFile = "<head><style>\r\n    .question-container { page-break-inside: avoid; }</style></head>";
+        private string htmlContentOfAnswers = "<body dir=\"rtl\">";
         private List<int> listOfPreviousQuestionsId = new List<int>();
         public HtmlConvertOptionsMenu(int test_id)
         {
@@ -42,7 +41,8 @@ namespace clientForQuestions2._0
             this.questions = new List<dbQuestionParmeters>();
             explanation_comboBox.SelectedIndex = 0;
             string newPage = "<div style='page-break-after: always;'></div>";
-            for (int i =0; i < 5;i++)
+            newPage = "<br>";
+            for (int i =0; i < 42;i++)
             {
                 var multipleChaptersQuestions = OperationsAndOtherUseful.sendChapter_math_Questions_without_graph(this.listOfPreviousQuestionsId);
                 foreach(var question in multipleChaptersQuestions)
@@ -53,10 +53,10 @@ namespace clientForQuestions2._0
                 this.htmlContentOfAnswers += "<br><br>" + "כמותי " + (i+1)+":\n";//add lines to separate diffrentchapters
                 currentChapter = get_html(true);
                 questions.Clear();
-                finalSimulation += $"<h4>test number {i + 1}</h4>";
-                finalSimulation += currentChapter + newPage;
+                finalSimulation +=  $"<h4>test number {i + 1}</h4>";
+                finalSimulation += currentChapter+newPage;
             }
-            finalHtmlContentForFile = finalSimulation;
+            finalHtmlContentForFile += finalSimulation;
             filePath_button_Click(null, null);
 
         }
@@ -87,6 +87,7 @@ namespace clientForQuestions2._0
             InitializeComponent();
             explanation_comboBox.SelectedIndex = 0;
             string newPage = "<div style='page-break-after: always;'></div>";
+            newPage = "<br><br><br>";
             for (int i = 0; i < multipleQuestionsfiles.Count; i++)
             {
                 this.questions = multipleQuestionsfiles[i];
@@ -95,7 +96,7 @@ namespace clientForQuestions2._0
                 this.htmlContentOfAnswers += "<br><br>" + generalCategory + ":\n";//add lines to separate diffrentchapters
                 currentChapter = get_html(true);
                 
-                finalSimulation += currentChapter + newPage;
+                finalSimulation += newPage+currentChapter;
             }
             finalHtmlContentForFile = finalSimulation;
             filePath_button_Click(null, null);
@@ -350,7 +351,7 @@ namespace clientForQuestions2._0
                 // Replace the <mspace> with the closing tags, <br>, and reopening tags
                 new_html = new_html.Substring(0, new_html.IndexOf(new_line_mathml))
                     + string.Join("", closeTags) // Close tags in reverse order
-                    + "<br>"
+                    + "<br><br>&nbsp;"
                     + string.Join("", openTags) // Open tags in normal order
                     + new_html.Substring(new_html.IndexOf(new_line_mathml) + new_line_mathml.Length);
             }
