@@ -18,7 +18,7 @@ public class OperationAndOtherUseful {
 
     private static Boolean isQuestionInHebrew(String category)
     {
-        if (category == "Restatements" || category == "Reading Comprehension" || category == "אוצר-מילים" || category == "Sentence Completions")
+        if (category.equals("Restatements") || category.equals("Reading Comprehension") || category.equals("אוצר-מילים") || category.equals("Sentence Completions"))
         {
             return false;
         }
@@ -100,7 +100,7 @@ public class OperationAndOtherUseful {
             return left2right(question + getStringOfImgHtml((JSONObject) qp.json_content.get("image")) + "<br><br>" + finalOptionsString);
         }
         String strForEight2Left = question;
-        //strForEight2Left+= getStringOfImgHtml((JSONObject) qp.json_content.get("image"));
+        strForEight2Left+= getStringOfImgHtml((JSONObject) qp.json_content.get("image"));
         strForEight2Left += "<br><br>"+ finalOptionsString;
         String finalString = right2left(strForEight2Left);
         return finalString;
