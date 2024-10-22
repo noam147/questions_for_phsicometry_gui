@@ -6,7 +6,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 using System;
-
+using System.IO;
 namespace clientForQuestions2._0
 {
 
@@ -809,5 +809,21 @@ namespace clientForQuestions2._0
             { idOfQuestions.Add(question.questionId); }
             return idOfQuestions;
         }
+
+        public static void hideFiles()
+        {
+            List<string> file_paths = new List<string>();
+            file_paths.Add("kidum_jsons.db");
+            file_paths.Add("settingsFile.setting");
+            file_paths.Add("test_history_file.db");
+            foreach (var path in file_paths)
+            {
+                if (File.Exists(path))
+                {
+                    File.SetAttributes(path, File.GetAttributes(path) | FileAttributes.Hidden);
+                }
+            }
+        }
+           
     }
 }
