@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -63,9 +64,24 @@ public class MainActivity extends AppCompatActivity {
             id = Integer.parseInt(idString); // Parse the string to an integer
         } catch (NumberFormatException e) {
             // Handle the case where the input is not a valid integer
-            id = 0; // Or set to a default value or show an error message
-            e.printStackTrace();
+            Toast.makeText(MainActivity.this, "This is not a valid id", Toast.LENGTH_SHORT).show();
+            return;
         }
+        DbQuestionParmeters currQuestion;
+        try {
+            DbManager dbManager = new DbManager(this);
+            currQuestion = dbManager.getQuestionBasedOnId(id);
+        } catch (Exception e) {
+            // Handle the case where the input is not a valid id
+            Toast.makeText(MainActivity.this, "This id does not exist", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (currQuestion == null || currQuestion.json_content == null || currQuestion.category == null){
+            // Handle the case where the input is not a valid id
+            Toast.makeText(MainActivity.this, "This id does not exist", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         Intent intent = new Intent(MainActivity.this, ShowQuestionByIdActivity.class);
         intent.putExtra("id",id);
         startActivity(intent);
