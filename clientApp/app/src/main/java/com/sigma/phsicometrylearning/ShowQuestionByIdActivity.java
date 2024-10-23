@@ -10,12 +10,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import android.widget.Switch;
 
 import org.json.JSONException;
 
 public class ShowQuestionByIdActivity extends AppCompatActivity {
 
     private int questionId;
+    private WebView questionsWebView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,16 +33,16 @@ public class ShowQuestionByIdActivity extends AppCompatActivity {
         DbQuestionParmeters currQuestion = dbManager.getQuestionBasedOnId(questionId);
 
 
-        WebView questionsWebView = findViewById(R.id.QuestionsWebView);
+        questionsWebView = findViewById(R.id.QuestionsWebView);
 
 // HTML content to load into the WebView
         String htmlToDisplay = "<html><body><h1>This is the question</h1><p>Question details go here...</p></body></html>";
         try {
-            htmlToDisplay = OperationAndOtherUseful.get_string_of_question_and_explanation(currQuestion,currQuestion.rightAnswer);
+            htmlToDisplay = OperationAndOtherUseful.get_string_of_question_and_option_from_json(currQuestion,currQuestion.rightAnswer);
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }
-        Log.i("html", htmlToDisplay);
+//        Log.i("html", htmlToDisplay);
 // Pass the HTML content to the WebView
         //htmlToDisplay = Html.escapeHtml(htmlToDisplay);
         questionsWebView.getSettings().setJavaScriptEnabled(true); // Enable JavaScript if needed
@@ -61,8 +63,38 @@ public class ShowQuestionByIdActivity extends AppCompatActivity {
         webSettings.setBuiltInZoomControls(true); // Enable zoom controls
         webSettings.setDisplayZoomControls(false); // Hide the zoom buttons if you only want pinch-to-zoom
         webSettings.setSupportZoom(true);
-        questionsWebView.loadDataWithBaseURL(null, htmlToDisplay, "text/html", "UTF-8", null);
 
+        display_html_in_webview(htmlToDisplay);
         //questionsWebView.loadData(htmlToDisplay, "text/html", "UTF-8");
+
+        // Find the Switch by its ID
+        Switch switchExample = findViewById(R.id.switch1);
+
+        // Set an OnCheckedChangeListener
+        switchExample.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                // Switch is ON
+                try
+                {
+                    display_html_in_webview(OperationAndOtherUseful.get_string_of_question_and_explanation(currQuestion,currQuestion.rightAnswer));
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
+            } else {
+                // Switch is OFF
+                try
+                {
+                    display_html_in_webview(OperationAndOtherUseful.get_string_of_question_and_option_from_json(currQuestion,currQuestion.rightAnswer));
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
+    }
+
+    private void display_html_in_webview(String html)
+    {
+        questionsWebView.loadDataWithBaseURL(null, html, "text/html", "UTF-8", null);
+
     }
 }

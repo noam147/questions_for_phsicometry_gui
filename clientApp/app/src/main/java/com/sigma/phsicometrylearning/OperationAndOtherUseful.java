@@ -18,7 +18,7 @@ public class OperationAndOtherUseful {
 
     private static Boolean isQuestionInHebrew(String category)
     {
-        if (category == "Restatements" || category == "Reading Comprehension" || category == "אוצר-מילים" || category == "Sentence Completions")
+        if (category.equals("Restatements") || category.equals("Reading Comprehension") || category.equals("אוצר-מילים") || category.equals("Sentence Completions"))
         {
             return false;
         }
@@ -94,16 +94,24 @@ public class OperationAndOtherUseful {
         if (!isTextOptions) {
             finalOptionsString = String.join("<br>", listOfOptions);
         }
+        JSONObject image_JSONO = null;
+        try {
+            image_JSONO = qp.json_content.getJSONObject("image");
+        } catch (JSONException e) {
+
+        }
+        String image_str = "";
+        if (image_JSONO != null)
+            image_str = getStringOfImgHtml(image_JSONO);
 
         // If the question is in English
         if (!isQuestionInHebrew(qp.category)) {
-            return left2right(question + getStringOfImgHtml((JSONObject) qp.json_content.get("image")) + "<br><br>" + finalOptionsString);
+            return left2right(get_string_of_img_col_html(qp.json_content) + "<br>" + question + image_str + "<br><br>" + finalOptionsString);
         }
         String strForEight2Left = question;
-        //strForEight2Left+= getStringOfImgHtml((JSONObject) qp.json_content.get("image"));
+        strForEight2Left+= image_str;
         strForEight2Left += "<br><br>"+ finalOptionsString;
-        String finalString = right2left(strForEight2Left);
-        return finalString;
+        return right2left(get_string_of_img_col_html(qp.json_content) + "<br>"  + strForEight2Left);
         //return right2left(question + getStringOfImgHtml((JSONObject) qp.json_content.get("image")) + "<br><br>" + finalOptionsString);
     }
     private static String getStringOfImgHtml(JSONObject json) throws JSONException {
@@ -111,14 +119,20 @@ public class OperationAndOtherUseful {
         if (json == null) {
             return "";
         }
-        if (!json.has("file_path")) {
+
+        try {
+            if (!json.has("file_path")) {
+                return "";
+            }
+            String imgPath = "https://lmsapi.kidum-me.com/storage/";
+            String filePath = imgPath + json.getString("file_path");
+            String fullImg = String.format("<img src=\"%s\" alt=\"Question Image\" style=\"max-height:%s; width:auto;\">", filePath, img_max_height);
+            return fullImg;
+
+        } catch (JSONException e) {
             return "";
         }
 
-        String imgPath = "https://lmsapi.kidum-me.com/storage/";
-        String filePath = imgPath + json.getString("file_path");
-        String fullImg = String.format("<img src=\"%s\" alt=\"Question Image\" style=\"max-height:%s; width:auto;\">", filePath, img_max_height);
-        return fullImg;
     }
     public static String right2left(String s) {
         // Aligned to the right
@@ -175,7 +189,7 @@ public class OperationAndOtherUseful {
             String img_path = "https://lmsapi.kidum-me.com/storage/";
             String file_path = img_path + collections.getJSONObject(0).getJSONObject("file").getString("file_path");
             String fullImg = "<img src=\"" + file_path + "\" alt=\"Question Image\" style=\" max-width:100%; height:auto;\">";
-            return right2left(cover + fullImg);
+            return cover + fullImg;
 
         }
         catch (org.json.JSONException e)
@@ -187,7 +201,7 @@ public class OperationAndOtherUseful {
     public static String get_string_of_question_and_explanation(DbQuestionParmeters qp, int clientanswer) throws JSONException {
         String line = "<div style=\"top: 50%; left: 0; width: 100vw; height: 1px; background-color: lightgray;\"></div>\r\n<br>הסבר:";
 
-        return get_string_of_img_col_html(qp.json_content) + get_string_of_question_and_option_from_json(qp, clientanswer) + right2left(line) + get_explanation(qp);
+        return get_string_of_question_and_option_from_json(qp, clientanswer) + right2left(line) + get_explanation(qp);
     }
     public static String get_explanation(DbQuestionParmeters qp) throws JSONException {
         String answer = qp.json_content.getString("solving_explanation");

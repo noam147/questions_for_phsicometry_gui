@@ -15,7 +15,14 @@ namespace clientForQuestions2._0
             InitializeComponent();
             LogFileHandler.writeIntoFile("logged on");
             filePath = Environment.CurrentDirectory + "/" + filename;
-
+            macLabel.MouseDown += (sender, e) =>
+            {
+                if (e.Button == MouseButtons.Left)
+                {
+                    Clipboard.SetText(macLabel.Text);
+                    MessageBox.Show("Text copied to clipboard!");
+                }
+            };
             this.KeyPreview = true; // Set KeyPreview to true to capture key presses
             this.KeyDown += new KeyEventHandler(Form1_KeyDown);
 
@@ -23,14 +30,7 @@ namespace clientForQuestions2._0
             this.macLabel.Text = macAdd;
             password = OperationsAndOtherUseful.getEncodedMacAdd(macAdd);
             //this.macLabel.Text = password;  // to copy the passward
-            macLabel.MouseDown += (sender, e) =>
-            {
-                if (e.Button == MouseButtons.Left)
-                {
-                    Clipboard.SetText(password);
-                    MessageBox.Show("Text copied to clipboard!");
-                }
-            };
+
             this.hintPassLabel.Text = "hint for password: (click on the text that looks like gibrish to copy it)";
         }
 
