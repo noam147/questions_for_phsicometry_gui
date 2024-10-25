@@ -605,11 +605,10 @@ namespace clientForQuestions2._0
             //<mo>&#160;</mo><mi>CDC</mi></mpadded>
 
             //</mstack>";
-            LogFileHandler.writeIntoFile("test0: " + input_html);
 
             // Step 1: Extract content between <mstack> and </mstack>
             string mstackContent = Regex.Match(input_html, @"<mstack(.*?)</mstack>", RegexOptions.Singleline).Groups[1].Value;
-            LogFileHandler.writeIntoFile("test1: " + mstackContent);
+
             //// Step 2: Keep only <mi>...</mi> and <mo>...</mo> tags and their content, deleting everything else
             //mstackContent = Regex.Replace(mstackContent, @"<(?!/?(mi|mo)\b)[^>]*>|[^<]+", "");
 
@@ -638,8 +637,6 @@ namespace clientForQuestions2._0
                     {
                         // Add the full tag segment (from <mi> or <mo> to </mi> or </mo>) to new_mstackContent
                         string segment = mstackContent.Substring(0, endIndex + tag.Length + 3);
-                        LogFileHandler.writeIntoFile("test3: " + segment);
-
                         new_mstackContent += segment;
 
                         // Remove this segment from mstackContent
@@ -652,12 +649,9 @@ namespace clientForQuestions2._0
                     mstackContent = mstackContent.Substring(1);
                 }
             }
-            LogFileHandler.writeIntoFile("test2: " + new_mstackContent);
 
             // Step 5: Replace the original <mstack> content with the modified content in the result
-            input_html = Regex.Replace(input_html, @"<mstack(.*?)</mstack>", $"<mrow>{new_mstackContent}</mrow>", RegexOptions.Singleline);
-            LogFileHandler.writeIntoFile(input_html);
-            return input_html;
+            return Regex.Replace(input_html, @"<mstack(.*?)</mstack>", $"<mrow>{new_mstackContent}</mrow>", RegexOptions.Singleline);
         }
 
         // חשיבה מילולית

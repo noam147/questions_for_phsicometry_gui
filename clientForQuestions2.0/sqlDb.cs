@@ -72,7 +72,6 @@ namespace clientForQuestions2._0
             {
                 dbQuestionParmeters dbParmeters = new dbQuestionParmeters();
                 dbParmeters.json_content = jsonArray[i];
-                LogFileHandler.writeIntoFile(dbParmeters.json_content["question"].ToString());
 
                 dbParmeters.json_content["question"] = includeJsLibs + dbParmeters.json_content["question"];
                 //dbParmeters.json_content["question"].ToString().Replace("<mspace linebreak =\"newline\"/>", "<mspace linebreak=\"newline\"/><p></p>");
