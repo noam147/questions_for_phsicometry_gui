@@ -211,7 +211,7 @@ namespace clientForQuestions2._0
                 this.timer.Invoke((MethodInvoker)delegate
                 {
                     this.timer.Text = OperationsAndOtherUseful.get_time_mmss_fromseconds(Math.Abs(secondsUntilTimerResets - m_secondsTookForCurrq));
-                    if (this.secondsUntilTimerResets != OperationsAndOtherUseful.WITHOUT_TIMER)
+                    if (this.secondsUntilTimerResets != OperationsAndOtherUseful.STOPER)
                     {
                         actionsWithTimer();
                     }

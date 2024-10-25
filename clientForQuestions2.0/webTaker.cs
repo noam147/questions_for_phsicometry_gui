@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.Web.WebView2.WinForms;
@@ -121,7 +122,6 @@ namespace clientForQuestions2._0
         });
     });
 ";
-                await webView.CoreWebView2.ExecuteScriptAsync(script2);
             }
         }
     }

@@ -364,7 +364,7 @@ namespace clientForQuestions2._0
             }
             int timeUntilTimeReset = timePerQPicker.Value.Minute * 60 + timePerQPicker.Value.Second;
             if (!this.timePerQCheckbox.Checked)
-                timeUntilTimeReset = OperationsAndOtherUseful.WITHOUT_TIMER;
+                timeUntilTimeReset = OperationsAndOtherUseful.STOPER;
 
             /*if (!this.skipFeedBackCheckBox.Checked)
             {
