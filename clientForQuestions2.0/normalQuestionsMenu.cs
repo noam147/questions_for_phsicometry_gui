@@ -95,6 +95,23 @@ namespace clientForQuestions2._0
 מקסימום - רמת הקושי המקסימלית של השאלות בתרגול");
 
 
+
+            maximize_screen();
+
+            this.amountOfQuestionNumericUpDown.Value = 5;
+            this.continueButton.Enabled = false;
+
+            this.difficultyLevels.minlevel = OperationsAndOtherUseful.MIN_LEVEL;
+            this.difficultyLevels.maxLevel = OperationsAndOtherUseful.MAX_LEVEL;
+
+            this.difficulyLevelMinVal.Maximum = OperationsAndOtherUseful.MAX_LEVEL;
+            this.difficulyLevelMinVal.Minimum = OperationsAndOtherUseful.MIN_LEVEL;
+            this.difficulyLevelMaxVal.Maximum = OperationsAndOtherUseful.MAX_LEVEL;
+            this.difficulyLevelMaxVal.Minimum = OperationsAndOtherUseful.MIN_LEVEL;
+            initByPreviousSettingsOfUser();
+        }
+        private void maximize_screen()
+        {
             Dictionary<Control, (float, float, float, float)> controlLayout = new Dictionary<Control, (float, float, float, float)>();
 
             // Store each control's original position and size
@@ -109,22 +126,10 @@ namespace clientForQuestions2._0
 
             foreach (Control ctrl in this.Controls)
             {
-                var (x,y,w,h) = controlLayout[ctrl];
-                ctrl.Location = new Point((int) (x), (int) (y));
-                ctrl.Size = new Size(ctrl.Size.Width, (int) (h));
+                var (x, y, w, h) = controlLayout[ctrl];
+                ctrl.Location = new Point((int)(x), (int)(y));
+                ctrl.Size = new Size(ctrl.Size.Width, (int)(h));
             }
-
-            this.amountOfQuestionNumericUpDown.Value = 5;
-            this.continueButton.Enabled = false;
-
-            this.difficultyLevels.minlevel = OperationsAndOtherUseful.MIN_LEVEL;
-            this.difficultyLevels.maxLevel = OperationsAndOtherUseful.MAX_LEVEL;
-
-            this.difficulyLevelMinVal.Maximum = OperationsAndOtherUseful.MAX_LEVEL;
-            this.difficulyLevelMinVal.Minimum = OperationsAndOtherUseful.MIN_LEVEL;
-            this.difficulyLevelMaxVal.Maximum = OperationsAndOtherUseful.MAX_LEVEL;
-            this.difficulyLevelMaxVal.Minimum = OperationsAndOtherUseful.MIN_LEVEL;
-            initByPreviousSettingsOfUser();
         }
         private void resetSettings()
         {
@@ -476,6 +481,11 @@ namespace clientForQuestions2._0
         }
 
         private void i_timePerQ_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void normalQuestionsMenu_Load(object sender, EventArgs e)
         {
 
         }

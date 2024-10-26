@@ -16,7 +16,6 @@ namespace clientForQuestions2._0
             // for info labels:
             this.i_toolTip.SetToolTip(this.i_simulationDownload, @"הורדת סימולציה בעלת 6 פרקים: שני פרקים מכל סוג פרק");
             this.i_toolTip.SetToolTip(this.i_downloadChapter, @"הורדת הפרק הנבחר");
-
         }
 
         private void timePerQCheckbox_CheckedChanged(object sender, EventArgs e)

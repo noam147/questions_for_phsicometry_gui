@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Linq;
+using System.Drawing;
 
 namespace clientForQuestions2._0
 {
@@ -17,6 +18,7 @@ namespace clientForQuestions2._0
             //this.WindowState = FormWindowState.Maximized;
             //this.FormBorderStyle = FormBorderStyle.None;
             //this.StartPosition = FormStartPosition.CenterScreen;
+            maximize_screen();
         }
 
         private void normalQuestions_Clicked(object sender, EventArgs e)
@@ -173,6 +175,38 @@ namespace clientForQuestions2._0
 
             t.Show();
             this.Close();
+        }
+
+        private void maximize_screen()
+        {
+            Dictionary<Control, (float, float, float, float)> controlLayout = new Dictionary<Control, (float, float, float, float)>();
+
+            // Store each control's original position and size
+            foreach (Control ctrl in this.Controls)
+            {
+                controlLayout[ctrl] = (ctrl.Location.X * Screen.PrimaryScreen.WorkingArea.Width / this.ClientSize.Width, ctrl.Location.Y * Screen.PrimaryScreen.WorkingArea.Height / this.ClientSize.Height, ctrl.Size.Width * Screen.PrimaryScreen.WorkingArea.Width / this.ClientSize.Width, ctrl.Size.Height * Screen.PrimaryScreen.WorkingArea.Height / this.ClientSize.Height);
+            }
+
+            this.WindowState = FormWindowState.Maximized;
+            //this.FormBorderStyle = FormBorderStyle.None;
+            this.StartPosition = FormStartPosition.CenterScreen;
+
+            foreach (Control ctrl in this.Controls)
+            {
+                var (x, y, w, h) = controlLayout[ctrl];
+                ctrl.Location = new Point((int)(x), (int)(y));
+                ctrl.Size = new Size((int) (w / 1.5), (int)(h));
+            }
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

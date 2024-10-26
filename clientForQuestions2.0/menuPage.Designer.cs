@@ -71,7 +71,7 @@ namespace clientForQuestions2._0
             // 
             // questionByIDtextBox
             // 
-            this.questionByIDtextBox.Location = new System.Drawing.Point(84, 115);
+            this.questionByIDtextBox.Location = new System.Drawing.Point(197, 175);
             this.questionByIDtextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.questionByIDtextBox.Name = "questionByIDtextBox";
             this.questionByIDtextBox.Size = new System.Drawing.Size(89, 22);
@@ -81,11 +81,12 @@ namespace clientForQuestions2._0
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(81, 79);
+            this.label1.Location = new System.Drawing.Point(174, 136);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(128, 16);
             this.label1.TabIndex = 15;
             this.label1.Text = "שאלה לפי מספר מזהה";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // chaptersQuestions
             // 
@@ -101,15 +102,16 @@ namespace clientForQuestions2._0
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(41, 365);
+            this.label2.Location = new System.Drawing.Point(140, 418);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(213, 16);
             this.label2.TabIndex = 20;
             this.label2.Text = "תרשים או קטע קריאה לפי מספר מזהה";
+            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // collectionbyIdtextBox
             // 
-            this.collectionbyIdtextBox.Location = new System.Drawing.Point(84, 406);
+            this.collectionbyIdtextBox.Location = new System.Drawing.Point(197, 461);
             this.collectionbyIdtextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.collectionbyIdtextBox.Name = "collectionbyIdtextBox";
             this.collectionbyIdtextBox.Size = new System.Drawing.Size(89, 22);
@@ -164,7 +166,7 @@ namespace clientForQuestions2._0
             this.collectionbyIdButton.FlatAppearance.BorderSize = 0;
             this.collectionbyIdButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.collectionbyIdButton.ForeColor = System.Drawing.Color.White;
-            this.collectionbyIdButton.Location = new System.Drawing.Point(44, 444);
+            this.collectionbyIdButton.Location = new System.Drawing.Point(152, 499);
             this.collectionbyIdButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.collectionbyIdButton.Name = "collectionbyIdButton";
             this.collectionbyIdButton.Size = new System.Drawing.Size(156, 48);
@@ -181,7 +183,7 @@ namespace clientForQuestions2._0
             this.questionByIdButton.FlatAppearance.BorderSize = 0;
             this.questionByIdButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.questionByIdButton.ForeColor = System.Drawing.Color.White;
-            this.questionByIdButton.Location = new System.Drawing.Point(44, 158);
+            this.questionByIdButton.Location = new System.Drawing.Point(152, 213);
             this.questionByIdButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.questionByIdButton.Name = "questionByIdButton";
             this.questionByIdButton.Size = new System.Drawing.Size(156, 48);

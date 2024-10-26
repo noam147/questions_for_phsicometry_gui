@@ -1083,6 +1083,7 @@ namespace clientForQuestions2._0
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "normalQuestionsMenu";
             this.Text = "normalQuestionsMenu";
+            this.Load += new System.EventHandler(this.normalQuestionsMenu_Load);
             ((System.ComponentModel.ISupportInitialize)(this.amountOfQuestionNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.difficulyLevelMaxVal)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.difficulyLevelMinVal)).EndInit();
