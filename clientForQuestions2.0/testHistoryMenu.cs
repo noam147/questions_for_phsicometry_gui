@@ -241,6 +241,11 @@ namespace clientForQuestions2._0
                 // Show the context menu at the mouse position
                 sortContextMenu.Show(Cursor.Position);
             }
+            else
+            {
+                // remove the SortGlyphDirection from this column if another column is being sorted
+                history_dataGridView.Columns["מספר התשובות הנכונות מתוך מספר השאלות ואחוז התשובות הנכונות"].HeaderCell.SortGlyphDirection = SortOrder.None;
+            }
         }
 
         private void SetupContextMenu()

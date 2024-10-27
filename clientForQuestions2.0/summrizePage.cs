@@ -146,7 +146,7 @@ namespace clientForQuestions2._0
             this.avrage_time.Text = $"זמן ממוצע לשאלה: {OperationsAndOtherUseful.get_time_mmss_fromseconds(sum_time / m_questions.Count)}";
             this.avrage_difficultyLevel.Text = $"רמת קושי ממוצעת לשאלה: {Math.Round(sum_difficultLevel / m_questions.Count, 1)}";
             this.correct_answers.Text = $"תשובות נכונות: {corr_c}/{m_questions.Count}";
-
+            this.test_id_label.Text = $"Test Id: {this.test_id}";
         }
 
         // to detect arrow keys preesed

@@ -136,14 +136,14 @@ namespace clientForQuestions2._0
             lessons_dataGridView.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
 
             // Set a fixed width for the column you want to allow line breaks
-            lessons_dataGridView.Columns["מס' תרגול"].Width = 100;  // Adjust width as needed
-            lessons_dataGridView.Columns["תאריך"].Width = 200;  // Adjust width as needed
-            lessons_dataGridView.Columns["מס' מזהה שאלה"].Width = 100;  // Adjust width as needed
-            lessons_dataGridView.Columns["מועדפים"].Width = 100;  // Adjust width as needed
-            lessons_dataGridView.Columns["נושא"].Width = 300;  // Adjust width as needed
-            lessons_dataGridView.Columns["רמת קושי"].Width = 100;  // Adjust width as needed
+            lessons_dataGridView.Columns["מס' תרגול"].Width =  100 * Screen.PrimaryScreen.WorkingArea.Width / 1300;  // Adjust width as needed
+            lessons_dataGridView.Columns["תאריך"].Width = 200 * Screen.PrimaryScreen.WorkingArea.Width / 1300;  // Adjust width as needed
+            lessons_dataGridView.Columns["מס' מזהה שאלה"].Width = 100 * Screen.PrimaryScreen.WorkingArea.Width / 1300;  // Adjust width as needed
+            lessons_dataGridView.Columns["מועדפים"].Width = 100 * Screen.PrimaryScreen.WorkingArea.Width / 1300;  // Adjust width as needed
+            lessons_dataGridView.Columns["נושא"].Width = 300 * Screen.PrimaryScreen.WorkingArea.Width / 1300;  // Adjust width as needed
+            lessons_dataGridView.Columns["רמת קושי"].Width = 100 * Screen.PrimaryScreen.WorkingArea.Width / 1300;  // Adjust width as needed
 
-            lessons_dataGridView.Columns["לקח"].Width = 400;  // Adjust width as needed
+            lessons_dataGridView.Columns["לקח"].Width = 400 * Screen.PrimaryScreen.WorkingArea.Width / 1300;  // Adjust width as needed
 
             lessons_dataGridView.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
             lessons_dataGridView.AutoResizeRows(DataGridViewAutoSizeRowsMode.AllCells);
