@@ -49,6 +49,7 @@ namespace clientForQuestions2._0
         }
         public HtmlConvertOptionsMenu()
         {
+            test_id = TestHistoryFileHandler.get_next_test_id();
             string finalSimulation = "";
             string currentChapter = "";
             InitializeComponent();
@@ -82,6 +83,8 @@ namespace clientForQuestions2._0
 
         public HtmlConvertOptionsMenu(List<dbQuestionParmeters> questions)
         {
+            test_id = TestHistoryFileHandler.get_next_test_id();
+
             this.questions = questions;
             InitializeComponent();
             explanation_comboBox.SelectedIndex = 0;
@@ -126,6 +129,8 @@ namespace clientForQuestions2._0
         }
         public HtmlConvertOptionsMenu(List<List<dbQuestionParmeters>> multipleQuestionsfiles)
         {
+            test_id = TestHistoryFileHandler.get_next_test_id();
+
             action_when_get_list_of_chapters(multipleQuestionsfiles);
 
             // for info labels:
@@ -201,6 +206,9 @@ namespace clientForQuestions2._0
             //bool isNum = isNum_checkBox.Checked;
             int selected_explanationsOption_index = explanation_comboBox.SelectedIndex; // index of the selected option
 
+            // add test id to the start of the file
+            html += $"<p style=\"font-size: 24px; font-weight: bold; direction: ltr;\">Test Id = {this.test_id}</p> <br><br>";
+
             int prev_col_id = 0;
             for (int i = 0; i < questions.Count; i++)
             {
@@ -213,7 +221,7 @@ namespace clientForQuestions2._0
                 
                 if (curr_col_id != 0 && curr_col_id != prev_col_id)
                 {
-                    html += OperationsAndOtherUseful.get_string_of_img_col_html(a.json_content) + $"<div class='question-container'>"; 
+                    html += OperationsAndOtherUseful.get_string_of_img_col_html(a.json_content) + $"</div> <div class='question-container'>"; 
                     //html += "<div style=\"top: 50%; left: 0; width: 100vw; height: 3px; background-color: lightgray;\"></div>";
                 }
                 string currentQuestion = "";
@@ -392,16 +400,18 @@ namespace clientForQuestions2._0
             try
             {
                 // Write the HTML content to the file
-                if(finalHtmlContentForFile == "")
+                if(finalHtmlContentForFile == "<head><style>\r\n    .question-container { page-break-inside: avoid; }</style></head>")
                     {
                     File.WriteAllText(this.file_path, get_html(this.isNum_checkBox.Checked));
                 }
                 else { File.WriteAllText(this.file_path,finalHtmlContentForFile); }
+
+                // for saving answers
                 string answers_filePath = this.file_path.Insert(this.file_path.LastIndexOf(".html"), "_answers");
-                File.WriteAllText(answers_filePath,this.htmlContentOfAnswers);
+                File.WriteAllText(answers_filePath, this.htmlContentOfAnswers);
 
                 // Save test to history, if it doesn't exist
-                if (test_id == 0)
+                if (test_id == TestHistoryFileHandler.get_next_test_id())
                 {
                     List<afterQuestionParametrs> afterQuestionParametrs_ = new List<afterQuestionParametrs>();
                     for (int i = 0; i < questions.Count; i++)
@@ -417,7 +427,7 @@ namespace clientForQuestions2._0
                         afterQuestionParametrs_.Add(afterQuestionParametr_q);
                     }
                     // save test type as: "תרגול להורדה"
-                    TestHistoryFileHandler.save_afterQuestionParametrs_to_test_history(afterQuestionParametrs_, TestHistoryFileHandler.get_next_test_id(), "תרגול להורדה");
+                    TestHistoryFileHandler.save_afterQuestionParametrs_to_test_history(afterQuestionParametrs_, test_id, "תרגול להורדה");
                 }
             }
             catch (Exception ex)
