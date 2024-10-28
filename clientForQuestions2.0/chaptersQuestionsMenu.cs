@@ -98,7 +98,7 @@ namespace clientForQuestions2._0
             {
                 return;
             }
-            HtmlConvertOptionsMenu n = new HtmlConvertOptionsMenu(questions,true);
+            HtmlConvertOptionsMenu n = new HtmlConvertOptionsMenu(questions);
             n.Show();
         }
 
@@ -125,6 +125,11 @@ namespace clientForQuestions2._0
             try { n.Show(); }
             catch(Exception ex) { }
             
+        }
+
+        private void toolTip1_Popup(object sender, PopupEventArgs e)
+        {
+
         }
     }
 }

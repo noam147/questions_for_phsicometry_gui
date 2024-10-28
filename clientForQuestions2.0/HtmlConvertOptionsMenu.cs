@@ -18,23 +18,32 @@ namespace clientForQuestions2._0
     public partial class HtmlConvertOptionsMenu : Form
     {
         private string file_path;
-        private bool autoDownload = false;
         private List<dbQuestionParmeters> questions;
         private string finalHtmlContentForFile = "<head><style>\r\n    .question-container { page-break-inside: avoid; }</style></head>";
         private string whenInitHtmlContent = "";
         private string htmlContentOfAnswers = "<body dir=\"rtl\">";
         private List<int> listOfPreviousQuestionsId = new List<int>();
-        public HtmlConvertOptionsMenu(int test_id)
+        private int test_id = 0;
+        public HtmlConvertOptionsMenu(int new_test_id)
         {
             whenInitHtmlContent = finalHtmlContentForFile;
+            this.test_id = new_test_id;
             questions = new List<dbQuestionParmeters>();
             foreach (afterQuestionParametrs a in TestHistoryFileHandler.get_afterQuestionParametrs_of_test(test_id))
                 questions.Add(a.question);
             InitializeComponent();
             //finalHtmlContentForFile = get_html(false);
             explanation_comboBox.SelectedIndex = 0;
+            initializeInfo();
         }
-        
+        private void initializeInfo()
+        {
+            // for info labels:
+            this.i_toolTip.SetToolTip(this.i_downloadButton, @"יחד עם קובץ השאלות, נשמר גם קובץ המכיל את התשובות הסופיות לכל שאלה
+-הקובץ בעל אותו שם כקובץ השאלות אך מסתיים ב
+""_answers""");
+
+        }
 
         private void addMathInputErrorIds()
         {
@@ -44,6 +53,7 @@ namespace clientForQuestions2._0
         public HtmlConvertOptionsMenu()
         {
             whenInitHtmlContent = finalHtmlContentForFile;
+            test_id = TestHistoryFileHandler.get_next_test_id();
             string finalSimulation = "";
             string currentChapter = "";
             InitializeComponent();
@@ -71,15 +81,22 @@ namespace clientForQuestions2._0
             finalHtmlContentForFile += finalSimulation;
             filePath_button_Click(null, null);
 
+            // for info labels:
+            initializeInfo();
         }
 
-        public HtmlConvertOptionsMenu(List<dbQuestionParmeters> questions, bool autoDownload)
+        public HtmlConvertOptionsMenu(List<dbQuestionParmeters> questions)
         {
             whenInitHtmlContent = finalHtmlContentForFile;
+            test_id = TestHistoryFileHandler.get_next_test_id();
+
             this.questions = questions;
             InitializeComponent();
             explanation_comboBox.SelectedIndex = 0;
-            this.autoDownload = autoDownload;
+
+            // for info labels:
+            initializeInfo();
+
         }
         private string getGeneralCategory(string category)
         {
@@ -118,7 +135,12 @@ namespace clientForQuestions2._0
         public HtmlConvertOptionsMenu(List<List<dbQuestionParmeters>> multipleQuestionsfiles)
         {
             whenInitHtmlContent = finalHtmlContentForFile;
+            test_id = TestHistoryFileHandler.get_next_test_id();
+
             action_when_get_list_of_chapters(multipleQuestionsfiles);
+
+            // for info labels:
+            initializeInfo();
 
         }
         private void HtmlConvertOptionsMenu_Load(object sender, EventArgs e)
@@ -190,6 +212,9 @@ namespace clientForQuestions2._0
             //bool isNum = isNum_checkBox.Checked;
             int selected_explanationsOption_index = explanation_comboBox.SelectedIndex; // index of the selected option
 
+            // add test id to the start of the file
+            html += $"<p style=\"font-size: 24px; font-weight: bold; direction: ltr;\">Test Id = {this.test_id}</p> <br><br>";
+
             int prev_col_id = 0;
             for (int i = 0; i < questions.Count; i++)
             {
@@ -202,7 +227,7 @@ namespace clientForQuestions2._0
                 
                 if (curr_col_id != 0 && curr_col_id != prev_col_id)
                 {
-                    html += OperationsAndOtherUseful.get_string_of_img_col_html(a.json_content) + $"<div class='question-container'>"; 
+                    html += OperationsAndOtherUseful.get_string_of_img_col_html(a.json_content) + $"</div> <div class='question-container'>"; 
                     //html += "<div style=\"top: 50%; left: 0; width: 100vw; height: 3px; background-color: lightgray;\"></div>";
                 }
                 string currentQuestion = "";
@@ -384,12 +409,34 @@ namespace clientForQuestions2._0
                 if(finalHtmlContentForFile == whenInitHtmlContent)
                     {
 
-                    File.WriteAllText(this.file_path,whenInitHtmlContent+ get_html(true));
+                    File.WriteAllText(this.file_path,whenInitHtmlContent+ get_html(this.isNum_checkBox.Checked));
                 }
                 else { File.WriteAllText(this.file_path,finalHtmlContentForFile); }
 
+
+                // for saving answers
                 string answers_filePath = this.file_path.Insert(this.file_path.LastIndexOf(".html"), "_answers");
-                File.WriteAllText(answers_filePath,this.htmlContentOfAnswers);
+                File.WriteAllText(answers_filePath, this.htmlContentOfAnswers);
+
+                // Save test to history, if it doesn't exist
+                if (test_id == TestHistoryFileHandler.get_next_test_id())
+                {
+                    List<afterQuestionParametrs> afterQuestionParametrs_ = new List<afterQuestionParametrs>();
+                    for (int i = 0; i < questions.Count; i++)
+                    {
+                        afterQuestionParametrs afterQuestionParametr_q = new afterQuestionParametrs();
+                        afterQuestionParametr_q.question = questions[i];
+                        afterQuestionParametr_q.userAnswer = OperationsAndOtherUseful.SKIPPED_Q;
+                        afterQuestionParametr_q.timeForAnswer = -1;
+                        afterQuestionParametr_q.lesson = "";
+                        afterQuestionParametr_q.isMarked = false;
+                        afterQuestionParametr_q.indexOfQuestion = i;
+
+                        afterQuestionParametrs_.Add(afterQuestionParametr_q);
+                    }
+                    // save test type as: "תרגול להורדה"
+                    TestHistoryFileHandler.save_afterQuestionParametrs_to_test_history(afterQuestionParametrs_, test_id, "תרגול להורדה");
+                }
             }
             catch (Exception ex)
             {

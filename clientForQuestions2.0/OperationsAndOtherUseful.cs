@@ -360,8 +360,8 @@ namespace clientForQuestions2._0
 
         public static string get_time_mmss_fromseconds(int sec)
         {
-            if (sec == -1)
-                return "-1";
+            if (sec < 0)
+                return "--:--";
 
             if (sec % 60 < 10)
                 return $"{sec / 60}:0{sec % 60}";
