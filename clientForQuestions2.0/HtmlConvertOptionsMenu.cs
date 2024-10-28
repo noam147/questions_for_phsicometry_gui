@@ -63,7 +63,7 @@ namespace clientForQuestions2._0
             newPage = "<br>";
             addMathInputErrorIds();
             
-            for (int i =0; i < 2;i++)
+            for (int i =0; i < 50;i++)
             {
                 var multipleChaptersQuestions = OperationsAndOtherUseful.sendChapter_math_Questions_without_graph(this.listOfPreviousQuestionsId);
                 foreach(var question in multipleChaptersQuestions)
@@ -227,7 +227,7 @@ namespace clientForQuestions2._0
                 
                 if (curr_col_id != 0 && curr_col_id != prev_col_id)
                 {
-                    html += OperationsAndOtherUseful.get_string_of_img_col_html(a.json_content) + $"</div> <div class='question-container'>"; 
+                    html += "<div style='page-break-after: always;'></div>" + OperationsAndOtherUseful.get_string_of_img_col_html(a.json_content) + $"</div> <div class='question-container'>"; 
                     //html += "<div style=\"top: 50%; left: 0; width: 100vw; height: 3px; background-color: lightgray;\"></div>";
                 }
                 string currentQuestion = "";

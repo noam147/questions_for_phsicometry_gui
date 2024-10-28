@@ -77,6 +77,8 @@ namespace clientForQuestions2._0
         private bool sortAscending = true; // for sorting
         private ContextMenuStrip sortContextMenu; // Context menu for sorting
 
+        private ContextMenuStrip contextMenu; // Context menu for sorting
+        private int selected_test_id = OperationsAndOtherUseful.NOT_A_REAL_TEST_ID; // for contextMenu 
 
         public testHistoryMenu()
         {
@@ -195,6 +197,16 @@ namespace clientForQuestions2._0
             history_dataGridView.Columns["הורדה"].DefaultCellStyle.BackColor = System.Drawing.Color.Honeydew;
             history_dataGridView.Columns["הורדה"].DefaultCellStyle.SelectionBackColor = System.Drawing.Color.Honeydew;
 
+            history_dataGridView.Columns["מועדפים"].Width = 100;  // Adjust width as needed
+            history_dataGridView.Columns["הורדה"].Width = 100;  // Adjust width as needed
+
+            //lessons_dataGridView.Columns["לקח"].DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+            history_dataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            history_dataGridView.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+
+            history_dataGridView.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+            history_dataGridView.AutoResizeRows(DataGridViewAutoSizeRowsMode.AllCells);
+
             if (history_dataGridView.RowCount == 0)
             {
                 history_dataGridView.Visible = false;
@@ -275,6 +287,49 @@ namespace clientForQuestions2._0
 
             }
 
+            void open_test_by_selected_id()
+            {
+                if (selected_test_id == OperationsAndOtherUseful.NOT_A_REAL_TEST_ID)
+                    return;
+
+                summrizePage s = new summrizePage(TestHistoryFileHandler.get_afterQuestionParametrs_of_test(selected_test_id), selected_test_id, 0);
+                s.Show();
+                this.Close();
+            }
+
+            void delete_test_by_selected_id()
+            {
+                if (selected_test_id == OperationsAndOtherUseful.NOT_A_REAL_TEST_ID)
+                    return;
+
+                // check if the user is sure to leave the test
+                DialogResult result = MessageBox.Show("?האם אתה בטוח שברצונך למחוק תרגול זה",
+                                          "Confirmation",
+                                          MessageBoxButtons.YesNo,
+                                          MessageBoxIcon.Warning);
+                if (result == DialogResult.No) // the user isn't sure
+                    return;
+
+
+                TestHistoryFileHandler.delete_test_by_id(selected_test_id);
+                selected_test_id = OperationsAndOtherUseful.NOT_A_REAL_TEST_ID;
+
+                LoadData();
+            }
+
+            void cencel_option()
+            {
+                selected_test_id = OperationsAndOtherUseful.NOT_A_REAL_TEST_ID;
+            }
+
+            contextMenu = new ContextMenuStrip();
+
+            // Add sorting options to the context menu 
+            contextMenu.Items.Add("הצגת התרגול", null, (s, e) => open_test_by_selected_id());
+            contextMenu.Items.Add("מחיקת התרגול מההיסטוריה", null, (s, e) => delete_test_by_selected_id());
+            contextMenu.Items.Add("ביטול", SystemIcons.Error.ToBitmap(), (s, e) => cencel_option());
+
+
             sortContextMenu = new ContextMenuStrip();
 
             // Add sorting options to the context menu for the custom column
@@ -304,16 +359,6 @@ namespace clientForQuestions2._0
             SetupContextMenu();
 
             LoadData();
-
-            history_dataGridView.Columns["מועדפים"].Width = 100;  // Adjust width as needed
-            history_dataGridView.Columns["הורדה"].Width = 100;  // Adjust width as needed
-
-            //lessons_dataGridView.Columns["לקח"].DefaultCellStyle.WrapMode = DataGridViewTriState.True;
-            history_dataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            history_dataGridView.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
-
-            history_dataGridView.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
-            history_dataGridView.AutoResizeRows(DataGridViewAutoSizeRowsMode.AllCells);
         }
 
         private void history_dataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -352,6 +397,28 @@ namespace clientForQuestions2._0
                     summrizePage s = new summrizePage(TestHistoryFileHandler.get_afterQuestionParametrs_of_test(test_id), test_id, 0);
                     s.Show();
                     this.Close();
+                }
+            }
+        }
+
+        private void history_dataGridView_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (e.Button == System.Windows.Forms.MouseButtons.Right && e.RowIndex >= 0)
+            {
+                // Get the clicked row
+                DataGridViewRow clickedRow = history_dataGridView.Rows[e.RowIndex];
+                if (e.ColumnIndex == history_dataGridView.Columns["מועדפים"].Index)
+                {
+                    return;
+                }
+                else if (e.ColumnIndex == history_dataGridView.Columns["הורדה"].Index)
+                {
+                    return;
+                }
+                else
+                {
+                    selected_test_id = Int32.Parse(clickedRow.Cells["מס' תרגול"].Value.ToString());
+                    contextMenu.Show(Cursor.Position);
                 }
             }
         }

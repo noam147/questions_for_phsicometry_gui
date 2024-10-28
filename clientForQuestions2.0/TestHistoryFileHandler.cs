@@ -387,7 +387,7 @@ namespace clientForQuestions2._0
             return result[0].m_afterQuestionParametrs;
         }
 
-            public static void delete_test_history()
+        public static void delete_test_history()
         {
             try
             {
@@ -407,6 +407,28 @@ namespace clientForQuestions2._0
             catch (Exception ex)
             {
             }        
+        }
+
+        public static void delete_test_by_id(int test_id)
+        {
+            try
+            {
+                using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+                {
+                    connection.Open();
+
+                    // SQL command to delete all data from the table
+                    string deleteQuery = $"DELETE FROM TestsHistoryData WHERE TestId = {test_id};";
+
+                    using (SQLiteCommand command = new SQLiteCommand(deleteQuery, connection))
+                    {
+                        command.ExecuteNonQuery(); // Execute the delete command
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
         }
 
         public static bool get_test_isMarked(int test_id)
