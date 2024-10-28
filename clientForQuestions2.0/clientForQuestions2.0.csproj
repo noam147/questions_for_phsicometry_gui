@@ -201,6 +201,7 @@
       <DependentUpon>HtmlConvertOptionsMenu.cs</DependentUpon>
     </Compile>
     <Compile Include="HtmlTextExtractor.cs" />
+    <Compile Include="IdsToFile.cs" />
     <Compile Include="lessonsMenu.cs">
       <SubType>Form</SubType>
     </Compile>

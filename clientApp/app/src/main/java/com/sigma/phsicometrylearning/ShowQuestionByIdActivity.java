@@ -37,11 +37,9 @@ public class ShowQuestionByIdActivity extends AppCompatActivity {
 
 // HTML content to load into the WebView
         String htmlToDisplay = "<html><body><h1>This is the question</h1><p>Question details go here...</p></body></html>";
-        try {
+
             htmlToDisplay = OperationAndOtherUseful.get_string_of_question_and_option_from_json(currQuestion,currQuestion.rightAnswer);
-        } catch (JSONException e) {
-            throw new RuntimeException(e);
-        }
+
 //        Log.i("html", htmlToDisplay);
 // Pass the HTML content to the WebView
         //htmlToDisplay = Html.escapeHtml(htmlToDisplay);
@@ -82,18 +80,15 @@ public class ShowQuestionByIdActivity extends AppCompatActivity {
                 }
             } else {
                 // Switch is OFF
-                try
-                {
                     display_html_in_webview(OperationAndOtherUseful.get_string_of_question_and_option_from_json(currQuestion,currQuestion.rightAnswer));
-                } catch (JSONException e) {
-                    throw new RuntimeException(e);
-                }
             }
         });
     }
 
     private void display_html_in_webview(String html)
     {
+        html = OperationAndOtherUseful.fixNewlineMathml(html);
+
         questionsWebView.loadDataWithBaseURL(null, html, "text/html", "UTF-8", null);
 
     }

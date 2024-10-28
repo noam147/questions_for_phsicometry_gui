@@ -21,6 +21,7 @@ namespace clientForQuestions2._0
             SettingsFileHandler.openFile();
             TestHistoryFileHandler.openFile();
             OperationsAndOtherUseful.hideFiles();
+            IdsToFile.openDir();
             //SettingsFileHandler.writeSettingsIntoFile(new Settings { seconds = 30,amount = 7,maxLevel = 10,minLevel = 4,minuets = 10,withoutFeedback=0 });
             //LogFileHandler.ClearFileContent();
             Application.EnableVisualStyles();

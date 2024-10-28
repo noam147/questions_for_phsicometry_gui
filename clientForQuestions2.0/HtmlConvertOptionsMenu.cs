@@ -42,7 +42,7 @@ namespace clientForQuestions2._0
             explanation_comboBox.SelectedIndex = 0;
             string newPage = "<div style='page-break-after: always;'></div>";
             newPage = "<br>";
-            for (int i =0; i < 42;i++)
+            for (int i =0; i < 50;i++)
             {
                 var multipleChaptersQuestions = OperationsAndOtherUseful.sendChapter_math_Questions_without_graph(this.listOfPreviousQuestionsId);
                 foreach(var question in multipleChaptersQuestions)
@@ -50,6 +50,7 @@ namespace clientForQuestions2._0
                     this.questions.Add(question);
                     this.listOfPreviousQuestionsId.Add(question.questionId);
                 }
+                IdsToFile.addChapterFile(i+1,questions);
                 this.htmlContentOfAnswers += "<br><br>" + "כמותי " + (i+1)+":\n";//add lines to separate diffrentchapters
                 currentChapter = get_html(true);
                 questions.Clear();

@@ -45,14 +45,17 @@ namespace clientForQuestions2._0
             this.lessons_button = new System.Windows.Forms.Button();
             this.collectionbyIdButton = new clientForQuestions2._0.RJButtons2();
             this.questionByIdButton = new clientForQuestions2._0.RJButtons2();
+            this.startChapterButton = new clientForQuestions2._0.RJButtons2();
+            this.label3 = new System.Windows.Forms.Label();
+            this.chapterByIdTextBox = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // normalQuestions
             // 
-            this.normalQuestions.Location = new System.Drawing.Point(493, 98);
+            this.normalQuestions.Location = new System.Drawing.Point(555, 122);
             this.normalQuestions.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.normalQuestions.Name = "normalQuestions";
-            this.normalQuestions.Size = new System.Drawing.Size(125, 90);
+            this.normalQuestions.Size = new System.Drawing.Size(141, 112);
             this.normalQuestions.TabIndex = 8;
             this.normalQuestions.Text = "תרגול";
             this.normalQuestions.UseVisualStyleBackColor = true;
@@ -60,10 +63,10 @@ namespace clientForQuestions2._0
             // 
             // collectionsQuestions
             // 
-            this.collectionsQuestions.Location = new System.Drawing.Point(493, 192);
+            this.collectionsQuestions.Location = new System.Drawing.Point(555, 240);
             this.collectionsQuestions.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.collectionsQuestions.Name = "collectionsQuestions";
-            this.collectionsQuestions.Size = new System.Drawing.Size(125, 90);
+            this.collectionsQuestions.Size = new System.Drawing.Size(141, 112);
             this.collectionsQuestions.TabIndex = 8;
             this.collectionsQuestions.Text = "תרגול קטעי קריאה ותרשימים";
             this.collectionsQuestions.UseVisualStyleBackColor = true;
@@ -71,28 +74,28 @@ namespace clientForQuestions2._0
             // 
             // questionByIDtextBox
             // 
-            this.questionByIDtextBox.Location = new System.Drawing.Point(84, 115);
+            this.questionByIDtextBox.Location = new System.Drawing.Point(94, 144);
             this.questionByIDtextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.questionByIDtextBox.Name = "questionByIDtextBox";
-            this.questionByIDtextBox.Size = new System.Drawing.Size(89, 22);
+            this.questionByIDtextBox.Size = new System.Drawing.Size(100, 26);
             this.questionByIDtextBox.TabIndex = 14;
             this.questionByIDtextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.questionByIDtextBox_KeyDown);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(81, 79);
+            this.label1.Location = new System.Drawing.Point(91, 99);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(128, 16);
+            this.label1.Size = new System.Drawing.Size(152, 20);
             this.label1.TabIndex = 15;
             this.label1.Text = "שאלה לפי מספר מזהה";
             // 
             // chaptersQuestions
             // 
-            this.chaptersQuestions.Location = new System.Drawing.Point(493, 286);
+            this.chaptersQuestions.Location = new System.Drawing.Point(555, 358);
             this.chaptersQuestions.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.chaptersQuestions.Name = "chaptersQuestions";
-            this.chaptersQuestions.Size = new System.Drawing.Size(125, 90);
+            this.chaptersQuestions.Size = new System.Drawing.Size(141, 112);
             this.chaptersQuestions.TabIndex = 19;
             this.chaptersQuestions.Text = "תרגול פרקים מלאים";
             this.chaptersQuestions.UseVisualStyleBackColor = true;
@@ -101,18 +104,18 @@ namespace clientForQuestions2._0
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(41, 365);
+            this.label2.Location = new System.Drawing.Point(46, 456);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(213, 16);
+            this.label2.Size = new System.Drawing.Size(255, 20);
             this.label2.TabIndex = 20;
             this.label2.Text = "תרשים או קטע קריאה לפי מספר מזהה";
             // 
             // collectionbyIdtextBox
             // 
-            this.collectionbyIdtextBox.Location = new System.Drawing.Point(84, 406);
+            this.collectionbyIdtextBox.Location = new System.Drawing.Point(94, 508);
             this.collectionbyIdtextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.collectionbyIdtextBox.Name = "collectionbyIdtextBox";
-            this.collectionbyIdtextBox.Size = new System.Drawing.Size(89, 22);
+            this.collectionbyIdtextBox.Size = new System.Drawing.Size(100, 26);
             this.collectionbyIdtextBox.TabIndex = 21;
             this.collectionbyIdtextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.collectionbyIdtextBox_KeyDown);
             // 
@@ -120,26 +123,26 @@ namespace clientForQuestions2._0
             // 
             this.error_qById_label.AutoSize = true;
             this.error_qById_label.ForeColor = System.Drawing.Color.Red;
-            this.error_qById_label.Location = new System.Drawing.Point(55, 218);
+            this.error_qById_label.Location = new System.Drawing.Point(62, 272);
             this.error_qById_label.Name = "error_qById_label";
-            this.error_qById_label.Size = new System.Drawing.Size(0, 16);
+            this.error_qById_label.Size = new System.Drawing.Size(0, 20);
             this.error_qById_label.TabIndex = 23;
             // 
             // error_colById_label
             // 
             this.error_colById_label.AutoSize = true;
             this.error_colById_label.ForeColor = System.Drawing.Color.Red;
-            this.error_colById_label.Location = new System.Drawing.Point(55, 505);
+            this.error_colById_label.Location = new System.Drawing.Point(62, 631);
             this.error_colById_label.Name = "error_colById_label";
-            this.error_colById_label.Size = new System.Drawing.Size(0, 16);
+            this.error_colById_label.Size = new System.Drawing.Size(0, 20);
             this.error_colById_label.TabIndex = 24;
             // 
             // testHistoryButton
             // 
-            this.testHistoryButton.Location = new System.Drawing.Point(493, 381);
+            this.testHistoryButton.Location = new System.Drawing.Point(555, 476);
             this.testHistoryButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.testHistoryButton.Name = "testHistoryButton";
-            this.testHistoryButton.Size = new System.Drawing.Size(125, 90);
+            this.testHistoryButton.Size = new System.Drawing.Size(141, 112);
             this.testHistoryButton.TabIndex = 25;
             this.testHistoryButton.Text = "היסטורית תרגולים";
             this.testHistoryButton.UseVisualStyleBackColor = true;
@@ -147,10 +150,10 @@ namespace clientForQuestions2._0
             // 
             // lessons_button
             // 
-            this.lessons_button.Location = new System.Drawing.Point(493, 475);
+            this.lessons_button.Location = new System.Drawing.Point(555, 594);
             this.lessons_button.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.lessons_button.Name = "lessons_button";
-            this.lessons_button.Size = new System.Drawing.Size(125, 90);
+            this.lessons_button.Size = new System.Drawing.Size(141, 112);
             this.lessons_button.TabIndex = 26;
             this.lessons_button.Text = "לקחים";
             this.lessons_button.UseVisualStyleBackColor = true;
@@ -164,10 +167,10 @@ namespace clientForQuestions2._0
             this.collectionbyIdButton.FlatAppearance.BorderSize = 0;
             this.collectionbyIdButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.collectionbyIdButton.ForeColor = System.Drawing.Color.White;
-            this.collectionbyIdButton.Location = new System.Drawing.Point(44, 444);
+            this.collectionbyIdButton.Location = new System.Drawing.Point(50, 555);
             this.collectionbyIdButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.collectionbyIdButton.Name = "collectionbyIdButton";
-            this.collectionbyIdButton.Size = new System.Drawing.Size(156, 48);
+            this.collectionbyIdButton.Size = new System.Drawing.Size(176, 60);
             this.collectionbyIdButton.TabIndex = 22;
             this.collectionbyIdButton.Text = "הצג תרשים או קטע קריאה";
             this.collectionbyIdButton.UseVisualStyleBackColor = false;
@@ -181,20 +184,57 @@ namespace clientForQuestions2._0
             this.questionByIdButton.FlatAppearance.BorderSize = 0;
             this.questionByIdButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.questionByIdButton.ForeColor = System.Drawing.Color.White;
-            this.questionByIdButton.Location = new System.Drawing.Point(44, 158);
+            this.questionByIdButton.Location = new System.Drawing.Point(50, 198);
             this.questionByIdButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.questionByIdButton.Name = "questionByIdButton";
-            this.questionByIdButton.Size = new System.Drawing.Size(156, 48);
+            this.questionByIdButton.Size = new System.Drawing.Size(176, 60);
             this.questionByIdButton.TabIndex = 18;
             this.questionByIdButton.Text = "הצג שאלה";
             this.questionByIdButton.UseVisualStyleBackColor = false;
             this.questionByIdButton.Click += new System.EventHandler(this.questionbyIdButton_Click);
             // 
+            // startChapterButton
+            // 
+            this.startChapterButton.BackColor = System.Drawing.Color.MediumSlateBlue;
+            this.startChapterButton.BorderRadiuos = 40;
+            this.startChapterButton.BorderSize = 1;
+            this.startChapterButton.FlatAppearance.BorderSize = 0;
+            this.startChapterButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.startChapterButton.ForeColor = System.Drawing.Color.White;
+            this.startChapterButton.Location = new System.Drawing.Point(954, 221);
+            this.startChapterButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.startChapterButton.Name = "startChapterButton";
+            this.startChapterButton.Size = new System.Drawing.Size(176, 60);
+            this.startChapterButton.TabIndex = 29;
+            this.startChapterButton.Text = "התחל תרגול שלפרק";
+            this.startChapterButton.UseVisualStyleBackColor = false;
+            this.startChapterButton.Click += new System.EventHandler(this.startChapterButton_Click);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(995, 122);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(254, 20);
+            this.label3.TabIndex = 28;
+            this.label3.Text = "לשים תשובות לפרק על פי מספר מזהה";
+            // 
+            // chapterByIdTextBox
+            // 
+            this.chapterByIdTextBox.Location = new System.Drawing.Point(998, 167);
+            this.chapterByIdTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.chapterByIdTextBox.Name = "chapterByIdTextBox";
+            this.chapterByIdTextBox.Size = new System.Drawing.Size(100, 26);
+            this.chapterByIdTextBox.TabIndex = 27;
+            // 
             // menuPage
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1105, 840);
+            this.ClientSize = new System.Drawing.Size(1243, 1050);
+            this.Controls.Add(this.startChapterButton);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.chapterByIdTextBox);
             this.Controls.Add(this.lessons_button);
             this.Controls.Add(this.testHistoryButton);
             this.Controls.Add(this.error_colById_label);
@@ -235,5 +275,8 @@ namespace clientForQuestions2._0
         private System.Windows.Forms.Label error_colById_label;
         private System.Windows.Forms.Button testHistoryButton;
         private System.Windows.Forms.Button lessons_button;
+        private RJButtons2 startChapterButton;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox chapterByIdTextBox;
     }
 }

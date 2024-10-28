@@ -6,6 +6,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -44,19 +45,45 @@ public class OperationAndOtherUseful {
         }
         return list;
     }
-    public static String get_string_of_question_and_option_from_json(DbQuestionParmeters qp, int userAnswer) throws JSONException {
+    public static String get_string_of_question_and_option_from_json(DbQuestionParmeters qp, int userAnswer){
         // optionToMarkGreen = correct answer index
-        boolean isTextOptions = ((JSONArray) qp.json_content.get("options")).length() != 0;
+        boolean isTextOptions = false;
+        try {
+            isTextOptions = ((JSONArray) qp.json_content.get("options")).length() != 0;
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
         int optionToMarkGreen = qp.rightAnswer;
-        String question = qp.json_content.get("question").toString();
-        String option1, option2, option3, option4;
+        String question = null;
+        try {
+            question = qp.json_content.get("question").toString();
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+        String option1="", option2="", option3="", option4 ="";
         List<String> listOfOptions = new ArrayList<>();
 
         if (isTextOptions) {
-            option1 = qp.json_content.getJSONArray("options").getJSONObject(0).getString("text");
-            option2 = qp.json_content.getJSONArray("options").getJSONObject(1).getString("text");
-            option3 = qp.json_content.getJSONArray("options").getJSONObject(2).getString("text");
-            option4 = qp.json_content.getJSONArray("options").getJSONObject(3).getString("text");
+            try {
+                option1 = qp.json_content.optJSONArray("options").optJSONObject(0).getString("text");
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
+            }
+            try {
+                option2 = qp.json_content.optJSONArray("options").optJSONObject(1).getString("text");
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
+            }
+            try {
+                option3 = qp.json_content.optJSONArray("options").optJSONObject(2).getString("text");
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
+            }
+            try {
+                option4 = qp.json_content.optJSONArray("options").optJSONObject(3).getString("text");
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
+            }
             listOfOptions = addNumberToQuestions(option1, option2, option3, option4);
 
             // If the user answered, mark the answer
@@ -68,10 +95,26 @@ public class OperationAndOtherUseful {
                 }
             }
         } else {
-            option1 = "<img src=\"https://lmsapi.kidum-me.com/storage/" + qp.json_content.getJSONArray("option_images").getJSONObject(0).getString("file_path") + "\" alt=\"Question Image\" style=\"max-height:" + img_max_height + "; width:auto;\">";
-            option2 = "<img src=\"https://lmsapi.kidum-me.com/storage/" + qp.json_content.getJSONArray("option_images").getJSONObject(1).getString("file_path") + "\" alt=\"Question Image\" style=\"max-height:" + img_max_height + "; width:auto;\">";
-            option3 = "<img src=\"https://lmsapi.kidum-me.com/storage/" + qp.json_content.getJSONArray("option_images").getJSONObject(2).getString("file_path") + "\" alt=\"Question Image\" style=\"max-height:" + img_max_height + "; width:auto;\">";
-            option4 = "<img src=\"https://lmsapi.kidum-me.com/storage/" + qp.json_content.getJSONArray("option_images").getJSONObject(3).getString("file_path") + "\" alt=\"Question Image\" style=\"max-height:" + img_max_height + "; width:auto;\">";
+            try {
+                option1 = "<img src=\"https://lmsapi.kidum-me.com/storage/" + qp.json_content.optJSONArray("option_images").optJSONObject(0).getString("file_path") + "\" alt=\"Question Image\" style=\"max-height:" + img_max_height + "; width:auto;\">";
+            } catch (JSONException e) {
+                //throw new RuntimeException(e);
+            }
+            try {
+                option2 = "<img src=\"https://lmsapi.kidum-me.com/storage/" + qp.json_content.optJSONArray("option_images").optJSONObject(1).getString("file_path") + "\" alt=\"Question Image\" style=\"max-height:" + img_max_height + "; width:auto;\">";
+            } catch (JSONException e) {
+                //throw new RuntimeException(e);
+            }
+            try {
+                option3 = "<img src=\"https://lmsapi.kidum-me.com/storage/" + qp.json_content.optJSONArray("option_images").optJSONObject(2).getString("file_path") + "\" alt=\"Question Image\" style=\"max-height:" + img_max_height + "; width:auto;\">";
+            } catch (JSONException e) {
+                //throw new RuntimeException(e);
+            }
+            try {
+                option4 = "<img src=\"https://lmsapi.kidum-me.com/storage/" + qp.json_content.optJSONArray("option_images").optJSONObject(3).getString("file_path") + "\" alt=\"Question Image\" style=\"max-height:" + img_max_height + "; width:auto;\">";
+            } catch (JSONException e) {
+                //throw new RuntimeException(e);
+            }
             listOfOptions = new ArrayList<>(Arrays.asList(option1, option2, option3, option4));
 
             if (userAnswer != DO_NOT_MARK) {
@@ -95,14 +138,15 @@ public class OperationAndOtherUseful {
             finalOptionsString = String.join("<br>", listOfOptions);
         }
         JSONObject image_JSONO = null;
-        try {
-            image_JSONO = qp.json_content.getJSONObject("image");
-        } catch (JSONException e) {
-
-        }
+        image_JSONO = qp.json_content.optJSONObject("image");
         String image_str = "";
-        if (image_JSONO != null)
-            image_str = getStringOfImgHtml(image_JSONO);
+        if (image_JSONO != null) {
+            try {
+                image_str = getStringOfImgHtml(image_JSONO);
+            } catch (JSONException e) {
+                //throw new RuntimeException(e);
+            }
+        }
 
         // If the question is in English
         if (!isQuestionInHebrew(qp.category)) {
@@ -112,7 +156,6 @@ public class OperationAndOtherUseful {
         strForEight2Left+= image_str;
         strForEight2Left += "<br><br>"+ finalOptionsString;
         return right2left(get_string_of_img_col_html(qp.json_content) + "<br>"  + strForEight2Left);
-        //return right2left(question + getStringOfImgHtml((JSONObject) qp.json_content.get("image")) + "<br><br>" + finalOptionsString);
     }
     private static String getStringOfImgHtml(JSONObject json) throws JSONException {
         // This should be in a separate file
@@ -182,12 +225,12 @@ public class OperationAndOtherUseful {
         }
         try {
 
-            JSONArray collections = json.getJSONArray("collections");
+            JSONArray collections = json.optJSONArray("collections");
             if (collections.length() == 0)
                 return "";
-            String cover = collections.getJSONObject(0).getString("cover");
+            String cover = collections.optJSONObject(0).getString("cover");
             String img_path = "https://lmsapi.kidum-me.com/storage/";
-            String file_path = img_path + collections.getJSONObject(0).getJSONObject("file").getString("file_path");
+            String file_path = img_path + collections.optJSONObject(0).optJSONObject("file").getString("file_path");
             String fullImg = "<img src=\"" + file_path + "\" alt=\"Question Image\" style=\" max-width:100%; height:auto;\">";
             return cover + fullImg;
 
@@ -207,6 +250,106 @@ public class OperationAndOtherUseful {
         String answer = qp.json_content.getString("solving_explanation");
         JSONObject img = qp.json_content.optJSONObject("explanation_image"); // Use optJSONObject to avoid NullPointerException
         return right2left(answer + getStringOfImgHtml(img));
+    }
+
+    public static String fixNewlineMathml(String html) {
+        // the MathML newline
+        String newLineMathml = "linebreak=\"newline\"";
+        String newHtml = html;
+
+        if (newHtml.contains(newLineMathml)) {
+            // get the whole MathML newline element (e.g.: '<mspace linebreak="newline"></mspace>')
+            int i = newHtml.indexOf(newLineMathml) - 1;
+            String startElement = "";
+            while (i >= 0 && newHtml.charAt(i + 1) != '<') {
+                startElement = newHtml.charAt(i) + startElement;
+                i--;
+            }
+
+            int count = 0;
+            i = newHtml.indexOf(newLineMathml) + newLineMathml.length();
+            String closeElement = "";
+            while (i >= 0 && count != 2) {
+                closeElement = closeElement + newHtml.charAt(i);
+                if (newHtml.charAt(i) == '>') {
+                    count++;
+                }
+                i++;
+            }
+
+            if (closeElement.contains(startElement.replace("<", "").replace(">", "").replace(" ", "").replace("\n", ""))) {
+                newLineMathml = startElement + newLineMathml + closeElement;
+            } else {
+                // if the element is <mspace linebreak="newline"> and not <mspace linebreak="newline"></mspace>
+                newLineMathml = startElement + newLineMathml + closeElement.substring(0, closeElement.indexOf(">") + 1);
+            }
+
+            List<String> openTags = new ArrayList<>();
+            List<String> closeTags = new ArrayList<>();
+            i = newHtml.indexOf(newLineMathml) - 1;
+
+            List<String> alreadyClosedTags = new ArrayList<>();
+
+            // Loop to find all opening tags up to the <mjx-container> or the <math>
+            while (true) {
+                if (newHtml.charAt(i) == '>') {
+                    // Extract the opening tag
+                    String openString = "";
+
+                    // Read backwards to get the entire opening tag
+                    while (i >= 0 && newHtml.charAt(i) != '<') {
+                        openString = newHtml.charAt(i) + openString;
+                        i--;
+                    }
+                    openString = "<" + openString;
+
+                    // if it is another element in the tree that is already closed, ignore it
+                    if (openString.startsWith("</")) {
+                        alreadyClosedTags.add(openString);
+                        continue;
+                    }
+
+                    // if there are attributes (e.g., src="...", style="..."), ignore them for the closing tag
+                    String withoutOptions = openString.contains(" ") ? openString.substring(0, openString.indexOf(" ") + 1) + ">" : openString;
+
+                    // Generate the corresponding closing tag
+                    String closeString = withoutOptions.replace("<", "</");
+
+                    // if the tag is already closed, ignore it
+                    if (alreadyClosedTags.contains(closeString)) {
+                        alreadyClosedTags.remove(closeString);
+                        continue;
+                    }
+
+                    // add to the lists
+                    openTags.add(openString);
+                    closeTags.add(closeString);
+
+                    // Break if we find the closing tag for <mjx-container> or <math>
+                    if (openString.contains("mjx-container") || openString.contains("math")) {
+                        break;
+                    }
+                }
+                i--;
+                // Check to prevent index out of bounds
+                if (i < 0) break;
+            }
+
+            Collections.reverse(closeTags);
+            Collections.reverse(openTags);
+
+            // Replace the <mspace> with the closing tags, <br>, and reopening tags
+            newHtml = newHtml.substring(0, newHtml.indexOf(newLineMathml))
+                    + String.join("", closeTags) // Close tags in reverse order
+                    + "<br><br>&nbsp;"
+                    + String.join("", openTags)  // Open tags in normal order
+                    + newHtml.substring(newHtml.indexOf(newLineMathml) + newLineMathml.length());
+        }
+
+        // to edit all new_lines
+        if (newHtml.equals(html))
+            return newHtml;
+        return fixNewlineMathml(newHtml); // recursive call
     }
 
 }

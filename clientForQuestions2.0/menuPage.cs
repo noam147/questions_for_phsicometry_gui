@@ -174,5 +174,25 @@ namespace clientForQuestions2._0
             t.Show();
             this.Close();
         }
+
+        private void startChapterButton_Click(object sender, EventArgs e)
+        {
+            List<dbQuestionParmeters> questions;
+            int chapterId = -1;
+            try
+            {
+                chapterId = int.Parse(this.chapterByIdTextBox.Text);
+            }
+            catch (Exception ex) { return; }
+            questions = IdsToFile.getQuestionsFromFile(chapterId);
+            if(questions.Count == 0)
+            {
+                return;
+            }
+            questionsPage q = new questionsPage(questions,60,"כמותי");
+            q.Show();
+            this.Close();
+            
+        }
     }
 }
