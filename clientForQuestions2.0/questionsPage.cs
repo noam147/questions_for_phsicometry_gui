@@ -353,7 +353,7 @@ namespace clientForQuestions2._0
                 {
                     this.timerLabel.Text = OperationsAndOtherUseful.get_time_mmss_fromseconds(Math.Abs(timePerQ - secondsTookForCurrq));
 
-                    if (secondsTookForCurrq >= timePerQ && timePerQ != 0) // check if time ran out
+                    if (secondsTookForCurrq >= timePerQ && timePerQ != OperationsAndOtherUseful.STOPER) // check if time ran out
                     {
                         if (isUserDoNotGetFeedBack) // if time ran out && navigate questions, go to summary
                         {

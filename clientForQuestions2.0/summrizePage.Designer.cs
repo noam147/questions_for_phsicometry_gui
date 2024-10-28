@@ -45,6 +45,7 @@
             this.lessons_label = new System.Windows.Forms.Label();
             this.nextQuestionsButton = new clientForQuestions2._0.RJButtons2();
             this.previousQuestionsButton = new clientForQuestions2._0.RJButtons2();
+            this.test_id_label = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // backToMainMenu_button
@@ -260,11 +261,23 @@
             this.previousQuestionsButton.UseVisualStyleBackColor = false;
             this.previousQuestionsButton.Click += new System.EventHandler(this.previousQuestionsButton_Click);
             // 
+            // test_id_label
+            // 
+            this.test_id_label.AutoSize = true;
+            this.test_id_label.BackColor = System.Drawing.SystemColors.HighlightText;
+            this.test_id_label.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.test_id_label.Location = new System.Drawing.Point(495, 5);
+            this.test_id_label.Name = "test_id_label";
+            this.test_id_label.Size = new System.Drawing.Size(56, 18);
+            this.test_id_label.TabIndex = 18;
+            this.test_id_label.Text = "Test Id: ";
+            // 
             // summrizePage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1047, 739);
+            this.Controls.Add(this.test_id_label);
             this.Controls.Add(this.lessons_label);
             this.Controls.Add(this.lessons_richTextBox);
             this.Controls.Add(this.avrage_difficultyLevel);
@@ -310,5 +323,6 @@
         private System.Windows.Forms.Label avrage_difficultyLevel;
         private System.Windows.Forms.RichTextBox lessons_richTextBox;
         private System.Windows.Forms.Label lessons_label;
+        private System.Windows.Forms.Label test_id_label;
     }
 }

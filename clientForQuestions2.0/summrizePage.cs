@@ -85,6 +85,7 @@ namespace clientForQuestions2._0
 
 
             this.timeTookForQLabel.Text = "";
+            this.timeTookForQLabel.Visible = false;
             displayTotalAvrageTime();
 
             createButtons(questions);
@@ -146,7 +147,7 @@ namespace clientForQuestions2._0
             this.avrage_time.Text = $"זמן ממוצע לשאלה: {OperationsAndOtherUseful.get_time_mmss_fromseconds(sum_time / m_questions.Count)}";
             this.avrage_difficultyLevel.Text = $"רמת קושי ממוצעת לשאלה: {Math.Round(sum_difficultLevel / m_questions.Count, 1)}";
             this.correct_answers.Text = $"תשובות נכונות: {corr_c}/{m_questions.Count}";
-
+            this.test_id_label.Text = $"test id: {this.test_id}";
         }
 
         // to detect arrow keys preesed
@@ -570,11 +571,13 @@ namespace clientForQuestions2._0
             if(seconds == OperationsAndOtherUseful.QUESTION_THAT_DID_NOT_ANSWERED)
             {
                 this.timeTookForQLabel.Text = "";
+                this.timeTookForQLabel.Visible = false;
                 return;
             }
             else
             {
                 this.timeTookForQLabel.Text = $"זמן לשאלה: {OperationsAndOtherUseful.get_time_mmss_fromseconds(seconds)}";
+                this.timeTookForQLabel.Visible = true;
             }
 
         }
@@ -589,13 +592,18 @@ namespace clientForQuestions2._0
             if (col_id != 0)
             {
                 this.curr_col_id.Text = $"collection id: {col_id}";
+                this.curr_col_id.Visible = true;
+
                 this.diffic_level_col.Text = $"רמת הקושי של קטע הקריאה או התרשים: {c.json_content["collections"][0]["difficulty_level"].ToString()}";
+                this.diffic_level_col.Visible = true;
             }
             else
             {
                 this.curr_col_id.Text = $"";
-                this.diffic_level_col.Text = $"";
+                this.curr_col_id.Visible = false;
 
+                this.diffic_level_col.Text = $"";
+                this.diffic_level_col.Visible = false;
             }
         }
 

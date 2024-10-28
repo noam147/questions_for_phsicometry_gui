@@ -21,7 +21,7 @@ namespace clientForQuestions2._0
         }
 
         public WithOutFeedBackQuestionsPage(int amount, List<string> listOfTopics, bool isQSkip, int timePerQ, questionsDifficultyLevel difficultyLevel, string test_type)
-            : base(amount, listOfTopics, isQSkip, timePerQ != OperationsAndOtherUseful.WITHOUT_TIMER ? timePerQ * amount : OperationsAndOtherUseful.WITHOUT_TIMER, difficultyLevel, test_type)
+            : base(amount, listOfTopics, isQSkip, timePerQ != OperationsAndOtherUseful.STOPER ? timePerQ * amount : OperationsAndOtherUseful.STOPER, difficultyLevel, test_type)
         {
 
             InitializeComponent();

@@ -35,7 +35,7 @@ namespace clientForQuestions2._0
 
         private static void writeIntoFile(string text,string filePath)
         {
-            using (StreamWriter sw = new StreamWriter(filePath, append: true))
+            using (StreamWriter sw = new StreamWriter(filePath, append: false))
             {
                 sw.WriteLine(text);
             }

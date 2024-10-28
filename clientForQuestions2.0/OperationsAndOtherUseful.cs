@@ -18,7 +18,7 @@ namespace clientForQuestions2._0
         public static int MARGIN_OF_HEIGHT = 20;//for text to not be cut down
         public static int DO_NOT_MARK = -1;
         public static int NOT_A_REAL_TEST_ID = -1;
-        public static int WITHOUT_TIMER = -3;
+        public static int STOPER = 0;
         public static int SKIPPED_Q = -2; // when the user didnt answer
         public static string img_max_hight = "200px";
         public static Dictionary<string, List<string>> topicsdict = new Dictionary<string, List<string>>
@@ -515,7 +515,7 @@ namespace clientForQuestions2._0
             if (!isQuestionInHebrew(qp.category))
                 return left2right(question + get_string_of_img_html(qp.json_content["image"]) + "<br><br>" + finalOptionsString);
 
-            return right2left(question + get_string_of_img_html(qp.json_content["image"]) + "<br><br>" + finalOptionsString);
+            return replace_mstack_with_equation_in_mathml( right2left(question + get_string_of_img_html(qp.json_content["image"]) + "<br><br>" + finalOptionsString) );
         }
 
         public static string get_explanation(dbQuestionParmeters qp)
@@ -528,7 +528,7 @@ namespace clientForQuestions2._0
         {
             string line = "<div style=\"top: 50%; left: 0; width: 100vw; height: 1px; background-color: lightgray;\"></div>\r\n<br><p style=\"font-size: 18px; font-weight: bold; direction: rtl; text-decoration: underline;\">הסבר:<p>";
 
-            return get_string_of_question_and_option_from_json(qp, clientanswer) + right2left(line) + get_explanation(qp);
+            return replace_mstack_with_equation_in_mathml( get_string_of_question_and_option_from_json(qp, clientanswer) + right2left(line) + get_explanation(qp) );
         }
         private static bool isQuestionInHebrew(string category)
         {
@@ -574,6 +574,84 @@ namespace clientForQuestions2._0
                 }
                 return builder.ToString();
             }
+        }
+
+        public static string replace_mstack_with_equation_in_mathml(string input_html)
+        {
+            //// Step 1: Extract text between <mstack> and </mstack>
+            //string mstackContent = Regex.Match(input_html, @"<mstack(.*?)</mstack>", RegexOptions.Singleline).Groups[1].Value;
+
+            //// Step 2: Insert <mspace linebreak="newline"/> between <mi> and <mo> tags
+            //mstackContent = Regex.Replace(mstackContent, @"</mi>\s*<mo>", @"</mi> <mo>");
+            //mstackContent = Regex.Replace(mstackContent, @"</mo>\s*<mi>", @"</mo> <mi>");
+            //mstackContent = Regex.Replace(mstackContent, @"</mi>\s*<mi>", @"</mi> <mi>");
+            //mstackContent = Regex.Replace(mstackContent, @"</mo>\s*<mo>", @"</mo> <mo>");
+
+
+            //// Replace the original <mstack> content with the modified content
+            //return Regex.Replace(input_html, @"<mstack.*?</mstack>", $"{mstackContent.Replace("&#160;", "=")}");
+            if (!input_html.Contains("mstack"))
+                return input_html;
+            //    input_html = @"    <mstack charalign=""center"" stackalign=""right"">
+            //<msrow><none/>
+            //<mi>AB</mi>
+            //</msrow>
+            //<msrow>
+            //    <mo>+</mo><mi>BA</mi>
+            //</msrow>
+            //<msline/>
+            //<mpadded lspace=""-5px"">
+
+            //<mo>&#160;</mo><mi>CDC</mi></mpadded>
+
+            //</mstack>";
+
+            // Step 1: Extract content between <mstack> and </mstack>
+            string mstackContent = Regex.Match(input_html, @"<mstack(.*?)</mstack>", RegexOptions.Singleline).Groups[1].Value;
+
+            //// Step 2: Keep only <mi>...</mi> and <mo>...</mo> tags and their content, deleting everything else
+            //mstackContent = Regex.Replace(mstackContent, @"<(?!/?(mi|mo)\b)[^>]*>|[^<]+", "");
+
+            //// Step 3: Insert <mspace linebreak="newline"/> between <mi> and <mo> tags
+            //mstackContent = Regex.Replace(mstackContent, @"</mi>\s*<mo>", @"</mi><mspace linebreak=""newline""/><mo>");
+            //mstackContent = Regex.Replace(mstackContent, @"</mo>\s*<mi>", @"</mo><mspace linebreak=""newline""/><mi>");
+            //mstackContent = Regex.Replace(mstackContent, @"</mi>\s*<mi>", @"</mi><mspace linebreak=""newline""/><mi>");
+            //mstackContent = Regex.Replace(mstackContent, @"</mo>\s*<mo>", @"</mo><mspace linebreak=""newline""/><mo>");
+
+            mstackContent = mstackContent.Replace("<msline/>", "<mo>=</mo>");
+
+            string new_mstackContent = "";
+            while (mstackContent.Length > 0 && (mstackContent.Contains("mi") || mstackContent.Contains("mo") || mstackContent.Contains("mn")))
+            {
+
+                // add from <mi> or <mo> till </mi> or </mo> to new_mstackContent
+                if (mstackContent.StartsWith("<mi>") || mstackContent.StartsWith("<mo>") || mstackContent.StartsWith("<mn>"))
+                {
+                    // Determine if we're working with <mi> or <mo>
+                    string tag = mstackContent.StartsWith("<mi>") ? "mi" : "mo";
+                    if (mstackContent.StartsWith("<mn>"))
+                        tag = "mn";
+                    // Find the end tag position
+                    int endIndex = mstackContent.IndexOf($"</{tag}>");
+                    if (endIndex != -1)
+                    {
+                        // Add the full tag segment (from <mi> or <mo> to </mi> or </mo>) to new_mstackContent
+                        string segment = mstackContent.Substring(0, endIndex + tag.Length + 3);
+                        new_mstackContent += segment;
+
+                        // Remove this segment from mstackContent
+                        mstackContent = mstackContent.Substring(endIndex + tag.Length + 2);
+                        continue;
+                    }
+                }
+                else
+                {
+                    mstackContent = mstackContent.Substring(1);
+                }
+            }
+
+            // Step 5: Replace the original <mstack> content with the modified content in the result
+            return Regex.Replace(input_html, @"<mstack(.*?)</mstack>", $"<mrow>{new_mstackContent}</mrow>", RegexOptions.Singleline);
         }
 
         // חשיבה מילולית

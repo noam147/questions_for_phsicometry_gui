@@ -33,6 +33,11 @@ namespace clientForQuestions2._0
         }
         
 
+        private void addMathInputErrorIds()
+        {
+            listOfPreviousQuestionsId.Add(9964);
+            listOfPreviousQuestionsId.Add(938);
+        }
         public HtmlConvertOptionsMenu()
         {
             string finalSimulation = "";
@@ -42,6 +47,8 @@ namespace clientForQuestions2._0
             explanation_comboBox.SelectedIndex = 0;
             string newPage = "<div style='page-break-after: always;'></div>";
             newPage = "<br>";
+            addMathInputErrorIds();
+            
             for (int i =0; i < 50;i++)
             {
                 var multipleChaptersQuestions = OperationsAndOtherUseful.sendChapter_math_Questions_without_graph(this.listOfPreviousQuestionsId);

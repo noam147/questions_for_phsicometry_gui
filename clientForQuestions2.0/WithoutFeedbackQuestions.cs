@@ -21,7 +21,7 @@ namespace clientForQuestions2._0
             InitializeComponent();
         }
         public WithoutFeedbackQuestions(int amount, List<string> listOfTopics, int timePerQ, questionsDifficultyLevel difficultyLevel, string test_type)
-           : base(amount, listOfTopics, true, timePerQ != OperationsAndOtherUseful.WITHOUT_TIMER ? timePerQ * amount : OperationsAndOtherUseful.WITHOUT_TIMER, difficultyLevel, test_type)
+           : base(amount, listOfTopics, true, timePerQ != OperationsAndOtherUseful.STOPER ? timePerQ * amount : OperationsAndOtherUseful.STOPER, difficultyLevel, test_type)
         {
 
         }
