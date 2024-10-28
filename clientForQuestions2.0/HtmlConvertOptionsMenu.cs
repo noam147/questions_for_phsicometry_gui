@@ -59,7 +59,7 @@ namespace clientForQuestions2._0
             newPage = "<br>";
             addMathInputErrorIds();
             
-            for (int i =0; i < 50;i++)
+            for (int i =0; i < 2;i++)
             {
                 var multipleChaptersQuestions = OperationsAndOtherUseful.sendChapter_math_Questions_without_graph(this.listOfPreviousQuestionsId);
                 foreach(var question in multipleChaptersQuestions)
