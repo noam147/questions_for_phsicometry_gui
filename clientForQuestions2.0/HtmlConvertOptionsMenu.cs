@@ -20,16 +20,19 @@ namespace clientForQuestions2._0
         private string file_path;
         private List<dbQuestionParmeters> questions;
         private string finalHtmlContentForFile = "<head><style>\r\n    .question-container { page-break-inside: avoid; }</style></head>";
+        private string whenInitHtmlContent = "";
         private string htmlContentOfAnswers = "<body dir=\"rtl\">";
         private List<int> listOfPreviousQuestionsId = new List<int>();
         private int test_id = 0;
         public HtmlConvertOptionsMenu(int new_test_id)
         {
+            whenInitHtmlContent = finalHtmlContentForFile;
             this.test_id = new_test_id;
             questions = new List<dbQuestionParmeters>();
             foreach (afterQuestionParametrs a in TestHistoryFileHandler.get_afterQuestionParametrs_of_test(test_id))
                 questions.Add(a.question);
             InitializeComponent();
+            //finalHtmlContentForFile = get_html(false);
             explanation_comboBox.SelectedIndex = 0;
             initializeInfo();
         }
@@ -49,6 +52,7 @@ namespace clientForQuestions2._0
         }
         public HtmlConvertOptionsMenu()
         {
+            whenInitHtmlContent = finalHtmlContentForFile;
             test_id = TestHistoryFileHandler.get_next_test_id();
             string finalSimulation = "";
             string currentChapter = "";
@@ -83,6 +87,7 @@ namespace clientForQuestions2._0
 
         public HtmlConvertOptionsMenu(List<dbQuestionParmeters> questions)
         {
+            whenInitHtmlContent = finalHtmlContentForFile;
             test_id = TestHistoryFileHandler.get_next_test_id();
 
             this.questions = questions;
@@ -129,6 +134,7 @@ namespace clientForQuestions2._0
         }
         public HtmlConvertOptionsMenu(List<List<dbQuestionParmeters>> multipleQuestionsfiles)
         {
+            whenInitHtmlContent = finalHtmlContentForFile;
             test_id = TestHistoryFileHandler.get_next_test_id();
 
             action_when_get_list_of_chapters(multipleQuestionsfiles);
@@ -400,11 +406,13 @@ namespace clientForQuestions2._0
             try
             {
                 // Write the HTML content to the file
-                if(finalHtmlContentForFile == "<head><style>\r\n    .question-container { page-break-inside: avoid; }</style></head>")
+                if(finalHtmlContentForFile == whenInitHtmlContent)
                     {
-                    File.WriteAllText(this.file_path, get_html(this.isNum_checkBox.Checked));
+
+                    File.WriteAllText(this.file_path,whenInitHtmlContent+ get_html(this.isNum_checkBox.Checked));
                 }
                 else { File.WriteAllText(this.file_path,finalHtmlContentForFile); }
+
 
                 // for saving answers
                 string answers_filePath = this.file_path.Insert(this.file_path.LastIndexOf(".html"), "_answers");
