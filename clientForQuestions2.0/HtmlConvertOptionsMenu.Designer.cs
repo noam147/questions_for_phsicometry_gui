@@ -28,11 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(HtmlConvertOptionsMenu));
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.filePath_button = new System.Windows.Forms.Button();
             this.isNum_checkBox = new System.Windows.Forms.CheckBox();
             this.explanation_comboBox = new System.Windows.Forms.ComboBox();
+            this.i_downloadButton = new System.Windows.Forms.Label();
+            this.i_toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
             // 
             // filePath_button
@@ -72,12 +75,41 @@
             this.explanation_comboBox.Size = new System.Drawing.Size(262, 24);
             this.explanation_comboBox.TabIndex = 4;
             // 
+            // i_downloadButton
+            // 
+            this.i_downloadButton.AutoSize = true;
+            this.i_downloadButton.BackColor = System.Drawing.SystemColors.Highlight;
+            this.i_downloadButton.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.i_downloadButton.Cursor = System.Windows.Forms.Cursors.Help;
+            this.i_downloadButton.Font = new System.Drawing.Font("Elephant", 10.8F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.i_downloadButton.ForeColor = System.Drawing.Color.GhostWhite;
+            this.i_downloadButton.Location = new System.Drawing.Point(78, 191);
+            this.i_downloadButton.Name = "i_downloadButton";
+            this.i_downloadButton.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.i_downloadButton.Size = new System.Drawing.Size(19, 26);
+            this.i_downloadButton.TabIndex = 34;
+            this.i_downloadButton.Text = "i";
+            // 
+            // i_toolTip
+            // 
+            this.i_toolTip.AutomaticDelay = 100;
+            this.i_toolTip.AutoPopDelay = 10000000;
+            this.i_toolTip.InitialDelay = 100;
+            this.i_toolTip.IsBalloon = true;
+            this.i_toolTip.OwnerDraw = true;
+            this.i_toolTip.ReshowDelay = 0;
+            this.i_toolTip.ShowAlways = true;
+            this.i_toolTip.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
+            this.i_toolTip.UseAnimation = false;
+            this.i_toolTip.UseFading = false;
+            // 
             // HtmlConvertOptionsMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(323, 240);
+            this.Controls.Add(this.i_downloadButton);
             this.Controls.Add(this.explanation_comboBox);
             this.Controls.Add(this.isNum_checkBox);
             this.Controls.Add(this.filePath_button);
@@ -97,5 +129,7 @@
         private System.Windows.Forms.Button filePath_button;
         private System.Windows.Forms.CheckBox isNum_checkBox;
         private System.Windows.Forms.ComboBox explanation_comboBox;
+        private System.Windows.Forms.Label i_downloadButton;
+        public System.Windows.Forms.ToolTip i_toolTip;
     }
 }

@@ -147,7 +147,10 @@ namespace clientForQuestions2._0
             this.avrage_time.Text = $"זמן ממוצע לשאלה: {OperationsAndOtherUseful.get_time_mmss_fromseconds(sum_time / m_questions.Count)}";
             this.avrage_difficultyLevel.Text = $"רמת קושי ממוצעת לשאלה: {Math.Round(sum_difficultLevel / m_questions.Count, 1)}";
             this.correct_answers.Text = $"תשובות נכונות: {corr_c}/{m_questions.Count}";
-            this.test_id_label.Text = $"test id: {this.test_id}";
+            if (test_id != OperationsAndOtherUseful.NOT_A_REAL_TEST_ID)
+                this.test_id_label.Text = $"test id: {this.test_id}";
+            else
+                this.test_id_label.Visible = false;
         }
 
         // to detect arrow keys preesed

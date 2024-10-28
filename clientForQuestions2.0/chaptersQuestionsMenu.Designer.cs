@@ -196,6 +196,7 @@
             this.toolTip1.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
             this.toolTip1.UseAnimation = false;
             this.toolTip1.UseFading = false;
+            this.toolTip1.Popup += new System.Windows.Forms.PopupEventHandler(this.toolTip1_Popup);
             // 
             // i_downloadChapter
             // 
