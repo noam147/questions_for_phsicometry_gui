@@ -953,7 +953,7 @@ namespace clientForQuestions2._0
 
         private void hideCol()
         {
-            //webView21.Size = new Size(2 * width_webView, height_webView);
+            //webView2pdf.Size = new Size(2 * width_webView, height_webView);
             //webView2_col.Visible = false;
 
             //to remove previous html content
@@ -963,7 +963,7 @@ namespace clientForQuestions2._0
 
         private void showCol(dbQuestionParmeters q)
         {
-            //webView21.Size = new Size(width_webView, height_webView);
+            //webView2pdf.Size = new Size(width_webView, height_webView);
             //webView2_col.Visible = true;
 
             webTaker.OnCoreWebView2_colInitializationCompleted(webView2_col, q);

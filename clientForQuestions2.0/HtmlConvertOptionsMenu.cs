@@ -1,16 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Net.Http;
-using System.Reflection;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Linq;
+using Microsoft.Web.WebView2.WinForms;
+using PuppeteerSharp;
 
 
 namespace clientForQuestions2._0
@@ -19,11 +13,15 @@ namespace clientForQuestions2._0
     {
         private string file_path;
         private List<dbQuestionParmeters> questions;
-        private string finalHtmlContentForFile = "<head><style>\r\n    .question-container { page-break-inside: avoid; }</style></head>";
+        private string finalHtmlContentForFile = @"<head><style>\r\n    .question-container { 
+            page-break-inside: avoid;
+}</style></head>";
         private string whenInitHtmlContent = "";
         private string htmlContentOfAnswers = "<body dir=\"rtl\">";
         private List<int> listOfPreviousQuestionsId = new List<int>();
         private int test_id = 0;
+        private WebView2 webView2pdf;
+
         public HtmlConvertOptionsMenu(int new_test_id)
         {
             whenInitHtmlContent = finalHtmlContentForFile;
@@ -31,19 +29,20 @@ namespace clientForQuestions2._0
             questions = new List<dbQuestionParmeters>();
             foreach (afterQuestionParametrs a in TestHistoryFileHandler.get_afterQuestionParametrs_of_test(test_id))
                 questions.Add(a.question);
+
             InitializeComponent();
             //finalHtmlContentForFile = get_html(false);
             explanation_comboBox.SelectedIndex = 0;
-            initializeInfo();
+            at_start();
         }
-        private void initializeInfo()
+        private void at_start()
         {
             // for info labels:
             this.i_toolTip.SetToolTip(this.i_downloadButton, @"יחד עם קובץ השאלות, נשמר גם קובץ המכיל את התשובות הסופיות לכל שאלה
 -הקובץ בעל אותו שם כקובץ השאלות אך מסתיים ב
 ""_answers""");
-
         }
+
 
         private void addMathInputErrorIds()
         {
@@ -82,7 +81,7 @@ namespace clientForQuestions2._0
             filePath_button_Click(null, null);
 
             // for info labels:
-            initializeInfo();
+            at_start();
         }
 
         public HtmlConvertOptionsMenu(List<dbQuestionParmeters> questions)
@@ -95,7 +94,7 @@ namespace clientForQuestions2._0
             explanation_comboBox.SelectedIndex = 0;
 
             // for info labels:
-            initializeInfo();
+            at_start();
 
         }
         private string getGeneralCategory(string category)
@@ -140,7 +139,7 @@ namespace clientForQuestions2._0
             action_when_get_list_of_chapters(multipleQuestionsfiles);
 
             // for info labels:
-            initializeInfo();
+            at_start();
 
         }
         private void HtmlConvertOptionsMenu_Load(object sender, EventArgs e)
@@ -154,9 +153,9 @@ namespace clientForQuestions2._0
             using (SaveFileDialog saveFileDialog = new SaveFileDialog())
             {
                 saveFileDialog.Title = "Save Output File";
-                saveFileDialog.Filter = "Html Files (*.html)|*.html";
-                saveFileDialog.DefaultExt = "html"; // Default file extension
-                saveFileDialog.FileName = $"test";
+                saveFileDialog.Filter = "PDF Files (*.pdf)|*.pdf";
+                saveFileDialog.DefaultExt = "pdf"; // Default file extension
+                saveFileDialog.FileName = $"test_{test_id}";
                 saveFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments); // Initial directory
 
                 if (saveFileDialog.ShowDialog() == DialogResult.OK)
@@ -165,8 +164,6 @@ namespace clientForQuestions2._0
                     this.file_path = saveFileDialog.FileName;
 
                     save_button_Click();
-                    MessageBox.Show($"File save to: '{this.file_path}'");
-                    this.Close();
                 }
             }
         }
@@ -201,7 +198,10 @@ namespace clientForQuestions2._0
             //expel: i have no idea
             string html = @"
 <style>
-    .question-container { page-break-inside: avoid; }
+    .question-container {
+page-break-inside: avoid; 
+}
+
     h1 { font-size: 14px; } /* Reducing the font size for all h1 elements */
     p { font-size: 12px; }  /* Reducing the font size for all paragraph elements */
     mjx-mspace[linebreak=""newline""] { display: block; height: 0; }
@@ -294,6 +294,7 @@ namespace clientForQuestions2._0
 
         public static string fix_newline_mathml(string html)
         {
+            return html;
             // the mathml newline
             string new_line_mathml = "linebreak=\"newline\"";
             string new_html = html;
@@ -401,22 +402,23 @@ namespace clientForQuestions2._0
             return fix_newline_mathml(new_html);
         }
 
-        private void save_button_Click()
+        private async void save_button_Click()
         {
             try
             {
                 // Write the HTML content to the file
                 if(finalHtmlContentForFile == whenInitHtmlContent)
-                    {
+                {
+                    //File.WriteAllText(this.file_path.Replace(".pdf", ".html"), whenInitHtmlContent + get_html(this.isNum_checkBox.Checked));
 
-                    File.WriteAllText(this.file_path,whenInitHtmlContent+ get_html(this.isNum_checkBox.Checked));
+                    await save_html_as_pdf(this.file_path,whenInitHtmlContent+ get_html(this.isNum_checkBox.Checked));
                 }
-                else { File.WriteAllText(this.file_path,finalHtmlContentForFile); }
+                else { await save_html_as_pdf(this.file_path,finalHtmlContentForFile); }
 
 
                 // for saving answers
-                string answers_filePath = this.file_path.Insert(this.file_path.LastIndexOf(".html"), "_answers");
-                File.WriteAllText(answers_filePath, this.htmlContentOfAnswers);
+                string answers_filePath = this.file_path.Insert(this.file_path.LastIndexOf(".pdf"), "_answers");
+                await save_html_as_pdf(answers_filePath, this.htmlContentOfAnswers);
 
                 // Save test to history, if it doesn't exist
                 if (test_id == TestHistoryFileHandler.get_next_test_id())
@@ -437,6 +439,9 @@ namespace clientForQuestions2._0
                     // save test type as: "תרגול להורדה"
                     TestHistoryFileHandler.save_afterQuestionParametrs_to_test_history(afterQuestionParametrs_, test_id, "תרגול להורדה");
                 }
+
+                MessageBox.Show($"File save to: '{this.file_path}'");
+                this.Close();
             }
             catch (Exception ex)
             {
@@ -444,5 +449,63 @@ namespace clientForQuestions2._0
             }
 
         }
+
+        private static async Task save_html_as_pdf(string file_path, string htmlContent)
+        {
+            // Ensure the required Chromium version is downloaded
+            var browserFetcher = new BrowserFetcher();
+            await browserFetcher.DownloadAsync();
+
+            // Launch the browser
+            var browser = await Puppeteer.LaunchAsync(new LaunchOptions { Headless = true });
+
+            try
+            {
+                var page = await browser.NewPageAsync();
+
+                try
+                {
+                    // Set HTML content and wait for it to load
+                    await page.SetContentAsync(htmlContent);
+
+                    // Ensure fonts and JavaScript content are fully loaded
+                    await page.EvaluateExpressionHandleAsync("document.fonts.ready");
+
+                    // JavaScript to modify the content
+                    string script = @"
+                var elements = document.querySelectorAll('mjx-mspace');
+                elements.forEach(function(element) {
+                    var newElement = document.createElement('p');
+                    element.parentNode.insertBefore(newElement, element.nextSibling);
+                });
+            ";
+
+                    // Execute the JavaScript on the page
+                    await page.EvaluateExpressionAsync(script);
+
+                    // Generate PDF with manually specified A4 dimensions
+                    await page.PdfAsync(file_path
+                            , new PdfOptions
+                            {
+                                Width = "8.27in",   // A4 width
+                                Height = "11.7in",  // A4 height
+                                PrintBackground = true
+                            }
+                        );
+                    LogFileHandler.writeIntoFile($"PDF generated at {file_path}");
+                }
+                finally
+                {
+                    // Dispose of the page
+                    await page.CloseAsync();
+                }
+            }
+            finally
+            {
+                // Close the browser
+                await browser.CloseAsync();
+            }
+        }
+
     }
 }

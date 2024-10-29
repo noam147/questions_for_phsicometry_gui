@@ -188,12 +188,12 @@ namespace clientForQuestions2._0
         //    return;
 
 
-        //    if (webView21 != null)
+        //    if (webView2pdf != null)
         //    {
         //        if(col_id == 0)
-        //            webView21.Size = new Size(this.ClientSize.Width, this.ClientSize.Height - h_questionsPlace); // Adjust height based on form size
+        //            webView2pdf.Size = new Size(this.ClientSize.Width, this.ClientSize.Height - h_questionsPlace); // Adjust height based on form size
         //        else
-        //            webView21.Size = new Size((int) this.ClientSize.Width / 2, this.ClientSize.Height - h_questionsPlace); // Adjust height based on form size
+        //            webView2pdf.Size = new Size((int) this.ClientSize.Width / 2, this.ClientSize.Height - h_questionsPlace); // Adjust height based on form size
         //    }
         //    if (webView2_col != null && col_id != 0)
         //    {
@@ -240,7 +240,7 @@ namespace clientForQuestions2._0
 
         private void showCol(dbQuestionParmeters q)
         {
-            //this.webView21.Size = new Size(width_screen, height_screen - h_questionsPlace - h_statsPlace); // Adjust size to fit below the buttons
+            //this.webView2pdf.Size = new Size(width_screen, height_screen - h_questionsPlace - h_statsPlace); // Adjust size to fit below the buttons
 
             webTaker.OnCoreWebView2_colInitializationCompleted(webView2_col, q);
         }
