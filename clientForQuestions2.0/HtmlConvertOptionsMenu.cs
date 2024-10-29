@@ -15,12 +15,15 @@ namespace clientForQuestions2._0
         private List<dbQuestionParmeters> questions;
         private string finalHtmlContentForFile = @"<head><style>\r\n    .question-container { 
             page-break-inside: avoid;
+            width: 100%; /* Full width */
+            max-width: 800px; /* Maximum width */
+            word-wrap: break-word; /* Break long words */
+            overflow-wrap: break-word; /* Break words if they overflow */
 }</style></head>";
         private string whenInitHtmlContent = "";
         private string htmlContentOfAnswers = "<body dir=\"rtl\">";
         private List<int> listOfPreviousQuestionsId = new List<int>();
         private int test_id = 0;
-        private WebView2 webView2pdf;
 
         public HtmlConvertOptionsMenu(int new_test_id)
         {
@@ -176,7 +179,7 @@ namespace clientForQuestions2._0
             {
                 currIndex = htmlContentOfQuestion.IndexOf("<p ");
                 int secondsIndex = htmlContentOfQuestion.IndexOf(">");//find the closing tag of p
-                htmlContentOfQuestion = $"<p>(" + numberStr + ")\t" + htmlContentOfQuestion.Substring(secondsIndex + 1, htmlContentOfQuestion.Length - (secondsIndex + 1));
+                htmlContentOfQuestion = $"<p>" + numberStr + "\t" + htmlContentOfQuestion.Substring(secondsIndex + 1, htmlContentOfQuestion.Length - (secondsIndex + 1));
             }
             else
             {
@@ -212,8 +215,11 @@ page-break-inside: avoid;
             //bool isNum = isNum_checkBox.Checked;
             int selected_explanationsOption_index = explanation_comboBox.SelectedIndex; // index of the selected option
 
-            // add test id to the start of the file
-            html += $"<p style=\"font-size: 24px; font-weight: bold; direction: ltr;\">Test Id = {this.test_id}</p> <br><br>";
+            if (withTestId_checkBox.Checked)
+            {
+                // add test id to the start of the file
+                html += $"<p style=\"font-size: 24px; font-weight: bold; direction: ltr; text-align: center;\">Test Id = {this.test_id}</p> <br><br>";
+            }
 
             int prev_col_id = 0;
             for (int i = 0; i < questions.Count; i++)
@@ -280,21 +286,21 @@ page-break-inside: avoid;
             if (selected_explanationsOption_index == 1)
             {
                 html += "<div style='page-break-after: always;'></div><p style=\"font-size: 24px; font-weight: bold; direction: rtl;\">הסברים ותשובות:</p>";
-                html += "<br> <div style=\"top: 50%; left: 0; width: 100vw; height: 5px; background-color: lightgray;\"></div><br> <br> " + html_end;
+                html += "<div style=\"top: 50%; left: 0; width: 100vw; height: 2px; background-color: black;\"></div> <br> " + html_end;
             }
 
             //for big imgs
             html = html.Replace("height:auto;", "height:500;");
-
-            // fix the problem with newlines in math ml
-            html = fix_newline_mathml(html);
 
             return html;            
         }
 
         public static string fix_newline_mathml(string html)
         {
+            // this is fixed in html2pdf so we dont need it
             return html;
+
+
             // the mathml newline
             string new_line_mathml = "linebreak=\"newline\"";
             string new_html = html;

@@ -36,11 +36,12 @@
             this.explanation_comboBox = new System.Windows.Forms.ComboBox();
             this.i_downloadButton = new System.Windows.Forms.Label();
             this.i_toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.withTestId_checkBox = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // filePath_button
             // 
-            this.filePath_button.Location = new System.Drawing.Point(103, 181);
+            this.filePath_button.Location = new System.Drawing.Point(117, 181);
             this.filePath_button.Name = "filePath_button";
             this.filePath_button.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.filePath_button.Size = new System.Drawing.Size(106, 47);
@@ -54,7 +55,7 @@
             this.isNum_checkBox.AutoSize = true;
             this.isNum_checkBox.Checked = true;
             this.isNum_checkBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.isNum_checkBox.Location = new System.Drawing.Point(131, 116);
+            this.isNum_checkBox.Location = new System.Drawing.Point(37, 116);
             this.isNum_checkBox.Name = "isNum_checkBox";
             this.isNum_checkBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.isNum_checkBox.Size = new System.Drawing.Size(114, 20);
@@ -64,12 +65,13 @@
             // 
             // explanation_comboBox
             // 
+            this.explanation_comboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.explanation_comboBox.FormattingEnabled = true;
             this.explanation_comboBox.Items.AddRange(new object[] {
             "בלי הסברים ותשובות",
             "הסברים ותשובות בסוף הקובץ",
             "הסבר ותשובה בסוף כל שאלה"});
-            this.explanation_comboBox.Location = new System.Drawing.Point(30, 86);
+            this.explanation_comboBox.Location = new System.Drawing.Point(33, 86);
             this.explanation_comboBox.Name = "explanation_comboBox";
             this.explanation_comboBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.explanation_comboBox.Size = new System.Drawing.Size(262, 24);
@@ -83,7 +85,7 @@
             this.i_downloadButton.Cursor = System.Windows.Forms.Cursors.Help;
             this.i_downloadButton.Font = new System.Drawing.Font("Elephant", 10.8F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.i_downloadButton.ForeColor = System.Drawing.Color.GhostWhite;
-            this.i_downloadButton.Location = new System.Drawing.Point(78, 191);
+            this.i_downloadButton.Location = new System.Drawing.Point(92, 191);
             this.i_downloadButton.Name = "i_downloadButton";
             this.i_downloadButton.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.i_downloadButton.Size = new System.Drawing.Size(19, 26);
@@ -103,18 +105,34 @@
             this.i_toolTip.UseAnimation = false;
             this.i_toolTip.UseFading = false;
             // 
+            // withTestId_checkBox
+            // 
+            this.withTestId_checkBox.AutoSize = true;
+            this.withTestId_checkBox.Checked = true;
+            this.withTestId_checkBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.withTestId_checkBox.Location = new System.Drawing.Point(37, 142);
+            this.withTestId_checkBox.Name = "withTestId_checkBox";
+            this.withTestId_checkBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.withTestId_checkBox.Size = new System.Drawing.Size(206, 20);
+            this.withTestId_checkBox.TabIndex = 35;
+            this.withTestId_checkBox.Text = "לציין את מספר התרגול בכותרת";
+            this.withTestId_checkBox.UseVisualStyleBackColor = true;
+            // 
             // HtmlConvertOptionsMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(323, 240);
+            this.Controls.Add(this.withTestId_checkBox);
             this.Controls.Add(this.i_downloadButton);
             this.Controls.Add(this.explanation_comboBox);
             this.Controls.Add(this.isNum_checkBox);
             this.Controls.Add(this.filePath_button);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "HtmlConvertOptionsMenu";
+            this.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.RightToLeftLayout = true;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "HtmlConvertOptionsMenu";
             this.Load += new System.EventHandler(this.HtmlConvertOptionsMenu_Load);
@@ -131,5 +149,6 @@
         private System.Windows.Forms.ComboBox explanation_comboBox;
         private System.Windows.Forms.Label i_downloadButton;
         public System.Windows.Forms.ToolTip i_toolTip;
+        private System.Windows.Forms.CheckBox withTestId_checkBox;
     }
 }

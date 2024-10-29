@@ -513,9 +513,9 @@ namespace clientForQuestions2._0
                 finalOptionsString = listOfOptions[0] + "<br>" + listOfOptions[1] + "<br>" + listOfOptions[2] + "<br>" + listOfOptions[3];
             //if question is in english
             if (!isQuestionInHebrew(qp.category))
-                return left2right(question + get_string_of_img_html(qp.json_content["image"]) + "<br><br>" + finalOptionsString);
+                return left2right(question + get_string_of_img_html(qp.json_content["image"]) + "<br>" + finalOptionsString);
 
-            return replace_mstack_with_equation_in_mathml( right2left(question + get_string_of_img_html(qp.json_content["image"]) + "<br><br>" + finalOptionsString) );
+            return replace_mstack_with_equation_in_mathml( right2left(question + get_string_of_img_html(qp.json_content["image"]) + "<br>" + finalOptionsString) );
         }
 
         public static string get_explanation(dbQuestionParmeters qp)
