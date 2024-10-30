@@ -134,16 +134,15 @@ namespace clientForQuestions2._0
                 this.htmlContentOfAnswers += "<br><br>" + generalCategory + ":\n";//add lines to separate diffrentchapters
                 currentChapter = get_html(true);
                 finalSimulation +=  currentChapter+ newPage;
+                all_qs.AddRange(multipleQuestionsfiles[0]);
             }
             
-            for (int i = 0; i < multipleQuestionsfiles.Count; i++)
+            for (int i = 1; i < multipleQuestionsfiles.Count; i++)
             {
                 this.questions = multipleQuestionsfiles[i];
                 string currentCategory = questions[0].category;
                 string generalCategory = getGeneralCategory(currentCategory);
                 this.htmlContentOfAnswers += "<br><br>" + generalCategory + ":\n";//add lines to separate diffrentchapters
-
-                finalSimulation += newPage+currentChapter;
 
                 //to not have the test id over each chapter
                 currentChapter = get_html(true,"");
@@ -310,8 +309,6 @@ namespace clientForQuestions2._0
         }
         private string get_html(bool isNum)
         {
-            //isnum: i have no idea
-            //expel: i have no idea
             string html = @"
 <style>
     .question-container {
