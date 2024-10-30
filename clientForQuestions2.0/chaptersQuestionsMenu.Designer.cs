@@ -142,7 +142,7 @@
             this.downloadChapterButton.Name = "downloadChapterButton";
             this.downloadChapterButton.Size = new System.Drawing.Size(99, 61);
             this.downloadChapterButton.TabIndex = 31;
-            this.downloadChapterButton.Text = "הורדת הפרק";
+            this.downloadChapterButton.Text = "הורדת פרק";
             this.downloadChapterButton.UseVisualStyleBackColor = true;
             this.downloadChapterButton.Click += new System.EventHandler(this.downloadExreciseButton_Click);
             // 

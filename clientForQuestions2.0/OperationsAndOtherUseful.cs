@@ -689,7 +689,13 @@ namespace clientForQuestions2._0
             // get הבנה והסקה
             List<dbQuestionParmeters> havana_qs = sqlDb.get_n_questions_from_arr_of_categorys(13, OperationsAndOtherUseful.topicsdict["הבנה והסקה"]); // qs of normal qs
             havana_qs.Sort((x, y) => ((float)x.json_content["difficulty_level"]).CompareTo((float)y.json_content["difficulty_level"]));
-            return anlog_qs;
+
+            List<dbQuestionParmeters> finalChpater = new List<dbQuestionParmeters>();
+            foreach (var question in anlog_qs)
+            { finalChpater.Add(question); }
+            foreach (var question in havana_qs)
+            { finalChpater.Add(question); }
+            return finalChpater;
 
         }
         /// <summary>
@@ -838,14 +844,13 @@ namespace clientForQuestions2._0
             // get Restatements
             List<dbQuestionParmeters> Restatements_qs = sqlDb.get_n_questions_from_specofic_category(10, "Restatements"); // qs of normal qs
             Restatements_qs.Sort((x, y) => ((float)x.json_content["difficulty_level"]).CompareTo((float)y.json_content["difficulty_level"]));
-            // get קטע קריאה
-            List<int> colIds = OperationsAndOtherUseful.title2colIds["Reading Comprehension"]; // get all ids of קטע קריאה
-            int col_id1 = colIds[random.Next(colIds.Count)]; // choose rand collection of the category
-            int col_id2 = colIds[random.Next(colIds.Count)]; // choose rand collection of the category
-            while (col_id1 == col_id2) // so there will be different texts
-                col_id2 = colIds[random.Next(colIds.Count)]; // choose rand collection of the category
-
-            return Sentence_Completions_qs;
+           
+            List<dbQuestionParmeters> finalChpater = new List<dbQuestionParmeters>();
+            foreach(var question in Sentence_Completions_qs)
+            { finalChpater.Add(question); }
+            foreach(var question in Restatements_qs)
+            { finalChpater.Add(question); }
+            return finalChpater;
         }
 
         //אנגלית
