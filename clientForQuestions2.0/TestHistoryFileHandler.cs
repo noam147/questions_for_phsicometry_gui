@@ -387,6 +387,27 @@ namespace clientForQuestions2._0
             return result[0].m_afterQuestionParametrs;
         }
 
+        public static List<dbQuestionParmeters> get_dbQuestionParmeters_of_test(int test_id)
+        {
+            List<dbQuestionParmeters> qs = new List<dbQuestionParmeters>();
+            foreach (afterQuestionParametrs q in get_afterQuestionParametrs_of_test(test_id))
+                qs.Add(q.question);
+
+            return qs;
+        }
+
+        public static string get_type_of_test(int test_id)
+        {
+            string selectQuery = @"
+                SELECT * 
+                FROM TestsHistoryData 
+                WHERE TestId = " + $"{test_id};";
+
+            List<Test> result = getResultFromQuery(selectQuery);
+
+            return result[0].type;
+        }
+
         public static void delete_test_history()
         {
             try
