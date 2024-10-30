@@ -111,6 +111,11 @@ namespace clientForQuestions2._0
 
         private void simulationDownloadButton_Click(object sender, EventArgs e)
         {
+            ChaptersToPrintPage c = new ChaptersToPrintPage();
+            c.Show();
+            this.Close();
+            return;
+
             List<List<dbQuestionParmeters>> finalSimulation = new List<List<dbQuestionParmeters>>();
             List<dbQuestionParmeters> currQuestions;
             currQuestions = OperationsAndOtherUseful.sendChapter_english_Questions();
@@ -127,6 +132,7 @@ namespace clientForQuestions2._0
             finalSimulation.Add(currQuestions);
             currQuestions = OperationsAndOtherUseful.sendChapter_hebrew_Questions();
             finalSimulation.Add(currQuestions);
+
             HtmlConvertOptionsMenu n = new HtmlConvertOptionsMenu(finalSimulation, "סימולציה להורדה");
             //HtmlConvertOptionsMenu n = new HtmlConvertOptionsMenu();
             try { n.Show(); }

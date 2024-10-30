@@ -142,7 +142,7 @@
             this.downloadChapterButton.Name = "downloadChapterButton";
             this.downloadChapterButton.Size = new System.Drawing.Size(99, 61);
             this.downloadChapterButton.TabIndex = 31;
-            this.downloadChapterButton.Text = "הורדת פרק";
+            this.downloadChapterButton.Text = "הורדת הפרק";
             this.downloadChapterButton.UseVisualStyleBackColor = true;
             this.downloadChapterButton.Click += new System.EventHandler(this.downloadExreciseButton_Click);
             // 
@@ -152,7 +152,7 @@
             this.simulationDownloadButton.Name = "simulationDownloadButton";
             this.simulationDownloadButton.Size = new System.Drawing.Size(99, 61);
             this.simulationDownloadButton.TabIndex = 32;
-            this.simulationDownloadButton.Text = "סימולציה 6 פרקים להורדה";
+            this.simulationDownloadButton.Text = "סימולציה מותאמת אישית להורדה";
             this.simulationDownloadButton.UseVisualStyleBackColor = true;
             this.simulationDownloadButton.Click += new System.EventHandler(this.simulationDownloadButton_Click);
             // 

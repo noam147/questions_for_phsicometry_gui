@@ -192,7 +192,7 @@ namespace clientForQuestions2._0
             {
                 return;
             }
-            questionsPage q = new questionsPage(questions, 60, "כמותי");
+            questionsPage q = new questionsPage(questions, 6000, "כמותי");
             q.Show();
             this.Close();
 
