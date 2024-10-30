@@ -41,6 +41,7 @@
             this.titleOfPage = new System.Windows.Forms.Label();
             this.i_form = new System.Windows.Forms.Label();
             this.i_toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.refresh_button = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.history_dataGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -171,11 +172,25 @@
             this.i_toolTip.UseAnimation = false;
             this.i_toolTip.UseFading = false;
             // 
+            // refresh_button
+            // 
+            this.refresh_button.AutoSize = true;
+            this.refresh_button.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.refresh_button.Font = new System.Drawing.Font("Ravie", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.refresh_button.Location = new System.Drawing.Point(634, 1);
+            this.refresh_button.Name = "refresh_button";
+            this.refresh_button.Size = new System.Drawing.Size(45, 42);
+            this.refresh_button.TabIndex = 30;
+            this.refresh_button.Text = "⟳";
+            this.refresh_button.UseVisualStyleBackColor = false;
+            this.refresh_button.Click += new System.EventHandler(this.refresh_button_Click);
+            // 
             // testHistoryMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(804, 450);
+            this.Controls.Add(this.refresh_button);
             this.Controls.Add(this.i_form);
             this.Controls.Add(this.titleOfPage);
             this.Controls.Add(this.history_dataGridView);
@@ -204,5 +219,6 @@
         private System.Windows.Forms.Label titleOfPage;
         private System.Windows.Forms.Label i_form;
         public System.Windows.Forms.ToolTip i_toolTip;
+        private System.Windows.Forms.Button refresh_button;
     }
 }

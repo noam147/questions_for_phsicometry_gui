@@ -314,8 +314,13 @@ namespace clientForQuestions2._0
 
                 bool isQSkip = false;
                 string type = TestHistoryFileHandler.get_type_of_test(selected_test_id);
-                if (type.Contains("ללא משוב"))
+
+                if (type.Contains("\n"))
+                    type = type.Substring(0, type.IndexOf('\n'));
+
+                if (type != "תרגול רגיל")
                     isQSkip = true;
+
                 questionsPage n = new questionsPage(TestHistoryFileHandler.get_dbQuestionParmeters_of_test(selected_test_id), isQSkip, 0, type + $"\n(תרגול #{selected_test_id} חוזר)");
                 n.Show();
                 this.Close();
@@ -341,6 +346,17 @@ namespace clientForQuestions2._0
                 LoadData();
             }
 
+            void answer_test_for_download_by_selected_id()
+            {
+                if (selected_test_id == OperationsAndOtherUseful.NOT_A_REAL_TEST_ID)
+                    return;
+
+                contextMenu.Items.OfType<ToolStripMenuItem>().FirstOrDefault(item => item.Text == "מילוי תשובות של תרגול להורדה").Enabled = false;
+
+                AnswerTestForDowloadQuestionsPage a = new AnswerTestForDowloadQuestionsPage(selected_test_id);
+                a.Show();
+            }
+
             void cencel_option()
             {
                 selected_test_id = OperationsAndOtherUseful.NOT_A_REAL_TEST_ID;
@@ -352,8 +368,10 @@ namespace clientForQuestions2._0
             contextMenu.Items.Add("הצגת התרגול", null, (s, e) => open_test_by_selected_id());
             contextMenu.Items.Add("תרגול חוזר", null, (s, e) => redo_test_by_selected_id());
             contextMenu.Items.Add("מחיקת התרגול מההיסטוריה", null, (s, e) => delete_test_by_selected_id());
+            contextMenu.Items.Add("מילוי תשובות של תרגול להורדה", null, (s, e) => answer_test_for_download_by_selected_id());
             contextMenu.Items.Add("ביטול", SystemIcons.Error.ToBitmap(), (s, e) => cencel_option());
 
+            contextMenu.Items.OfType<ToolStripMenuItem>().FirstOrDefault(item => item.Text == "מילוי תשובות של תרגול להורדה").Enabled = false;
 
             sortContextMenu = new ContextMenuStrip();
 
@@ -369,10 +387,11 @@ namespace clientForQuestions2._0
 
         private void testHistoryMenu_Load(object sender, EventArgs e)
         {
-            this.resetHistory_button.Location = new System.Drawing.Point(Screen.PrimaryScreen.WorkingArea.Width - this.resetHistory_button.Size.Width - 10, this.resetHistory_button.Location.Y); 
+            this.resetHistory_button.Location = new System.Drawing.Point(Screen.PrimaryScreen.WorkingArea.Width - this.resetHistory_button.Size.Width - 10, this.resetHistory_button.Location.Y);
+            this.refresh_button.Location = new System.Drawing.Point(Screen.PrimaryScreen.WorkingArea.Width - this.resetHistory_button.Size.Width * 2 - 40, this.refresh_button.Location.Y);
+
             this.emptyHistory_label.Location = new System.Drawing.Point((int) (Screen.PrimaryScreen.WorkingArea.Width - this.emptyHistory_label.Size.Width) / 2, this.emptyHistory_label.Location.Y);
             this.titleOfPage.Location = new System.Drawing.Point((int)(Screen.PrimaryScreen.WorkingArea.Width - this.titleOfPage.Size.Width) / 2, this.titleOfPage.Location.Y);
-
             // Handle ColumnHeaderMouseClick for opening sorting options
             history_dataGridView.ColumnHeaderMouseClick += history_dataGridView_ColumnHeaderMouseClick;
 
@@ -443,9 +462,18 @@ namespace clientForQuestions2._0
                 else
                 {
                     selected_test_id = Int32.Parse(clickedRow.Cells["מס' תרגול"].Value.ToString());
+                    if (history_dataGridView.Rows[e.RowIndex].Cells[history_dataGridView.Columns["סוג תרגול"].Index].Value.ToString().Contains("להורדה"))
+                        contextMenu.Items.OfType<ToolStripMenuItem>().FirstOrDefault(item => item.Text == "מילוי תשובות של תרגול להורדה").Enabled = true;
+                    else
+                        contextMenu.Items.OfType<ToolStripMenuItem>().FirstOrDefault(item => item.Text == "מילוי תשובות של תרגול להורדה").Enabled = false;
                     contextMenu.Show(Cursor.Position);
                 }
             }
+        }
+
+        private void refresh_button_Click(object sender, EventArgs e)
+        {
+            LoadData();
         }
     }
 }

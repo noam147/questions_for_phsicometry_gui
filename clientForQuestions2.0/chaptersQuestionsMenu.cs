@@ -98,7 +98,14 @@ namespace clientForQuestions2._0
             {
                 return;
             }
-            HtmlConvertOptionsMenu n = new HtmlConvertOptionsMenu(questions);
+            string test_type = "";
+            if (this.chapterButton_hebrew.BackColor == Color.LightBlue)
+                test_type = "פרק חשיבה מילולית";
+            if (this.chapterButton_math.BackColor == Color.LightBlue)
+                test_type = "פרק חשיבה כמותית";
+            if (this.chapterButton_english.BackColor == Color.LightBlue)
+                test_type = "פרק אנגלית";
+            HtmlConvertOptionsMenu n = new HtmlConvertOptionsMenu(questions, test_type + " להורדה");
             n.Show();
         }
 
@@ -120,8 +127,8 @@ namespace clientForQuestions2._0
             finalSimulation.Add(currQuestions);
             currQuestions = OperationsAndOtherUseful.sendChapter_hebrew_Questions();
             finalSimulation.Add(currQuestions);
-            //HtmlConvertOptionsMenu n = new HtmlConvertOptionsMenu(finalSimulation);
-            HtmlConvertOptionsMenu n = new HtmlConvertOptionsMenu();
+            HtmlConvertOptionsMenu n = new HtmlConvertOptionsMenu(finalSimulation, "סימולציה להורדה");
+            //HtmlConvertOptionsMenu n = new HtmlConvertOptionsMenu();
             try { n.Show(); }
             catch(Exception ex) { }
             

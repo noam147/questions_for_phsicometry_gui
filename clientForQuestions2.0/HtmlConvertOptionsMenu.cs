@@ -24,6 +24,7 @@ namespace clientForQuestions2._0
         private string htmlContentOfAnswers = "<body dir=\"rtl\">";
         private List<int> listOfPreviousQuestionsId = new List<int>();
         private int test_id = 0;
+        private string test_type = "";
 
         public HtmlConvertOptionsMenu(int new_test_id)
         {
@@ -64,7 +65,7 @@ namespace clientForQuestions2._0
             string newPage = "<div style='page-break-after: always;'></div>";
             newPage = "<br>";
             addMathInputErrorIds();
-            
+            List<dbQuestionParmeters> all_qs = new List<dbQuestionParmeters>();
             for (int i =0; i < 50;i++)
             {
                 var multipleChaptersQuestions = OperationsAndOtherUseful.sendChapter_math_Questions_without_graph(this.listOfPreviousQuestionsId);
@@ -76,10 +77,12 @@ namespace clientForQuestions2._0
                 IdsToFile.addChapterFile(i+1,questions);
                 this.htmlContentOfAnswers += "<br><br>" + "כמותי " + (i+1)+":\n";//add lines to separate diffrentchapters
                 currentChapter = get_html(true);
+                all_qs.AddRange(questions);
                 questions.Clear();
                 finalSimulation +=  $"<h4>test number {i + 1}</h4>";
                 finalSimulation += currentChapter+newPage;
             }
+            this.questions = all_qs;
             finalHtmlContentForFile += finalSimulation;
             filePath_button_Click(null, null);
 
@@ -87,8 +90,10 @@ namespace clientForQuestions2._0
             at_start();
         }
 
-        public HtmlConvertOptionsMenu(List<dbQuestionParmeters> questions)
+        public HtmlConvertOptionsMenu(List<dbQuestionParmeters> questions, string test_type)
         {
+            this.test_type = test_type;
+
             whenInitHtmlContent = finalHtmlContentForFile;
             test_id = TestHistoryFileHandler.get_next_test_id();
 
@@ -120,6 +125,7 @@ namespace clientForQuestions2._0
             explanation_comboBox.SelectedIndex = 0;
             string newPage = "<div style='page-break-after: always;'></div>";
             newPage = "<br><br><br>";
+            List<dbQuestionParmeters> all_qs = new List<dbQuestionParmeters>();
             for (int i = 0; i < multipleQuestionsfiles.Count; i++)
             {
                 this.questions = multipleQuestionsfiles[i];
@@ -127,15 +133,18 @@ namespace clientForQuestions2._0
                 string generalCategory = getGeneralCategory(currentCategory);
                 this.htmlContentOfAnswers += "<br><br>" + generalCategory + ":\n";//add lines to separate diffrentchapters
                 currentChapter = get_html(true);
-                
+
+                all_qs.AddRange(questions);
                 finalSimulation += newPage+currentChapter;
             }
+            questions = all_qs;
             finalHtmlContentForFile = finalSimulation;
             filePath_button_Click(null, null);
 
         }
-        public HtmlConvertOptionsMenu(List<List<dbQuestionParmeters>> multipleQuestionsfiles)
+        public HtmlConvertOptionsMenu(List<List<dbQuestionParmeters>> multipleQuestionsfiles, string test_type)
         {
+            this.test_type = test_type;
             whenInitHtmlContent = finalHtmlContentForFile;
             test_id = TestHistoryFileHandler.get_next_test_id();
 
@@ -444,7 +453,7 @@ page-break-inside: avoid;
                         afterQuestionParametrs_.Add(afterQuestionParametr_q);
                     }
                     // save test type as: "תרגול להורדה"
-                    TestHistoryFileHandler.save_afterQuestionParametrs_to_test_history(afterQuestionParametrs_, test_id, "תרגול להורדה");
+                    TestHistoryFileHandler.save_afterQuestionParametrs_to_test_history(afterQuestionParametrs_, test_id, this.test_type);
                 }
 
                 MessageBox.Show($"File save to: '{this.file_path}'");
@@ -468,7 +477,6 @@ page-break-inside: avoid;
                 Headless = true,
                 Args = new[] { "--window-position=-10000,-10000" }
             });
-
             try
             {
                 var page = await browser.NewPageAsync();
@@ -476,7 +484,7 @@ page-break-inside: avoid;
                 try
                 {
                     // Set HTML content and wait for it to load
-                    await page.SetContentAsync(htmlContent);
+                    await page.SetContentAsync(htmlContent, new NavigationOptions { Timeout = 3600000 });
 
                     // Ensure fonts and JavaScript content are fully loaded
                     await page.EvaluateExpressionHandleAsync("document.fonts.ready");

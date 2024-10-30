@@ -179,6 +179,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AnswerTestForDowloadQuestionsPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AnswerTestForDowloadQuestionsPage.Designer.cs">
+      <DependentUpon>AnswerTestForDowloadQuestionsPage.cs</DependentUpon>
+    </Compile>
     <Compile Include="BaseQuestionsPage.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -289,6 +295,9 @@
     <Compile Include="WithOutFeedBackQuestionsPage.Designer.cs">
       <DependentUpon>WithOutFeedBackQuestionsPage.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="AnswerTestForDowloadQuestionsPage.resx">
+      <DependentUpon>AnswerTestForDowloadQuestionsPage.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="BaseQuestionsPage.resx">
       <DependentUpon>BaseQuestionsPage.cs</DependentUpon>
     </EmbeddedResource>

@@ -27,6 +27,15 @@ namespace clientForQuestions2._0
         public bool isMarked;
     }
 
+    public struct TestWithChapters
+    {
+        public List<Test> chapters;
+        public string date;
+        public string type;
+        public int id;
+        public bool isMarked;
+    }
+
     internal class TestHistoryFileHandler
     {
         public static string MARKED_TRUE = "★";
@@ -37,6 +46,10 @@ namespace clientForQuestions2._0
         public static int WITHOUT_SETTING = -1;
         public static int EXSIST = 1;
         public static int NOT_EXSIST = 0;
+
+        public static int CHAPTER_PARTITION_Q_ID = -42; // id of 'question' that is between two chapters
+        public static string CHAPTER_PARTITION_Q_LESSON = "&PARTITION&"; // id of 'question' that is between two chapters
+
         public static void openFile()
         {
             try
@@ -157,6 +170,85 @@ namespace clientForQuestions2._0
             }
         }
 
+        /// <summary>
+        /// This function gets a list of chapters, so each chapter is a list of afterQuestionParametrs.
+        /// Before each chapter, the function saves a 'fake question' (not a real question but a partition), with the QuestionId = TestHistoryFileHandler.CHAPTER_PARTITION_Q_ID.
+        /// The Lesson of the 'fake question' determains the name of the chapter.
+        /// </summary>
+        public static void save_multiple_chapters_to_test_history(List<List<afterQuestionParametrs>> chapters, int test_id, string test_type, List<string> chapter_names)
+        {
+
+            // SQL query to insert values into the table
+            string insertValuesQuery = @"
+                        INSERT INTO TestsHistoryData (TestId, TestType, TestIsMarked, Date, QuestionId, IndexOfQuestion, UserAnswer, TimeForQuestion,QuestionIsMarked, QuestionLesson) 
+                        VALUES (@TestId, @TestType, @TestIsMarked, @Date, @QuestionId,  @IndexOfQuestion, @UserAnswer, @TimeForQuestion, @QuestionIsMarked, @QuestionLesson)";
+
+            string date = DateTime.Now.ToString();
+
+            int indexOfQuestion = 0;
+            foreach (List<afterQuestionParametrs> chapter_qs in chapters)
+            {
+                // save 'fake question'
+                using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SQLiteCommand insertCommand = new SQLiteCommand(insertValuesQuery, connection))
+                    {
+                        // Define the parameters for the query
+                        insertCommand.Parameters.AddWithValue("@TestId", test_id);
+                        insertCommand.Parameters.AddWithValue("@TestType", test_type);
+                        insertCommand.Parameters.AddWithValue("@TestIsMarked", false);
+                        insertCommand.Parameters.AddWithValue("@Date", date);
+                        insertCommand.Parameters.AddWithValue("@QuestionId", TestHistoryFileHandler.CHAPTER_PARTITION_Q_ID);
+                        insertCommand.Parameters.AddWithValue("@IndexOfQuestion", indexOfQuestion);
+                        insertCommand.Parameters.AddWithValue("@UserAnswer", OperationsAndOtherUseful.SKIPPED_Q);
+                        insertCommand.Parameters.AddWithValue("@TimeForQuestion", -1);
+                        insertCommand.Parameters.AddWithValue("@QuestionIsMarked", false);
+                        insertCommand.Parameters.AddWithValue("@QuestionLesson", CHAPTER_PARTITION_Q_LESSON + chapter_names[indexOfQuestion]);
+
+                        // Execute the insert command
+                        insertCommand.ExecuteNonQuery();
+                    }
+
+                }
+
+                indexOfQuestion++;
+
+                foreach (afterQuestionParametrs paramers in chapter_qs)
+                {
+                    using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+                    {
+                        connection.Open();
+
+                        // Insert some values into the table
+                        using (SQLiteCommand insertCommand = new SQLiteCommand(insertValuesQuery, connection))
+                        {
+                            // Define the parameters for the query
+                            insertCommand.Parameters.AddWithValue("@TestId", test_id);
+                            insertCommand.Parameters.AddWithValue("@TestType", test_type); // TODO
+                            insertCommand.Parameters.AddWithValue("@TestIsMarked", false);
+                            insertCommand.Parameters.AddWithValue("@Date", date);
+                            insertCommand.Parameters.AddWithValue("@QuestionId", paramers.question.questionId);
+                            insertCommand.Parameters.AddWithValue("@IndexOfQuestion", indexOfQuestion);
+                            insertCommand.Parameters.AddWithValue("@UserAnswer", paramers.userAnswer);
+                            insertCommand.Parameters.AddWithValue("@TimeForQuestion", paramers.timeForAnswer);
+                            insertCommand.Parameters.AddWithValue("@QuestionIsMarked", false);
+                            if (paramers.lesson == null)
+                                insertCommand.Parameters.AddWithValue("@QuestionLesson", "");
+                            else
+                                insertCommand.Parameters.AddWithValue("@QuestionLesson", paramers.lesson);
+
+                            // Execute the insert command
+                            insertCommand.ExecuteNonQuery();
+                        }
+
+                    }
+
+                    indexOfQuestion++;
+                }
+            }
+        }
+
         private static List<Test> getResultFromQuery(string selectQuery)
         {
             DataTable dataTable = new DataTable();
@@ -249,7 +341,7 @@ namespace clientForQuestions2._0
             string selectQuery = @"
                 SELECT *
                 FROM TestsHistoryData
-                where QuestionLesson != ''
+                where QuestionLesson != '' AND QuestionLesson NOT LIKE '" + CHAPTER_PARTITION_Q_LESSON + @"%' 
                 ORDER BY TestId DESC, IndexOfQuestion ASC ;";
             return getResultFromQuery(selectQuery);
         }
@@ -535,6 +627,25 @@ namespace clientForQuestions2._0
                 // SQL command to update the TestLesson
                 string updateQuery = $"UPDATE TestsHistoryData " +
                 $"SET QuestionIsMarked = {isMarked} " +
+                $"WHERE TestId = {test_id} AND IndexOfQuestion = {q_index};";
+
+                using (SQLiteCommand command = new SQLiteCommand(updateQuery, connection))
+                {
+                    command.ExecuteScalar();
+                }
+            }
+        }
+
+        public static void set_question_UserAnswer(int userAnswer, int test_id, int q_index)
+        {
+            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+            {
+                connection.Open();
+                //LogFileHandler.writeIntoFile("Database connection opened.");
+
+                // SQL command to update the TestLesson
+                string updateQuery = $"UPDATE TestsHistoryData " +
+                $"SET UserAnswer = {userAnswer} " +
                 $"WHERE TestId = {test_id} AND IndexOfQuestion = {q_index};";
 
                 using (SQLiteCommand command = new SQLiteCommand(updateQuery, connection))

@@ -263,7 +263,7 @@ namespace clientForQuestions2._0
             /*if (this.isUserDoNotGetFeedBack)
             {
                 createButtons();
-                displayButtons();
+                displayAnswerBoxes();
             }*/
         }
        protected virtual void updateAtStartOfNormalExrecizeWithoutFeedBackActions()

@@ -29,9 +29,10 @@ namespace clientForQuestions2._0
             macAdd = OperationsAndOtherUseful.getMacAdd();
             this.macLabel.Text = macAdd;
             password = OperationsAndOtherUseful.getEncodedMacAdd(macAdd);
+            this.hintPassLabel.Text = "hint for password: (click on the text that looks like gibrish to copy it)";
+
             //this.macLabel.Text = password;  // to copy the passward
 
-            this.hintPassLabel.Text = "hint for password: (click on the text that looks like gibrish to copy it)";
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
