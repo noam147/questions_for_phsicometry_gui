@@ -136,7 +136,7 @@ namespace clientForQuestions2._0
                 finalSimulation +=  currentChapter+ newPage;
             }
             
-            for (int i = 1; i < multipleQuestionsfiles.Count; i++)
+            for (int i = 0; i < multipleQuestionsfiles.Count; i++)
             {
                 this.questions = multipleQuestionsfiles[i];
                 string currentCategory = questions[0].category;
@@ -149,7 +149,7 @@ namespace clientForQuestions2._0
                 currentChapter = get_html(true,"");
                 finalSimulation += currentChapter+ newPage;
 
-                all_qs.AddRange(questions);
+                all_qs.AddRange(multipleQuestionsfiles[i]);
             }
             questions = all_qs;
             finalHtmlContentForFile = finalSimulation;
