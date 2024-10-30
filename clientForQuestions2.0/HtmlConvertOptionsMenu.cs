@@ -119,16 +119,26 @@ namespace clientForQuestions2._0
             InitializeComponent();
             explanation_comboBox.SelectedIndex = 0;
             string newPage = "<div style='page-break-after: always;'></div>";
-            newPage = "<br><br><br>";
-            for (int i = 0; i < multipleQuestionsfiles.Count; i++)
+            //newPage = "<br><br><br>";
+            if(multipleQuestionsfiles.Count != 0)
+            {
+                this.questions = multipleQuestionsfiles[0];
+                string currentCategory = questions[0].category;
+                string generalCategory = getGeneralCategory(currentCategory);
+                this.htmlContentOfAnswers += "<br><br>" + generalCategory + ":\n";//add lines to separate diffrentchapters
+                currentChapter = get_html(true);
+                finalSimulation +=  currentChapter+ newPage;
+            }
+            
+            for (int i = 1; i < multipleQuestionsfiles.Count; i++)
             {
                 this.questions = multipleQuestionsfiles[i];
                 string currentCategory = questions[0].category;
                 string generalCategory = getGeneralCategory(currentCategory);
                 this.htmlContentOfAnswers += "<br><br>" + generalCategory + ":\n";//add lines to separate diffrentchapters
-                currentChapter = get_html(true);
-                
-                finalSimulation += newPage+currentChapter;
+                //to not have the test id over each chapter
+                currentChapter = get_html(true,"");
+                finalSimulation += currentChapter+ newPage;
             }
             finalHtmlContentForFile = finalSimulation;
             filePath_button_Click(null, null);
@@ -195,28 +205,18 @@ namespace clientForQuestions2._0
         {
             this.htmlContentOfAnswers += "("+(index+1)+ ")." + " " + answer + "\n";
         }
-        private string get_html(bool isNum)
+        private string get_html(bool isNum,string exsistingHtml)
         {
-            //isnum: i have no idea
-            //expel: i have no idea
-            string html = @"
-<style>
-    .question-container {
-page-break-inside: avoid; 
-}
-
-    h1 { font-size: 14px; } /* Reducing the font size for all h1 elements */
-    p { font-size: 12px; }  /* Reducing the font size for all paragraph elements */
-    mjx-mspace[linebreak=""newline""] { display: block; height: 0; }
-</style>";
+            string html = exsistingHtml;
             string html_end = html;
 
             //expel = 0
             //bool isNum = isNum_checkBox.Checked;
             int selected_explanationsOption_index = explanation_comboBox.SelectedIndex; // index of the selected option
 
-            if (withTestId_checkBox.Checked)
+            if (withTestId_checkBox.Checked&& exsistingHtml != "")//if its exmpty - it alredy displayed testid
             {
+                //to not have the test id over each chapter
                 // add test id to the start of the file
                 html += $"<p style=\"font-size: 24px; font-weight: bold; direction: ltr; text-align: center;\">Test Id = {this.test_id}</p> <br><br>";
             }
@@ -230,16 +230,16 @@ page-break-inside: avoid;
                 dbQuestionParmeters a = questions[i];
                 add_html_content_to_answers(i, a.rightAnswer);
                 int curr_col_id = OperationsAndOtherUseful.get_col_id_of_question(a.json_content);
-                
+
                 if (curr_col_id != 0 && curr_col_id != prev_col_id)
                 {
-                    html += "<div style='page-break-after: always;'></div>" + OperationsAndOtherUseful.get_string_of_img_col_html(a.json_content) + $"</div> <div class='question-container'>"; 
+                    html += "<div style='page-break-after: always;'></div>" + OperationsAndOtherUseful.get_string_of_img_col_html(a.json_content) + $"</div> <div class='question-container'>";
                     //html += "<div style=\"top: 50%; left: 0; width: 100vw; height: 3px; background-color: lightgray;\"></div>";
                 }
                 string currentQuestion = "";
                 string currentQuestion_end = "";
 
-                if (selected_explanationsOption_index==1)
+                if (selected_explanationsOption_index == 1)
                 {
                     currentQuestion += OperationsAndOtherUseful.get_string_of_question_and_option_from_json(a, OperationsAndOtherUseful.DO_NOT_MARK);
                     currentQuestion_end += OperationsAndOtherUseful.get_explanation(a);
@@ -249,11 +249,11 @@ page-break-inside: avoid;
                     html_end += "<div style=\"top: 50%; left: 0; width: 100vw; height: 3px; background-color: black;\"></div>";
                     html_end += "<br> <br> ";*/
                 }
-                else if(selected_explanationsOption_index==2)
+                else if (selected_explanationsOption_index == 2)
                 {
                     currentQuestion += OperationsAndOtherUseful.get_string_of_question_and_explanation(a, OperationsAndOtherUseful.DO_NOT_MARK);
-                   // html += "<div style=\"top: 50%; left: 0; width: 100vw; height: 3px; background-color: black;\"></div>";
-                   // html += "<br> <br> ";
+                    // html += "<div style=\"top: 50%; left: 0; width: 100vw; height: 3px; background-color: black;\"></div>";
+                    // html += "<br> <br> ";
                 }
                 else if (selected_explanationsOption_index == 0)
                 {
@@ -292,7 +292,23 @@ page-break-inside: avoid;
             //for big imgs
             html = html.Replace("height:auto;", "height:500;");
 
-            return html;            
+            return html;
+        }
+        private string get_html(bool isNum)
+        {
+            //isnum: i have no idea
+            //expel: i have no idea
+            string html = @"
+<style>
+    .question-container {
+page-break-inside: avoid; 
+}
+
+    h1 { font-size: 14px; } /* Reducing the font size for all h1 elements */
+    p { font-size: 12px; }  /* Reducing the font size for all paragraph elements */
+    mjx-mspace[linebreak=""newline""] { display: block; height: 0; }
+</style>";
+            return get_html(isNum, html);  
         }
 
         public static string fix_newline_mathml(string html)
@@ -407,7 +423,28 @@ page-break-inside: avoid;
                 return new_html;
             return fix_newline_mathml(new_html);
         }
+        private void save_questions_to_testHistory()
+        {
+            // Save test to history, if it doesn't exist
+            if (test_id == TestHistoryFileHandler.get_next_test_id())
+            {
+                List<afterQuestionParametrs> afterQuestionParametrs_ = new List<afterQuestionParametrs>();
+                for (int i = 0; i < questions.Count; i++)
+                {
+                    afterQuestionParametrs afterQuestionParametr_q = new afterQuestionParametrs();
+                    afterQuestionParametr_q.question = questions[i];
+                    afterQuestionParametr_q.userAnswer = OperationsAndOtherUseful.SKIPPED_Q;
+                    afterQuestionParametr_q.timeForAnswer = -1;
+                    afterQuestionParametr_q.lesson = "";
+                    afterQuestionParametr_q.isMarked = false;
+                    afterQuestionParametr_q.indexOfQuestion = i;
 
+                    afterQuestionParametrs_.Add(afterQuestionParametr_q);
+                }
+                // save test type as: "תרגול להורדה"
+                TestHistoryFileHandler.save_afterQuestionParametrs_to_test_history(afterQuestionParametrs_, test_id, "תרגול להורדה");
+            }
+        }
         private async void save_button_Click()
         {
             try
@@ -418,6 +455,7 @@ page-break-inside: avoid;
                     //File.WriteAllText(this.file_path.Replace(".pdf", ".html"), whenInitHtmlContent + get_html(this.isNum_checkBox.Checked));
 
                     await save_html_as_pdf(this.file_path,whenInitHtmlContent+ get_html(this.isNum_checkBox.Checked));
+                    
                 }
                 else { await save_html_as_pdf(this.file_path,finalHtmlContentForFile); }
 
@@ -426,26 +464,8 @@ page-break-inside: avoid;
                 string answers_filePath = this.file_path.Insert(this.file_path.LastIndexOf(".pdf"), "_answers");
                 await save_html_as_pdf(answers_filePath, this.htmlContentOfAnswers);
 
-                // Save test to history, if it doesn't exist
-                if (test_id == TestHistoryFileHandler.get_next_test_id())
-                {
-                    List<afterQuestionParametrs> afterQuestionParametrs_ = new List<afterQuestionParametrs>();
-                    for (int i = 0; i < questions.Count; i++)
-                    {
-                        afterQuestionParametrs afterQuestionParametr_q = new afterQuestionParametrs();
-                        afterQuestionParametr_q.question = questions[i];
-                        afterQuestionParametr_q.userAnswer = OperationsAndOtherUseful.SKIPPED_Q;
-                        afterQuestionParametr_q.timeForAnswer = -1;
-                        afterQuestionParametr_q.lesson = "";
-                        afterQuestionParametr_q.isMarked = false;
-                        afterQuestionParametr_q.indexOfQuestion = i;
 
-                        afterQuestionParametrs_.Add(afterQuestionParametr_q);
-                    }
-                    // save test type as: "תרגול להורדה"
-                    TestHistoryFileHandler.save_afterQuestionParametrs_to_test_history(afterQuestionParametrs_, test_id, "תרגול להורדה");
-                }
-
+                save_questions_to_testHistory();
                 MessageBox.Show($"File save to: '{this.file_path}'");
                 this.Close();
             }
@@ -459,7 +479,8 @@ page-break-inside: avoid;
         private static async Task save_html_as_pdf(string file_path, string htmlContent)
         {
             // Ensure the required Chromium version is downloaded
-            var browserFetcher = new BrowserFetcher();
+            var browserFetcher = new PuppeteerSharp.BrowserFetcher();
+            //await browserFetcher.DownloadAsync(BrowserTag.Chromium); // Download Chromium by specifying BrowserTag
             await browserFetcher.DownloadAsync();
 
             // Launch the browser

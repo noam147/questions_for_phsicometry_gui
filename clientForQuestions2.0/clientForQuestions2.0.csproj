@@ -191,6 +191,12 @@
     <Compile Include="chaptersQuestionsMenu.Designer.cs">
       <DependentUpon>chaptersQuestionsMenu.cs</DependentUpon>
     </Compile>
+    <Compile Include="ChaptersToPrintPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ChaptersToPrintPage.Designer.cs">
+      <DependentUpon>ChaptersToPrintPage.cs</DependentUpon>
+    </Compile>
     <Compile Include="check.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -294,6 +300,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="chaptersQuestionsMenu.resx">
       <DependentUpon>chaptersQuestionsMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ChaptersToPrintPage.resx">
+      <DependentUpon>ChaptersToPrintPage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="check.resx">
       <DependentUpon>check.cs</DependentUpon>
