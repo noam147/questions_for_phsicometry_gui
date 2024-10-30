@@ -33,9 +33,12 @@
             this.hebrewAmount = new System.Windows.Forms.NumericUpDown();
             this.simulationDownloadButton = new System.Windows.Forms.Button();
             this.titleOfPage = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.mathLabel = new System.Windows.Forms.Label();
+            this.hebrewTitle = new System.Windows.Forms.Label();
             this.backToMainMenu = new System.Windows.Forms.Button();
+            this.englishTextsCheckBox = new System.Windows.Forms.CheckBox();
+            this.hebrewTextsCheckBox = new System.Windows.Forms.CheckBox();
+            this.mathGraphCheckBox = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.englishAmount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mathAmount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.hebrewAmount)).BeginInit();
@@ -103,27 +106,27 @@
             this.titleOfPage.TabIndex = 34;
             this.titleOfPage.Text = "אנגלית";
             // 
-            // label1
+            // mathLabel
             // 
-            this.label1.AutoSize = true;
-            this.label1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.label1.Location = new System.Drawing.Point(244, 157);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(75, 31);
-            this.label1.TabIndex = 35;
-            this.label1.Text = "כמותי";
+            this.mathLabel.AutoSize = true;
+            this.mathLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.mathLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.mathLabel.Location = new System.Drawing.Point(244, 157);
+            this.mathLabel.Name = "mathLabel";
+            this.mathLabel.Size = new System.Drawing.Size(75, 31);
+            this.mathLabel.TabIndex = 35;
+            this.mathLabel.Text = "כמותי";
             // 
-            // label2
+            // hebrewTitle
             // 
-            this.label2.AutoSize = true;
-            this.label2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.label2.Location = new System.Drawing.Point(127, 157);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(80, 31);
-            this.label2.TabIndex = 36;
-            this.label2.Text = "מילולי";
+            this.hebrewTitle.AutoSize = true;
+            this.hebrewTitle.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.hebrewTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.hebrewTitle.Location = new System.Drawing.Point(127, 157);
+            this.hebrewTitle.Name = "hebrewTitle";
+            this.hebrewTitle.Size = new System.Drawing.Size(80, 31);
+            this.hebrewTitle.TabIndex = 36;
+            this.hebrewTitle.Text = "מילולי";
             // 
             // backToMainMenu
             // 
@@ -136,14 +139,56 @@
             this.backToMainMenu.UseVisualStyleBackColor = true;
             this.backToMainMenu.Click += new System.EventHandler(this.backToMainMenu_Click);
             // 
+            // englishTextsCheckBox
+            // 
+            this.englishTextsCheckBox.AutoSize = true;
+            this.englishTextsCheckBox.Checked = true;
+            this.englishTextsCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.englishTextsCheckBox.Location = new System.Drawing.Point(357, 102);
+            this.englishTextsCheckBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.englishTextsCheckBox.Name = "englishTextsCheckBox";
+            this.englishTextsCheckBox.Size = new System.Drawing.Size(96, 24);
+            this.englishTextsCheckBox.TabIndex = 38;
+            this.englishTextsCheckBox.Text = "עם טקסט";
+            this.englishTextsCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // hebrewTextsCheckBox
+            // 
+            this.hebrewTextsCheckBox.AutoSize = true;
+            this.hebrewTextsCheckBox.Checked = true;
+            this.hebrewTextsCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.hebrewTextsCheckBox.Location = new System.Drawing.Point(127, 102);
+            this.hebrewTextsCheckBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.hebrewTextsCheckBox.Name = "hebrewTextsCheckBox";
+            this.hebrewTextsCheckBox.Size = new System.Drawing.Size(96, 24);
+            this.hebrewTextsCheckBox.TabIndex = 39;
+            this.hebrewTextsCheckBox.Text = "עם טקסט";
+            this.hebrewTextsCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // mathGraphCheckBox
+            // 
+            this.mathGraphCheckBox.AutoSize = true;
+            this.mathGraphCheckBox.Checked = true;
+            this.mathGraphCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.mathGraphCheckBox.Location = new System.Drawing.Point(236, 102);
+            this.mathGraphCheckBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.mathGraphCheckBox.Name = "mathGraphCheckBox";
+            this.mathGraphCheckBox.Size = new System.Drawing.Size(83, 24);
+            this.mathGraphCheckBox.TabIndex = 40;
+            this.mathGraphCheckBox.Text = "עם גרף";
+            this.mathGraphCheckBox.UseVisualStyleBackColor = true;
+            // 
             // ChaptersToPrintPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.mathGraphCheckBox);
+            this.Controls.Add(this.hebrewTextsCheckBox);
+            this.Controls.Add(this.englishTextsCheckBox);
             this.Controls.Add(this.backToMainMenu);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.hebrewTitle);
+            this.Controls.Add(this.mathLabel);
             this.Controls.Add(this.titleOfPage);
             this.Controls.Add(this.simulationDownloadButton);
             this.Controls.Add(this.hebrewAmount);
@@ -166,8 +211,11 @@
         private System.Windows.Forms.NumericUpDown hebrewAmount;
         private System.Windows.Forms.Button simulationDownloadButton;
         private System.Windows.Forms.Label titleOfPage;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label mathLabel;
+        private System.Windows.Forms.Label hebrewTitle;
         private System.Windows.Forms.Button backToMainMenu;
+        private System.Windows.Forms.CheckBox englishTextsCheckBox;
+        private System.Windows.Forms.CheckBox hebrewTextsCheckBox;
+        private System.Windows.Forms.CheckBox mathGraphCheckBox;
     }
 }
