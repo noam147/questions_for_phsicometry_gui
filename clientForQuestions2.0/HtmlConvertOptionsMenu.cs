@@ -42,7 +42,7 @@ namespace clientForQuestions2._0
         {
             // for info labels:
             this.i_toolTip.SetToolTip(this.i_downloadButton, @"יחד עם קובץ השאלות, נשמר גם קובץ המכיל את התשובות הסופיות לכל שאלה
--הקובץ בעל אותו שם כקובץ השאלות אך מסתיים ב
+הקובץ בעל אותו שם כקובץ השאלות אך מסתיים ב-
 ""_answers""");
         }
 
@@ -173,6 +173,7 @@ namespace clientForQuestions2._0
 
                 if (saveFileDialog.ShowDialog() == DialogResult.OK)
                 {
+                    filePath_button.Enabled = false;
                     // The user selected a file location
                     this.file_path = saveFileDialog.FileName;
 
@@ -484,12 +485,15 @@ page-break-inside: avoid;
             await browserFetcher.DownloadAsync();
 
             // Launch the browser
-            var browser = await Puppeteer.LaunchAsync(new LaunchOptions { Headless = true });
+            var browser = await Puppeteer.LaunchAsync(new LaunchOptions {
+                Headless = true,
+                Args = new[] { "--window-position=-10000,-10000" }
+            });
 
             try
             {
                 var page = await browser.NewPageAsync();
-
+               
                 try
                 {
                     // Set HTML content and wait for it to load

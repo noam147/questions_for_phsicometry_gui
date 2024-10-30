@@ -299,6 +299,28 @@ namespace clientForQuestions2._0
                 this.Close();
             }
 
+            void redo_test_by_selected_id()
+            {
+                if (selected_test_id == OperationsAndOtherUseful.NOT_A_REAL_TEST_ID)
+                    return;
+
+                // check if the user is sure to leave the test
+                DialogResult result = MessageBox.Show("?האם ברצונך לעשות תרגול חוזר",
+                                          "Confirmation",
+                                          MessageBoxButtons.YesNo,
+                                          MessageBoxIcon.Question);
+                if (result == DialogResult.No) // the user isn't sure
+                    return;
+
+                bool isQSkip = false;
+                string type = TestHistoryFileHandler.get_type_of_test(selected_test_id);
+                if (type.Contains("ללא משוב"))
+                    isQSkip = true;
+                questionsPage n = new questionsPage(TestHistoryFileHandler.get_dbQuestionParmeters_of_test(selected_test_id), isQSkip, 0, type + $"\n(תרגול #{selected_test_id} חוזר)");
+                n.Show();
+                this.Close();
+            }
+
             void delete_test_by_selected_id()
             {
                 if (selected_test_id == OperationsAndOtherUseful.NOT_A_REAL_TEST_ID)
@@ -328,6 +350,7 @@ namespace clientForQuestions2._0
 
             // Add sorting options to the context menu 
             contextMenu.Items.Add("הצגת התרגול", null, (s, e) => open_test_by_selected_id());
+            contextMenu.Items.Add("תרגול חוזר", null, (s, e) => redo_test_by_selected_id());
             contextMenu.Items.Add("מחיקת התרגול מההיסטוריה", null, (s, e) => delete_test_by_selected_id());
             contextMenu.Items.Add("ביטול", SystemIcons.Error.ToBitmap(), (s, e) => cencel_option());
 
