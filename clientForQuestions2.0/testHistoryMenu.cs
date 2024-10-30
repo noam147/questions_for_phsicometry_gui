@@ -109,12 +109,15 @@ namespace clientForQuestions2._0
 
             // Bind the data to the DataGridView
             DataTable dataTable = TestHistoryFileHandler.get_history_for_DataGridView();
-            
+
 
             //STATS//
             dataTable.Columns.Add("מספר התשובות הנכונות מתוך מספר השאלות ואחוז התשובות הנכונות", typeof(string));
             dataTable.Columns.Add("זמן התרגול", typeof(string));
             dataTable.Columns.Add("הורדה", typeof(string));
+
+           
+
             foreach (DataRow row in dataTable.Rows)
             {
                 int test_id = Int32.Parse(row["מס' תרגול"].ToString());
@@ -140,6 +143,7 @@ namespace clientForQuestions2._0
                 row["מספר התשובות הנכונות מתוך מספר השאלות ואחוז התשובות הנכונות"] = $"{count_right_answers}/{count_questions} {(int)count_right_answers * 100 / count_questions}%";
                 row["זמן התרגול"] = OperationsAndOtherUseful.get_time_mmss_fromseconds(sum_time);
                 row["הורדה"] = "🡇";
+                
             }
 
             // Add columns from DataTable
@@ -356,7 +360,14 @@ namespace clientForQuestions2._0
                 AnswerTestForDowloadQuestionsPage a = new AnswerTestForDowloadQuestionsPage(selected_test_id);
                 a.Show();
             }
-
+            void changeNameOfTirgol()
+            {
+                if (selected_test_id == OperationsAndOtherUseful.NOT_A_REAL_TEST_ID)
+                    return;
+                //get the id of current item and get the user to type new name
+                //TestHistoryFileHandler.chnageNameOfTirgol(id,name);
+                //check here
+            }
             void cencel_option()
             {
                 selected_test_id = OperationsAndOtherUseful.NOT_A_REAL_TEST_ID;
@@ -369,6 +380,7 @@ namespace clientForQuestions2._0
             contextMenu.Items.Add("תרגול חוזר", null, (s, e) => redo_test_by_selected_id());
             contextMenu.Items.Add("מחיקת התרגול מההיסטוריה", null, (s, e) => delete_test_by_selected_id());
             contextMenu.Items.Add("מילוי תשובות של תרגול להורדה", null, (s, e) => answer_test_for_download_by_selected_id());
+            contextMenu.Items.Add("שינוי שם התרגיל", null,(s,e)=>changeNameOfTirgol());
             contextMenu.Items.Add("ביטול", SystemIcons.Error.ToBitmap(), (s, e) => cencel_option());
 
             contextMenu.Items.OfType<ToolStripMenuItem>().FirstOrDefault(item => item.Text == "מילוי תשובות של תרגול להורדה").Enabled = false;
@@ -468,6 +480,7 @@ namespace clientForQuestions2._0
                         contextMenu.Items.OfType<ToolStripMenuItem>().FirstOrDefault(item => item.Text == "מילוי תשובות של תרגול להורדה").Enabled = false;
                     contextMenu.Show(Cursor.Position);
                 }
+         
             }
         }
 

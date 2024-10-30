@@ -24,6 +24,8 @@ namespace clientForQuestions2._0
         public string date;
         public string type;
         public int id;
+        public string name;
+        public string info;
         public bool isMarked;
     }
 
@@ -68,6 +70,8 @@ namespace clientForQuestions2._0
                     string createTableQuery = @"
                     CREATE TABLE IF NOT EXISTS TestsHistoryData (
                         TestId INT,
+                        TestName TEXT,
+                        TestInfo TEXT,
                         TestType TEXT,
                         TestIsMarked BOOLEAN,
                         Date TEXT,
@@ -133,8 +137,8 @@ namespace clientForQuestions2._0
             
             // SQL query to insert values into the table
             string insertValuesQuery = @"
-                        INSERT INTO TestsHistoryData (TestId, TestType, TestIsMarked, Date, QuestionId, IndexOfQuestion, UserAnswer, TimeForQuestion,QuestionIsMarked, QuestionLesson) 
-                        VALUES (@TestId, @TestType, @TestIsMarked, @Date, @QuestionId,  @IndexOfQuestion, @UserAnswer, @TimeForQuestion, @QuestionIsMarked, @QuestionLesson)";
+                        INSERT INTO TestsHistoryData (TestId, TestType, TestIsMarked, Date, QuestionId, IndexOfQuestion, UserAnswer, TimeForQuestion,QuestionIsMarked, QuestionLesson,TestName,TestInfo) 
+                        VALUES (@TestId, @TestType, @TestIsMarked, @Date, @QuestionId,  @IndexOfQuestion, @UserAnswer, @TimeForQuestion, @QuestionIsMarked, @QuestionLesson,@TestName,@TestInfo)";
 
             string date = DateTime.Now.ToString();
 
@@ -161,7 +165,8 @@ namespace clientForQuestions2._0
                             insertCommand.Parameters.AddWithValue("@QuestionLesson", "");
                         else
                             insertCommand.Parameters.AddWithValue("@QuestionLesson", paramers.lesson);
-
+                        insertCommand.Parameters.AddWithValue("@TestName", OperationsAndOtherUseful.EMPTY_TEST_NAME);
+                        insertCommand.Parameters.AddWithValue("@TestInfo", "");
                         // Execute the insert command
                         insertCommand.ExecuteNonQuery();
                     }
@@ -180,8 +185,8 @@ namespace clientForQuestions2._0
 
             // SQL query to insert values into the table
             string insertValuesQuery = @"
-                        INSERT INTO TestsHistoryData (TestId, TestType, TestIsMarked, Date, QuestionId, IndexOfQuestion, UserAnswer, TimeForQuestion,QuestionIsMarked, QuestionLesson) 
-                        VALUES (@TestId, @TestType, @TestIsMarked, @Date, @QuestionId,  @IndexOfQuestion, @UserAnswer, @TimeForQuestion, @QuestionIsMarked, @QuestionLesson)";
+                        INSERT INTO TestsHistoryData (TestId, TestType, TestIsMarked, Date, QuestionId, IndexOfQuestion, UserAnswer, TimeForQuestion,QuestionIsMarked, QuestionLesson,TestName,TestInfo) 
+                        VALUES (@TestId, @TestType, @TestIsMarked, @Date, @QuestionId,  @IndexOfQuestion, @UserAnswer, @TimeForQuestion, @QuestionIsMarked, @QuestionLesson,@TestName,@TestInfo)";
 
             string date = DateTime.Now.ToString();
 
@@ -205,7 +210,9 @@ namespace clientForQuestions2._0
                         insertCommand.Parameters.AddWithValue("@TimeForQuestion", -1);
                         insertCommand.Parameters.AddWithValue("@QuestionIsMarked", false);
                         insertCommand.Parameters.AddWithValue("@QuestionLesson", CHAPTER_PARTITION_Q_LESSON + chapter_names[indexOfQuestion]);
-
+                        
+                        insertCommand.Parameters.AddWithValue("@TestName", OperationsAndOtherUseful.EMPTY_TEST_NAME);
+                        insertCommand.Parameters.AddWithValue("@TestInfo", "");
                         // Execute the insert command
                         insertCommand.ExecuteNonQuery();
                     }
@@ -233,6 +240,9 @@ namespace clientForQuestions2._0
                             insertCommand.Parameters.AddWithValue("@UserAnswer", paramers.userAnswer);
                             insertCommand.Parameters.AddWithValue("@TimeForQuestion", paramers.timeForAnswer);
                             insertCommand.Parameters.AddWithValue("@QuestionIsMarked", false);
+
+                            insertCommand.Parameters.AddWithValue("@TestName", OperationsAndOtherUseful.EMPTY_TEST_NAME);
+                            insertCommand.Parameters.AddWithValue("@TestInfo", "");
                             if (paramers.lesson == null)
                                 insertCommand.Parameters.AddWithValue("@QuestionLesson", "");
                             else
@@ -326,7 +336,8 @@ namespace clientForQuestions2._0
                 test.type = (string)group.Value[0]["TestType"];
                 test.id = (int)group.Value[0]["TestId"];
                 test.isMarked = (bool)group.Value[0]["TestIsMarked"];
-
+                test.name = (string)group.Value[0]["TestName"];
+                test.info = (string)group.Value[0]["TestInfo"];
                 testHistory.Add(test);
 
             }
@@ -356,6 +367,43 @@ namespace clientForQuestions2._0
             return getResultFromQuery(selectQuery);
         }
 
+        public static void chnageNameOfTirgol(int tirgolId,string newName)
+        {
+            try
+            {
+                using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+                {
+                    connection.Open();
+                    //LogFileHandler.writeIntoFile("Database connection opened.");
+
+                    // SQL command to update the TestLesson
+                    string updateQuery = @"
+                UPDATE TestsHistoryData 
+                SET TestName = @TestName 
+                WHERE TestId = @TestId;";
+
+                    using (SQLiteCommand command = new SQLiteCommand(updateQuery, connection))
+                    {
+                        command.Parameters.AddWithValue("@TestId", tirgolId);
+                        command.Parameters.AddWithValue("@TestName", newName);
+
+                        int rowsAffected = command.ExecuteNonQuery(); // Execute the update command
+                        if (rowsAffected > 0)
+                        {
+                            //LogFileHandler.writeIntoFile($"Updated TestLesson for TestId {test_id} and IndexOfQuestion {q_index}: '{lesson}'");
+                        }
+                        else
+                        {
+                            LogFileHandler.writeIntoFile("No rows updated. Check if TestId exist.");
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                LogFileHandler.writeIntoFile($"An error occurred: {ex.Message}");
+            }
+        }
         public static void edit_lesson_in_test_history(string lesson, int test_id, int q_index)
         {
             // TODO edit the "lesson" of the question in a specific test_id
@@ -662,7 +710,7 @@ namespace clientForQuestions2._0
             using (SQLiteConnection connection = new SQLiteConnection(TestHistoryFileHandler.connectionString))
             {
                 connection.Open();
-                string query = @"SELECT QuestionIsMarked,QuestionLesson,TestId,Date,QuestionId,IndexOfQuestion
+                string query = @"SELECT TestId,TestName,Date,QuestionId,QuestionLesson,QuestionIsMarked
                     FROM TestsHistoryData
                     WHERE QuestionLesson <> ''
                     ORDER BY TestId DESC, IndexOfQuestion DESC;"; // Replace 'YourTable' with your actual table name
@@ -671,6 +719,7 @@ namespace clientForQuestions2._0
                 dataAdapter.Fill(table);
             }
             table.Columns["TestId"].ColumnName = "מס' תרגול";
+            table.Columns["TestName"].ColumnName = "שם התרגיל";
             table.Columns["Date"].ColumnName = "תאריך";
             table.Columns["QuestionId"].ColumnName = "מס' מזהה שאלה";
             table.Columns["QuestionLesson"].ColumnName = "לקח";
@@ -703,7 +752,7 @@ namespace clientForQuestions2._0
             using (SQLiteConnection connection = new SQLiteConnection(TestHistoryFileHandler.connectionString))
             {
                 connection.Open();
-                string query = @"SELECT TestIsMarked,TestId,TestType,Date
+                string query = @"SELECT TestIsMarked,TestId,TestName,TestType,Date
                     FROM TestsHistoryData
                     WHERE IndexOfQuestion = 0
                     ORDER BY TestId DESC;"; // Replace 'YourTable' with your actual table name
@@ -713,6 +762,7 @@ namespace clientForQuestions2._0
             }
 
             table.Columns["TestId"].ColumnName = "מס' תרגול";
+            table.Columns["TestName"].ColumnName = "שם התרגיל";
             table.Columns["Date"].ColumnName = "תאריך";
             table.Columns["TestType"].ColumnName = "סוג תרגול";
             table.Columns["TestIsMarked"].ColumnName = "מועדפים";

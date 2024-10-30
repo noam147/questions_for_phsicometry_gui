@@ -12,6 +12,7 @@ namespace clientForQuestions2._0
 
     internal class OperationsAndOtherUseful
     {
+        public static string EMPTY_TEST_NAME = "";
         public static decimal MIN_LEVEL = 0;
         public static decimal MAX_LEVEL = 10;
         public static int QUESTION_THAT_DID_NOT_ANSWERED = -1;
