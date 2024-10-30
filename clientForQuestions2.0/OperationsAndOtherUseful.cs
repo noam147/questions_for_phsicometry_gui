@@ -679,7 +679,19 @@ namespace clientForQuestions2._0
             return anlog_qs;
 
         }
+        public static List<dbQuestionParmeters> sendChapter_hebrew_Questions_withoutText()
+        {
+            Random random = new Random();
 
+            //get אנלוגיות
+            List<dbQuestionParmeters> anlog_qs = sqlDb.get_n_questions_from_specofic_category(10, "אנלוגיות"); // qs of normal qs
+            anlog_qs.Sort((x, y) => ((float)x.json_content["difficulty_level"]).CompareTo((float)y.json_content["difficulty_level"]));
+            // get הבנה והסקה
+            List<dbQuestionParmeters> havana_qs = sqlDb.get_n_questions_from_arr_of_categorys(13, OperationsAndOtherUseful.topicsdict["הבנה והסקה"]); // qs of normal qs
+            havana_qs.Sort((x, y) => ((float)x.json_content["difficulty_level"]).CompareTo((float)y.json_content["difficulty_level"]));
+            return anlog_qs;
+
+        }
         /// <summary>
         /// This function gets multiple chapters of math without graph.
         /// </summary>
@@ -815,6 +827,25 @@ namespace clientForQuestions2._0
             }
 
             return questions;
+        }
+        public static List<dbQuestionParmeters> sendChapter_english_Questions_withoutTexts()
+        {
+            Random random = new Random();
+
+            //get Sentence Completions
+            List<dbQuestionParmeters> Sentence_Completions_qs = sqlDb.get_n_questions_from_specofic_category(12, "Sentence Completions"); // qs of normal qs
+            Sentence_Completions_qs.Sort((x, y) => ((float)x.json_content["difficulty_level"]).CompareTo((float)y.json_content["difficulty_level"]));
+            // get Restatements
+            List<dbQuestionParmeters> Restatements_qs = sqlDb.get_n_questions_from_specofic_category(10, "Restatements"); // qs of normal qs
+            Restatements_qs.Sort((x, y) => ((float)x.json_content["difficulty_level"]).CompareTo((float)y.json_content["difficulty_level"]));
+            // get קטע קריאה
+            List<int> colIds = OperationsAndOtherUseful.title2colIds["Reading Comprehension"]; // get all ids of קטע קריאה
+            int col_id1 = colIds[random.Next(colIds.Count)]; // choose rand collection of the category
+            int col_id2 = colIds[random.Next(colIds.Count)]; // choose rand collection of the category
+            while (col_id1 == col_id2) // so there will be different texts
+                col_id2 = colIds[random.Next(colIds.Count)]; // choose rand collection of the category
+
+            return Sentence_Completions_qs;
         }
 
         //אנגלית

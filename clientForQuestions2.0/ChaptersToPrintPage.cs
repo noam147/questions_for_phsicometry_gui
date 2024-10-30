@@ -28,17 +28,28 @@ namespace clientForQuestions2._0
             List<dbQuestionParmeters> currQuestions;
             for (int i = 0; i < this.englishAmount.Value; i++)
             {
-                currQuestions = OperationsAndOtherUseful.sendChapter_english_Questions();
+                if(this.englishTextsCheckBox.Checked)
+                {
+                    currQuestions = OperationsAndOtherUseful.sendChapter_english_Questions();
+                }
+                else { currQuestions = OperationsAndOtherUseful.sendChapter_english_Questions_withoutTexts(); }
                 finalSimulation.Add(currQuestions);
             }
             for (int i = 0; i < this.mathAmount.Value; i++)
             {
-                currQuestions = OperationsAndOtherUseful.sendChapter_math_Questions();
+                if(this.mathGraphCheckBox.Checked)
+                { currQuestions = OperationsAndOtherUseful.sendChapter_math_Questions(); }
+                else { currQuestions = OperationsAndOtherUseful.sendChapter_math_Questions_without_graph(new List<int> { }); }
+               
                 finalSimulation.Add(currQuestions);
             }
             for (int i = 0; i < this.hebrewAmount.Value; i++)
             {
-                currQuestions = OperationsAndOtherUseful.sendChapter_hebrew_Questions();
+                if(hebrewTextsCheckBox.Checked)
+                {
+                    currQuestions = OperationsAndOtherUseful.sendChapter_hebrew_Questions();
+                }
+                else { currQuestions = OperationsAndOtherUseful.sendChapter_hebrew_Questions_withoutText(); }
                 finalSimulation.Add(currQuestions);
             }
             HtmlConvertOptionsMenu n = new HtmlConvertOptionsMenu(finalSimulation, "סימולציה להורדה");
