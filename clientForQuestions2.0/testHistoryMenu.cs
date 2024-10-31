@@ -366,18 +366,58 @@ namespace clientForQuestions2._0
                 AnswerTestForDowloadQuestionsPage a = new AnswerTestForDowloadQuestionsPage(selected_test_id);
                 a.Show();
             }
-            void changeNameOfTirgol()
+            void rename_test_by_selected_id()
             {
                 if (selected_test_id == OperationsAndOtherUseful.NOT_A_REAL_TEST_ID)
                     return;
-                //get the id of current item and get the user to type new name
-                //TestHistoryFileHandler.chnageNameOfTirgol(id,name);
-                //check here
+                
+                TestHistoryFileHandler.rename_test(selected_test_id, ShowInputForm());
+
+                LoadData();
             }
             void cencel_option()
             {
                 selected_test_id = OperationsAndOtherUseful.NOT_A_REAL_TEST_ID;
             }
+
+            string ShowInputForm()
+            {
+
+                // Create the form and controls within the function
+                Form form = new Form()
+                {
+                    Text = "",
+                    Width = 300,
+                    Height = 150,
+                    FormBorderStyle = FormBorderStyle.FixedDialog,
+                    StartPosition = FormStartPosition.CenterScreen,
+                    MaximizeBox = false,
+                    MinimizeBox = false
+                };
+                form.StartPosition = FormStartPosition.CenterScreen;
+                Label label = new Label() { Left = 10, Top = 10, Text = "הכנס שם חדש:", Width = 260 };
+                TextBox textBox = new TextBox() { Left = 10, Top = 30, Width = 260 };
+                Button okButton = new Button() { Text = "שמירה", Left = 110, Width = 70, Top = 60, DialogResult = DialogResult.OK };
+                Button cancelButton = new Button() { Text = "ביטול", Left = 200, Width = 70, Top = 60, DialogResult = DialogResult.Cancel };
+
+                // Set button functionality
+                okButton.Click += (sender, e) => { form.DialogResult = DialogResult.OK; };
+                cancelButton.Click += (sender, e) => { form.DialogResult = DialogResult.Cancel; };
+
+                // Add controls to form
+                form.Controls.Add(label);
+                form.Controls.Add(textBox);
+                form.Controls.Add(okButton);
+                form.Controls.Add(cancelButton);
+
+                // Set Accept and Cancel buttons
+                form.AcceptButton = okButton;
+                form.CancelButton = cancelButton;
+
+                // Show form as dialog and return text if OK was pressed
+                return form.ShowDialog() == DialogResult.OK ? textBox.Text : null;
+            }
+
 
             contextMenu = new ContextMenuStrip();
 
@@ -386,7 +426,7 @@ namespace clientForQuestions2._0
             contextMenu.Items.Add("תרגול חוזר", null, (s, e) => redo_test_by_selected_id());
             contextMenu.Items.Add("מחיקת התרגול מההיסטוריה", null, (s, e) => delete_test_by_selected_id());
             contextMenu.Items.Add("מילוי תשובות של תרגול להורדה", null, (s, e) => answer_test_for_download_by_selected_id());
-            contextMenu.Items.Add("שינוי שם התרגיל", null,(s,e)=>changeNameOfTirgol());
+            contextMenu.Items.Add("שינוי שם התרגול", null,(s,e) => rename_test_by_selected_id());
             contextMenu.Items.Add("ביטול", SystemIcons.Error.ToBitmap(), (s, e) => cencel_option());
 
             contextMenu.Items.OfType<ToolStripMenuItem>().FirstOrDefault(item => item.Text == "מילוי תשובות של תרגול להורדה").Enabled = false;
