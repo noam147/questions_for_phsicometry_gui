@@ -19,7 +19,6 @@ namespace clientForQuestions2._0
 
             LogFileHandler.openFile();
             SettingsFileHandler.openFile();
-
             TestHistoryFileHandler.openFile();
             OperationsAndOtherUseful.hideFiles();
             IdsToFile.openDir();

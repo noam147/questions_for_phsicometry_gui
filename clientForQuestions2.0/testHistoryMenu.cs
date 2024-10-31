@@ -370,8 +370,11 @@ namespace clientForQuestions2._0
             {
                 if (selected_test_id == OperationsAndOtherUseful.NOT_A_REAL_TEST_ID)
                     return;
-                
-                TestHistoryFileHandler.rename_test(selected_test_id, ShowInputForm());
+
+                string new_name = showInputForm();
+                if (new_name == null)
+                    new_name = TestHistoryFileHandler.get_name_of_test(selected_test_id);
+                TestHistoryFileHandler.rename_test(selected_test_id, new_name);
 
                 LoadData();
             }
@@ -380,7 +383,8 @@ namespace clientForQuestions2._0
                 selected_test_id = OperationsAndOtherUseful.NOT_A_REAL_TEST_ID;
             }
 
-            string ShowInputForm()
+            // opens a form to enter an input (a string)
+            string showInputForm()
             {
 
                 // Create the form and controls within the function
@@ -397,8 +401,13 @@ namespace clientForQuestions2._0
                 form.StartPosition = FormStartPosition.CenterScreen;
                 Label label = new Label() { Left = 10, Top = 10, Text = "הכנס שם חדש:", Width = 260 };
                 TextBox textBox = new TextBox() { Left = 10, Top = 30, Width = 260 };
-                Button okButton = new Button() { Text = "שמירה", Left = 110, Width = 70, Top = 60, DialogResult = DialogResult.OK };
+                Button okButton = new Button() { Text = "שמירה", Left = 10, Width = 70, Top = 60, DialogResult = DialogResult.OK };
                 Button cancelButton = new Button() { Text = "ביטול", Left = 200, Width = 70, Top = 60, DialogResult = DialogResult.Cancel };
+
+                textBox.Text = TestHistoryFileHandler.get_name_of_test(selected_test_id);
+                textBox.RightToLeft = RightToLeft.Yes;
+
+                label.RightToLeft = RightToLeft.Yes;
 
                 // Set button functionality
                 okButton.Click += (sender, e) => { form.DialogResult = DialogResult.OK; };

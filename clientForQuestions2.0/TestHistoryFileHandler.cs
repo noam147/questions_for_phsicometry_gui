@@ -227,7 +227,7 @@ namespace clientForQuestions2._0
                         insertCommand.Parameters.AddWithValue("@TimeForQuestion", -1);
                         insertCommand.Parameters.AddWithValue("@QuestionIsMarked", false);
                         insertCommand.Parameters.AddWithValue("@QuestionLesson", "");
-                        insertCommand.Parameters.AddWithValue("@TestName", $"תרגול #{test_id}");
+                        insertCommand.Parameters.AddWithValue("@TestType", $"תרגול #{test_id}");
                         insertCommand.Parameters.AddWithValue("@TestInfo", CHAPTER_PARTITION_TestInfo + chapter_names[i] + CHAPTER_PARTITION_TestInfo);
                         // Execute the insert command
                         insertCommand.ExecuteNonQuery();
@@ -638,6 +638,18 @@ namespace clientForQuestions2._0
             List<Test> result = getResultFromQuery(selectQuery);
 
             return result[0].type;
+        }
+
+        public static string get_name_of_test(int test_id)
+        {
+            string selectQuery = @"
+                SELECT *
+                FROM TestsHistoryData 
+                WHERE TestId = " + $"{test_id};";
+
+            List<Test> result = getResultFromQuery(selectQuery);
+
+            return result[0].name;
         }
 
         public static void delete_test_history()
