@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Data.SqlClient;
 using System.Data;
 using System.Data.SQLite;
+using System.Text.RegularExpressions;
 
 namespace clientForQuestions2._0
 {
@@ -24,8 +25,7 @@ namespace clientForQuestions2._0
         public string date;
         public string type;
         public int id;
-        public string name;
-        public string info;
+        public string name; // when in TestWithChapters: used for chapter's name
         public bool isMarked;
     }
 
@@ -35,6 +35,7 @@ namespace clientForQuestions2._0
         public string date;
         public string type;
         public int id;
+        public string name;
         public bool isMarked;
     }
 
@@ -50,7 +51,7 @@ namespace clientForQuestions2._0
         public static int NOT_EXSIST = 0;
 
         public static int CHAPTER_PARTITION_Q_ID = -42; // id of 'question' that is between two chapters
-        public static string CHAPTER_PARTITION_Q_LESSON = "&PARTITION&"; // id of 'question' that is between two chapters
+        public static string CHAPTER_PARTITION_TestInfo = "&PARTITION&"; // id of 'question' that is between two chapters
 
         public static void openFile()
         {
@@ -94,6 +95,21 @@ namespace clientForQuestions2._0
             {
                 LogFileHandler.writeIntoFile($"File TestsHistoryData already exists: {ex.Message}");
             }
+        }
+
+        public static void deleteFile()
+        {
+            try
+            {
+                if (File.Exists(file_path))
+                {
+                    File.Delete(file_path);
+                }
+            }
+            catch (IOException e)
+            {
+            }
+
         }
 
         public static int get_next_test_id()
@@ -165,7 +181,7 @@ namespace clientForQuestions2._0
                             insertCommand.Parameters.AddWithValue("@QuestionLesson", "");
                         else
                             insertCommand.Parameters.AddWithValue("@QuestionLesson", paramers.lesson);
-                        insertCommand.Parameters.AddWithValue("@TestName", OperationsAndOtherUseful.EMPTY_TEST_NAME);
+                        insertCommand.Parameters.AddWithValue("@TestName", $"תרגול #{test_id}");
                         insertCommand.Parameters.AddWithValue("@TestInfo", "");
                         // Execute the insert command
                         insertCommand.ExecuteNonQuery();
@@ -178,7 +194,7 @@ namespace clientForQuestions2._0
         /// <summary>
         /// This function gets a list of chapters, so each chapter is a list of afterQuestionParametrs.
         /// Before each chapter, the function saves a 'fake question' (not a real question but a partition), with the QuestionId = TestHistoryFileHandler.CHAPTER_PARTITION_Q_ID.
-        /// The Lesson of the 'fake question' determains the name of the chapter.
+        /// The TestInfo of the 'fake question' determains the name of the chapter.
         /// </summary>
         public static void save_multiple_chapters_to_test_history(List<List<afterQuestionParametrs>> chapters, int test_id, string test_type, List<string> chapter_names)
         {
@@ -191,8 +207,9 @@ namespace clientForQuestions2._0
             string date = DateTime.Now.ToString();
 
             int indexOfQuestion = 0;
-            foreach (List<afterQuestionParametrs> chapter_qs in chapters)
+            for (int i = 0; i < chapters.Count; i++)
             {
+                List<afterQuestionParametrs> chapter_qs = chapters[i];
                 // save 'fake question'
                 using (SQLiteConnection connection = new SQLiteConnection(connectionString))
                 {
@@ -209,10 +226,9 @@ namespace clientForQuestions2._0
                         insertCommand.Parameters.AddWithValue("@UserAnswer", OperationsAndOtherUseful.SKIPPED_Q);
                         insertCommand.Parameters.AddWithValue("@TimeForQuestion", -1);
                         insertCommand.Parameters.AddWithValue("@QuestionIsMarked", false);
-                        insertCommand.Parameters.AddWithValue("@QuestionLesson", CHAPTER_PARTITION_Q_LESSON + chapter_names[indexOfQuestion]);
-                        
-                        insertCommand.Parameters.AddWithValue("@TestName", OperationsAndOtherUseful.EMPTY_TEST_NAME);
-                        insertCommand.Parameters.AddWithValue("@TestInfo", "");
+                        insertCommand.Parameters.AddWithValue("@QuestionLesson", "");
+                        insertCommand.Parameters.AddWithValue("@TestName", $"תרגול #{test_id}");
+                        insertCommand.Parameters.AddWithValue("@TestInfo", CHAPTER_PARTITION_TestInfo + chapter_names[i] + CHAPTER_PARTITION_TestInfo);
                         // Execute the insert command
                         insertCommand.ExecuteNonQuery();
                     }
@@ -240,8 +256,7 @@ namespace clientForQuestions2._0
                             insertCommand.Parameters.AddWithValue("@UserAnswer", paramers.userAnswer);
                             insertCommand.Parameters.AddWithValue("@TimeForQuestion", paramers.timeForAnswer);
                             insertCommand.Parameters.AddWithValue("@QuestionIsMarked", false);
-
-                            insertCommand.Parameters.AddWithValue("@TestName", OperationsAndOtherUseful.EMPTY_TEST_NAME);
+                            insertCommand.Parameters.AddWithValue("@TestName", $"תרגול #{test_id}");
                             insertCommand.Parameters.AddWithValue("@TestInfo", "");
                             if (paramers.lesson == null)
                                 insertCommand.Parameters.AddWithValue("@QuestionLesson", "");
@@ -319,12 +334,20 @@ namespace clientForQuestions2._0
                 foreach (var row in group.Value)
                 {
                     afterQuestionParametrs m_afterQuestionParameter = new afterQuestionParametrs();
-                    m_afterQuestionParameter.question = sqlDb.get_question_based_on_id((int)row["QuestionId"]); // getting the q from its id
+                    if ((int)row["QuestionId"] == CHAPTER_PARTITION_Q_ID)
+                    {
+                        dbQuestionParmeters q_of_partition = new dbQuestionParmeters();
+                        q_of_partition.questionId = CHAPTER_PARTITION_Q_ID;
+                        m_afterQuestionParameter.question = q_of_partition;
+                    }
+                    else
+                        m_afterQuestionParameter.question = sqlDb.get_question_based_on_id((int)row["QuestionId"]); // getting the q from its id
                     m_afterQuestionParameter.userAnswer = (int)row["UserAnswer"];
                     m_afterQuestionParameter.timeForAnswer = (int)row["TimeForQuestion"];
                     m_afterQuestionParameter.indexOfQuestion = (int)row["IndexOfQuestion"];
                     m_afterQuestionParameter.lesson = (string)row["QuestionLesson"];
                     m_afterQuestionParameter.isMarked = (bool)row["QuestionIsMarked"];
+                    m_afterQuestionParameter.info = (string)row["TestInfo"];
 
                     m_afterQuestionParameters.Add(m_afterQuestionParameter);
 
@@ -337,12 +360,79 @@ namespace clientForQuestions2._0
                 test.id = (int)group.Value[0]["TestId"];
                 test.isMarked = (bool)group.Value[0]["TestIsMarked"];
                 test.name = (string)group.Value[0]["TestName"];
-                test.info = (string)group.Value[0]["TestInfo"];
                 testHistory.Add(test);
 
             }
 
             return testHistory;
+        }
+
+        public static bool is_test_with_chapters(int test_id)
+        {
+            string selectQuery = @"
+                SELECT * 
+                FROM TestsHistoryData 
+                WHERE TestId = " + test_id +
+" ORDER BY IndexOfQuestion ASC;";
+
+            Test whole_test = getResultFromQuery(selectQuery)[0];
+
+            // if test have chapters 
+            return whole_test.m_afterQuestionParametrs[0].question.questionId == CHAPTER_PARTITION_Q_ID;
+        }
+
+        public static TestWithChapters get_test_with_chapters(int test_id)
+        {
+            string selectQuery = @"
+                SELECT * 
+                FROM TestsHistoryData 
+                WHERE TestId = " + test_id +
+    " ORDER BY IndexOfQuestion ASC;";
+
+            Test whole_test = getResultFromQuery(selectQuery)[0];
+
+            // if test doesnt have chapters, return empty TestWithChapters
+            if (!(whole_test.m_afterQuestionParametrs[0].question.questionId == CHAPTER_PARTITION_Q_ID))
+                return new TestWithChapters();
+            
+            TestWithChapters new_test = new TestWithChapters();
+            new_test.chapters = new List<Test>();
+            new_test.id = whole_test.id;
+            new_test.date = whole_test.date;
+            new_test.name = whole_test.name;
+            new_test.isMarked = whole_test.isMarked;
+            new_test.type = whole_test.type;
+            int indexOfQuestion = 0;
+            foreach (afterQuestionParametrs q in whole_test.m_afterQuestionParametrs)
+            {
+                // if this is a start of a new chapter
+                if (q.question.questionId == CHAPTER_PARTITION_Q_ID)
+                {
+                    indexOfQuestion = 0;
+
+                    Test chapter = new Test();
+                    chapter.type = whole_test.type;
+                    chapter.date = whole_test.date;
+                    chapter.isMarked = whole_test.isMarked;
+                    chapter.id = whole_test.id;
+
+                    var match = Regex.Match(q.info, $"{CHAPTER_PARTITION_TestInfo}(.*?){CHAPTER_PARTITION_TestInfo}");
+
+                    chapter.name = match.Groups[1].Value;
+                    chapter.m_afterQuestionParametrs = new List<afterQuestionParametrs>();
+                    new_test.chapters.Add(chapter);
+                }
+                else
+                {
+                    afterQuestionParametrs new_q = q;
+                    //new_q.indexOfQuestion = indexOfQuestion;
+                    // add q to the last chapter
+                    new_test.chapters[new_test.chapters.Count - 1].m_afterQuestionParametrs.Add(new_q);
+                    indexOfQuestion++;
+                }
+            }
+
+            return new_test;
         }
 
         public static List<Test> get_questions_with_lesson()
@@ -352,7 +442,7 @@ namespace clientForQuestions2._0
             string selectQuery = @"
                 SELECT *
                 FROM TestsHistoryData
-                where QuestionLesson != '' AND QuestionLesson NOT LIKE '" + CHAPTER_PARTITION_Q_LESSON + @"%' 
+                where QuestionLesson != ''  
                 ORDER BY TestId DESC, IndexOfQuestion ASC ;";
             return getResultFromQuery(selectQuery);
         }
@@ -367,7 +457,7 @@ namespace clientForQuestions2._0
             return getResultFromQuery(selectQuery);
         }
 
-        public static void chnageNameOfTirgol(int tirgolId,string newName)
+        public static void rename_test(int test_id,string newName)
         {
             try
             {
@@ -384,7 +474,7 @@ namespace clientForQuestions2._0
 
                     using (SQLiteCommand command = new SQLiteCommand(updateQuery, connection))
                     {
-                        command.Parameters.AddWithValue("@TestId", tirgolId);
+                        command.Parameters.AddWithValue("@TestId", test_id);
                         command.Parameters.AddWithValue("@TestName", newName);
 
                         int rowsAffected = command.ExecuteNonQuery(); // Execute the update command
@@ -404,6 +494,8 @@ namespace clientForQuestions2._0
                 LogFileHandler.writeIntoFile($"An error occurred: {ex.Message}");
             }
         }
+
+
         public static void edit_lesson_in_test_history(string lesson, int test_id, int q_index)
         {
             // TODO edit the "lesson" of the question in a specific test_id
@@ -710,7 +802,7 @@ namespace clientForQuestions2._0
             using (SQLiteConnection connection = new SQLiteConnection(TestHistoryFileHandler.connectionString))
             {
                 connection.Open();
-                string query = @"SELECT TestId,TestName,Date,QuestionId,QuestionLesson,QuestionIsMarked
+                string query = @"SELECT QuestionIsMarked,TestId,QuestionId,QuestionLesson,Date,IndexOfQuestion
                     FROM TestsHistoryData
                     WHERE QuestionLesson <> ''
                     ORDER BY TestId DESC, IndexOfQuestion DESC;"; // Replace 'YourTable' with your actual table name
@@ -718,12 +810,11 @@ namespace clientForQuestions2._0
                 
                 dataAdapter.Fill(table);
             }
+            table.Columns["QuestionIsMarked"].ColumnName = "מועדפים";
             table.Columns["TestId"].ColumnName = "מס' תרגול";
-            table.Columns["TestName"].ColumnName = "שם התרגיל";
             table.Columns["Date"].ColumnName = "תאריך";
             table.Columns["QuestionId"].ColumnName = "מס' מזהה שאלה";
             table.Columns["QuestionLesson"].ColumnName = "לקח";
-            table.Columns["QuestionIsMarked"].ColumnName = "מועדפים";
 
             //// convert data_type of 'מועדפים' from bool to string
             // Get the old column
@@ -762,7 +853,7 @@ namespace clientForQuestions2._0
             }
 
             table.Columns["TestId"].ColumnName = "מס' תרגול";
-            table.Columns["TestName"].ColumnName = "שם התרגיל";
+            table.Columns["TestName"].ColumnName = "שם התרגול";
             table.Columns["Date"].ColumnName = "תאריך";
             table.Columns["TestType"].ColumnName = "סוג תרגול";
             table.Columns["TestIsMarked"].ColumnName = "מועדפים";

@@ -130,7 +130,7 @@ namespace clientForQuestions2._0
                 foreach (afterQuestionParametrs qp in questions)
                 {
                     sum_time += qp.timeForAnswer;
-                    if (qp.userAnswer == -1 || qp.userAnswer == OperationsAndOtherUseful.SKIPPED_Q)
+                    if (qp.userAnswer == -1 || qp.userAnswer == OperationsAndOtherUseful.SKIPPED_Q || qp.question.questionId == TestHistoryFileHandler.CHAPTER_PARTITION_Q_ID)
                         continue;
                     if (((JArray)qp.question.json_content["options"]).Count != 0)
                         if ((int)qp.question.json_content["options"][qp.userAnswer - 1]["is_correct"] == 1)
@@ -298,7 +298,13 @@ namespace clientForQuestions2._0
                 if (selected_test_id == OperationsAndOtherUseful.NOT_A_REAL_TEST_ID)
                     return;
 
-                summrizePage s = new summrizePage(TestHistoryFileHandler.get_afterQuestionParametrs_of_test(selected_test_id), selected_test_id, 0);
+                List<afterQuestionParametrs> afterQuestionParametrs = TestHistoryFileHandler.get_afterQuestionParametrs_of_test(selected_test_id);
+                List<afterQuestionParametrs> newafterQuestionParametrs = new List<afterQuestionParametrs>();
+                foreach (afterQuestionParametrs q in afterQuestionParametrs)
+                    if (q.question.questionId != TestHistoryFileHandler.CHAPTER_PARTITION_Q_ID)
+                        newafterQuestionParametrs.Add(q);
+
+                summrizePage s = new summrizePage(newafterQuestionParametrs, selected_test_id, 0);
                 s.Show();
                 this.Close();
             }
@@ -450,7 +456,13 @@ namespace clientForQuestions2._0
                     if (result == DialogResult.No) // the user isn't sure
                         return;
 
-                    summrizePage s = new summrizePage(TestHistoryFileHandler.get_afterQuestionParametrs_of_test(test_id), test_id, 0);
+                    List<afterQuestionParametrs> afterQuestionParametrs = TestHistoryFileHandler.get_afterQuestionParametrs_of_test(test_id);
+                    List<afterQuestionParametrs> newafterQuestionParametrs = new List<afterQuestionParametrs>();
+                    foreach (afterQuestionParametrs q in afterQuestionParametrs)
+                        if (q.question.questionId != TestHistoryFileHandler.CHAPTER_PARTITION_Q_ID)
+                            newafterQuestionParametrs.Add(q);
+
+                    summrizePage s = new summrizePage(newafterQuestionParametrs, test_id, 0);
                     s.Show();
                     this.Close();
                 }

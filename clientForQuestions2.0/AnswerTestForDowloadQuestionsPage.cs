@@ -15,44 +15,90 @@ namespace clientForQuestions2._0
         private int test_id;
 
         private List<afterQuestionParametrs> questions;
+        private TestWithChapters chapters = new TestWithChapters();
         private List<(TextBox, Label)> answer_boxes;
         private int ANSWER_BOXES_SHOWN = 10;
         private int MARGIN_BETWEEN_ANSWER_BOXES = 50;
         private int indexOfFirstQuestion = 0;
+        private int indexOfCurrChapter = 0;
 
         public AnswerTestForDowloadQuestionsPage(int test_id)
         {
             this.test_id = test_id;
-            questions = TestHistoryFileHandler.get_afterQuestionParametrs_of_test(test_id);
             InitializeComponent();
+
+            if (TestHistoryFileHandler.is_test_with_chapters(test_id))
+                at_start_chapters();
+            else
+                questions = TestHistoryFileHandler.get_afterQuestionParametrs_of_test(test_id);
             create_answer_boxes();
             displayAnswerBoxes();
         }
+
+        private void at_start_chapters()
+        {
+            chapters = TestHistoryFileHandler.get_test_with_chapters(test_id);
+
+            questions = chapters.chapters[indexOfCurrChapter].m_afterQuestionParametrs;
+            //for (int i = 0; i < questions.Count; i++)
+            //{
+            //    afterQuestionParametrs q = questions[i];
+            //    q.indexOfQuestion = i;
+            //    questions[i] = q;
+            //}
+
+            chapters_comboBox.Visible = true;
+            string output = "";
+            foreach (Test chapter in chapters.chapters)
+            {
+                chapters_comboBox.Items.Add(chapter.name);
+            }
+            
+            chapters_comboBox.SelectedItem = chapters_comboBox.Items[indexOfCurrChapter];
+
+            //MessageBox.Show($"n of chaps {chapters.chapters.Count}");
+            //foreach (Test chapter in chapters.chapters)
+            //    MessageBox.Show($"chap {chapter.name} no of q {chapter.m_afterQuestionParametrs.Count}");
+
+        }
+
+        private int get_number_of_question(int n_chapter, int index_question)
+        {
+            int num_of_previous_qs = 0;
+            for (int i = 0; i < n_chapter; i++)
+            {
+                num_of_previous_qs += chapters.chapters[i].m_afterQuestionParametrs.Count + 1;
+            }
+
+            return index_question - num_of_previous_qs - 1;
+        }
+
         private void create_answer_boxes()
         {
             answer_boxes = new List<(TextBox, Label)>();
 
             foreach (afterQuestionParametrs q in questions)
             {
-                int i = q.indexOfQuestion;
+                int i = get_number_of_question(indexOfCurrChapter, q.indexOfQuestion);
                 // Set up the label
                 Label label = new Label
                 {
                     Text = $"{i+1}.",
                     Location = new System.Drawing.Point(MARGIN_BETWEEN_ANSWER_BOXES * 2 + (i % ANSWER_BOXES_SHOWN) * MARGIN_BETWEEN_ANSWER_BOXES, 50), // Position the label
-                    AutoSize = true
+                    AutoSize = true,
+                    Visible = false,
                 };
                 this.Controls.Add(label);
 
                 string text = "";
                 if (q.userAnswer != OperationsAndOtherUseful.SKIPPED_Q)
-                    text = $"{q.userAnswer + 1}";
+                    text = $"{q.userAnswer}";
 
                 // Set up the TextBox control
                 TextBox textBox = new TextBox
                 {
                     Location = new System.Drawing.Point(label.Location.X, label.Height + label.Location.Y + 5), // Position the TextBox
-                    Name = $"{i + 1}",
+                    Name = $"{i+1}",
                     Visible = false,
                     Enabled = true,
                     Text = text,
@@ -71,7 +117,16 @@ namespace clientForQuestions2._0
             nextQuestionsButton.Location = new Point((ANSWER_BOXES_SHOWN + 2) * MARGIN_BETWEEN_ANSWER_BOXES, answer_boxes[0].Item2.Location.Y);
 
         }
-
+        private void delete_answer_boxes()
+        {
+            if (answer_boxes == null)
+                return;
+            foreach ( (TextBox textBox, Label label) in answer_boxes) {
+                this.Controls.Remove(textBox);
+                this.Controls.Remove(label);
+            }
+            answer_boxes = new List<(TextBox, Label)>();
+        }
         private void TextBox_TextChanged(object sender, EventArgs e)
         {
             TextBox textBox = ((TextBox)sender);
@@ -96,6 +151,13 @@ namespace clientForQuestions2._0
             }
             catch {  }
 
+            int userAnswer = int.Parse(textBox.Text);
+            afterQuestionParametrs q = questions[question_num - 1];
+            if (textBox.Text == "0")
+                userAnswer = OperationsAndOtherUseful.SKIPPED_Q;
+            q.userAnswer = userAnswer;
+            questions[question_num - 1] = q;
+
             if (question_num != answer_boxes.Count) { 
                 if (question_num % ANSWER_BOXES_SHOWN == 0)
                 {
@@ -107,12 +169,11 @@ namespace clientForQuestions2._0
                     answer_boxes[question_num].Item1.Focus();
                 }
             }
-
         }
 
         private void displayAnswerBoxes()
         {
-            displayAnswerBoxes(((int)this.indexOfFirstQuestion / ANSWER_BOXES_SHOWN) * ANSWER_BOXES_SHOWN, ((int)this.indexOfFirstQuestion / ANSWER_BOXES_SHOWN) * ANSWER_BOXES_SHOWN + ANSWER_BOXES_SHOWN);
+            displayAnswerBoxes(this.indexOfFirstQuestion, this.indexOfFirstQuestion + ANSWER_BOXES_SHOWN);
         }
         private void displayAnswerBoxes(int startIndex, int endIndex)
         {
@@ -135,7 +196,7 @@ namespace clientForQuestions2._0
             else
                 previousQuestionsButton.Visible = true;
 
-            for (int i = startIndex; i < endIndex; i++)
+            for (int i = startIndex; i < Math.Min(endIndex, answer_boxes.Count); i++)
             {
                 (TextBox textBox, Label label) = answer_boxes[i];
                 textBox.Visible = true;
@@ -159,6 +220,18 @@ namespace clientForQuestions2._0
         }
 
         private void button1_Click(object sender, EventArgs e)
+        {
+            if (chapters.chapters == null || chapters.chapters.Count == 0)
+                save_answers();
+            else
+                save_answers_of_chapters();
+
+            MessageBox.Show("התשובות התעדכנו");
+
+            this.Close();
+        }
+
+        private void save_answers()
         {
             List<int> not_filled_qs = new List<int>(); // a list for questions without text
             foreach ((TextBox textBox, Label label) in answer_boxes)
@@ -184,24 +257,36 @@ namespace clientForQuestions2._0
                     return;
             }
 
-            foreach ((TextBox textBox, Label label) in answer_boxes)
+
+            // saving
+            for (int i = 0; i < questions.Count; i++)
             {
-                int indexOfQuestion = int.Parse(textBox.Name) - 1;
-
-                int userAnswer;
-                if (!(new List<string> { "0", "1", "2", "3", "4" }).Contains(textBox.Text))
-                    userAnswer = OperationsAndOtherUseful.SKIPPED_Q;
-                else if (textBox.Text == "0")
-                    userAnswer = OperationsAndOtherUseful.SKIPPED_Q;
-                else
-                    userAnswer = int.Parse(textBox.Text);
-
-                TestHistoryFileHandler.set_question_UserAnswer(userAnswer, test_id, indexOfQuestion);
+                afterQuestionParametrs q = questions[i];
+                if (!(new List<int> { 1, 2, 3, 4, OperationsAndOtherUseful.SKIPPED_Q }).Contains(q.userAnswer))
+                    q.userAnswer = OperationsAndOtherUseful.SKIPPED_Q;
+                TestHistoryFileHandler.set_question_UserAnswer(q.userAnswer, test_id, q.indexOfQuestion);
             }
 
-            MessageBox.Show("התשובות התעדכנו");
+        }
 
-            this.Close();
+        private void save_answers_of_chapters()
+        {
+
+            for (int i = 0; i < chapters.chapters[indexOfCurrChapter].m_afterQuestionParametrs.Count; i++)
+            {
+                afterQuestionParametrs q = chapters.chapters[indexOfCurrChapter].m_afterQuestionParametrs[i];
+                q.userAnswer = questions[i].userAnswer;
+                chapters.chapters[indexOfCurrChapter].m_afterQuestionParametrs[i] = q;
+            }
+
+            foreach (Test chapter in chapters.chapters)
+                for (int i = 0; i < chapter.m_afterQuestionParametrs.Count; i++)
+                {
+                    afterQuestionParametrs q = chapter.m_afterQuestionParametrs[i];
+                    if (!(new List<int> { 1, 2, 3, 4, OperationsAndOtherUseful.SKIPPED_Q }).Contains(q.userAnswer))
+                        q.userAnswer = OperationsAndOtherUseful.SKIPPED_Q;
+                    TestHistoryFileHandler.set_question_UserAnswer(q.userAnswer, test_id, q.indexOfQuestion);
+                }
         }
 
         private void nextQuestionsButton_Click(object sender, EventArgs e)
@@ -229,6 +314,36 @@ namespace clientForQuestions2._0
                 }
             }
             return;
+        }
+
+        private void chapters_comboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int new_chapter_index = chapters_comboBox.SelectedIndex;
+            if (new_chapter_index == indexOfCurrChapter)
+                return;
+
+            for (int i = 0; i < chapters.chapters[indexOfCurrChapter].m_afterQuestionParametrs.Count; i++)
+            {
+                afterQuestionParametrs q = chapters.chapters[indexOfCurrChapter].m_afterQuestionParametrs[i];
+                q.userAnswer = questions[i].userAnswer;
+                chapters.chapters[indexOfCurrChapter].m_afterQuestionParametrs[i] = q;
+            }
+
+
+            questions = chapters.chapters[new_chapter_index].m_afterQuestionParametrs;
+            //for (int i = 0; i < questions.Count; i++)
+            //{
+            //    afterQuestionParametrs q = questions[i];
+            //    q.indexOfQuestion = i;
+            //    questions[i] = q;
+            //}
+
+            this.indexOfFirstQuestion = 0;
+            indexOfCurrChapter = new_chapter_index;
+
+            delete_answer_boxes();
+            create_answer_boxes();
+            displayAnswerBoxes();
         }
     }
 }

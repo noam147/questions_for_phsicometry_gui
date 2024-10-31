@@ -13,6 +13,7 @@ namespace clientForQuestions2._0
     {
         private string file_path;
         private List<dbQuestionParmeters> questions;
+        private List<List<dbQuestionParmeters>> chapters;
         private string finalHtmlContentForFile = @"<head><style>\r\n    .question-container { 
             page-break-inside: avoid;
             width: 100%; /* Full width */
@@ -107,15 +108,15 @@ namespace clientForQuestions2._0
         }
         private string getGeneralCategory(string category)
         {
-            if(category == "אנלוגיות")
+            if(OperationsAndOtherUseful.topicsdict["חשיבה כמותית"].Contains(category) || category == "הסקה מתרשים")
             {
-                return "מילולי";
+                return "חשיבה כמותית";
             }
-            if(category == "Sentence Completions")
+            if(OperationsAndOtherUseful.topicsdict["חשיבה מילולית"].Contains(category) || category == "קטע קריאה")
             {
-                return "אנגלית";
+                return "חשיבה מילולית";
             }
-            return "כמותי";
+            return "אנגלית";
         }
         private void action_when_get_list_of_chapters(List<List<dbQuestionParmeters>> multipleQuestionsfiles)
         {
@@ -125,7 +126,7 @@ namespace clientForQuestions2._0
             explanation_comboBox.SelectedIndex = 0;
             string newPage = "<div style='page-break-after: always;'></div>";
             //newPage = "<br><br><br>";
-            List<dbQuestionParmeters> all_qs = new List<dbQuestionParmeters>();
+            chapters = new List<List<dbQuestionParmeters>>();
             if(multipleQuestionsfiles.Count != 0)
             {
                 this.questions = multipleQuestionsfiles[0];
@@ -134,7 +135,7 @@ namespace clientForQuestions2._0
                 this.htmlContentOfAnswers += "<br><br>" + generalCategory + ":\n";//add lines to separate diffrentchapters
                 currentChapter = get_html(true);
                 finalSimulation +=  currentChapter+ newPage;
-                all_qs.AddRange(multipleQuestionsfiles[0]);
+                chapters.Add(multipleQuestionsfiles[0]);
             }
             
             for (int i = 1; i < multipleQuestionsfiles.Count; i++)
@@ -148,9 +149,9 @@ namespace clientForQuestions2._0
                 currentChapter = get_html(true,"");
                 finalSimulation += currentChapter+ newPage;
 
-                all_qs.AddRange(multipleQuestionsfiles[i]);
+                chapters.Add(multipleQuestionsfiles[i]);
             }
-            questions = all_qs;
+
             finalHtmlContentForFile = finalSimulation;
             filePath_button_Click(null, null);
 
@@ -438,22 +439,52 @@ page-break-inside: avoid;
         {
             // Save test to history, if it doesn't exist
             if (test_id == TestHistoryFileHandler.get_next_test_id())
-            {
-                List<afterQuestionParametrs> afterQuestionParametrs_ = new List<afterQuestionParametrs>();
-                for (int i = 0; i < questions.Count; i++)
+            { 
+                if (chapters == null || chapters.Count == 0)
                 {
-                    afterQuestionParametrs afterQuestionParametr_q = new afterQuestionParametrs();
-                    afterQuestionParametr_q.question = questions[i];
-                    afterQuestionParametr_q.userAnswer = OperationsAndOtherUseful.SKIPPED_Q;
-                    afterQuestionParametr_q.timeForAnswer = -1;
-                    afterQuestionParametr_q.lesson = "";
-                    afterQuestionParametr_q.isMarked = false;
-                    afterQuestionParametr_q.indexOfQuestion = i;
+                    List<afterQuestionParametrs> afterQuestionParametrs_ = new List<afterQuestionParametrs>();
+                    for (int i = 0; i < questions.Count; i++)
+                    {
+                        afterQuestionParametrs afterQuestionParametr_q = new afterQuestionParametrs();
+                        afterQuestionParametr_q.question = questions[i];
+                        afterQuestionParametr_q.userAnswer = OperationsAndOtherUseful.SKIPPED_Q;
+                        afterQuestionParametr_q.timeForAnswer = -1;
+                        afterQuestionParametr_q.lesson = "";
+                        afterQuestionParametr_q.isMarked = false;
+                        afterQuestionParametr_q.indexOfQuestion = i;
 
-                    afterQuestionParametrs_.Add(afterQuestionParametr_q);
+                        afterQuestionParametrs_.Add(afterQuestionParametr_q);
+                    }
+                    // save test type as: test_type
+                    TestHistoryFileHandler.save_afterQuestionParametrs_to_test_history(afterQuestionParametrs_, test_id, test_type);
                 }
-                // save test type as: test_type
-                TestHistoryFileHandler.save_afterQuestionParametrs_to_test_history(afterQuestionParametrs_, test_id, test_type);
+                else
+                {
+                    List<List<afterQuestionParametrs>> chapters_afterQuestionParametrs = new List<List<afterQuestionParametrs>>();
+                    List<string> chapter_names = new List<string>();
+                    for (int j = 0; j < chapters.Count; j++)
+                    {
+                        List<dbQuestionParmeters> questions = chapters[j];
+                        chapter_names.Add($"פרק {j + 1}: {getGeneralCategory(questions[0].category)}");
+
+                        List<afterQuestionParametrs> afterQuestionParametrs_ = new List<afterQuestionParametrs>();
+                        for (int i = 0; i < questions.Count; i++)
+                        {
+                            afterQuestionParametrs afterQuestionParametr_q = new afterQuestionParametrs();
+                            afterQuestionParametr_q.question = questions[i];
+                            afterQuestionParametr_q.userAnswer = OperationsAndOtherUseful.SKIPPED_Q;
+                            afterQuestionParametr_q.timeForAnswer = -1;
+                            afterQuestionParametr_q.lesson = "";
+                            afterQuestionParametr_q.isMarked = false;
+                            afterQuestionParametr_q.indexOfQuestion = i;
+
+                            afterQuestionParametrs_.Add(afterQuestionParametr_q);
+                        }
+                        chapters_afterQuestionParametrs.Add(afterQuestionParametrs_);
+                    }
+                    // save test type as: test_type
+                    TestHistoryFileHandler.save_multiple_chapters_to_test_history(chapters_afterQuestionParametrs, test_id, test_type, chapter_names);
+                }
             }
         }
         private async void save_button_Click()

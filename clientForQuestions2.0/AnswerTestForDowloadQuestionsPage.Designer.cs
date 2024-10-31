@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.button1 = new System.Windows.Forms.Button();
+            this.chapters_comboBox = new System.Windows.Forms.ComboBox();
             this.nextQuestionsButton = new clientForQuestions2._0.RJButtons2();
             this.previousQuestionsButton = new clientForQuestions2._0.RJButtons2();
             this.SuspendLayout();
@@ -43,6 +44,18 @@
             this.button1.Text = "סיום";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // chapters_comboBox
+            // 
+            this.chapters_comboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.chapters_comboBox.FormattingEnabled = true;
+            this.chapters_comboBox.Location = new System.Drawing.Point(13, 3);
+            this.chapters_comboBox.Name = "chapters_comboBox";
+            this.chapters_comboBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.chapters_comboBox.Size = new System.Drawing.Size(250, 24);
+            this.chapters_comboBox.TabIndex = 15;
+            this.chapters_comboBox.Visible = false;
+            this.chapters_comboBox.SelectedIndexChanged += new System.EventHandler(this.chapters_comboBox_SelectedIndexChanged);
             // 
             // nextQuestionsButton
             // 
@@ -85,6 +98,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(980, 478);
+            this.Controls.Add(this.chapters_comboBox);
             this.Controls.Add(this.nextQuestionsButton);
             this.Controls.Add(this.previousQuestionsButton);
             this.Controls.Add(this.button1);
@@ -100,5 +114,6 @@
         private System.Windows.Forms.Button button1;
         private RJButtons2 nextQuestionsButton;
         private RJButtons2 previousQuestionsButton;
+        private System.Windows.Forms.ComboBox chapters_comboBox;
     }
 }
