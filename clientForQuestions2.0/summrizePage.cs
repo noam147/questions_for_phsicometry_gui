@@ -774,11 +774,6 @@ namespace clientForQuestions2._0
             }
         }
 
-        private void summrizePage_Load(object sender, EventArgs e)
-        {
-
-        }
-
         private void display_lesson_of_current_question()
         {
             if (this.test_id != OperationsAndOtherUseful.NOT_A_REAL_TEST_ID)

@@ -77,7 +77,7 @@ namespace clientForQuestions2._0
         private bool sortAscending = true; // for sorting
         private ContextMenuStrip sortContextMenu; // Context menu for sorting
 
-        private ContextMenuStrip contextMenu; // Context menu for sorting
+        private ContextMenuStrip contextMenu; // Context menu for options about the test
         private int selected_test_id = OperationsAndOtherUseful.NOT_A_REAL_TEST_ID; // for contextMenu 
 
         public testHistoryMenu()
@@ -91,7 +91,7 @@ namespace clientForQuestions2._0
 
 לחיצה על סמל ההורדה תציג תפריט אפשרויות להורדת התרגול -
 
-לחיצה ימנית בעזרת העכבר על שורה של תרגול תפתח תפריט אפשרויות עם האפשרויות: הצגת התרגול, מחיקת התרגול מההיסטוריה -");
+לחיצה ימנית בעזרת העכבר על שורה של תרגול תפתח תפריט אפשרויות -");
             
         }
 
@@ -381,6 +381,8 @@ namespace clientForQuestions2._0
 
                 AnswerTestForDowloadQuestionsPage a = new AnswerTestForDowloadQuestionsPage(selected_test_id);
                 a.Show();
+
+                selected_test_id = OperationsAndOtherUseful.NOT_A_REAL_TEST_ID;
             }
             void rename_test_by_selected_id()
             {
@@ -389,8 +391,12 @@ namespace clientForQuestions2._0
 
                 string new_name = showInputForm();
                 if (new_name == null)
-                    new_name = TestHistoryFileHandler.get_name_of_test(selected_test_id);
+                {
+                    selected_test_id = OperationsAndOtherUseful.NOT_A_REAL_TEST_ID;
+                    return;
+                }
                 TestHistoryFileHandler.rename_test(selected_test_id, new_name);
+                selected_test_id = OperationsAndOtherUseful.NOT_A_REAL_TEST_ID;
 
                 LoadData();
             }
@@ -415,7 +421,7 @@ namespace clientForQuestions2._0
                     MinimizeBox = false
                 };
                 form.StartPosition = FormStartPosition.CenterScreen;
-                Label label = new Label() { Left = 10, Top = 10, Text = "הכנס שם חדש:", Width = 260 };
+                Label label = new Label() { Left = 10, Top = 10, Text = "הקלד שם חדש לתרגול:", Width = 260 };
                 TextBox textBox = new TextBox() { Left = 10, Top = 30, Width = 260 };
                 Button okButton = new Button() { Text = "שמירה", Left = 10, Width = 70, Top = 60, DialogResult = DialogResult.OK };
                 Button cancelButton = new Button() { Text = "ביטול", Left = 200, Width = 70, Top = 60, DialogResult = DialogResult.Cancel };
@@ -565,10 +571,10 @@ namespace clientForQuestions2._0
                 else
                 {
                     selected_test_id = Int32.Parse(clickedRow.Cells["מס' תרגול"].Value.ToString());
-                    if (history_dataGridView.Rows[e.RowIndex].Cells[history_dataGridView.Columns["סוג תרגול"].Index].Value.ToString().Contains("להורדה"))
-                        contextMenu.Items.OfType<ToolStripMenuItem>().FirstOrDefault(item => item.Text == "מילוי תשובות של תרגול להורדה").Enabled = true;
-                    else
-                        contextMenu.Items.OfType<ToolStripMenuItem>().FirstOrDefault(item => item.Text == "מילוי תשובות של תרגול להורדה").Enabled = false;
+
+                    contextMenu.Items.OfType<ToolStripMenuItem>().FirstOrDefault(item => item.Text == "מילוי תשובות של תרגול להורדה").Enabled = history_dataGridView.Rows[e.RowIndex].Cells[history_dataGridView.Columns["סוג תרגול"].Index].Value.ToString().Contains("להורדה");
+                    contextMenu.Items.OfType<ToolStripMenuItem>().FirstOrDefault(item => item.Text == "תרגול חוזר").Enabled = !TestHistoryFileHandler.is_test_with_chapters(selected_test_id);
+
                     contextMenu.Show(Cursor.Position);
                 }
          

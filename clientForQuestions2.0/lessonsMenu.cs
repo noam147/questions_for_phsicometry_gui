@@ -13,6 +13,10 @@ namespace clientForQuestions2._0
     public partial class lessonsMenu : Form
     {
         private int TOP_EMPTY_SPACE = 75;
+        private ContextMenuStrip contextMenu; // Context menu for options about the test
+        private static int NOT_A_REAL_ROW_INDEX = -2;
+        private int selected_row_index = NOT_A_REAL_ROW_INDEX; // for contextMenu 
+
         public lessonsMenu()
         {
             InitializeComponent();
@@ -21,7 +25,148 @@ namespace clientForQuestions2._0
             this.i_toolTip.SetToolTip(this.i_form, @"לחיצה על שורה תציג את השאלה -
 
 לחיצה על הכוכב בטור ""מועדפים"" תוסיף את התרגול למועדפים, או תסיר אותו אם הוא כבר במועדפים -");
+
+            SetupContextMenu();
         }
+
+        private void SetupContextMenu()
+        {
+            void open_question_by_selected_row_index()
+            {
+                if (selected_row_index == NOT_A_REAL_ROW_INDEX)
+                    return;
+
+                DataGridViewRow clickedRow = lessons_dataGridView.Rows[this.selected_row_index];
+
+                if (TestHistoryFileHandler.is_test_with_chapters(Int32.Parse(clickedRow.Cells["מס' תרגול"].Value.ToString())))
+                {
+                    TestWithChapters testWithChapters = TestHistoryFileHandler.get_test_with_chapters(Int32.Parse(clickedRow.Cells["מס' תרגול"].Value.ToString()));
+                    List<List<afterQuestionParametrs>> chapters = new List<List<afterQuestionParametrs>>();
+                    List<string> names_of_chapters = new List<string>();
+                    foreach (Test chap in testWithChapters.chapters)
+                    {
+                        chapters.Add(chap.m_afterQuestionParametrs);
+                        names_of_chapters.Add(chap.name);
+                    }
+
+                    summrizePage s_ = new summrizePage(chapters, Int32.Parse(clickedRow.Cells["מס' תרגול"].Value.ToString()), Int32.Parse(clickedRow.Cells["IndexOfQuestion"].Value.ToString()), names_of_chapters);
+                    s_.Show();
+                    this.Close();
+
+                }
+                else
+                {
+                    summrizePage s = new summrizePage(TestHistoryFileHandler.get_afterQuestionParametrs_of_test(Int32.Parse(clickedRow.Cells["מס' תרגול"].Value.ToString())), Int32.Parse(clickedRow.Cells["מס' תרגול"].Value.ToString()), Int32.Parse(clickedRow.Cells["IndexOfQuestion"].Value.ToString()));
+                    s.Show();
+                    this.Close();
+
+                }
+
+
+            }
+
+            void delete_lesson_by_selected_row_index()
+            {
+                if (selected_row_index == NOT_A_REAL_ROW_INDEX)
+                    return;
+
+                DataGridViewRow clickedRow = lessons_dataGridView.Rows[this.selected_row_index];
+
+                // check if the user is sure to leave the test
+                DialogResult result = MessageBox.Show("?האם אתה בטוח שברצונך למחוק לקח זה",
+                                          "Confirmation",
+                                          MessageBoxButtons.YesNo,
+                                          MessageBoxIcon.Warning);
+                if (result == DialogResult.No) // the user isn't sure
+                    return;
+
+
+                TestHistoryFileHandler.edit_lesson_in_test_history("", Int32.Parse(clickedRow.Cells["מס' תרגול"].Value.ToString()), Int32.Parse(clickedRow.Cells["IndexOfQuestion"].Value.ToString())); // TODO
+                selected_row_index = NOT_A_REAL_ROW_INDEX;
+
+                LoadData();
+            }
+
+            void edit_lesson_by_selected_row_index()
+            {
+                if (selected_row_index == NOT_A_REAL_ROW_INDEX)
+                    return;
+
+                DataGridViewRow clickedRow = lessons_dataGridView.Rows[this.selected_row_index];
+
+                string new_lesson = showInputForm();
+                if (new_lesson == null || new_lesson.Replace("\n", "").Replace(" ", "").Length == 0)
+                {
+                    selected_row_index = NOT_A_REAL_ROW_INDEX;
+                    return;
+                }
+
+                TestHistoryFileHandler.edit_lesson_in_test_history(new_lesson, Int32.Parse(clickedRow.Cells["מס' תרגול"].Value.ToString()), Int32.Parse(clickedRow.Cells["IndexOfQuestion"].Value.ToString())); // TODO
+
+                selected_row_index = NOT_A_REAL_ROW_INDEX;
+
+                LoadData();
+            }
+
+            void cencel_option()
+            {
+                selected_row_index = NOT_A_REAL_ROW_INDEX;
+            }
+
+            // opens a form to enter an input (a string)
+            string showInputForm()
+            {
+
+                // Create the form and controls within the function
+                Form form = new Form()
+                {
+                    Text = "",
+                    Width = 300,
+                    Height = 250,
+                    FormBorderStyle = FormBorderStyle.FixedDialog,
+                    StartPosition = FormStartPosition.CenterScreen,
+                    MaximizeBox = false,
+                    MinimizeBox = false
+                };
+                form.StartPosition = FormStartPosition.CenterScreen;
+                Label label = new Label() { Left = 10, Top = 10, Text = "הקלד לקח:", Width = 260 };
+                RichTextBox textBox = new RichTextBox() { Left = 10, Top = 30, Width = 260, Height = 150 };
+                Button okButton = new Button() { Text = "שמירה", Left = 10, Width = 70, Top = 180, DialogResult = DialogResult.OK };
+                Button cancelButton = new Button() { Text = "ביטול", Left = 200, Width = 70, Top = 180, DialogResult = DialogResult.Cancel };
+
+                textBox.Text = lessons_dataGridView.Rows[this.selected_row_index].Cells["לקח"].Value.ToString();
+                textBox.RightToLeft = RightToLeft.Yes;
+
+                label.RightToLeft = RightToLeft.Yes;
+
+                // Set button functionality
+                okButton.Click += (sender, e) => { form.DialogResult = DialogResult.OK; };
+                cancelButton.Click += (sender, e) => { form.DialogResult = DialogResult.Cancel; };
+
+                // Add controls to form
+                form.Controls.Add(label);
+                form.Controls.Add(textBox);
+                form.Controls.Add(okButton);
+                form.Controls.Add(cancelButton);
+
+                // Set Accept and Cancel buttons
+                form.AcceptButton = okButton;
+                form.CancelButton = cancelButton;
+
+                // Show form as dialog and return text if OK was pressed
+                return form.ShowDialog() == DialogResult.OK ? textBox.Text : null;
+            }
+
+
+            contextMenu = new ContextMenuStrip();
+
+            // Add sorting options to the context menu 
+            contextMenu.Items.Add("הצגת השאלה", null, (s, e) => open_question_by_selected_row_index());
+            contextMenu.Items.Add("מחיקת הלקח מההיסטוריה", null, (s, e) => delete_lesson_by_selected_row_index());
+            contextMenu.Items.Add("עריכת הלקח", null, (s, e) => edit_lesson_by_selected_row_index());
+            contextMenu.Items.Add("ביטול", SystemIcons.Error.ToBitmap(), (s, e) => cencel_option());
+        }
+
 
         private void backToMainMenu_button_Click(object sender, EventArgs e)
         {
@@ -171,6 +316,26 @@ namespace clientForQuestions2._0
             lessons_dataGridView.AutoResizeRows(DataGridViewAutoSizeRowsMode.AllCells);
             lessons_dataGridView.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             lessons_dataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+        }
+
+        private void lessons_dataGridView_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (e.Button == System.Windows.Forms.MouseButtons.Right && e.RowIndex >= 0)
+            {
+                // Get the clicked row
+                DataGridViewRow clickedRow = lessons_dataGridView.Rows[e.RowIndex];
+                if (e.ColumnIndex == lessons_dataGridView.Columns["מועדפים"].Index)
+                {
+                    return;
+                }
+                else
+                {
+                    selected_row_index = e.RowIndex;
+
+                    contextMenu.Show(Cursor.Position);
+                }
+
+            }
         }
     }
 }

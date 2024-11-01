@@ -314,7 +314,6 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "summrizePage";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            this.Load += new System.EventHandler(this.summrizePage_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
