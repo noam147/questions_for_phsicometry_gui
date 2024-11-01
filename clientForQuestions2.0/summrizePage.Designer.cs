@@ -46,6 +46,7 @@
             this.nextQuestionsButton = new clientForQuestions2._0.RJButtons2();
             this.previousQuestionsButton = new clientForQuestions2._0.RJButtons2();
             this.test_id_label = new System.Windows.Forms.Label();
+            this.chapters_comboBox = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // backToMainMenu_button
@@ -272,11 +273,24 @@
             this.test_id_label.TabIndex = 18;
             this.test_id_label.Text = "Test Id: ";
             // 
+            // chapters_comboBox
+            // 
+            this.chapters_comboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.chapters_comboBox.FormattingEnabled = true;
+            this.chapters_comboBox.Location = new System.Drawing.Point(617, 5);
+            this.chapters_comboBox.Name = "chapters_comboBox";
+            this.chapters_comboBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.chapters_comboBox.Size = new System.Drawing.Size(250, 24);
+            this.chapters_comboBox.TabIndex = 19;
+            this.chapters_comboBox.Visible = false;
+            this.chapters_comboBox.SelectedIndexChanged += new System.EventHandler(this.chapters_comboBox_SelectedIndexChanged);
+            // 
             // summrizePage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1047, 739);
+            this.Controls.Add(this.chapters_comboBox);
             this.Controls.Add(this.test_id_label);
             this.Controls.Add(this.lessons_label);
             this.Controls.Add(this.lessons_richTextBox);
@@ -324,5 +338,6 @@
         private System.Windows.Forms.RichTextBox lessons_richTextBox;
         private System.Windows.Forms.Label lessons_label;
         private System.Windows.Forms.Label test_id_label;
+        private System.Windows.Forms.ComboBox chapters_comboBox;
     }
 }

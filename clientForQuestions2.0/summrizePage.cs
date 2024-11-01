@@ -11,9 +11,9 @@ namespace clientForQuestions2._0
 {
     public partial class summrizePage : Form
     {
-        List<Button> m_buttonList= new List<Button>();
+        List<Button> m_buttonList = new List<Button>();
 
-        List<afterQuestionParametrs> m_questions;
+        List<List<afterQuestionParametrs>> m_chapters;
         private WebView2 webView21;
         private WebView2 webView2_col;
 
@@ -25,19 +25,22 @@ namespace clientForQuestions2._0
         private int Q_BUTTON_SIZE = 30;
         private int Q_CHOSEN_BUTTON_ADD_SIZE = 10;
 
-        private List<String> lessons_list = new List<String>();
+        private List<List<String>> lessons_list = new List<List<String>>();
 
         private int col_id = 0;
         private int test_id = OperationsAndOtherUseful.NOT_A_REAL_TEST_ID;
         private int indexQuestion = -1;
-
+        private int indexChapter = -1;
         private int m_currentIndexOfFirstButton = 0;
 
         public summrizePage(List<afterQuestionParametrs> questions, int test_id, int indexQuestion2display)
         {
             this.indexQuestion = indexQuestion2display;
-            this.m_questions = questions;
+            this.indexChapter = 0;
+            this.m_chapters = new List<List<afterQuestionParametrs>>();
+            this.m_chapters.Add( questions );
             this.test_id = test_id;
+            
             orgnizeQuestions();
             InitializeComponent();
 
@@ -50,10 +53,13 @@ namespace clientForQuestions2._0
             }
             else
             {
-                lessons_list = TestHistoryFileHandler.get_lessons_of_test_in_order(this.test_id);
-                if (lessons_list.Count == 0)
-                    for (int i = 0; i < questions.Count; i++)
-                        lessons_list.Add("");
+                lessons_list.Add(TestHistoryFileHandler.get_lessons_of_test_in_order(this.test_id));
+                if (lessons_list[indexChapter].Count == 0)
+                {
+                    lessons_list.Add(new List<string>());
+                    for (int i = 0; i < m_chapters[indexChapter].Count; i++)
+                        lessons_list[0].Add("");
+                }
             }
 
             ToolTip copy_q_id_toolTip = new ToolTip();
@@ -71,30 +77,138 @@ namespace clientForQuestions2._0
 
             try
             {
-                if (((JArray)questions[0].question.json_content["collections"]).Count != 0)
+                if (((JArray)m_chapters[indexChapter][indexQuestion].question.json_content["collections"]).Count != 0)
                 {
-                    col_id = (int)questions[0].question.json_content["collections"][0]["id"];
+                    col_id = (int)m_chapters[indexChapter][indexQuestion].question.json_content["collections"][0]["id"];
                 }
             }
             catch (Exception ex) { }
 
 
 
-            width_webView = (int) (Screen.PrimaryScreen.WorkingArea.Width - w_lessonsPlace) / 2;
+            width_webView = (int)(Screen.PrimaryScreen.WorkingArea.Width - w_lessonsPlace) / 2;
             height_webView = Screen.PrimaryScreen.WorkingArea.Height - this.h_questionsPlace - h_statsPlace - OperationsAndOtherUseful.MARGIN_OF_HEIGHT;
 
 
             this.timeTookForQLabel.Text = "";
             this.timeTookForQLabel.Visible = false;
-            displayTotalAvrageTime();
+            displayStatsOfWholeChapter();
 
-            createButtons(questions);
+            createButtons(m_chapters[indexChapter]);
             displayButtons();
             //this.Resize += Form_Resize;
             this.Load += Form_Load;
             //Form_Resize(this, EventArgs.Empty);
 
         }
+
+        /// <summary>
+        /// FOR CHAPTERS
+        /// This function gets a list of chapters, so each chapter is a list of afterQuestionParametrs.
+        /// The 'indexQuestion2display' refers to the IndexOfQuestion variable
+        /// </summary>
+        public summrizePage(List<List<afterQuestionParametrs>> chapters, int test_id, int indexQuestion2display, List<string> names_of_chapters)
+        {
+            m_chapters = chapters;
+            (this.indexChapter, this.indexQuestion) = get_number_of_question_and_index_chapter_by_index_of_question(indexQuestion2display);
+
+            this.test_id = test_id;
+            orgnizeQuestions();
+            InitializeComponent();
+            // not showing lessons if it is not a real test
+            if (this.test_id == OperationsAndOtherUseful.NOT_A_REAL_TEST_ID)
+            {
+                w_lessonsPlace = 0;
+                this.lessons_label.Visible = false;
+                this.lessons_richTextBox.Visible = false;
+            }
+            else
+            {
+                lessons_list = TestHistoryFileHandler.get_lessons_of_test_with_chapters_in_order(this.test_id);
+                for (int i=0; i < lessons_list.Count; i++)
+                    if (lessons_list[i].Count == 0)
+                        for (int j = 0; j < m_chapters[i].Count; j++)
+                            lessons_list[i].Add("");
+            }
+
+            chapters_comboBox.Visible = true;
+            foreach (string name in names_of_chapters)
+            {
+                chapters_comboBox.Items.Add(name);
+            }
+
+            chapters_comboBox.SelectedItem = chapters_comboBox.Items[this.indexChapter];
+
+            ToolTip copy_q_id_toolTip = new ToolTip();
+            copy_q_id_toolTip.SetToolTip(curr_q_id, "Click to copy id to clipboard");
+            copy_q_id_toolTip.AutoPopDelay = 5000;   // Duration the tooltip will remain visible (5 seconds)
+            copy_q_id_toolTip.InitialDelay = 0;      // Delay before the tooltip appears (0 ms for instant display)
+            copy_q_id_toolTip.ReshowDelay = 0;       // Delay between when the cursor moves from one tooltip to another (0 ms for instant display)
+            copy_q_id_toolTip.ShowAlways = true;
+            curr_q_id.Cursor = Cursors.Hand;
+
+
+            // full screen
+            this.WindowState = FormWindowState.Maximized;
+            //this.FormBorderStyle = FormBorderStyle.None;
+            this.StartPosition = FormStartPosition.CenterScreen;
+
+            try
+            {
+                if (((JArray)m_chapters[indexChapter][indexQuestion].question.json_content["collections"]).Count != 0)
+                {
+                    col_id = (int)m_chapters[indexChapter][indexQuestion].question.json_content["collections"][0]["id"];
+                }
+            }
+            catch (Exception ex) { }
+
+            width_webView = (int)(Screen.PrimaryScreen.WorkingArea.Width - w_lessonsPlace) / 2;
+            height_webView = Screen.PrimaryScreen.WorkingArea.Height - this.h_questionsPlace - h_statsPlace - OperationsAndOtherUseful.MARGIN_OF_HEIGHT;
+
+
+            this.timeTookForQLabel.Text = "";
+            this.timeTookForQLabel.Visible = false;
+            displayStatsOfWholeChapter();
+
+            createButtons(m_chapters[indexChapter]);
+            displayButtons();
+            //this.Resize += Form_Resize;
+            this.Load += Form_Load;
+            //Form_Resize(this, EventArgs.Empty);
+
+        }
+
+        // returns (index of chapter, number of question)
+        private (int, int) get_number_of_question_and_index_chapter_by_index_of_question(int index_of_question)
+        {
+            int num_of_previous_qs = 0;
+            for (int i = 0; i < m_chapters.Count; i++)
+            {
+                num_of_previous_qs += m_chapters[i].Count + 1;
+                if (num_of_previous_qs >= index_of_question)
+                {
+                    return (i, m_chapters[i].Count + index_of_question - num_of_previous_qs);
+                }
+            }
+
+            return (-1, -1);
+        }
+
+        // returns (index of chapter, index of question)
+        private int get_index_of_question_by_number_of_question_and_index_chapter(int index_chapter, int number_of_question)
+        {
+            if (m_chapters.Count == 1)
+                return number_of_question;
+
+            int num_of_previous_qs = 0;
+            for (int i = 0; i < index_chapter; i++)
+            {
+                num_of_previous_qs += m_chapters[i].Count + 1;
+            }
+
+            return num_of_previous_qs + number_of_question + 1;
+        }
+
         private async Task WaitForHandleAndInitializeAsync()
         {
             // Wait until the form's handle is created
@@ -117,15 +231,16 @@ namespace clientForQuestions2._0
 
         private void orgnizeQuestions()
         {
-            m_questions.Sort((q1, q2) => q1.indexOfQuestion.CompareTo(q2.indexOfQuestion));
+            foreach (List<afterQuestionParametrs> questions in m_chapters)
+                questions.Sort((q1, q2) => q1.indexOfQuestion.CompareTo(q2.indexOfQuestion));
         }
-        private void displayTotalAvrageTime()
+        private void displayStatsOfWholeChapter()
         {
             int sum_time = 0;
             float sum_difficultLevel = 0;
             int corr_c = 0;
 
-            foreach (afterQuestionParametrs qp in m_questions)
+            foreach (afterQuestionParametrs qp in m_chapters[indexChapter])
             {
                 sum_time += qp.timeForAnswer;
 
@@ -144,9 +259,9 @@ namespace clientForQuestions2._0
 
 
             this.total_time.Text = $"זמן כולל: {OperationsAndOtherUseful.get_time_mmss_fromseconds(sum_time)}";
-            this.avrage_time.Text = $"זמן ממוצע לשאלה: {OperationsAndOtherUseful.get_time_mmss_fromseconds(sum_time / m_questions.Count)}";
-            this.avrage_difficultyLevel.Text = $"רמת קושי ממוצעת לשאלה: {Math.Round(sum_difficultLevel / m_questions.Count, 1)}";
-            this.correct_answers.Text = $"תשובות נכונות: {corr_c}/{m_questions.Count}";
+            this.avrage_time.Text = $"זמן ממוצע לשאלה: {OperationsAndOtherUseful.get_time_mmss_fromseconds(sum_time / m_chapters[this.indexChapter].Count)}";
+            this.avrage_difficultyLevel.Text = $"רמת קושי ממוצעת לשאלה: {Math.Round(sum_difficultLevel / m_chapters[this.indexChapter].Count, 1)}";
+            this.correct_answers.Text = $"תשובות נכונות: {corr_c}/{m_chapters[this.indexChapter].Count}";
             if (test_id != OperationsAndOtherUseful.NOT_A_REAL_TEST_ID)
                 this.test_id_label.Text = $"test id: {this.test_id}";
             else
@@ -160,7 +275,7 @@ namespace clientForQuestions2._0
             {
                 case Keys.Left:
                     LogFileHandler.writeIntoFile($"clicked left in summarize, trying to enter q no. {this.indexQuestion} from q no. {this.indexQuestion + 1}");
-                    if (this.indexQuestion > 0 && this.indexQuestion < this.m_questions.Count)
+                    if (this.indexQuestion > 0 && this.indexQuestion < this.m_chapters[indexChapter].Count)
                     {
                         if ((this.indexQuestion + 1) % 10 == 1)
                             displayButtons(this.indexQuestion - 10, this.indexQuestion);
@@ -170,7 +285,7 @@ namespace clientForQuestions2._0
                     return true;
                 case Keys.Right:
                     LogFileHandler.writeIntoFile($"clicked right in summarize, trying to enter q no. {this.indexQuestion + 2} from q no. {this.indexQuestion + 1}");
-                    if (this.indexQuestion >= 0 && this.indexQuestion < this.m_questions.Count - 1)
+                    if (this.indexQuestion >= 0 && this.indexQuestion < this.m_chapters[indexChapter].Count - 1)
                     {
                         if ((this.indexQuestion + 1) % 10 == 0)
                             displayButtons(this.indexQuestion + 1, this.indexQuestion + 11);
@@ -214,7 +329,7 @@ namespace clientForQuestions2._0
 
         private void displayCol()
         {
-            dbQuestionParmeters q = this.m_questions[this.indexQuestion].question;
+            dbQuestionParmeters q = this.m_chapters[this.indexChapter][this.indexQuestion].question;
             JArray collection = (JArray)q.json_content["collections"];
             if (collection == null || collection.Count == 0)
             {
@@ -427,11 +542,18 @@ namespace clientForQuestions2._0
         private void OnCoreWebView2_colInitializationCompleted(object sender, EventArgs e)
         {
             if (col_id != 0)
-                webTaker.OnCoreWebView2_colInitializationCompleted(webView2_col, m_questions[0].question);
+                webTaker.OnCoreWebView2_colInitializationCompleted(webView2_col, m_chapters[indexChapter][indexQuestion].question);
             return;
         }
 
-
+        private void deleteButtons()
+        {
+            if (m_buttonList == null)
+                return;
+            foreach (Button btn in m_buttonList)
+                this.Controls.Remove(btn);
+            m_buttonList = new List<Button>();
+        }
 
         private void createButtons(List<afterQuestionParametrs> currQuestionRight)
         {
@@ -528,10 +650,10 @@ namespace clientForQuestions2._0
         private void Button_Click(int new_indexQuestion)
 //>>>>>>> 417be51f8b0ed105be95d0ddf17446bb40720811
         {
-            if (new_indexQuestion < 0 || new_indexQuestion >= this.m_questions.Count)
+            if (new_indexQuestion < 0 || new_indexQuestion >= this.m_chapters[indexChapter].Count)
                 return;
 
-            if (this.indexQuestion >= 0 && this.indexQuestion < this.m_questions.Count && m_buttonList[this.indexQuestion].Width != Q_BUTTON_SIZE)
+            if (this.indexQuestion >= 0 && this.indexQuestion < this.m_chapters[indexChapter].Count && m_buttonList[this.indexQuestion].Width != Q_BUTTON_SIZE)
             {
                 // setting the previous question button to normal size again
                 m_buttonList[this.indexQuestion].Width = Q_BUTTON_SIZE;
@@ -551,14 +673,14 @@ namespace clientForQuestions2._0
             //m_buttonList[this.indexQuestion].BackColor = System.Drawing.Color.Cyan; // change BackColor to cyan to highlight the current question
 
             //here we display the question and answer based on the index
-            string toDisplay = OperationsAndOtherUseful.get_string_of_question_and_explanation(this.m_questions[this.indexQuestion].question, this.m_questions[this.indexQuestion].userAnswer);
+            string toDisplay = OperationsAndOtherUseful.get_string_of_question_and_explanation(this.m_chapters[this.indexChapter][this.indexQuestion].question, this.m_chapters[this.indexChapter][this.indexQuestion].userAnswer);
             displayCol();
 
             // display the lesson of the new question
             display_lesson_of_current_question();
 
 
-            int secondsTook = this.m_questions[this.indexQuestion].timeForAnswer;
+            int secondsTook = this.m_chapters[this.indexChapter][this.indexQuestion].timeForAnswer;
             updateQuestionTimerText(secondsTook);
             updateStats();
             this.webView21.NavigateToString(toDisplay);
@@ -586,10 +708,10 @@ namespace clientForQuestions2._0
         }
         private void updateStats()
         {
-            dbQuestionParmeters c = this.m_questions[this.indexQuestion].question;
+            dbQuestionParmeters c = this.m_chapters[this.indexChapter][this.indexQuestion].question;
             this.category_of_q.Text = $"נושא: {c.category}";
             this.diffic_level.Text = $"רמת קושי: {c.json_content["difficulty_level"].ToString()}";
-            this.curr_q.Text = $"שאלה: {this.indexQuestion + 1}/{this.m_questions.Count}";
+            this.curr_q.Text = $"שאלה: {this.indexQuestion + 1}/{this.m_chapters[this.indexChapter].Count}";
             this.curr_q_id.Text = $"id: {c.questionId}";
 
             if (col_id != 0)
@@ -612,7 +734,7 @@ namespace clientForQuestions2._0
 
         private void nextQuestionsButton_Click(object sender, EventArgs e)
         {
-            for (int i = 0; i < m_questions.Count - 10; i += 10)
+            for (int i = 0; i < m_chapters[this.indexChapter].Count - 10; i += 10)
             {
                 if (m_currentIndexOfFirstButton == i)
                 {
@@ -625,7 +747,7 @@ namespace clientForQuestions2._0
 
         private void previousQuestionsButton_Click(object sender, EventArgs e)
         {
-            int maxQuestions = this.m_questions.Count;
+            int maxQuestions = this.m_chapters[this.indexChapter].Count;
 
             for (int i = 10; i < maxQuestions; i += 10)
             {
@@ -660,27 +782,52 @@ namespace clientForQuestions2._0
         private void display_lesson_of_current_question()
         {
             if (this.test_id != OperationsAndOtherUseful.NOT_A_REAL_TEST_ID)
-                this.lessons_richTextBox.Text = lessons_list[indexQuestion];
+                this.lessons_richTextBox.Text = lessons_list[this.indexChapter][indexQuestion];
         }
 
         private void lessons_richTextBox_TextChanged(object sender, EventArgs e)
         {
             if (this.test_id == OperationsAndOtherUseful.NOT_A_REAL_TEST_ID || this.indexQuestion < 0)
                 return;
-            String lesson = this.lessons_richTextBox.Text;
+            string lesson = this.lessons_richTextBox.Text;
+
+            // dont save if it didnt change
+            if (lesson == lessons_list[this.indexChapter][indexQuestion])
+                return;
 
             if (lesson.Replace("\n", "").Replace(" ", "").Length == 0) // if str only contains "\n" and " ", it is not valid
             {
                 // edit to an empty lesson, TODO maybe not delete the current lesson but rather leave it as it is
-                TestHistoryFileHandler.edit_lesson_in_test_history("", this.test_id, this.indexQuestion); // TODO add tirgul_id where 0
+                TestHistoryFileHandler.edit_lesson_in_test_history("", this.test_id, get_index_of_question_by_number_of_question_and_index_chapter(indexChapter, indexQuestion)); // TODO add tirgul_id where 0
             }
             else
             {
                 // TODO add tirgul_id
-                TestHistoryFileHandler.edit_lesson_in_test_history(lesson, this.test_id, this.indexQuestion); // TODO add tirgul_id where 0
+                TestHistoryFileHandler.edit_lesson_in_test_history(lesson, this.test_id, get_index_of_question_by_number_of_question_and_index_chapter(indexChapter, indexQuestion)); // TODO add tirgul_id where 0
             }
 
-            lessons_list[indexQuestion] = lesson;
+            lessons_list[this.indexChapter][indexQuestion] = lesson;
         }
+
+        private void chapters_comboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int new_chapter_index = chapters_comboBox.SelectedIndex;
+            if (new_chapter_index == this.indexChapter)
+                return;
+
+            this.indexQuestion = 0;
+            this.indexChapter = new_chapter_index;
+            m_currentIndexOfFirstButton = 0;
+
+            this.timeTookForQLabel.Text = "";
+            this.timeTookForQLabel.Visible = false;
+
+            deleteButtons();
+            createButtons(m_chapters[this.indexChapter]);
+            displayButtons();
+            Button_Click(0);
+            displayStatsOfWholeChapter();
+        }
+
     }
 }

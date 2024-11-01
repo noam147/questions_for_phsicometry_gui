@@ -298,15 +298,31 @@ namespace clientForQuestions2._0
                 if (selected_test_id == OperationsAndOtherUseful.NOT_A_REAL_TEST_ID)
                     return;
 
-                List<afterQuestionParametrs> afterQuestionParametrs = TestHistoryFileHandler.get_afterQuestionParametrs_of_test(selected_test_id);
-                List<afterQuestionParametrs> newafterQuestionParametrs = new List<afterQuestionParametrs>();
-                foreach (afterQuestionParametrs q in afterQuestionParametrs)
-                    if (q.question.questionId != TestHistoryFileHandler.CHAPTER_PARTITION_Q_ID)
-                        newafterQuestionParametrs.Add(q);
+                if(TestHistoryFileHandler.is_test_with_chapters(selected_test_id))
+                {
+                    TestWithChapters testWithChapters = TestHistoryFileHandler.get_test_with_chapters(selected_test_id);
+                    List<List<afterQuestionParametrs>> chapters = new List<List<afterQuestionParametrs>>();
+                    List<string> names_of_chapters = new List<string>();
+                    foreach (Test chap in testWithChapters.chapters)
+                    {
+                        chapters.Add(chap.m_afterQuestionParametrs);
+                        names_of_chapters.Add(chap.name);
+                    }
 
-                summrizePage s = new summrizePage(newafterQuestionParametrs, selected_test_id, 0);
-                s.Show();
-                this.Close();
+                    summrizePage s_ = new summrizePage(chapters, selected_test_id, 1, names_of_chapters);
+                    s_.Show();
+                    this.Close();
+
+                }
+                else
+                {
+                    summrizePage s = new summrizePage(TestHistoryFileHandler.get_afterQuestionParametrs_of_test(selected_test_id), selected_test_id, 0);
+                    s.Show();
+                    this.Close();
+
+                }
+
+
             }
 
             void redo_test_by_selected_id()
@@ -505,15 +521,29 @@ namespace clientForQuestions2._0
                     if (result == DialogResult.No) // the user isn't sure
                         return;
 
-                    List<afterQuestionParametrs> afterQuestionParametrs = TestHistoryFileHandler.get_afterQuestionParametrs_of_test(test_id);
-                    List<afterQuestionParametrs> newafterQuestionParametrs = new List<afterQuestionParametrs>();
-                    foreach (afterQuestionParametrs q in afterQuestionParametrs)
-                        if (q.question.questionId != TestHistoryFileHandler.CHAPTER_PARTITION_Q_ID)
-                            newafterQuestionParametrs.Add(q);
+                    if (TestHistoryFileHandler.is_test_with_chapters(test_id))
+                    {
+                        TestWithChapters testWithChapters = TestHistoryFileHandler.get_test_with_chapters(test_id);
+                        List<List<afterQuestionParametrs>> chapters = new List<List<afterQuestionParametrs>>();
+                        List<string> names_of_chapters = new List<string>();
+                        foreach (Test chap in testWithChapters.chapters)
+                        {
+                            chapters.Add(chap.m_afterQuestionParametrs);
+                            names_of_chapters.Add(chap.name);
+                        }
 
-                    summrizePage s = new summrizePage(newafterQuestionParametrs, test_id, 0);
-                    s.Show();
-                    this.Close();
+                        summrizePage s_ = new summrizePage(chapters, test_id, 1, names_of_chapters);
+                        s_.Show();
+                        this.Close();
+
+                    }
+                    else
+                    {
+                        summrizePage s = new summrizePage(TestHistoryFileHandler.get_afterQuestionParametrs_of_test(test_id), test_id, 0);
+                        s.Show();
+                        this.Close();
+
+                    }
                 }
             }
         }

@@ -227,7 +227,7 @@ namespace clientForQuestions2._0
                         insertCommand.Parameters.AddWithValue("@TimeForQuestion", -1);
                         insertCommand.Parameters.AddWithValue("@QuestionIsMarked", false);
                         insertCommand.Parameters.AddWithValue("@QuestionLesson", "");
-                        insertCommand.Parameters.AddWithValue("@TestType", $"תרגול #{test_id}");
+                        insertCommand.Parameters.AddWithValue("@TestName", $"תרגול #{test_id}");
                         insertCommand.Parameters.AddWithValue("@TestInfo", CHAPTER_PARTITION_TestInfo + chapter_names[i] + CHAPTER_PARTITION_TestInfo);
                         // Execute the insert command
                         insertCommand.ExecuteNonQuery();
@@ -538,23 +538,18 @@ namespace clientForQuestions2._0
 
         }
 
-        public static List<String> get_lessons_of_test_in_order(int test_id)
+        public static List<List<string>> get_lessons_of_test_with_chapters_in_order(int test_id)
         {
-
-            string selectQuery = @"
-                SELECT * 
-                FROM TestsHistoryData 
-                WHERE TestId = "+test_id+
-                " ORDER BY IndexOfQuestion ASC;";
-
-            List<Test> result =  getResultFromQuery(selectQuery);
-            List<string> lessons = new List<string>();
-            foreach (Test test in result) 
+            TestWithChapters result = get_test_with_chapters(test_id);
+            List<List<string>> lessons = new List<List<string>>();
+            foreach (Test chapter in result.chapters) 
             {
-                foreach(afterQuestionParametrs currParameters in test.m_afterQuestionParametrs)
+                lessons.Add(new List<string>());
+
+                foreach (afterQuestionParametrs currParameters in chapter.m_afterQuestionParametrs)
                 {
                     string currLesson = currParameters.lesson.Replace("clientForQuestions2._0.afterQuestionParametrs", "");
-                    lessons.Add(currLesson);
+                    lessons[lessons.Count - 1].Add(currLesson);
                 }
             }
             return lessons;
@@ -605,7 +600,29 @@ namespace clientForQuestions2._0
             return lessons;*/
         }
 
-        public static List<afterQuestionParametrs> get_afterQuestionParametrs_of_test(int test_id)
+        public static List<string> get_lessons_of_test_in_order(int test_id)
+        {
+
+            string selectQuery = @"
+                SELECT * 
+                FROM TestsHistoryData 
+                WHERE TestId = " + test_id +
+                " ORDER BY IndexOfQuestion ASC;";
+
+            List<Test> result = getResultFromQuery(selectQuery);
+            List<string> lessons = new List<string>();
+            foreach (Test test in result)
+            {
+                foreach (afterQuestionParametrs currParameters in test.m_afterQuestionParametrs)
+                {
+                    string currLesson = currParameters.lesson.Replace("clientForQuestions2._0.afterQuestionParametrs", "");
+                    lessons.Add(currLesson);
+                }
+            }
+            return lessons;
+        }
+
+            public static List<afterQuestionParametrs> get_afterQuestionParametrs_of_test(int test_id)
         {
 
             string selectQuery = @"

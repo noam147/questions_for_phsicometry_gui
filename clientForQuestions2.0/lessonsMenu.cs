@@ -91,6 +91,7 @@ namespace clientForQuestions2._0
                 DataGridViewRow clickedRow = lessons_dataGridView.Rows[e.RowIndex];
                 int index_of_question = Int32.Parse(clickedRow.Cells["IndexOfQuestion"].Value.ToString());
                 int test_id = Int32.Parse(clickedRow.Cells["מס' תרגול"].Value.ToString());
+
                 if (e.ColumnIndex == lessons_dataGridView.Columns["מועדפים"].Index)
                 {
                     bool isMarked = TestHistoryFileHandler.get_question_isMarked(test_id, index_of_question);
@@ -111,9 +112,30 @@ namespace clientForQuestions2._0
                 if (result == DialogResult.No) // the user isn't sure
                     return;
 
-                summrizePage s = new summrizePage(TestHistoryFileHandler.get_afterQuestionParametrs_of_test(test_id), test_id, index_of_question);
-                s.Show();
-                this.Close();
+
+                if (TestHistoryFileHandler.is_test_with_chapters(test_id))
+                {
+                    TestWithChapters testWithChapters = TestHistoryFileHandler.get_test_with_chapters(test_id);
+                    List<List<afterQuestionParametrs>> chapters = new List<List<afterQuestionParametrs>>();
+                    List<string> names_of_chapters = new List<string>();
+                    foreach (Test chap in testWithChapters.chapters)
+                    {
+                        chapters.Add(chap.m_afterQuestionParametrs);
+                        names_of_chapters.Add(chap.name);
+                    }
+
+                    summrizePage s_ = new summrizePage(chapters, test_id, index_of_question, names_of_chapters);
+                    s_.Show();
+                    this.Close();
+
+                }
+                else
+                {
+                    summrizePage s = new summrizePage(TestHistoryFileHandler.get_afterQuestionParametrs_of_test(test_id), test_id, index_of_question);
+                    s.Show();
+                    this.Close();
+
+                }
             }
 
         }

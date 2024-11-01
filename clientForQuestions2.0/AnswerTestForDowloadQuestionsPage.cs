@@ -48,7 +48,6 @@ namespace clientForQuestions2._0
             //}
 
             chapters_comboBox.Visible = true;
-            string output = "";
             foreach (Test chapter in chapters.chapters)
             {
                 chapters_comboBox.Items.Add(chapter.name);
