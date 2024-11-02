@@ -938,6 +938,28 @@ namespace clientForQuestions2._0
                 }
             }
         }
-           
+
+        public static string GetUniqueFileName(string filePath)
+        {
+            int GetNextAvailableSuffix()
+            {
+                int count = 1;
+                string directory = Path.GetDirectoryName(filePath);
+                string fileName = Path.GetFileNameWithoutExtension(filePath);
+                string extension = Path.GetExtension(filePath);
+
+                while (File.Exists(Path.Combine(directory, $"{fileName} ({count}){extension}")))
+                {
+                    count++;
+                }
+                return count;
+            }
+
+            return File.Exists(filePath)
+                ? Path.Combine(Path.GetDirectoryName(filePath),
+                               $"{Path.GetFileNameWithoutExtension(filePath)} ({GetNextAvailableSuffix()}){Path.GetExtension(filePath)}")
+                : filePath;
+        }
+
     }
 }

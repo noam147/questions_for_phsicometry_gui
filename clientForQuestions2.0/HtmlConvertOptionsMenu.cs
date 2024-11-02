@@ -183,12 +183,16 @@ namespace clientForQuestions2._0
                 saveFileDialog.DefaultExt = "pdf"; // Default file extension
                 saveFileDialog.FileName = $"test_{test_id}";
                 saveFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments); // Initial directory
+                saveFileDialog.OverwritePrompt = false; // Disable default overwrite prompt
 
                 if (saveFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     filePath_button.Enabled = false;
                     // The user selected a file location
                     this.file_path = saveFileDialog.FileName;
+                    // if this file name already exists
+                    this.file_path = OperationsAndOtherUseful.GetUniqueFileName(file_path);
+
 
                     save_button_Click();
                 }

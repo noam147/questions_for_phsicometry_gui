@@ -177,6 +177,8 @@ namespace clientForQuestions2._0
 
         private void LoadData()
         {
+            this.Cursor = Cursors.WaitCursor;
+
             // Bind the data to the DataGridView
             DataTable dataTable = TestHistoryFileHandler.get_lessons_from_history_for_DataGridView();
 
@@ -224,6 +226,8 @@ namespace clientForQuestions2._0
                         cell.Value = TestHistoryFileHandler.MARKED_FALSE;
                 }
             }
+
+            this.Cursor = Cursors.Default;
         }
 
         // enter the test when clicked the lesson

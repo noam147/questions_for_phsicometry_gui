@@ -103,6 +103,8 @@ namespace clientForQuestions2._0
 
         private void LoadData()
         {
+            this.Cursor = Cursors.WaitCursor;
+
             history_dataGridView.Rows.Clear();
             history_dataGridView.Columns.Clear();
             history_dataGridView.Refresh();
@@ -223,6 +225,8 @@ namespace clientForQuestions2._0
                 history_dataGridView.Visible = true;
                 emptyHistory_label.Visible = false;
             }
+
+            this.Cursor = Cursors.Default;
         }
 
         private void backToMainMenu_button_Click(object sender, EventArgs e)
