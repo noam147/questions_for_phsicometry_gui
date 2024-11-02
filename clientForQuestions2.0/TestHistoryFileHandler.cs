@@ -645,6 +645,30 @@ namespace clientForQuestions2._0
             return qs;
         }
 
+        public static List<List<afterQuestionParametrs>> get_afterQuestionParametrs_of_test_with_chapters(int test_id)
+        {
+            TestWithChapters result = get_test_with_chapters(test_id);
+            List<List<afterQuestionParametrs>> chapters = new List<List<afterQuestionParametrs>>();
+
+            foreach (Test chapter in result.chapters)
+                chapters.Add(chapter.m_afterQuestionParametrs);
+            return chapters;
+        }
+
+        public static List<List<dbQuestionParmeters>> get_dbQuestionParmeters_of_test_with_chapters(int test_id)
+        {
+            List<List<dbQuestionParmeters>> chapters = new List<List<dbQuestionParmeters>>();
+
+            foreach (List<afterQuestionParametrs> qs in get_afterQuestionParametrs_of_test_with_chapters(test_id))
+            {
+                chapters.Add(new List<dbQuestionParmeters>());
+                foreach (afterQuestionParametrs q in qs)
+                    chapters[chapters.Count - 1].Add(q.question);
+            }
+
+            return chapters;
+        }
+
         public static string get_type_of_test(int test_id)
         {
             string selectQuery = @"

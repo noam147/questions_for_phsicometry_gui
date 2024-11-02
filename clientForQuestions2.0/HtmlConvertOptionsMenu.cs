@@ -37,11 +37,12 @@ namespace clientForQuestions2._0
 
             InitializeComponent();
             //finalHtmlContentForFile = get_html(false);
-            explanation_comboBox.SelectedIndex = 0;
             at_start();
         }
         private void at_start()
         {
+            explanation_comboBox.SelectedIndex = 0;
+
             // for info labels:
             this.i_toolTip.SetToolTip(this.i_downloadButton, @"יחד עם קובץ השאלות, נשמר גם קובץ המכיל את התשובות הסופיות לכל שאלה
 הקובץ בעל אותו שם כקובץ השאלות אך מסתיים ב-
@@ -154,7 +155,6 @@ namespace clientForQuestions2._0
 
             finalHtmlContentForFile = finalSimulation;
             filePath_button_Click(null, null);
-
         }
         public HtmlConvertOptionsMenu(List<List<dbQuestionParmeters>> multipleQuestionsfiles, string test_type)
         {
@@ -188,6 +188,10 @@ namespace clientForQuestions2._0
                 if (saveFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     filePath_button.Enabled = false;
+                    explanation_comboBox.Enabled = false;
+                    isNum_checkBox.Enabled = false;
+                    withTestId_checkBox.Enabled = false;
+
                     // The user selected a file location
                     this.file_path = saveFileDialog.FileName;
                     // if this file name already exists
@@ -240,8 +244,20 @@ namespace clientForQuestions2._0
             }
 
             int prev_col_id = 0;
+            int sum_last_qs = 0; // for chapters
             for (int i = 0; i < questions.Count; i++)
             {
+                if (questions[i].questionId == TestHistoryFileHandler.CHAPTER_PARTITION_Q_ID)
+                {
+                    if (i != 0)
+                    {
+                        html += "<div style='page-break-after: always;'></div>";
+                        html_end += "<div style='page-break-after: always;'></div>";
+                    }
+                    sum_last_qs = i + 1;
+                    continue;
+                }
+
                 html += $"<div class='question-container'>";
                 html_end += $"<div class='question-container'>";
 
@@ -251,7 +267,9 @@ namespace clientForQuestions2._0
 
                 if (curr_col_id != 0 && curr_col_id != prev_col_id)
                 {
-                    html += "<div style='page-break-after: always;'></div>" + OperationsAndOtherUseful.get_string_of_img_col_html(a.json_content) + $"</div> <div class='question-container'>";
+                    if (i - sum_last_qs != 0)
+                        html += "<div style='page-break-after: always;'></div>";
+                    html += OperationsAndOtherUseful.get_string_of_img_col_html(a.json_content) + $"</div> <div class='question-container'>";
                     //html += "<div style=\"top: 50%; left: 0; width: 100vw; height: 3px; background-color: lightgray;\"></div>";
                 }
                 string currentQuestion = "";
@@ -285,9 +303,9 @@ namespace clientForQuestions2._0
 
                 if (isNum)
                 {
-                    html += addNumberToQuestion(currentQuestion, i + 1, a.questionId); ;
+                    html += addNumberToQuestion(currentQuestion, i + 1 - sum_last_qs, a.questionId); ;
                     if (selected_explanationsOption_index == 1)
-                        html_end += addNumberToQuestion(currentQuestion_end, i + 1, a.questionId); ;
+                        html_end += addNumberToQuestion(currentQuestion_end, i + 1 - sum_last_qs, a.questionId); ;
                 }
                 else
                 {
@@ -495,6 +513,8 @@ page-break-inside: avoid;
         {
             try
             {
+                progressBar1.Visible = true;
+                this.Cursor = Cursors.WaitCursor;
                 // Write the HTML content to the file
                 if(finalHtmlContentForFile == whenInitHtmlContent)
                 {
@@ -511,6 +531,10 @@ page-break-inside: avoid;
                 await save_html_as_pdf(answers_filePath, this.htmlContentOfAnswers);
 
                 save_questions_to_testHistory();
+
+                progressBar1.Visible = false;
+                this.Cursor = Cursors.Default;
+
                 MessageBox.Show($"File save to: '{this.file_path}'");
                 this.Close();
             }

@@ -37,6 +37,7 @@
             this.i_downloadButton = new System.Windows.Forms.Label();
             this.i_toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.withTestId_checkBox = new System.Windows.Forms.CheckBox();
+            this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.SuspendLayout();
             // 
             // filePath_button
@@ -118,12 +119,23 @@
             this.withTestId_checkBox.Text = "לציין את מספר התרגול בכותרת";
             this.withTestId_checkBox.UseVisualStyleBackColor = true;
             // 
+            // progressBar1
+            // 
+            this.progressBar1.Location = new System.Drawing.Point(12, 109);
+            this.progressBar1.MarqueeAnimationSpeed = 50;
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(299, 39);
+            this.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
+            this.progressBar1.TabIndex = 0;
+            this.progressBar1.Visible = false;
+            // 
             // HtmlConvertOptionsMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(323, 240);
+            this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.withTestId_checkBox);
             this.Controls.Add(this.i_downloadButton);
             this.Controls.Add(this.explanation_comboBox);
@@ -150,5 +162,6 @@
         private System.Windows.Forms.Label i_downloadButton;
         public System.Windows.Forms.ToolTip i_toolTip;
         private System.Windows.Forms.CheckBox withTestId_checkBox;
+        private System.Windows.Forms.ProgressBar progressBar1;
     }
 }

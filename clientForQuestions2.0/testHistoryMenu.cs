@@ -246,7 +246,7 @@ namespace clientForQuestions2._0
             DialogResult result = MessageBox.Show("?האם אתה בטוח שאתה רוצה לאפס את היסטורית התרגולים",
                                       "Confirmation",
                                       MessageBoxButtons.YesNo,
-                                      MessageBoxIcon.Question);
+                                      MessageBoxIcon.Warning);
             if (result == DialogResult.No) // the user isn't sure
                 return;
 
