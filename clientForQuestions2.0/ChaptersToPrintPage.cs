@@ -26,6 +26,24 @@ namespace clientForQuestions2._0
         {
             List<List<dbQuestionParmeters>> finalSimulation = new List<List<dbQuestionParmeters>>();
             List<dbQuestionParmeters> currQuestions;
+
+            for (int i = 0; i < this.hebrewAmount.Value; i++)
+            {
+                if (hebrewTextsCheckBox.Checked)
+                {
+                    currQuestions = OperationsAndOtherUseful.sendChapter_hebrew_Questions();
+                }
+                else { currQuestions = OperationsAndOtherUseful.sendChapter_hebrew_Questions_withoutText(); }
+                finalSimulation.Add(currQuestions);
+            }
+            for (int i = 0; i < this.mathAmount.Value; i++)
+            {
+                if (this.mathGraphCheckBox.Checked)
+                { currQuestions = OperationsAndOtherUseful.sendChapter_math_Questions(); }
+                else { currQuestions = OperationsAndOtherUseful.sendChapter_math_Questions_without_graph(new List<int> { }); }
+
+                finalSimulation.Add(currQuestions);
+            }
             for (int i = 0; i < this.englishAmount.Value; i++)
             {
                 if(this.englishTextsCheckBox.Checked)
@@ -35,26 +53,23 @@ namespace clientForQuestions2._0
                 else { currQuestions = OperationsAndOtherUseful.sendChapter_english_Questions_withoutTexts(); }
                 finalSimulation.Add(currQuestions);
             }
-            for (int i = 0; i < this.mathAmount.Value; i++)
+
+
+
+            // shuffle if random order is chosen
+            if (isRand_checkBox.Checked)
             {
-                if(this.mathGraphCheckBox.Checked)
-                { currQuestions = OperationsAndOtherUseful.sendChapter_math_Questions(); }
-                else { currQuestions = OperationsAndOtherUseful.sendChapter_math_Questions_without_graph(new List<int> { }); }
-               
-                finalSimulation.Add(currQuestions);
-            }
-            for (int i = 0; i < this.hebrewAmount.Value; i++)
-            {
-                if(hebrewTextsCheckBox.Checked)
+                Random rng = new Random();
+                for (int i = finalSimulation.Count - 1; i > 0; i--)
                 {
-                    currQuestions = OperationsAndOtherUseful.sendChapter_hebrew_Questions();
+                    int j = rng.Next(i + 1); // Random index from 0 to i
+                    (finalSimulation[i], finalSimulation[j]) = (finalSimulation[j], finalSimulation[i]); // Swap elements
                 }
-                else { currQuestions = OperationsAndOtherUseful.sendChapter_hebrew_Questions_withoutText(); }
-                finalSimulation.Add(currQuestions);
             }
-            HtmlConvertOptionsMenu n = new HtmlConvertOptionsMenu(finalSimulation, "סימולציה להורדה");
+
+            HtmlConvertOptionsMenu h = new HtmlConvertOptionsMenu(finalSimulation, "סימולציה להורדה");
             //HtmlConvertOptionsMenu n = new HtmlConvertOptionsMenu();
-            try { n.Show(); }
+            try { h.Show(); }
             catch (Exception ex) { }
         }
 
@@ -64,6 +79,46 @@ namespace clientForQuestions2._0
 
             c.Show();
             this.Close();
+        }
+
+        private void fullSimulation_button_Click(object sender, EventArgs e)
+        {
+            // choose a chapter type without a pylot
+            Random rng = new Random();
+            int chapter_without_pylot = rng.Next(3);
+
+            // get the qs
+            List<List<dbQuestionParmeters>> finalSimulation = new List<List<dbQuestionParmeters>>();
+            List<dbQuestionParmeters> currQuestions;
+
+            for (int i = 0; i < (chapter_without_pylot == 0 ? 2 : 3); i++)
+            {
+                currQuestions = OperationsAndOtherUseful.sendChapter_hebrew_Questions();
+                finalSimulation.Add(currQuestions);
+            }
+            for (int i = 0; i < (chapter_without_pylot == 1 ? 2 : 3); i++)
+            {
+                currQuestions = OperationsAndOtherUseful.sendChapter_math_Questions();
+                finalSimulation.Add(currQuestions);
+            }
+            for (int i = 0; i < (chapter_without_pylot == 2 ? 2 : 3); i++)
+            {
+                currQuestions = OperationsAndOtherUseful.sendChapter_english_Questions();
+                finalSimulation.Add(currQuestions);
+            }
+
+
+            //shuffle chapters
+            for (int i = finalSimulation.Count - 1; i > 0; i--)
+            {
+                int j = rng.Next(i + 1); // Random index from 0 to i
+                (finalSimulation[i], finalSimulation[j]) = (finalSimulation[j], finalSimulation[i]); // Swap elements
+            }
+
+            HtmlConvertOptionsMenu h = new HtmlConvertOptionsMenu(finalSimulation, "סימולציה מלאה להורדה");
+            //HtmlConvertOptionsMenu n = new HtmlConvertOptionsMenu();
+            try { h.Show(); }
+            catch (Exception ex) { }
         }
     }
 }

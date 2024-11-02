@@ -40,6 +40,8 @@
             this.englishTextsCheckBox = new System.Windows.Forms.CheckBox();
             this.hebrewTextsCheckBox = new System.Windows.Forms.CheckBox();
             this.mathGraphCheckBox = new System.Windows.Forms.CheckBox();
+            this.isRand_checkBox = new System.Windows.Forms.CheckBox();
+            this.fullSimulation_button = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.englishAmount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mathAmount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.hebrewAmount)).BeginInit();
@@ -110,9 +112,9 @@
             this.mathLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.mathLabel.Location = new System.Drawing.Point(319, 132);
             this.mathLabel.Name = "mathLabel";
-            this.mathLabel.Size = new System.Drawing.Size(64, 27);
+            this.mathLabel.Size = new System.Drawing.Size(76, 27);
             this.mathLabel.TabIndex = 35;
-            this.mathLabel.Text = "כמותי";
+            this.mathLabel.Text = "כמותית";
             // 
             // hebrewTitle
             // 
@@ -121,9 +123,9 @@
             this.hebrewTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.hebrewTitle.Location = new System.Drawing.Point(215, 132);
             this.hebrewTitle.Name = "hebrewTitle";
-            this.hebrewTitle.Size = new System.Drawing.Size(70, 27);
+            this.hebrewTitle.Size = new System.Drawing.Size(82, 27);
             this.hebrewTitle.TabIndex = 36;
-            this.hebrewTitle.Text = "מילולי";
+            this.hebrewTitle.Text = "מילולית";
             // 
             // backToMainMenu
             // 
@@ -169,16 +171,43 @@
             this.mathGraphCheckBox.Location = new System.Drawing.Point(312, 88);
             this.mathGraphCheckBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.mathGraphCheckBox.Name = "mathGraphCheckBox";
-            this.mathGraphCheckBox.Size = new System.Drawing.Size(69, 20);
+            this.mathGraphCheckBox.Size = new System.Drawing.Size(86, 20);
             this.mathGraphCheckBox.TabIndex = 40;
-            this.mathGraphCheckBox.Text = "עם גרף";
+            this.mathGraphCheckBox.Text = "עם תרשים";
             this.mathGraphCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // isRand_checkBox
+            // 
+            this.isRand_checkBox.AutoSize = true;
+            this.isRand_checkBox.Checked = true;
+            this.isRand_checkBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.isRand_checkBox.Location = new System.Drawing.Point(41, 298);
+            this.isRand_checkBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.isRand_checkBox.Name = "isRand_checkBox";
+            this.isRand_checkBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.isRand_checkBox.Size = new System.Drawing.Size(90, 20);
+            this.isRand_checkBox.TabIndex = 41;
+            this.isRand_checkBox.Text = "סדר אקראי";
+            this.isRand_checkBox.UseVisualStyleBackColor = true;
+            // 
+            // fullSimulation_button
+            // 
+            this.fullSimulation_button.BackColor = System.Drawing.Color.Gold;
+            this.fullSimulation_button.Location = new System.Drawing.Point(581, 123);
+            this.fullSimulation_button.Name = "fullSimulation_button";
+            this.fullSimulation_button.Size = new System.Drawing.Size(129, 75);
+            this.fullSimulation_button.TabIndex = 42;
+            this.fullSimulation_button.Text = "הורדת 8 פרקים בסדר אקראי\r\n(סימולציה מלאה)";
+            this.fullSimulation_button.UseVisualStyleBackColor = false;
+            this.fullSimulation_button.Click += new System.EventHandler(this.fullSimulation_button_Click);
             // 
             // ChaptersToPrintPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(711, 360);
+            this.Controls.Add(this.fullSimulation_button);
+            this.Controls.Add(this.isRand_checkBox);
             this.Controls.Add(this.mathGraphCheckBox);
             this.Controls.Add(this.hebrewTextsCheckBox);
             this.Controls.Add(this.englishTextsCheckBox);
@@ -215,5 +244,7 @@
         private System.Windows.Forms.CheckBox englishTextsCheckBox;
         private System.Windows.Forms.CheckBox hebrewTextsCheckBox;
         private System.Windows.Forms.CheckBox mathGraphCheckBox;
+        private System.Windows.Forms.CheckBox isRand_checkBox;
+        private System.Windows.Forms.Button fullSimulation_button;
     }
 }
