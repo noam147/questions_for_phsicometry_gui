@@ -134,7 +134,7 @@
             this.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.RightToLeftLayout = true;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "HtmlConvertOptionsMenu";
+            this.Text = "הורדת תרגול";
             this.Load += new System.EventHandler(this.HtmlConvertOptionsMenu_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

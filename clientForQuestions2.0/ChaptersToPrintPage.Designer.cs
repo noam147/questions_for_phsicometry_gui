@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ChaptersToPrintPage));
             this.englishAmount = new System.Windows.Forms.NumericUpDown();
             this.mathAmount = new System.Windows.Forms.NumericUpDown();
             this.hebrewAmount = new System.Windows.Forms.NumericUpDown();
@@ -46,50 +47,46 @@
             // 
             // englishAmount
             // 
-            this.englishAmount.Location = new System.Drawing.Point(357, 212);
-            this.englishAmount.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.englishAmount.Location = new System.Drawing.Point(419, 176);
             this.englishAmount.Maximum = new decimal(new int[] {
             10,
             0,
             0,
             0});
             this.englishAmount.Name = "englishAmount";
-            this.englishAmount.Size = new System.Drawing.Size(86, 26);
+            this.englishAmount.Size = new System.Drawing.Size(76, 22);
             this.englishAmount.TabIndex = 17;
             // 
             // mathAmount
             // 
-            this.mathAmount.Location = new System.Drawing.Point(244, 212);
-            this.mathAmount.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.mathAmount.Location = new System.Drawing.Point(319, 176);
             this.mathAmount.Maximum = new decimal(new int[] {
             10,
             0,
             0,
             0});
             this.mathAmount.Name = "mathAmount";
-            this.mathAmount.Size = new System.Drawing.Size(86, 26);
+            this.mathAmount.Size = new System.Drawing.Size(76, 22);
             this.mathAmount.TabIndex = 17;
             // 
             // hebrewAmount
             // 
-            this.hebrewAmount.Location = new System.Drawing.Point(127, 212);
-            this.hebrewAmount.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.hebrewAmount.Location = new System.Drawing.Point(215, 176);
             this.hebrewAmount.Maximum = new decimal(new int[] {
             10,
             0,
             0,
             0});
             this.hebrewAmount.Name = "hebrewAmount";
-            this.hebrewAmount.Size = new System.Drawing.Size(86, 26);
+            this.hebrewAmount.Size = new System.Drawing.Size(76, 22);
             this.hebrewAmount.TabIndex = 18;
             this.hebrewAmount.ValueChanged += new System.EventHandler(this.numericUpDown2_ValueChanged);
             // 
             // simulationDownloadButton
             // 
-            this.simulationDownloadButton.Location = new System.Drawing.Point(244, 280);
-            this.simulationDownloadButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.simulationDownloadButton.Location = new System.Drawing.Point(319, 230);
             this.simulationDownloadButton.Name = "simulationDownloadButton";
-            this.simulationDownloadButton.Size = new System.Drawing.Size(111, 76);
+            this.simulationDownloadButton.Size = new System.Drawing.Size(99, 61);
             this.simulationDownloadButton.TabIndex = 33;
             this.simulationDownloadButton.Text = "הורדת פרקים";
             this.simulationDownloadButton.UseVisualStyleBackColor = true;
@@ -100,9 +97,9 @@
             this.titleOfPage.AutoSize = true;
             this.titleOfPage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.titleOfPage.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.titleOfPage.Location = new System.Drawing.Point(357, 157);
+            this.titleOfPage.Location = new System.Drawing.Point(419, 132);
             this.titleOfPage.Name = "titleOfPage";
-            this.titleOfPage.Size = new System.Drawing.Size(86, 31);
+            this.titleOfPage.Size = new System.Drawing.Size(73, 27);
             this.titleOfPage.TabIndex = 34;
             this.titleOfPage.Text = "אנגלית";
             // 
@@ -111,9 +108,9 @@
             this.mathLabel.AutoSize = true;
             this.mathLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.mathLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.mathLabel.Location = new System.Drawing.Point(244, 157);
+            this.mathLabel.Location = new System.Drawing.Point(319, 132);
             this.mathLabel.Name = "mathLabel";
-            this.mathLabel.Size = new System.Drawing.Size(75, 31);
+            this.mathLabel.Size = new System.Drawing.Size(64, 27);
             this.mathLabel.TabIndex = 35;
             this.mathLabel.Text = "כמותי";
             // 
@@ -122,18 +119,17 @@
             this.hebrewTitle.AutoSize = true;
             this.hebrewTitle.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.hebrewTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.hebrewTitle.Location = new System.Drawing.Point(127, 157);
+            this.hebrewTitle.Location = new System.Drawing.Point(215, 132);
             this.hebrewTitle.Name = "hebrewTitle";
-            this.hebrewTitle.Size = new System.Drawing.Size(80, 31);
+            this.hebrewTitle.Size = new System.Drawing.Size(70, 27);
             this.hebrewTitle.TabIndex = 36;
             this.hebrewTitle.Text = "מילולי";
             // 
             // backToMainMenu
             // 
-            this.backToMainMenu.Location = new System.Drawing.Point(29, 23);
-            this.backToMainMenu.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.backToMainMenu.Location = new System.Drawing.Point(26, 18);
             this.backToMainMenu.Name = "backToMainMenu";
-            this.backToMainMenu.Size = new System.Drawing.Size(141, 91);
+            this.backToMainMenu.Size = new System.Drawing.Size(125, 73);
             this.backToMainMenu.TabIndex = 37;
             this.backToMainMenu.Text = "חזרה לתפריט הראשי";
             this.backToMainMenu.UseVisualStyleBackColor = true;
@@ -144,10 +140,10 @@
             this.englishTextsCheckBox.AutoSize = true;
             this.englishTextsCheckBox.Checked = true;
             this.englishTextsCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.englishTextsCheckBox.Location = new System.Drawing.Point(357, 102);
+            this.englishTextsCheckBox.Location = new System.Drawing.Point(419, 88);
             this.englishTextsCheckBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.englishTextsCheckBox.Name = "englishTextsCheckBox";
-            this.englishTextsCheckBox.Size = new System.Drawing.Size(96, 24);
+            this.englishTextsCheckBox.Size = new System.Drawing.Size(79, 20);
             this.englishTextsCheckBox.TabIndex = 38;
             this.englishTextsCheckBox.Text = "עם טקסט";
             this.englishTextsCheckBox.UseVisualStyleBackColor = true;
@@ -157,10 +153,10 @@
             this.hebrewTextsCheckBox.AutoSize = true;
             this.hebrewTextsCheckBox.Checked = true;
             this.hebrewTextsCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.hebrewTextsCheckBox.Location = new System.Drawing.Point(127, 102);
+            this.hebrewTextsCheckBox.Location = new System.Drawing.Point(215, 88);
             this.hebrewTextsCheckBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.hebrewTextsCheckBox.Name = "hebrewTextsCheckBox";
-            this.hebrewTextsCheckBox.Size = new System.Drawing.Size(96, 24);
+            this.hebrewTextsCheckBox.Size = new System.Drawing.Size(79, 20);
             this.hebrewTextsCheckBox.TabIndex = 39;
             this.hebrewTextsCheckBox.Text = "עם טקסט";
             this.hebrewTextsCheckBox.UseVisualStyleBackColor = true;
@@ -170,19 +166,19 @@
             this.mathGraphCheckBox.AutoSize = true;
             this.mathGraphCheckBox.Checked = true;
             this.mathGraphCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.mathGraphCheckBox.Location = new System.Drawing.Point(236, 102);
+            this.mathGraphCheckBox.Location = new System.Drawing.Point(312, 88);
             this.mathGraphCheckBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.mathGraphCheckBox.Name = "mathGraphCheckBox";
-            this.mathGraphCheckBox.Size = new System.Drawing.Size(83, 24);
+            this.mathGraphCheckBox.Size = new System.Drawing.Size(69, 20);
             this.mathGraphCheckBox.TabIndex = 40;
             this.mathGraphCheckBox.Text = "עם גרף";
             this.mathGraphCheckBox.UseVisualStyleBackColor = true;
             // 
             // ChaptersToPrintPage
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(711, 360);
             this.Controls.Add(this.mathGraphCheckBox);
             this.Controls.Add(this.hebrewTextsCheckBox);
             this.Controls.Add(this.englishTextsCheckBox);
@@ -194,8 +190,10 @@
             this.Controls.Add(this.hebrewAmount);
             this.Controls.Add(this.mathAmount);
             this.Controls.Add(this.englishAmount);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "ChaptersToPrintPage";
-            this.Text = "ChaptersToPrintPage";
+            this.Text = "תפריט פרקים להורדה";
             ((System.ComponentModel.ISupportInitialize)(this.englishAmount)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.mathAmount)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.hebrewAmount)).EndInit();

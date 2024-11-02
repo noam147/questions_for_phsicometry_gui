@@ -199,7 +199,7 @@
             this.Controls.Add(this.backToMainMenu_button);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "testHistoryMenu";
-            this.Text = "testHistoryMenu";
+            this.Text = "היסטורית תרגולים";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.testHistoryMenu_Load);
             ((System.ComponentModel.ISupportInitialize)(this.history_dataGridView)).EndInit();

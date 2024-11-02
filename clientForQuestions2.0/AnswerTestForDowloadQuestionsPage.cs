@@ -106,6 +106,8 @@ namespace clientForQuestions2._0
 
                 // Subscribe to ValueChanged event
                 textBox.TextChanged += TextBox_TextChanged;
+                textBox.KeyDown += textBox_KeyDown;
+                textBox.Enter += textBox_Enter;
 
                 this.Controls.Add(textBox);
 
@@ -130,34 +132,48 @@ namespace clientForQuestions2._0
         {
             TextBox textBox = ((TextBox)sender);
 
-            // the user just deleted their answer
-            if (textBox.Text == "")
-                return;
-
-            // Allow only 0-4 as inputs
-            if (!(new List<string> { "0", "1", "2", "3", "4" }).Contains(textBox.Text))
-            {
-                textBox.Text = textBox.Text[0].ToString();
-                if (!(new List<string> { "0", "1", "2", "3", "4" }).Contains(textBox.Text))
-                    textBox.Text = "";
-                return;
-            }
-
             int question_num = 0;
             try
             {
                 question_num = int.Parse(textBox.Name);
             }
-            catch {  }
+            catch { }
 
-            int userAnswer = int.Parse(textBox.Text);
+            // Allow only 0-4 as inputs, and empty str if the user just deleted their answer
+            if (!(new List<string> { "0", "1", "2", "3", "4" }).Contains(textBox.Text))
+            {
+                if (textBox.Text.Length == 1)
+                {
+                    int previous_answer = questions[question_num - 1].userAnswer != OperationsAndOtherUseful.SKIPPED_Q ? questions[question_num - 1].userAnswer : 0;
+                    textBox.Text = previous_answer == 0 ? "" : $"{previous_answer}";
+                }
+                else if (textBox.Text.Length == 2)
+                {
+                    int previous_answer = questions[question_num - 1].userAnswer != OperationsAndOtherUseful.SKIPPED_Q ? questions[question_num - 1].userAnswer : 0;
+                    string current_answer = textBox.Text.EndsWith($"{previous_answer}") ? textBox.Text[0].ToString() : textBox.Text[1].ToString();
+                    // if new answer isn't legall
+                    if (!(new List<string> { "0", "1", "2", "3", "4" }).Contains(current_answer))
+                    {
+                        textBox.Text = $"{previous_answer}";
+                    }
+                    else
+                        textBox.Text = current_answer;
+                }
+            }
+
+            int userAnswer;
+            if (textBox.Text == "")
+                userAnswer = 0;
+            else
+                userAnswer = int.Parse(textBox.Text);
+
             afterQuestionParametrs q = questions[question_num - 1];
-            if (textBox.Text == "0")
+            if (userAnswer == 0)
                 userAnswer = OperationsAndOtherUseful.SKIPPED_Q;
             q.userAnswer = userAnswer;
             questions[question_num - 1] = q;
 
-            if (question_num != answer_boxes.Count) { 
+            if (question_num != answer_boxes.Count) {
                 if (question_num % ANSWER_BOXES_SHOWN == 0)
                 {
                     displayAnswerBoxes(question_num, question_num + ANSWER_BOXES_SHOWN);
@@ -168,6 +184,54 @@ namespace clientForQuestions2._0
                     answer_boxes[question_num].Item1.Focus();
                 }
             }
+        }
+
+        private void textBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            int question_num = 0;
+            try
+            {
+                question_num = int.Parse(((TextBox)sender).Name);
+            }
+            catch { }
+
+            // Check if the Enter key was pressed
+            if (e.KeyCode == Keys.Enter || e.KeyCode == Keys.Right)
+            {
+                if (question_num != answer_boxes.Count)
+                {
+                    if (question_num % ANSWER_BOXES_SHOWN == 0)
+                    {
+                        displayAnswerBoxes(question_num, question_num + ANSWER_BOXES_SHOWN);
+                    }
+                    else
+                    {
+                        // Move focus to the next TextBox when the value changes
+                        answer_boxes[question_num].Item1.Focus();
+                    }
+                }
+
+                e.SuppressKeyPress = true; // Prevents the 'ding' sound on Enter
+            }
+            else if (e.KeyCode == Keys.Left)
+            {
+                if (question_num != 1)
+                {
+                    if ((question_num-1) % ANSWER_BOXES_SHOWN == 0)
+                    {
+                        displayAnswerBoxes(question_num - 1 - ANSWER_BOXES_SHOWN, question_num - 1);
+                    }
+                    // Move focus to the next TextBox when the value changes
+                    answer_boxes[question_num-2].Item1.Focus();
+
+                    e.SuppressKeyPress = true; // Prevents the default action (if any)
+                }
+            }
+        }
+
+        private void textBox_Enter(object sender, EventArgs e)
+        {
+            ((TextBox)sender).SelectAll(); // Selects all text when the TextBox gains focus
         }
 
         private void displayAnswerBoxes()

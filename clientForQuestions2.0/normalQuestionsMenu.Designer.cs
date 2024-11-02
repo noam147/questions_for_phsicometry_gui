@@ -1082,7 +1082,7 @@ namespace clientForQuestions2._0
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "normalQuestionsMenu";
-            this.Text = "normalQuestionsMenu";
+            this.Text = "תפריט תרגול רגיל";
             this.Load += new System.EventHandler(this.normalQuestionsMenu_Load);
             ((System.ComponentModel.ISupportInitialize)(this.amountOfQuestionNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.difficulyLevelMaxVal)).EndInit();

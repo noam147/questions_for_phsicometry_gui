@@ -145,7 +145,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "collectionsQuestionsMenu";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "collectionsQuestionsMenu";
+            this.Text = "תפריט תרגול קטעי קריאה ותרשימים";
             this.ResumeLayout(false);
             this.PerformLayout();
 

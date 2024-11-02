@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AnswerTestForDowloadQuestionsPage));
             this.button1 = new System.Windows.Forms.Button();
             this.chapters_comboBox = new System.Windows.Forms.ComboBox();
             this.nextQuestionsButton = new clientForQuestions2._0.RJButtons2();
@@ -102,9 +103,10 @@
             this.Controls.Add(this.nextQuestionsButton);
             this.Controls.Add(this.previousQuestionsButton);
             this.Controls.Add(this.button1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "AnswerTestForDowloadQuestionsPage";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "AnswerTestForDowloadQuestionsPage";
+            this.Text = "מילוי תשובות של תרגול להורדה";
             this.ResumeLayout(false);
 
         }

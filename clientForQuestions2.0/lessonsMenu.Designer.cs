@@ -169,7 +169,7 @@
             this.Controls.Add(this.backToMainMenu_button);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "lessonsMenu";
-            this.Text = "lessonsMenu";
+            this.Text = "היסטורית לקחים";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.lessonsMenu_Load);
             ((System.ComponentModel.ISupportInitialize)(this.lessons_dataGridView)).EndInit();

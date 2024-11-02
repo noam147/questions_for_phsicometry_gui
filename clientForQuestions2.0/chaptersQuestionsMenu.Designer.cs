@@ -233,7 +233,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "chaptersQuestionsMenu";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "chaptersQuestionsMenu";
+            this.Text = "תפריט תרגול פרקים מלאים";
             this.ResumeLayout(false);
             this.PerformLayout();
 
