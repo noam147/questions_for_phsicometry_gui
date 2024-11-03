@@ -42,6 +42,7 @@
             this.mathGraphCheckBox = new System.Windows.Forms.CheckBox();
             this.isRand_checkBox = new System.Windows.Forms.CheckBox();
             this.fullSimulation_button = new System.Windows.Forms.Button();
+            this.with_already_answered_qs_checkBox = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.englishAmount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mathAmount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.hebrewAmount)).BeginInit();
@@ -201,11 +202,24 @@
             this.fullSimulation_button.UseVisualStyleBackColor = false;
             this.fullSimulation_button.Click += new System.EventHandler(this.fullSimulation_button_Click);
             // 
+            // with_already_answered_qs_checkBox
+            // 
+            this.with_already_answered_qs_checkBox.AutoSize = true;
+            this.with_already_answered_qs_checkBox.Location = new System.Drawing.Point(41, 271);
+            this.with_already_answered_qs_checkBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.with_already_answered_qs_checkBox.Name = "with_already_answered_qs_checkBox";
+            this.with_already_answered_qs_checkBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.with_already_answered_qs_checkBox.Size = new System.Drawing.Size(160, 20);
+            this.with_already_answered_qs_checkBox.TabIndex = 43;
+            this.with_already_answered_qs_checkBox.Text = "עם שאלות שכבר עשיתי";
+            this.with_already_answered_qs_checkBox.UseVisualStyleBackColor = true;
+            // 
             // ChaptersToPrintPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(711, 360);
+            this.Controls.Add(this.with_already_answered_qs_checkBox);
             this.Controls.Add(this.fullSimulation_button);
             this.Controls.Add(this.isRand_checkBox);
             this.Controls.Add(this.mathGraphCheckBox);
@@ -246,5 +260,6 @@
         private System.Windows.Forms.CheckBox mathGraphCheckBox;
         private System.Windows.Forms.CheckBox isRand_checkBox;
         private System.Windows.Forms.Button fullSimulation_button;
+        private System.Windows.Forms.CheckBox with_already_answered_qs_checkBox;
     }
 }

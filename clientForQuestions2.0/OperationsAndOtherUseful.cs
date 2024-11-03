@@ -323,7 +323,7 @@ namespace clientForQuestions2._0
         {
             // aligned to the right
             string htmlContent = "<head> <style> body { text-align: right; /* Right-align all text */ } </style> </head> " + "<div style=\"direction: rtl; text-align: right;\">" + s + "</div>";
-            
+
             // for hebrew words in MathML (inside <mi> </mi>)
             //
             // Regular expression to match Hebrew characters (Unicode)
@@ -371,9 +371,9 @@ namespace clientForQuestions2._0
 
         public static int get_col_id_of_question(JToken json)
         {
-            if ( ((JArray)json["collections"]).Count == 0)
+            if (((JArray)json["collections"]).Count == 0)
                 return 0;
-            return (int) json["collections"][0]["id"];
+            return (int)json["collections"][0]["id"];
         }
 
         public static string get_string_of_img_col_html(JToken json)
@@ -442,7 +442,7 @@ namespace clientForQuestions2._0
                 else
                 {
                     string startOfQuestion = list[i].Substring(0, currIndex);
-                    list[i] = startOfQuestion+$"<p>({i + 1})\t" + list[i].Substring(currIndex + lenOfString, list[i].Length - currIndex - lenOfString);
+                    list[i] = startOfQuestion + $"<p>({i + 1})\t" + list[i].Substring(currIndex + lenOfString, list[i].Length - currIndex - lenOfString);
                 }
             }
             return list;
@@ -515,7 +515,7 @@ namespace clientForQuestions2._0
             if (!isQuestionInHebrew(qp.category))
                 return left2right(question + get_string_of_img_html(qp.json_content["image"]) + "<br>" + finalOptionsString);
 
-            return replace_mstack_with_equation_in_mathml( right2left(question + get_string_of_img_html(qp.json_content["image"]) + "<br>" + finalOptionsString) );
+            return replace_mstack_with_equation_in_mathml(right2left(question + get_string_of_img_html(qp.json_content["image"]) + "<br>" + finalOptionsString));
         }
 
         public static string get_explanation(dbQuestionParmeters qp)
@@ -528,7 +528,7 @@ namespace clientForQuestions2._0
         {
             string line = "<div style=\"top: 50%; left: 0; width: 100vw; height: 1px; background-color: lightgray;\"></div>\r\n<br><p style=\"font-size: 18px; font-weight: bold; direction: rtl; text-decoration: underline;\">הסבר:<p>";
 
-            return replace_mstack_with_equation_in_mathml( get_string_of_question_and_option_from_json(qp, clientanswer) + right2left(line) + get_explanation(qp) );
+            return replace_mstack_with_equation_in_mathml(get_string_of_question_and_option_from_json(qp, clientanswer) + right2left(line) + get_explanation(qp));
         }
         private static bool isQuestionInHebrew(string category)
         {
@@ -554,7 +554,7 @@ namespace clientForQuestions2._0
         {
             string hashedMac = ComputeSha256Hash(mac + "42chochai");
             string secondHashed = ComputeSha256Hash(hashedMac + "sig69ma");
-            return "42"+hashedMac+ secondHashed + "1a";
+            return "42" + hashedMac + secondHashed + "1a";
         }
 
         //func to encode from gpt
@@ -655,15 +655,15 @@ namespace clientForQuestions2._0
         }
 
         // חשיבה מילולית
-        public static List<dbQuestionParmeters> sendChapter_hebrew_Questions()
+        public static List<dbQuestionParmeters> sendChapter_hebrew_Questions(List<int> without_q_ids)
         {
             Random random = new Random();
 
             //get אנלוגיות
-            List<dbQuestionParmeters> anlog_qs = sqlDb.get_n_questions_from_specofic_category(6, "אנלוגיות"); // qs of normal qs
+            List<dbQuestionParmeters> anlog_qs = sqlDb.get_n_questions_from_specofic_category_Without_arr_of_q_ids(6, "אנלוגיות", without_q_ids); // qs of normal qs
             anlog_qs.Sort((x, y) => ((float)x.json_content["difficulty_level"]).CompareTo((float)y.json_content["difficulty_level"]));
             // get הבנה והסקה
-            List<dbQuestionParmeters> havana_qs = sqlDb.get_n_questions_from_arr_of_categorys(11, OperationsAndOtherUseful.topicsdict["הבנה והסקה"]); // qs of normal qs
+            List<dbQuestionParmeters> havana_qs = sqlDb.get_n_questions_from_arr_of_categorys_Without_arr_of_q_ids(11, OperationsAndOtherUseful.topicsdict["הבנה והסקה"], without_q_ids); // qs of normal qs
             havana_qs.Sort((x, y) => ((float)x.json_content["difficulty_level"]).CompareTo((float)y.json_content["difficulty_level"]));
             // get קטע קריאה
             List<int> colIds = OperationsAndOtherUseful.title2colIds["קטע קריאה פרקים"]; // get all ids of קטע קריאה
@@ -679,15 +679,16 @@ namespace clientForQuestions2._0
             return anlog_qs;
 
         }
-        public static List<dbQuestionParmeters> sendChapter_hebrew_Questions_withoutText()
+        public static List<dbQuestionParmeters> sendChapter_hebrew_Questions() { return sendChapter_hebrew_Questions(new List<int>()); }
+        public static List<dbQuestionParmeters> sendChapter_hebrew_Questions_withoutText(List<int> without_q_ids)
         {
             Random random = new Random();
 
             //get אנלוגיות
-            List<dbQuestionParmeters> anlog_qs = sqlDb.get_n_questions_from_specofic_category(10, "אנלוגיות"); // qs of normal qs
+            List<dbQuestionParmeters> anlog_qs = sqlDb.get_n_questions_from_specofic_category_Without_arr_of_q_ids(8, "אנלוגיות", without_q_ids); // qs of normal qs
             anlog_qs.Sort((x, y) => ((float)x.json_content["difficulty_level"]).CompareTo((float)y.json_content["difficulty_level"]));
             // get הבנה והסקה
-            List<dbQuestionParmeters> havana_qs = sqlDb.get_n_questions_from_arr_of_categorys(13, OperationsAndOtherUseful.topicsdict["הבנה והסקה"]); // qs of normal qs
+            List<dbQuestionParmeters> havana_qs = sqlDb.get_n_questions_from_arr_of_categorys_Without_arr_of_q_ids(15, OperationsAndOtherUseful.topicsdict["הבנה והסקה"], without_q_ids); // qs of normal qs
             havana_qs.Sort((x, y) => ((float)x.json_content["difficulty_level"]).CompareTo((float)y.json_content["difficulty_level"]));
 
             List<dbQuestionParmeters> finalChpater = new List<dbQuestionParmeters>();
@@ -698,6 +699,8 @@ namespace clientForQuestions2._0
             return finalChpater;
 
         }
+        public static List<dbQuestionParmeters> sendChapter_hebrew_Questions_withoutText() { return sendChapter_hebrew_Questions(new List<int>()); }
+
         /// <summary>
         /// This function gets multiple chapters of math without graph.
         /// </summary>
@@ -759,7 +762,7 @@ namespace clientForQuestions2._0
         }
 
         // חשיבה כמותית
-        public static List<dbQuestionParmeters> sendChapter_math_Questions()
+        public static List<dbQuestionParmeters> sendChapter_math_Questions(List<int> without_q_ids)
         {
             Random random = new Random();
 
@@ -791,7 +794,7 @@ namespace clientForQuestions2._0
                 difflvl.minlevel = 4.5m;
                 difflvl.maxLevel = 10.0m;
 
-                List<dbQuestionParmeters> normal_qs = sqlDb.get_n_questions_from_arr_of_categorysWithDiffcultyLevel(20 - col_qs.Count, topics, difflvl);
+                List<dbQuestionParmeters> normal_qs = sqlDb.get_n_questions_from_arr_of_categorysWithDiffcultyLevel_Without_arr_of_q_ids(20 - col_qs.Count, topics, difflvl, without_q_ids);
                 normal_qs.Sort((x, y) => ((float)x.json_content["difficulty_level"]).CompareTo((float)y.json_content["difficulty_level"]));
 
                 col_qs.AddRange(normal_qs);
@@ -804,7 +807,7 @@ namespace clientForQuestions2._0
                 difflvl.minlevel = 0.0m;
                 difflvl.maxLevel = 4.5m;
 
-                List<dbQuestionParmeters> normal_qs = sqlDb.get_n_questions_from_arr_of_categorysWithDiffcultyLevel(8, topics, difflvl);
+                List<dbQuestionParmeters> normal_qs = sqlDb.get_n_questions_from_arr_of_categorysWithDiffcultyLevel_Without_arr_of_q_ids(8, topics, difflvl, without_q_ids);
                 normal_qs.Sort((x, y) => ((float)x.json_content["difficulty_level"]).CompareTo((float)y.json_content["difficulty_level"]));
 
                 questions.AddRange(normal_qs);
@@ -813,7 +816,7 @@ namespace clientForQuestions2._0
                 difflvl.minlevel = 6.5m;
                 difflvl.maxLevel = 10.0m;
 
-                normal_qs = sqlDb.get_n_questions_from_arr_of_categorysWithDiffcultyLevel(12 - col_qs.Count, topics, difflvl);
+                normal_qs = sqlDb.get_n_questions_from_arr_of_categorysWithDiffcultyLevel_Without_arr_of_q_ids(12 - col_qs.Count, topics, difflvl, without_q_ids);
                 normal_qs.Sort((x, y) => ((float)x.json_content["difficulty_level"]).CompareTo((float)y.json_content["difficulty_level"]));
 
                 questions.AddRange(normal_qs);
@@ -825,7 +828,7 @@ namespace clientForQuestions2._0
                 difflvl.minlevel = 0.0m;
                 difflvl.maxLevel = 7.0m;
 
-                List<dbQuestionParmeters> normal_qs = sqlDb.get_n_questions_from_arr_of_categorysWithDiffcultyLevel(20 - col_qs.Count, topics, difflvl);
+                List<dbQuestionParmeters> normal_qs = sqlDb.get_n_questions_from_arr_of_categorysWithDiffcultyLevel_Without_arr_of_q_ids(20 - col_qs.Count, topics, difflvl, without_q_ids);
                 normal_qs.Sort((x, y) => ((float)x.json_content["difficulty_level"]).CompareTo((float)y.json_content["difficulty_level"]));
 
                 normal_qs.AddRange(col_qs);
@@ -834,15 +837,18 @@ namespace clientForQuestions2._0
 
             return questions;
         }
-        public static List<dbQuestionParmeters> sendChapter_english_Questions_withoutTexts()
+
+        public static List<dbQuestionParmeters> sendChapter_math_Questions() { return sendChapter_math_Questions(new List<int>()); }
+
+        public static List<dbQuestionParmeters> sendChapter_english_Questions_withoutTexts(List<int> without_q_ids)
         {
             Random random = new Random();
 
             //get Sentence Completions
-            List<dbQuestionParmeters> Sentence_Completions_qs = sqlDb.get_n_questions_from_specofic_category(12, "Sentence Completions"); // qs of normal qs
+            List<dbQuestionParmeters> Sentence_Completions_qs = sqlDb.get_n_questions_from_specofic_category_Without_arr_of_q_ids(12, "Sentence Completions", without_q_ids); // qs of normal qs
             Sentence_Completions_qs.Sort((x, y) => ((float)x.json_content["difficulty_level"]).CompareTo((float)y.json_content["difficulty_level"]));
             // get Restatements
-            List<dbQuestionParmeters> Restatements_qs = sqlDb.get_n_questions_from_specofic_category(10, "Restatements"); // qs of normal qs
+            List<dbQuestionParmeters> Restatements_qs = sqlDb.get_n_questions_from_specofic_category_Without_arr_of_q_ids(10, "Restatements", without_q_ids); // qs of normal qs
             Restatements_qs.Sort((x, y) => ((float)x.json_content["difficulty_level"]).CompareTo((float)y.json_content["difficulty_level"]));
            
             List<dbQuestionParmeters> finalChpater = new List<dbQuestionParmeters>();
@@ -852,17 +858,18 @@ namespace clientForQuestions2._0
             { finalChpater.Add(question); }
             return finalChpater;
         }
+        public static List<dbQuestionParmeters> sendChapter_english_Questions_withoutTexts() { return sendChapter_english_Questions_withoutTexts(new List<int>()); }
 
         //אנגלית
-        public static List<dbQuestionParmeters> sendChapter_english_Questions()
+        public static List<dbQuestionParmeters> sendChapter_english_Questions(List<int> without_q_ids)
         {
             Random random = new Random();
 
             //get Sentence Completions
-            List<dbQuestionParmeters> Sentence_Completions_qs = sqlDb.get_n_questions_from_specofic_category(8, "Sentence Completions"); // qs of normal qs
+            List<dbQuestionParmeters> Sentence_Completions_qs = sqlDb.get_n_questions_from_specofic_category_Without_arr_of_q_ids(8, "Sentence Completions", without_q_ids); // qs of normal qs
             Sentence_Completions_qs.Sort((x, y) => ((float)x.json_content["difficulty_level"]).CompareTo((float)y.json_content["difficulty_level"]));
             // get Restatements
-            List<dbQuestionParmeters> Restatements_qs = sqlDb.get_n_questions_from_specofic_category(4, "Restatements"); // qs of normal qs
+            List<dbQuestionParmeters> Restatements_qs = sqlDb.get_n_questions_from_specofic_category_Without_arr_of_q_ids(4, "Restatements", without_q_ids); // qs of normal qs
             Restatements_qs.Sort((x, y) => ((float)x.json_content["difficulty_level"]).CompareTo((float)y.json_content["difficulty_level"]));
             // get קטע קריאה
             List<int> colIds = OperationsAndOtherUseful.title2colIds["Reading Comprehension"]; // get all ids of קטע קריאה
@@ -916,6 +923,10 @@ namespace clientForQuestions2._0
 
             return Sentence_Completions_qs;
         }
+
+        public static List<dbQuestionParmeters> sendChapter_english_Questions() { return sendChapter_english_Questions(new List<int>()); }
+
+
         public List<int> getListsOfIdBasedOnQuestions(List<dbQuestionParmeters> questions)
         {
             List<int> idOfQuestions = new List<int>();

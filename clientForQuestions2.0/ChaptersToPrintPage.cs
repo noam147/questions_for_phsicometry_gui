@@ -27,20 +27,22 @@ namespace clientForQuestions2._0
             List<List<dbQuestionParmeters>> finalSimulation = new List<List<dbQuestionParmeters>>();
             List<dbQuestionParmeters> currQuestions;
 
+            List<int> without_q_ids = with_already_answered_qs_checkBox.Checked ? new List<int>() : TestHistoryFileHandler.get_list_of_all_q_ids_in_history();
+
             for (int i = 0; i < this.hebrewAmount.Value; i++)
             {
                 if (hebrewTextsCheckBox.Checked)
                 {
-                    currQuestions = OperationsAndOtherUseful.sendChapter_hebrew_Questions();
+                    currQuestions = OperationsAndOtherUseful.sendChapter_hebrew_Questions(without_q_ids);
                 }
-                else { currQuestions = OperationsAndOtherUseful.sendChapter_hebrew_Questions_withoutText(); }
+                else { currQuestions = OperationsAndOtherUseful.sendChapter_hebrew_Questions_withoutText(without_q_ids); }
                 finalSimulation.Add(currQuestions);
             }
             for (int i = 0; i < this.mathAmount.Value; i++)
             {
                 if (this.mathGraphCheckBox.Checked)
-                { currQuestions = OperationsAndOtherUseful.sendChapter_math_Questions(); }
-                else { currQuestions = OperationsAndOtherUseful.sendChapter_math_Questions_without_graph(new List<int> { }); }
+                { currQuestions = OperationsAndOtherUseful.sendChapter_math_Questions(without_q_ids); }
+                else { currQuestions = OperationsAndOtherUseful.sendChapter_math_Questions_without_graph(without_q_ids); }
 
                 finalSimulation.Add(currQuestions);
             }
@@ -48,9 +50,9 @@ namespace clientForQuestions2._0
             {
                 if(this.englishTextsCheckBox.Checked)
                 {
-                    currQuestions = OperationsAndOtherUseful.sendChapter_english_Questions();
+                    currQuestions = OperationsAndOtherUseful.sendChapter_english_Questions(without_q_ids);
                 }
-                else { currQuestions = OperationsAndOtherUseful.sendChapter_english_Questions_withoutTexts(); }
+                else { currQuestions = OperationsAndOtherUseful.sendChapter_english_Questions_withoutTexts(without_q_ids); }
                 finalSimulation.Add(currQuestions);
             }
 
