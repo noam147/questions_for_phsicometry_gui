@@ -45,7 +45,7 @@ namespace clientForQuestions2._0
         {
             string filePath = folderPath + "/" + $"chapter{numOfChapter}.txt";
             string fileContent = File.ReadAllText(filePath);
-            List<string> ids = new List<string>(fileContent.Split(' '));
+            List<string> ids = fileContent.Contains("\n") ? new List<string>(fileContent.Split('\n')) : new List<string>(fileContent.Split(' '));
             List < dbQuestionParmeters > questions = new List<dbQuestionParmeters >();
             foreach (string id in ids)
             {

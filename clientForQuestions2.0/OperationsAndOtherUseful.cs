@@ -21,6 +21,8 @@ namespace clientForQuestions2._0
         public static int STOPER = 0;
         public static int SKIPPED_Q = -2; // when the user didnt answer
         public static string img_max_hight = "200px";
+        public static string img_max_width = "100px";
+
         public static Dictionary<string, List<string>> topicsdict = new Dictionary<string, List<string>>
         {
             {
@@ -390,7 +392,7 @@ namespace clientForQuestions2._0
             string cover = json["collections"][0]["cover"].ToString();
             string img_path = "https://lmsapi.kidum-me.com/storage/";
             string file_path = img_path + json["collections"][0]["file"]["file_path"].ToString();
-            string fullImg = $"<img src=\"{file_path}\" alt=\"Question Image\" style=\" max-width:100%; height:auto;\">";
+            string fullImg = $"<img src=\"{file_path}\" alt=\"Question Image\" style=\" max-height:{img_max_hight}; width:auto;\">";
 
             if (OperationsAndOtherUseful.title2colIds["Reading Comprehension"].Contains((int)json["collections"][0]["id"]))
                 return left2right(cover + fullImg);
@@ -480,25 +482,25 @@ namespace clientForQuestions2._0
             }
             else
             {
-                option1 = $"<img src=\"https://lmsapi.kidum-me.com/storage/{qp.json_content["option_images"][0]["file_path"].ToString()}\" alt=\"Question Image\" style=\"max-height:{img_max_hight}; width:auto;\">";
-                option2 = $"<img src=\"https://lmsapi.kidum-me.com/storage/{qp.json_content["option_images"][1]["file_path"].ToString()}\" alt=\"Question Image\" style=\"max-height:{img_max_hight}; width:auto;\">";
-                option3 = $"<img src=\"https://lmsapi.kidum-me.com/storage/{qp.json_content["option_images"][2]["file_path"].ToString()}\" alt=\"Question Image\" style=\"max-height:{img_max_hight}; width:auto;\">";
-                option4 = $"<img src=\"https://lmsapi.kidum-me.com/storage/{qp.json_content["option_images"][3]["file_path"].ToString()}\" alt=\"Question Image\" style=\"max-height:{img_max_hight}; width:auto;\">";
+                option1 = $"<img src=\"https://lmsapi.kidum-me.com/storage/{qp.json_content["option_images"][0]["file_path"].ToString()}\" alt=\"Question Image\" style=\"max-width:{img_max_width}; height:auto;vertical-align: middle;\">";
+                option2 = $"<img src=\"https://lmsapi.kidum-me.com/storage/{qp.json_content["option_images"][1]["file_path"].ToString()}\" alt=\"Question Image\" style=\"max-width:{img_max_width}; height:auto;vertical-align: middle;\">";
+                option3 = $"<img src=\"https://lmsapi.kidum-me.com/storage/{qp.json_content["option_images"][2]["file_path"].ToString()}\" alt=\"Question Image\" style=\"max-width:{img_max_width}; height:auto;vertical-align: middle;\">";
+                option4 = $"<img src=\"https://lmsapi.kidum-me.com/storage/{qp.json_content["option_images"][3]["file_path"].ToString()}\" alt=\"Question Image\" style=\"max-width:{img_max_width}; height:auto;vertical-align: middle;\">";
                 listOfOptions = new List<string> { option1, option2, option3, option4 };
 
                 if (userAnswer != DO_NOT_MARK)
                 {
-                    listOfOptions[optionToMarkGreen - 1] = $"<div style = \"background-color: lightgreen;display: inline-block;\"> ({optionToMarkGreen})\t</div> <br>" + listOfOptions[optionToMarkGreen - 1];
+                    listOfOptions[optionToMarkGreen - 1] = $"<p style = \"background-color: lightgreen;display: inline-block;\">({optionToMarkGreen}){listOfOptions[optionToMarkGreen - 1]}</p>";
                     //green will always be
                     if (userAnswer != optionToMarkGreen && userAnswer != SKIPPED_Q)//if the user got right - do not need to mark in red
                     {
-                        listOfOptions[userAnswer - 1] = $"<div style = \"background-color: red;display: inline-block;\"> ({userAnswer})\t</div> <br>" + listOfOptions[userAnswer - 1];
+                        listOfOptions[userAnswer - 1] = $"<p style = \"background-color: red;display: inline-block;\">({userAnswer}){listOfOptions[userAnswer - 1]}</p>";
                     }
                 }
                 for (int i = 0; i < listOfOptions.Count; i++)
                 {
                     if (listOfOptions[i].StartsWith("<img"))
-                        listOfOptions[i] = $"<div <p>({i + 1})\t</p> </div> <br>" + listOfOptions[i];
+                        listOfOptions[i] = $"<p style =\"display: inline-block;\">({i + 1}){listOfOptions[i]}</p>";
                 }
             }
 
@@ -510,7 +512,7 @@ namespace clientForQuestions2._0
 
             string finalOptionsString = listOfOptions[0] + listOfOptions[1] + listOfOptions[2] + listOfOptions[3];
             if (!isTextOptions)
-                finalOptionsString = listOfOptions[0] + "<br>" + listOfOptions[1] + "<br>" + listOfOptions[2] + "<br>" + listOfOptions[3];
+                finalOptionsString = listOfOptions[0] + listOfOptions[1] + "<br>" + listOfOptions[2] + listOfOptions[3];
             //if question is in english
             if (!isQuestionInHebrew(qp.category))
                 return left2right(question + get_string_of_img_html(qp.json_content["image"]) + "<br>" + finalOptionsString);

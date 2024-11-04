@@ -326,7 +326,7 @@ namespace clientForQuestions2._0
             }
 
             //for big imgs
-            html = html.Replace("height:auto;", "height:500;");
+            //html = html.Replace("height:auto;", "height:500;");
 
             return html;
         }
