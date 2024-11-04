@@ -185,10 +185,20 @@ namespace clientForQuestions2._0
             int option4;
             try
             {
-                option1 = (int)json["options"][0]["is_correct"];
-                option2 = (int)json["options"][1]["is_correct"];
-                option3 = (int)json["options"][2]["is_correct"];
-                option4 = (int)json["options"][3]["is_correct"];
+                if (json["option_images"] != null && ((JArray)json["option_images"]).Count != 0)
+                {
+                    option1 = (int)json["option_images"][0]["is_correct"];
+                    option2 = (int)json["option_images"][1]["is_correct"];
+                    option3 = (int)json["option_images"][2]["is_correct"];
+                    option4 = (int)json["option_images"][3]["is_correct"];
+                }
+                else
+                {
+                    option1 = (int)json["options"][0]["is_correct"];
+                    option2 = (int)json["options"][1]["is_correct"];
+                    option3 = (int)json["options"][2]["is_correct"];
+                    option4 = (int)json["options"][3]["is_correct"];
+                }
             }
             catch (Exception e)
             {

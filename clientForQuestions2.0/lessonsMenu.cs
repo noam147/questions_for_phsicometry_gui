@@ -162,11 +162,28 @@ namespace clientForQuestions2._0
 
             // Add sorting options to the context menu 
             contextMenu.Items.Add("הצגת השאלה", null, (s, e) => open_question_by_selected_row_index());
+            contextMenu.Items.Add("הוספת השאלה למועדפים", null, (s, e) => mark_test(selected_row_index));
             contextMenu.Items.Add("מחיקת הלקח מההיסטוריה", null, (s, e) => delete_lesson_by_selected_row_index());
             contextMenu.Items.Add("עריכת הלקח", null, (s, e) => edit_lesson_by_selected_row_index());
             contextMenu.Items.Add("ביטול", SystemIcons.Error.ToBitmap(), (s, e) => cencel_option());
         }
 
+        private void mark_test(int row_index)
+        {
+            if (row_index == NOT_A_REAL_ROW_INDEX)
+                return;
+
+            int test_id = (int)lessons_dataGridView.Rows[row_index].Cells["מס' תרגול"].Value;
+            int index_of_question = (int)lessons_dataGridView.Rows[row_index].Cells["IndexOfQuestion"].Value;
+            bool isMarked = TestHistoryFileHandler.get_question_isMarked(test_id, index_of_question);
+
+            TestHistoryFileHandler.set_question_isMarked(!isMarked, test_id, index_of_question);
+            if (isMarked)
+                lessons_dataGridView.Rows[row_index].Cells["מועדפים"].Value = TestHistoryFileHandler.MARKED_FALSE;
+            else
+                lessons_dataGridView.Rows[row_index].Cells["מועדפים"].Value = TestHistoryFileHandler.MARKED_TRUE;
+            return;
+        }
 
         private void backToMainMenu_button_Click(object sender, EventArgs e)
         {
@@ -243,13 +260,7 @@ namespace clientForQuestions2._0
 
                 if (e.ColumnIndex == lessons_dataGridView.Columns["מועדפים"].Index)
                 {
-                    bool isMarked = TestHistoryFileHandler.get_question_isMarked(test_id, index_of_question);
-                    
-                    TestHistoryFileHandler.set_question_isMarked(!isMarked, test_id, index_of_question);
-                    if (isMarked)
-                        lessons_dataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = TestHistoryFileHandler.MARKED_FALSE;
-                    else
-                        lessons_dataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = TestHistoryFileHandler.MARKED_TRUE;
+                    mark_test(e.RowIndex);
                     return;
                 }
 
@@ -335,6 +346,13 @@ namespace clientForQuestions2._0
                 else
                 {
                     selected_row_index = e.RowIndex;
+                    int test_id = (int)lessons_dataGridView.Rows[selected_row_index].Cells["מס' תרגול"].Value;
+                    int index_of_question = (int)lessons_dataGridView.Rows[selected_row_index].Cells["IndexOfQuestion"].Value;
+                    bool isMarked = TestHistoryFileHandler.get_question_isMarked(test_id, index_of_question);
+                    if (isMarked)
+                        contextMenu.Items.OfType<ToolStripMenuItem>().FirstOrDefault(item => item.Text == "הוספת השאלה למועדפים" || item.Text == "הסרת השאלה מהמועדפים").Text = "הסרת השאלה מהמועדפים";
+                    else
+                        contextMenu.Items.OfType<ToolStripMenuItem>().FirstOrDefault(item => item.Text == "הוספת השאלה למועדפים" || item.Text == "הסרת השאלה מהמועדפים").Text = "הוספת השאלה למועדפים";
 
                     contextMenu.Show(Cursor.Position);
                 }

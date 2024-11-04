@@ -78,7 +78,8 @@ namespace clientForQuestions2._0
         private ContextMenuStrip sortContextMenu; // Context menu for sorting
 
         private ContextMenuStrip contextMenu; // Context menu for options about the test
-        private int selected_test_id = OperationsAndOtherUseful.NOT_A_REAL_TEST_ID; // for contextMenu 
+        private static int NOT_A_REAL_ROW_INDEX = -2;
+        private int selected_row_index = NOT_A_REAL_ROW_INDEX; // for contextMenu 
 
         public testHistoryMenu()
         {
@@ -299,12 +300,12 @@ namespace clientForQuestions2._0
 
             void open_test_by_selected_id()
             {
-                if (selected_test_id == OperationsAndOtherUseful.NOT_A_REAL_TEST_ID)
+                if (selected_row_index == NOT_A_REAL_ROW_INDEX)
                     return;
-
-                if(TestHistoryFileHandler.is_test_with_chapters(selected_test_id))
+                int test_id = (int)history_dataGridView.Rows[selected_row_index].Cells["מס' תרגול"].Value;
+                if(TestHistoryFileHandler.is_test_with_chapters(test_id))
                 {
-                    TestWithChapters testWithChapters = TestHistoryFileHandler.get_test_with_chapters(selected_test_id);
+                    TestWithChapters testWithChapters = TestHistoryFileHandler.get_test_with_chapters(test_id);
                     List<List<afterQuestionParametrs>> chapters = new List<List<afterQuestionParametrs>>();
                     List<string> names_of_chapters = new List<string>();
                     foreach (Test chap in testWithChapters.chapters)
@@ -313,14 +314,14 @@ namespace clientForQuestions2._0
                         names_of_chapters.Add(chap.name);
                     }
 
-                    summrizePage s_ = new summrizePage(chapters, selected_test_id, 1, names_of_chapters);
+                    summrizePage s_ = new summrizePage(chapters, test_id, 1, names_of_chapters);
                     s_.Show();
                     this.Close();
 
                 }
                 else
                 {
-                    summrizePage s = new summrizePage(TestHistoryFileHandler.get_afterQuestionParametrs_of_test(selected_test_id), selected_test_id, 0);
+                    summrizePage s = new summrizePage(TestHistoryFileHandler.get_afterQuestionParametrs_of_test(test_id), test_id, 0);
                     s.Show();
                     this.Close();
 
@@ -331,7 +332,7 @@ namespace clientForQuestions2._0
 
             void redo_test_by_selected_id()
             {
-                if (selected_test_id == OperationsAndOtherUseful.NOT_A_REAL_TEST_ID)
+                if (selected_row_index == NOT_A_REAL_ROW_INDEX)
                     return;
 
                 // check if the user is sure to leave the test
@@ -342,8 +343,11 @@ namespace clientForQuestions2._0
                 if (result == DialogResult.No) // the user isn't sure
                     return;
 
+                int test_id = (int)history_dataGridView.Rows[selected_row_index].Cells["מס' תרגול"].Value;
+
+
                 bool isQSkip = false;
-                string type = TestHistoryFileHandler.get_type_of_test(selected_test_id);
+                string type = TestHistoryFileHandler.get_type_of_test(test_id);
 
                 if (type.Contains("\n"))
                     type = type.Substring(0, type.IndexOf('\n'));
@@ -351,14 +355,14 @@ namespace clientForQuestions2._0
                 if (type != "תרגול רגיל")
                     isQSkip = true;
 
-                questionsPage n = new questionsPage(TestHistoryFileHandler.get_dbQuestionParmeters_of_test(selected_test_id), isQSkip, 0, type + $"\n(תרגול #{selected_test_id} חוזר)");
+                questionsPage n = new questionsPage(TestHistoryFileHandler.get_dbQuestionParmeters_of_test(test_id), isQSkip, 0, type + $"\n(תרגול #{test_id} חוזר)");
                 n.Show();
                 this.Close();
             }
 
             void delete_test_by_selected_id()
             {
-                if (selected_test_id == OperationsAndOtherUseful.NOT_A_REAL_TEST_ID)
+                if (selected_row_index == NOT_A_REAL_ROW_INDEX)
                     return;
 
                 // check if the user is sure to leave the test
@@ -369,44 +373,48 @@ namespace clientForQuestions2._0
                 if (result == DialogResult.No) // the user isn't sure
                     return;
 
+                int test_id = (int)history_dataGridView.Rows[selected_row_index].Cells["מס' תרגול"].Value;
 
-                TestHistoryFileHandler.delete_test_by_id(selected_test_id);
-                selected_test_id = OperationsAndOtherUseful.NOT_A_REAL_TEST_ID;
+                TestHistoryFileHandler.delete_test_by_id(test_id);
+                selected_row_index = NOT_A_REAL_ROW_INDEX;
 
                 LoadData();
             }
 
             void answer_test_for_download_by_selected_id()
             {
-                if (selected_test_id == OperationsAndOtherUseful.NOT_A_REAL_TEST_ID)
+                if (selected_row_index == NOT_A_REAL_ROW_INDEX)
                     return;
+
+                int test_id = (int)history_dataGridView.Rows[selected_row_index].Cells["מס' תרגול"].Value;
 
                 contextMenu.Items.OfType<ToolStripMenuItem>().FirstOrDefault(item => item.Text == "מילוי תשובות של תרגול להורדה").Enabled = false;
 
-                AnswerTestForDowloadQuestionsPage a = new AnswerTestForDowloadQuestionsPage(selected_test_id);
+                AnswerTestForDowloadQuestionsPage a = new AnswerTestForDowloadQuestionsPage(test_id);
                 a.Show();
 
-                selected_test_id = OperationsAndOtherUseful.NOT_A_REAL_TEST_ID;
+                selected_row_index = NOT_A_REAL_ROW_INDEX;
             }
             void rename_test_by_selected_id()
             {
-                if (selected_test_id == OperationsAndOtherUseful.NOT_A_REAL_TEST_ID)
+                if (selected_row_index == NOT_A_REAL_ROW_INDEX)
                     return;
+                int test_id = (int)history_dataGridView.Rows[selected_row_index].Cells["מס' תרגול"].Value;
 
                 string new_name = showInputForm();
                 if (new_name == null)
                 {
-                    selected_test_id = OperationsAndOtherUseful.NOT_A_REAL_TEST_ID;
+                    selected_row_index = NOT_A_REAL_ROW_INDEX;
                     return;
                 }
-                TestHistoryFileHandler.rename_test(selected_test_id, new_name);
-                selected_test_id = OperationsAndOtherUseful.NOT_A_REAL_TEST_ID;
+                TestHistoryFileHandler.rename_test(test_id, new_name);
+                selected_row_index = NOT_A_REAL_ROW_INDEX;
 
                 LoadData();
             }
             void cencel_option()
             {
-                selected_test_id = OperationsAndOtherUseful.NOT_A_REAL_TEST_ID;
+                selected_row_index = NOT_A_REAL_ROW_INDEX;
             }
 
             // opens a form to enter an input (a string)
@@ -430,7 +438,7 @@ namespace clientForQuestions2._0
                 Button okButton = new Button() { Text = "שמירה", Left = 10, Width = 70, Top = 60, DialogResult = DialogResult.OK };
                 Button cancelButton = new Button() { Text = "ביטול", Left = 200, Width = 70, Top = 60, DialogResult = DialogResult.Cancel };
 
-                textBox.Text = TestHistoryFileHandler.get_name_of_test(selected_test_id);
+                textBox.Text = TestHistoryFileHandler.get_name_of_test((int)history_dataGridView.Rows[selected_row_index].Cells["מס' תרגול"].Value);
                 textBox.RightToLeft = RightToLeft.Yes;
 
                 label.RightToLeft = RightToLeft.Yes;
@@ -458,6 +466,8 @@ namespace clientForQuestions2._0
 
             // Add sorting options to the context menu 
             contextMenu.Items.Add("הצגת התרגול", null, (s, e) => open_test_by_selected_id());
+            contextMenu.Items.Add("הורדת התרגול", null, (s, e) => downloadButton_Click((int)history_dataGridView.Rows[selected_row_index].Cells["מס' תרגול"].Value));
+            contextMenu.Items.Add("הוספת התרגול למועדפים", null, (s, e) => mark_test(selected_row_index));
             contextMenu.Items.Add("תרגול חוזר", null, (s, e) => redo_test_by_selected_id());
             contextMenu.Items.Add("מחיקת התרגול מההיסטוריה", null, (s, e) => delete_test_by_selected_id());
             contextMenu.Items.Add("מילוי תשובות של תרגול להורדה", null, (s, e) => answer_test_for_download_by_selected_id());
@@ -498,6 +508,21 @@ namespace clientForQuestions2._0
             LoadData();
         }
 
+        private void mark_test(int row_index)
+        {
+            if (row_index == NOT_A_REAL_ROW_INDEX)
+                return;
+            int test_id = (int)history_dataGridView.Rows[row_index].Cells["מס' תרגול"].Value;
+            bool isMarked = TestHistoryFileHandler.get_test_isMarked(test_id);
+
+            TestHistoryFileHandler.set_test_isMarked(!isMarked, test_id);
+            if (isMarked)
+                history_dataGridView.Rows[row_index].Cells["מועדפים"].Value = TestHistoryFileHandler.MARKED_FALSE;
+            else
+                history_dataGridView.Rows[row_index].Cells["מועדפים"].Value = TestHistoryFileHandler.MARKED_TRUE;
+            return;
+        }
+
         private void history_dataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             // Check if a row was clicked (not a header or out of bounds)
@@ -508,13 +533,7 @@ namespace clientForQuestions2._0
                 int test_id = Int32.Parse(clickedRow.Cells["מס' תרגול"].Value.ToString());
                 if (e.ColumnIndex == history_dataGridView.Columns["מועדפים"].Index)
                 {
-                    bool isMarked = TestHistoryFileHandler.get_test_isMarked(test_id);
-
-                    TestHistoryFileHandler.set_test_isMarked(!isMarked, test_id);
-                    if (isMarked)
-                        history_dataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = TestHistoryFileHandler.MARKED_FALSE;
-                    else
-                        history_dataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = TestHistoryFileHandler.MARKED_TRUE;
+                    mark_test(e.RowIndex);
                     return;
                 }
                 else if (e.ColumnIndex == history_dataGridView.Columns["הורדה"].Index)
@@ -574,10 +593,16 @@ namespace clientForQuestions2._0
                 }
                 else
                 {
-                    selected_test_id = Int32.Parse(clickedRow.Cells["מס' תרגול"].Value.ToString());
+                    selected_row_index = e.RowIndex;
+                    int test_id = (int)history_dataGridView.Rows[selected_row_index].Cells["מס' תרגול"].Value;
+                    bool isMarked = TestHistoryFileHandler.get_test_isMarked(test_id);
+                    if (isMarked)
+                        contextMenu.Items.OfType<ToolStripMenuItem>().FirstOrDefault(item => item.Text == "הוספת התרגול למועדפים" || item.Text == "הסרת התרגול מהמועדפים").Text = "הסרת התרגול מהמועדפים";
+                    else
+                        contextMenu.Items.OfType<ToolStripMenuItem>().FirstOrDefault(item => item.Text == "הוספת התרגול למועדפים" || item.Text == "הסרת התרגול מהמועדפים").Text = "הוספת התרגול למועדפים";
 
-                    contextMenu.Items.OfType<ToolStripMenuItem>().FirstOrDefault(item => item.Text == "מילוי תשובות של תרגול להורדה").Enabled = history_dataGridView.Rows[e.RowIndex].Cells[history_dataGridView.Columns["סוג תרגול"].Index].Value.ToString().Contains("להורדה");
-                    contextMenu.Items.OfType<ToolStripMenuItem>().FirstOrDefault(item => item.Text == "תרגול חוזר").Enabled = !TestHistoryFileHandler.is_test_with_chapters(selected_test_id);
+                    contextMenu.Items.OfType<ToolStripMenuItem>().FirstOrDefault(item => item.Text == "מילוי תשובות של תרגול להורדה").Enabled = clickedRow.Cells[history_dataGridView.Columns["סוג תרגול"].Index].Value.ToString().Contains("להורדה");
+                    contextMenu.Items.OfType<ToolStripMenuItem>().FirstOrDefault(item => item.Text == "תרגול חוזר").Enabled = !TestHistoryFileHandler.is_test_with_chapters((int)clickedRow.Cells["מס' תרגול"].Value);
 
                     contextMenu.Show(Cursor.Position);
                 }

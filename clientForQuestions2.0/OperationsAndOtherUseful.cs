@@ -21,7 +21,7 @@ namespace clientForQuestions2._0
         public static int STOPER = 0;
         public static int SKIPPED_Q = -2; // when the user didnt answer
         public static string img_max_hight = "200px";
-        public static string img_max_width = "100px";
+        public static string img_max_width = "150px";
 
         public static Dictionary<string, List<string>> topicsdict = new Dictionary<string, List<string>>
         {
