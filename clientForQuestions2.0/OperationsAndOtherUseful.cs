@@ -392,7 +392,7 @@ namespace clientForQuestions2._0
             string cover = json["collections"][0]["cover"].ToString();
             string img_path = "https://lmsapi.kidum-me.com/storage/";
             string file_path = img_path + json["collections"][0]["file"]["file_path"].ToString();
-            string fullImg = $"<img src=\"{file_path}\" alt=\"Question Image\" style=\" max-height:{img_max_hight}; width:auto;\">";
+            string fullImg = $"<img src=\"{file_path}\" alt=\"Question Image\" style=\" max-width:{700}px; height:auto;\">";
 
             if (OperationsAndOtherUseful.title2colIds["Reading Comprehension"].Contains((int)json["collections"][0]["id"]))
                 return left2right(cover + fullImg);

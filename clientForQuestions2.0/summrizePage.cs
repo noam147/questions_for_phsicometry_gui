@@ -351,11 +351,18 @@ namespace clientForQuestions2._0
         {
             //to remove previous html content
             webTaker.OnCoreWebView2_colDeleteContent(webView2_col);
+            
+            //webView2_col.Visible = false;
+            //webView21.Size = new System.Drawing.Size(width_webView * 2, height_webView);
         }
 
         private void showCol(dbQuestionParmeters q)
         {
             //this.webView2pdf.Size = new Size(width_screen, height_screen - h_questionsPlace - h_statsPlace); // Adjust size to fit below the buttons
+            
+            //webView21.NavigateToString("");
+            //webView21.Size = new System.Drawing.Size(width_webView, height_webView);
+            //webView2_col.Visible = true;
 
             webTaker.OnCoreWebView2_colInitializationCompleted(webView2_col, q);
         }
