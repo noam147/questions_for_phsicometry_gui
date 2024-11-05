@@ -35,7 +35,7 @@ namespace clientForQuestions2._0
             //func content is not intresting
             //input sql query
             //output list of questions details
-            string includeJsLibs = "<head> <script src=\"https://polyfill.io/v3/polyfill.min.js?features=es6\"></script>  <script id=\"MathJax-script\" async src=\"https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js\"></script>  </head>";
+            string includeJsLibs = "<head> <body oncontextmenu=\"return false;\"> \r\n <script src=\"https://polyfill.io/v3/polyfill.min.js?features=es6\"></script>  <script id=\"MathJax-script\" async src=\"https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js\"></script>  </head>";
             //includeJsLibs +=  "< body oncontextmenu =\"return false; \"> \r\n";
             // <script src=\"https://polyfill.io/v3/polyfill.min.js?features=es6\"></script> <script>MathJax = {loader: {load: ['[mml]/mml3']},mml: {forceReparse: true}};</script> </head>
             List<dbQuestionParmeters> dbQuestions = new List<dbQuestionParmeters>();

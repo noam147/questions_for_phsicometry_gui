@@ -271,6 +271,9 @@ namespace clientForQuestions2._0
         // to detect arrow keys preesed
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
+            if (m_buttonList == null || m_buttonList.Count == 0 || ! m_buttonList[0].Enabled)
+                return base.ProcessCmdKey(ref msg, keyData);
+
             switch (keyData)
             {
                 case Keys.Left:
@@ -349,22 +352,20 @@ namespace clientForQuestions2._0
 
         private void hideCol()
         {
+            webView2_col.Visible = false;
+            webView21.Size = new System.Drawing.Size(width_webView * 2, height_webView);
+
             //to remove previous html content
             webTaker.OnCoreWebView2_colDeleteContent(webView2_col);
-            
-            //webView2_col.Visible = false;
-            //webView21.Size = new System.Drawing.Size(width_webView * 2, height_webView);
         }
 
         private void showCol(dbQuestionParmeters q)
         {
             //this.webView2pdf.Size = new Size(width_screen, height_screen - h_questionsPlace - h_statsPlace); // Adjust size to fit below the buttons
-            
-            //webView21.NavigateToString("");
-            //webView21.Size = new System.Drawing.Size(width_webView, height_webView);
-            //webView2_col.Visible = true;
 
+            webView21.Size = new System.Drawing.Size(width_webView, height_webView);
             webTaker.OnCoreWebView2_colInitializationCompleted(webView2_col, q);
+            webView2_col.Visible = true;
         }
         private void InitializeWebView21()
         {
@@ -573,7 +574,7 @@ namespace clientForQuestions2._0
                     Width = this.Q_BUTTON_SIZE,
                     Height = this.Q_BUTTON_SIZE,
                     Location = new System.Drawing.Point(230+(i%10)*40, this.Q_BUTTON_SIZE), // Adjust spacing
-                    Enabled = true,
+                    Enabled = false,
                     Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold) // make the text BOLD
             };
                 btn.Click += Button_Click;

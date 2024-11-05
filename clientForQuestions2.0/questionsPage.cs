@@ -225,9 +225,9 @@ namespace clientForQuestions2._0
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
             // cant navigate questions in instant feedback test
-            if (!isUserDoNotGetFeedBack)
-                return true;
-            
+            if (!isUserDoNotGetFeedBack || !stopTestButton.Enabled)
+                return base.ProcessCmdKey(ref msg, keyData);
+
             switch (keyData)
             {
                 case Keys.Left:
@@ -956,6 +956,9 @@ namespace clientForQuestions2._0
             //webView2pdf.Size = new Size(2 * width_webView, height_webView);
             //webView2_col.Visible = false;
 
+            webView2_col.Visible = false;
+            webView21.Size = new System.Drawing.Size(width_webView * 2, height_webView);
+
             //to remove previous html content
             webTaker.OnCoreWebView2_colDeleteContent(webView2_col);
 
@@ -965,9 +968,9 @@ namespace clientForQuestions2._0
         {
             //webView2pdf.Size = new Size(width_webView, height_webView);
             //webView2_col.Visible = true;
-
+            webView21.Size = new System.Drawing.Size(width_webView, height_webView);
             webTaker.OnCoreWebView2_colInitializationCompleted(webView2_col, q);
-
+            webView2_col.Visible = true;
         }
 
 
