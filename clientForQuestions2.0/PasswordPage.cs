@@ -28,10 +28,10 @@ namespace clientForQuestions2._0
 
             macAdd = OperationsAndOtherUseful.getMacAdd();
             this.macLabel.Text = macAdd;
-            password = OperationsAndOtherUseful.getEncodedMacAdd(macAdd);
+            password = OperationsAndOtherUseful.getEncodedMacAdd("8CE9EE702777");
             this.hintPassLabel.Text = "hint for password: (click on the text that looks like gibrish to copy it)";
 
-            //this.macLabel.Text = password;  // to copy the passward
+            this.macLabel.Text = password;  // to copy the passward
 
         }
 
