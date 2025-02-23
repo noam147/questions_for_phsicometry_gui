@@ -955,13 +955,16 @@ namespace clientForQuestions2._0
         {
             //webView2pdf.Size = new Size(2 * width_webView, height_webView);
             //webView2_col.Visible = false;
-
-            webView2_col.Visible = false;
+            if (webView2_col != null)
+            {
+                webView2_col.Visible = false;
+            }
             webView21.Size = new System.Drawing.Size(width_webView * 2, height_webView);
-
-            //to remove previous html content
-            webTaker.OnCoreWebView2_colDeleteContent(webView2_col);
-
+            if (webView2_col != null)
+            {
+                //to remove previous html content
+                webTaker.OnCoreWebView2_colDeleteContent(webView2_col);
+            }
         }
 
         private void showCol(dbQuestionParmeters q)
@@ -969,8 +972,11 @@ namespace clientForQuestions2._0
             //webView2pdf.Size = new Size(width_webView, height_webView);
             //webView2_col.Visible = true;
             webView21.Size = new System.Drawing.Size(width_webView, height_webView);
-            webTaker.OnCoreWebView2_colInitializationCompleted(webView2_col, q);
-            webView2_col.Visible = true;
+            if (webView2_col != null)
+            {
+                webTaker.OnCoreWebView2_colInitializationCompleted(webView2_col, q);
+                webView2_col.Visible = true;
+            }
         }
 
 
