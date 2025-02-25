@@ -338,8 +338,8 @@ namespace clientForQuestions2._0
 page-break-inside: avoid; 
 }
 
-    h1 { font-size: 14px; } /* Reducing the font size for all h1 elements */
-    p { font-size: 12px; }  /* Reducing the font size for all paragraph elements */
+    h1 { font-size: 24px; } /* Reducing the font size for all h1 elements */
+    p { font-size: 18px; }  /* Reducing the font size for all paragraph elements */
     mjx-mspace[linebreak=""newline""] { display: block; height: 0; }
 </style>";
             return get_html(isNum, html);  

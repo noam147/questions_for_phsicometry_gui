@@ -1,6 +1,7 @@
 package com.sigma.phsicometrylearning;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
@@ -29,6 +30,9 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        TextView textView = findViewById(R.id.sdkTextView);
+
+        textView.setText(Integer.toString(Build.VERSION.SDK_INT));
         setEnterListenr();
     }
     private void setEnterListenr()

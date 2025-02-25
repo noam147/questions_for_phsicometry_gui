@@ -110,14 +110,12 @@ public class DbManager extends SQLiteOpenHelper {
         JSONArray jsonArray = new JSONArray();
         List<String> categories = new ArrayList<>();
         List<Integer> ids = new ArrayList<>();
-<<<<<<< HEAD
+
         String firstLib = "<script src=\"https://polyfill.io/v3/polyfill.min.js?features=es6\"></script>\n";
         String secondLib = "<script id=\"MathJax-script\" async src=\"https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js\"></script>";
         secondLib= "<script src=\"https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-AMS_HTML\"></script>\n";
         String includeJsLibs = "<head>"+firstLib+secondLib+"</head>";
-=======
-        String includeJsLibs = "<head> <script src=\"https://polyfill.io/v3/polyfill.min.js?features=es6\"></script>\r\n  <script id=\"MathJax-script\" async src=\"https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-AMS_HTML\"></script></head>";
->>>>>>> 069988c63b13b6df2288cad6f67319926c594719
+
 
         SQLiteDatabase db = this.getReadableDatabase(); // Use the SQLiteOpenHelper method to get the database instance
 
