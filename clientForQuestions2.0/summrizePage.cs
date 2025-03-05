@@ -574,7 +574,7 @@ namespace clientForQuestions2._0
                     Width = this.Q_BUTTON_SIZE,
                     Height = this.Q_BUTTON_SIZE,
                     Location = new System.Drawing.Point(230+(i%10)*40, this.Q_BUTTON_SIZE), // Adjust spacing
-                    Enabled = false,
+                    Enabled = true,
                     Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold) // make the text BOLD
             };
                 btn.Click += Button_Click;
