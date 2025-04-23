@@ -1,0 +1,427 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{37A48BAD-BE42-4C9C-B4B6-5D6F762697A9}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>clientForQuestions2._0</RootNamespace>
+    <AssemblyName>clientForQuestions2.0</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>chicken_sacrefice.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="BouncyCastle.Cryptography, Version=2.0.0.0, Culture=neutral, PublicKeyToken=072edcf4a5328938, processorArchitecture=MSIL">
+      <HintPath>packages\BouncyCastle.Cryptography.2.2.1\lib\net461\BouncyCastle.Cryptography.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="itext.barcodes, Version=8.0.5.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>packages\itext.8.0.5\lib\net461\itext.barcodes.dll</HintPath>
+    </Reference>
+    <Reference Include="itext.bouncy-castle-adapter, Version=8.0.5.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>packages\itext.bouncy-castle-adapter.8.0.5\lib\net461\itext.bouncy-castle-adapter.dll</HintPath>
+    </Reference>
+    <Reference Include="itext.bouncy-castle-connector, Version=8.0.5.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>packages\itext.8.0.5\lib\net461\itext.bouncy-castle-connector.dll</HintPath>
+    </Reference>
+    <Reference Include="itext.commons, Version=8.0.5.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>packages\itext.commons.8.0.5\lib\net461\itext.commons.dll</HintPath>
+    </Reference>
+    <Reference Include="itext.forms, Version=8.0.5.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>packages\itext.8.0.5\lib\net461\itext.forms.dll</HintPath>
+    </Reference>
+    <Reference Include="itext.html2pdf, Version=5.0.5.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>packages\itext.pdfhtml.5.0.5\lib\net461\itext.html2pdf.dll</HintPath>
+    </Reference>
+    <Reference Include="itext.io, Version=8.0.5.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>packages\itext.8.0.5\lib\net461\itext.io.dll</HintPath>
+    </Reference>
+    <Reference Include="itext.kernel, Version=8.0.5.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>packages\itext.8.0.5\lib\net461\itext.kernel.dll</HintPath>
+    </Reference>
+    <Reference Include="itext.layout, Version=8.0.5.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>packages\itext.8.0.5\lib\net461\itext.layout.dll</HintPath>
+    </Reference>
+    <Reference Include="itext.pdfa, Version=8.0.5.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>packages\itext.8.0.5\lib\net461\itext.pdfa.dll</HintPath>
+    </Reference>
+    <Reference Include="itext.pdfua, Version=8.0.5.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>packages\itext.8.0.5\lib\net461\itext.pdfua.dll</HintPath>
+    </Reference>
+    <Reference Include="itext.sign, Version=8.0.5.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>packages\itext.8.0.5\lib\net461\itext.sign.dll</HintPath>
+    </Reference>
+    <Reference Include="itext.styledxmlparser, Version=8.0.5.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>packages\itext.8.0.5\lib\net461\itext.styledxmlparser.dll</HintPath>
+    </Reference>
+    <Reference Include="itext.svg, Version=8.0.5.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>packages\itext.8.0.5\lib\net461\itext.svg.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Bcl.AsyncInterfaces.8.0.0\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Extensions.DependencyInjection.8.0.0\lib\net462\Microsoft.Extensions.DependencyInjection.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Extensions.DependencyInjection.Abstractions.8.0.0\lib\net462\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Extensions.Logging.8.0.0\lib\net462\Microsoft.Extensions.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging.Abstractions, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Extensions.Logging.Abstractions.8.0.0\lib\net462\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Options, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Extensions.Options.8.0.0\lib\net462\Microsoft.Extensions.Options.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Primitives, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Extensions.Primitives.8.0.0\lib\net462\Microsoft.Extensions.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.WebView2.Core, Version=1.0.2739.15, Culture=neutral, PublicKeyToken=2a8ab48044d2601e, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Web.WebView2.1.0.2739.15\lib\net462\Microsoft.Web.WebView2.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.WebView2.WinForms, Version=1.0.2739.15, Culture=neutral, PublicKeyToken=2a8ab48044d2601e, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Web.WebView2.1.0.2739.15\lib\net462\Microsoft.Web.WebView2.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.WebView2.Wpf, Version=1.0.2739.15, Culture=neutral, PublicKeyToken=2a8ab48044d2601e, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Web.WebView2.1.0.2739.15\lib\net462\Microsoft.Web.WebView2.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="PuppeteerSharp, Version=20.0.3.0, Culture=neutral, PublicKeyToken=db12f80f85d8ba23, processorArchitecture=MSIL">
+      <HintPath>packages\PuppeteerSharp.20.0.3\lib\netstandard2.0\PuppeteerSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.SQLite, Version=1.0.118.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.118.0\lib\net46\System.Data.SQLite.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.SQLite.EF6, Version=1.0.118.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>packages\System.Data.SQLite.EF6.1.0.118.0\lib\net46\System.Data.SQLite.EF6.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.SQLite.Linq, Version=1.0.118.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>packages\System.Data.SQLite.Linq.1.0.118.0\lib\net46\System.Data.SQLite.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Diagnostics.DiagnosticSource.8.0.0\lib\net462\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    </Reference>
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.Memory, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Memory.4.5.5\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Encodings.Web, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Text.Encodings.Web.8.0.0\lib\net462\System.Text.Encodings.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Json, Version=8.0.0.5, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Text.Json.8.0.5\lib\net462\System.Text.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Forms.DataVisualization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AnswerTestForDowloadQuestionsPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AnswerTestForDowloadQuestionsPage.Designer.cs">
+      <DependentUpon>AnswerTestForDowloadQuestionsPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BaseQuestionsPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BaseQuestionsPage.Designer.cs">
+      <DependentUpon>BaseQuestionsPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="chaptersQuestionsMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="chaptersQuestionsMenu.Designer.cs">
+      <DependentUpon>chaptersQuestionsMenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ChaptersToPrintPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ChaptersToPrintPage.Designer.cs">
+      <DependentUpon>ChaptersToPrintPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="check.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="check.Designer.cs">
+      <DependentUpon>check.cs</DependentUpon>
+    </Compile>
+    <Compile Include="collectionsQuestionsMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="collectionsQuestionsMenu.Designer.cs">
+      <DependentUpon>collectionsQuestionsMenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="HtmlConvertOptionsMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="HtmlConvertOptionsMenu.Designer.cs">
+      <DependentUpon>HtmlConvertOptionsMenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="HtmlTextExtractor.cs" />
+    <Compile Include="IdsToFile.cs" />
+    <Compile Include="lessonsMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="lessonsMenu.Designer.cs">
+      <DependentUpon>lessonsMenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LogFileHandler.cs" />
+    <Compile Include="menuPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="menuPage.Designer.cs">
+      <DependentUpon>menuPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="normalQuestionsMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="normalQuestionsMenu.Designer.cs">
+      <DependentUpon>normalQuestionsMenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="QuestionsToPdf.cs" />
+    <Compile Include="WithFeedBackQuestionsPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WithFeedBackQuestionsPage.Designer.cs">
+      <DependentUpon>WithFeedBackQuestionsPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OperationsAndOtherUseful.cs" />
+    <Compile Include="PasswordPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PasswordPage.Designer.cs">
+      <DependentUpon>PasswordPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="questionsPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="questionsPage.Designer.cs">
+      <DependentUpon>questionsPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RJButtons2.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SettingsFileHandler.cs" />
+    <Compile Include="sqlDb.cs" />
+    <Compile Include="summrizePage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="summrizePage.Designer.cs">
+      <DependentUpon>summrizePage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TestHistoryFileHandler.cs" />
+    <Compile Include="testHistoryMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="testHistoryMenu.Designer.cs">
+      <DependentUpon>testHistoryMenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="textQuestions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="textQuestions.Designer.cs">
+      <DependentUpon>textQuestions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="webTaker.cs" />
+    <Compile Include="WithoutFeedbackQuestions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WithoutFeedbackQuestions.Designer.cs">
+      <DependentUpon>WithoutFeedbackQuestions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WithOutFeedBackQuestionsPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WithOutFeedBackQuestionsPage.Designer.cs">
+      <DependentUpon>WithOutFeedBackQuestionsPage.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="AnswerTestForDowloadQuestionsPage.resx">
+      <DependentUpon>AnswerTestForDowloadQuestionsPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BaseQuestionsPage.resx">
+      <DependentUpon>BaseQuestionsPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="chaptersQuestionsMenu.resx">
+      <DependentUpon>chaptersQuestionsMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ChaptersToPrintPage.resx">
+      <DependentUpon>ChaptersToPrintPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="check.resx">
+      <DependentUpon>check.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="collectionsQuestionsMenu.resx">
+      <DependentUpon>collectionsQuestionsMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HtmlConvertOptionsMenu.resx">
+      <DependentUpon>HtmlConvertOptionsMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="lessonsMenu.resx">
+      <DependentUpon>lessonsMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="menuPage.resx">
+      <DependentUpon>menuPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="normalQuestionsMenu.resx">
+      <DependentUpon>normalQuestionsMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WithFeedBackQuestionsPage.resx">
+      <DependentUpon>WithFeedBackQuestionsPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PasswordPage.resx">
+      <DependentUpon>PasswordPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="questionsPage.resx">
+      <DependentUpon>questionsPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="summrizePage.resx">
+      <DependentUpon>summrizePage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="testHistoryMenu.resx">
+      <DependentUpon>testHistoryMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="textQuestions.resx">
+      <DependentUpon>textQuestions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WithoutFeedbackQuestions.resx">
+      <DependentUpon>WithoutFeedbackQuestions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WithOutFeedBackQuestionsPage.resx">
+      <DependentUpon>WithOutFeedBackQuestionsPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="chicken_sacrefice.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.7.2 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="packages\Microsoft.Web.WebView2.1.0.2739.15\build\Microsoft.Web.WebView2.targets" Condition="Exists('packages\Microsoft.Web.WebView2.1.0.2739.15\build\Microsoft.Web.WebView2.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('packages\Microsoft.Web.WebView2.1.0.2739.15\build\Microsoft.Web.WebView2.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.Web.WebView2.1.0.2739.15\build\Microsoft.Web.WebView2.targets'))" />
+    <Error Condition="!Exists('packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
+    <Error Condition="!Exists('packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.118.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.118.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets'))" />
+  </Target>
+  <Import Project="packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
+  <Import Project="packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.118.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets" Condition="Exists('packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.118.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets')" />
+</Project>
